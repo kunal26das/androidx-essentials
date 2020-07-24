@@ -1,17 +1,6 @@
 # Network-State
-[![](https://jitpack.io/v/kunal26das/network-state.svg)](https://jitpack.io/#kunal26das/network-state)
-
-Project level dependency
 ```
-allprojects {
-	repositories {
-		maven { url 'https://jitpack.io' }
-	}
-}
-```
-Module level dependency
-```
-implementation 'com.github.kunal26das:network-state:version'
+implementation 'androidx.essentials:network-state:latest_version'
 ```
 ## Requirements
 ```
