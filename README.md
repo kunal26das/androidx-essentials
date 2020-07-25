@@ -8,6 +8,7 @@ repositories {
 ```
 ## Backdrop
 ```
+implementation 'androidx.essentials:backdrop:latest_version'
 ```
 ## Events
 ```
