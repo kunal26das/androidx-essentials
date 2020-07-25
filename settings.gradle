@@ -1,5 +1,5 @@
-include ':extensions'
 include ':backdrop'
 include ':play-ground'
 include ':network-state'
+include ':kotlin-extensions'
 rootProject.name = "androidx.essentials"
