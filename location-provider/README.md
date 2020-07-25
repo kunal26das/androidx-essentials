@@ -6,6 +6,14 @@ implementation 'androidx.essentials:location-provider:latest_version'
 ```
 minSdkVersion 21
 ```
+```
+ActivityCompat.requestPermissions(
+  this, arrayOf(
+    Manifest.permission.ACCESS_FINE_LOCATION,
+    Manifest.permission.ACCESS_COARSE_LOCATION
+  ), 0
+)
+```
 ## Usage
 1. Initialize
 ```
