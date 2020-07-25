@@ -23,6 +23,12 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    dependencies {
+        // AndroidX Libraries
+        implementation 'androidx.core:core-ktx:1.3.0'
+        implementation 'androidx.appcompat:appcompat:1.1.0'
+        implementation 'androidx.essentials:network-state:1595602893722'
+    }
+    // Material Design
+    implementation 'com.google.android.material:material:1.1.0'
 }
