@@ -5,7 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 
-@Deprecated("Deprecated")
+@Suppress("DEPRECATION")
+@Deprecated("DEPRECATION")
 class NetworkCallbackReceiver : BroadcastReceiver() {
 
     private var connectivityManager: ConnectivityManager? = null
