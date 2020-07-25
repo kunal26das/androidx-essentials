@@ -23,7 +23,12 @@ networkCallback.setOnNetworkStateChangeListener(object: NetworkCallback.OnNetwor
 )
 ```
 ```
-networkCallback.setOnNetworkStateChangeListener { isOnline -> }
+networkCallback.setOnNetworkStateChangeListener { isOnline ->
+	when (isOnline) {
+		true -> {}
+		false -> {}
+	}
+}
 ```
 3. Unregister
 ```
