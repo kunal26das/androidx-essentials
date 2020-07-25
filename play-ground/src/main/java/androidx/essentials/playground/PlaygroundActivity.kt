@@ -3,9 +3,11 @@ package androidx.essentials.playground
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.essentials.events.Events
 import androidx.essentials.extensions.Coroutines.main
 import androidx.essentials.extensions.View.onGlobalLayoutListener
 import androidx.essentials.network.NetworkCallback
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_playground.*
 
 class PlaygroundActivity : AppCompatActivity() {
@@ -23,20 +25,29 @@ class PlaygroundActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        subscribeEvents()
         networkCallback()
+    }
+
+    private fun subscribeEvents() {
+        Events.subscribe(String::class.java) {
+            Snackbar.make(content, it, Snackbar.LENGTH_SHORT).show()
+        }
     }
 
     private fun networkCallback() {
         NetworkCallback(this).register({
             main {
-                materialTextView.text = getString(R.string.online)
                 bottomSheetView.expand()
+                bottomSheetView.isDraggable = false
             }
+            Events.publish(getString(R.string.online))
         }, {
             main {
-                materialTextView.text = getString(R.string.offline)
                 bottomSheetView.collapse()
+                bottomSheetView.isDraggable = true
             }
+            Events.publish(getString(R.string.offline))
         })
     }
 }
