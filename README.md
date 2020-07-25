@@ -6,6 +6,10 @@ repositories {
   }
 }
 ```
+## Backdrop
+```
+implementation 'androidx.essentials:backdrop:latest_version'
+```
 ## Events
 ```
 implementation 'androidx.essentials:events:latest_version'
