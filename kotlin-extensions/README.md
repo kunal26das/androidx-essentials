@@ -14,7 +14,13 @@ Try {}
 ### Coroutines
 ```
 default {}
+```
+```
 io {}
+```
+```
 main {}
+```
+```
 unconfined {}
 ```
