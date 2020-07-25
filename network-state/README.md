@@ -13,13 +13,15 @@ val networkCallback = NetworkCallback.getInstance(context)
 ```
 2. Register
 ```
-networkCallback.register(object: NetworkCallback.OnNetworkStateChangeListener {
-	override fun onOnline() {}
-	override fun onOffline() {}
-})
+networkCallback.setOnNetworkStateChangeListener(object: NetworkCallback.OnNetworkStateChangeListener { isOnline ->
+	when (isOnline) {
+		true -> {}
+		false -> {}
+	}
+)
 ```
 ```
-networkCallback.register({}, {})
+networkCallback.setOnNetworkStateChangeListener { isOnline -> }
 ```
 3. Unregister
 ```
