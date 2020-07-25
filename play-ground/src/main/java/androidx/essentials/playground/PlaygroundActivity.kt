@@ -32,8 +32,8 @@ class PlaygroundActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         subscribeEvents()
-        initNetworkCallback()
-        initLocationProvider()
+        registerNetworkCallback()
+        setOnLocationChangeListener()
     }
 
     private fun subscribeEvents() {
@@ -42,7 +42,7 @@ class PlaygroundActivity : AppCompatActivity() {
         }
     }
 
-    private fun initNetworkCallback() {
+    private fun registerNetworkCallback() {
         networkCallback.register({
             main {
                 bottomSheetView.expand()
@@ -59,7 +59,7 @@ class PlaygroundActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun initLocationProvider() {
+    private fun setOnLocationChangeListener() {
         locationProvider.setOnLocationChangeListener { latitude, longitude ->
             materialTextView.text = "$latitude\n$longitude"
         }
