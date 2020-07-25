@@ -19,5 +19,7 @@ minSdkVersion 21
         android:layout_height="match_parent"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp">
+        
+    </androidx.essentials.backdrop.BottomSheetView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 ```
