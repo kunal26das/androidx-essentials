@@ -3,8 +3,9 @@ package androidx.essentials.playground
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.essentials.extensions.Coroutines.main
 import androidx.essentials.network.NetworkCallback
-import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_playground.*
 
 class PlaygroundActivity : AppCompatActivity() {
 
@@ -18,10 +19,16 @@ class PlaygroundActivity : AppCompatActivity() {
     }
 
     private fun networkCallback() {
-        val networkCallback = NetworkCallback(this).register({
-            Snackbar.make(content, "Online", Snackbar.LENGTH_INDEFINITE).show()
+        NetworkCallback(this).register({
+            main {
+                materialTextView.text = getString(R.string.online)
+                bottomSheetView.expand()
+            }
         }, {
-            Snackbar.make(content, "Offline", Snackbar.LENGTH_INDEFINITE).show()
+            main {
+                materialTextView.text = getString(R.string.offline)
+                bottomSheetView.collapse()
+            }
         })
     }
 }
