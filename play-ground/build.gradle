@@ -39,5 +39,6 @@ dependencies {
         implementation project(path: ':backdrop')
         implementation project(path: ':network-state')
         implementation project(path: ':kotlin-extensions')
+        implementation project(path: ':location-provider')
     }
 }

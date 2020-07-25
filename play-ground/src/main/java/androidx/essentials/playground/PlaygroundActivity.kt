@@ -1,11 +1,13 @@
 package androidx.essentials.playground
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.essentials.events.Events
 import androidx.essentials.extensions.Coroutines.main
 import androidx.essentials.extensions.View.onGlobalLayoutListener
+import androidx.essentials.location.LocationProvider
 import androidx.essentials.network.NetworkCallback
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_playground.*
@@ -22,12 +24,20 @@ class PlaygroundActivity : AppCompatActivity() {
         content.onGlobalLayoutListener {
             bottomSheetView.peekHeight = it.height / 2
         }
+        initLocationProvider()
     }
 
     override fun onStart() {
         super.onStart()
         subscribeEvents()
-        networkCallback()
+        initNetworkCallback()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun initLocationProvider() {
+        LocationProvider.getInstance(this).setOnLocationChangeListener { latitude, longitude ->
+            materialTextView.text = "$latitude\n$longitude"
+        }
     }
 
     private fun subscribeEvents() {
@@ -36,7 +46,7 @@ class PlaygroundActivity : AppCompatActivity() {
         }
     }
 
-    private fun networkCallback() {
+    private fun initNetworkCallback() {
         networkCallback = NetworkCallback(this).register({
             main {
                 bottomSheetView.expand()
@@ -53,7 +63,7 @@ class PlaygroundActivity : AppCompatActivity() {
     }
 
     override fun onStop() {
-        super.onStop()
         networkCallback.unregister()
+        super.onStop()
     }
 }
