@@ -49,8 +49,9 @@ class BottomSheetView @JvmOverloads constructor(
         shapeAppearanceModel = shapeAppearanceModel.toBuilder().apply {
             setTopLeftCorner(CornerFamily.ROUNDED, radius)
             setTopRightCorner(CornerFamily.ROUNDED, radius)
-            setBottomLeftCorner(CornerFamily.ROUNDED, 0f)
-            setBottomRightCorner(CornerFamily.ROUNDED, 0f)
+            radius = 0f
+            setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+            setBottomRightCorner(CornerFamily.ROUNDED, radius)
         }.build()
     }
 
