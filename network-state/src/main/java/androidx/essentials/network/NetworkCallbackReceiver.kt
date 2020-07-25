@@ -15,11 +15,9 @@ class NetworkCallbackReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         connectivityManager =
             connectivityManager ?: ConnectivityManagerCompat.getInstance(context!!)
-        when ((connectivityManager?.activeNetworkInfo?.isConnected)) {
-            null -> onNetworkStateChangeListener?.onOffline()
-            true -> onNetworkStateChangeListener?.onOnline()
-            false -> onNetworkStateChangeListener?.onOffline()
-        }
+        onNetworkStateChangeListener?.onNetworkStateChange(
+            connectivityManager?.activeNetworkInfo?.isConnected ?: false
+        )
     }
 
     companion object {

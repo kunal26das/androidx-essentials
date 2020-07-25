@@ -9,27 +9,31 @@ import androidx.essentials.network.NetworkCallbackReceiver.Companion.CONNECTIVIT
 
 class NetworkCallback private constructor() {
 
-    var isOnline = false
     private var currentNetworkState: NetworkState? = null
-    private var onNetworkStateChangeListener: OnNetworkStateChangeListener? = null
         set(value) {
             field = value
-            networkBroadcastReceiver.onNetworkStateChangeListener = value
+            value?.name?.let { Log.d(javaClass.simpleName, it) }
         }
+    var isOnline = false
+        set(value) {
+            field = value
+            onNetworkStateChangeListener?.onNetworkStateChange(value)
+        }
+    private var onNetworkStateChangeListener: OnNetworkStateChangeListener? = null
     private val networkCallback = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 if (currentNetworkState != NetworkState.AVAILABLE) {
-                    onNetworkStateChangeListener?.onOnline()
-                    log(NetworkState.AVAILABLE)
+                    currentNetworkState = NetworkState.AVAILABLE
                     super.onAvailable(network)
+                    isOnline = true
                 }
             }
 
             override fun onBlockedStatusChanged(network: Network, blocked: Boolean) {
                 if (currentNetworkState != NetworkState.BLOCKED_STATUS_CHANGED) {
+                    currentNetworkState = NetworkState.BLOCKED_STATUS_CHANGED
                     super.onBlockedStatusChanged(network, blocked)
-                    log(NetworkState.BLOCKED_STATUS_CHANGED)
                 }
             }
 
@@ -39,42 +43,42 @@ class NetworkCallback private constructor() {
             ) {
                 if (currentNetworkState != NetworkState.CAPABILITIES_CHANGED) {
                     super.onCapabilitiesChanged(network, networkCapabilities)
-                    log(NetworkState.CAPABILITIES_CHANGED)
+                    currentNetworkState = NetworkState.CAPABILITIES_CHANGED
                 }
             }
 
             override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) {
                 if (currentNetworkState != NetworkState.LINK_PROPERTIES_CHANGED) {
+                    currentNetworkState = NetworkState.LINK_PROPERTIES_CHANGED
                     super.onLinkPropertiesChanged(network, linkProperties)
-                    log(NetworkState.LINK_PROPERTIES_CHANGED)
                 }
             }
 
             override fun onLosing(network: Network, maxMsToLive: Int) {
                 if (currentNetworkState != NetworkState.LOSING) {
+                    currentNetworkState = NetworkState.LOSING
                     super.onLosing(network, maxMsToLive)
-                    log(NetworkState.LOSING)
                 }
             }
 
             override fun onLost(network: Network) {
                 if (currentNetworkState != NetworkState.LOST) {
-                    onNetworkStateChangeListener?.onOffline()
-                    log(NetworkState.LOST)
+                    currentNetworkState = NetworkState.LOST
                     super.onLost(network)
+                    isOnline = false
                 }
             }
 
             override fun onUnavailable() {
                 if (currentNetworkState != NetworkState.UNAVAILABLE) {
-                    log(NetworkState.UNAVAILABLE)
+                    currentNetworkState = NetworkState.UNAVAILABLE
                     super.onUnavailable()
                 }
             }
         }
     } else null
 
-    init {
+    private fun register() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             connectivityManager?.registerNetworkCallback(
                 NetworkRequest.Builder().apply {
@@ -85,26 +89,23 @@ class NetworkCallback private constructor() {
                     addTransportType(NetworkCapabilities.TRANSPORT_BLUETOOTH)
                 }.build(), networkCallback!!
             )
+        } else {
+            networkBroadcastReceiver.onNetworkStateChangeListener = onNetworkStateChangeListener
         }
     }
 
-    fun register(onNetworkStateChangeListener: OnNetworkStateChangeListener) {
+    fun setOnNetworkStateChangeListener(onNetworkStateChangeListener: OnNetworkStateChangeListener) {
         this.onNetworkStateChangeListener = onNetworkStateChangeListener
+        register()
     }
 
-    fun register(onOnline: () -> Unit, onOffline: () -> Unit): NetworkCallback {
+    fun setOnNetworkStateChangeListener(action: (Boolean) -> Unit) {
         onNetworkStateChangeListener = object : OnNetworkStateChangeListener {
-            override fun onOnline() {
-                onOnline.invoke()
-                isOnline = true
-            }
-
-            override fun onOffline() {
-                onOffline.invoke()
-                isOnline = false
+            override fun onNetworkStateChange(isOnline: Boolean) {
+                action.invoke(isOnline)
             }
         }
-        return this
+        register()
     }
 
     fun unregister(context: Context) {
@@ -116,12 +117,7 @@ class NetworkCallback private constructor() {
     }
 
     interface OnNetworkStateChangeListener {
-        fun onOnline()
-        fun onOffline()
-    }
-
-    private fun log(networkState: NetworkState) {
-        Log.d(javaClass.simpleName, networkState.name)
+        fun onNetworkStateChange(isOnline: Boolean)
     }
 
     companion object {
