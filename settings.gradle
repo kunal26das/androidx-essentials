@@ -1,3 +1,4 @@
+include ':backdrop'
 include ':play-ground'
 include ':network-state'
 rootProject.name = "androidx.essentials"

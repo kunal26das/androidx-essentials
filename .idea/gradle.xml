@@ -11,6 +11,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/backdrop" />
             <option value="$PROJECT_DIR$/network-state" />
             <option value="$PROJECT_DIR$/play-ground" />
           </set>
