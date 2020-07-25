@@ -1,4 +1,4 @@
-# Network-State
+# Kotlin Extensions
 ```
 implementation 'androidx.essentials:kotlin-extensions:latest_version'
 ```
