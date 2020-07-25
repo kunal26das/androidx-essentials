@@ -14,3 +14,7 @@ implementation 'androidx.essentials:kotlin-extensions:latest_version'
 ```
 implementation 'androidx.essentials:network-state:latest_version'
 ```
+## Events
+```
+implementation 'androidx.essentials:events:latest_version'
+```
