@@ -1,4 +1,4 @@
-# Network-State
+# Kotlin Extensions
 ```
 implementation 'androidx.essentials:kotlin-extensions:latest_version'
 ```
@@ -7,3 +7,20 @@ implementation 'androidx.essentials:kotlin-extensions:latest_version'
 minSdkVersion 21
 ```
 ## Usage
+### Try (without catch)
+```
+Try {}
+```
+### Coroutines
+```
+default {}
+```
+```
+io {}
+```
+```
+main {}
+```
+```
+unconfined {}
+```

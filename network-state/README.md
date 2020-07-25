@@ -1,4 +1,4 @@
-# Network-State
+# Network State
 ```
 implementation 'androidx.essentials:network-state:latest_version'
 ```
