@@ -1,4 +1,4 @@
-# Network State
+# Location Provider
 ```
 implementation 'androidx.essentials:location-provider:latest_version'
 ```
