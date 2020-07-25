@@ -29,3 +29,7 @@ locationProvider.setOnLocationChangeListener(object: OnLocationChangeListener {
 ```
 locationProvider.setOnLocationChangeListener { latitude, longitude -> }
 ```
+3. Remove Listener
+```
+locationProvider.removeListener()
+```
