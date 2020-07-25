@@ -16,8 +16,10 @@ class NetworkCallback private constructor() {
         }
     var isOnline = false
         set(value) {
-            field = value
-            onNetworkStateChangeListener?.onNetworkStateChange(value)
+            if (field != value) {
+                onNetworkStateChangeListener?.onNetworkStateChange(value)
+                field = value
+            }
         }
     private var onNetworkStateChangeListener: OnNetworkStateChangeListener? = null
     private val networkCallback = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -91,10 +93,13 @@ class NetworkCallback private constructor() {
             )
         } else {
             networkBroadcastReceiver.onNetworkStateChangeListener = onNetworkStateChangeListener
+            context?.registerReceiver(networkBroadcastReceiver, IntentFilter().apply {
+                addAction(CONNECTIVITY_ACTION)
+            })
         }
     }
 
-    fun setOnNetworkStateChangeListener(onNetworkStateChangeListener: OnNetworkStateChangeListener) {
+    fun setOnNetworkStateChangeListener(onNetworkStateChangeListener: OnNetworkStateChangeListener?) {
         this.onNetworkStateChangeListener = onNetworkStateChangeListener
         register()
     }
@@ -108,11 +113,12 @@ class NetworkCallback private constructor() {
         register()
     }
 
-    fun unregister(context: Context) {
+    fun removeListener() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             connectivityManager?.unregisterNetworkCallback(networkCallback!!)
         } else {
-            context.unregisterReceiver(networkBroadcastReceiver)
+            context?.unregisterReceiver(networkBroadcastReceiver)
+            context = null
         }
     }
 
@@ -122,20 +128,17 @@ class NetworkCallback private constructor() {
 
     companion object {
 
+        private var context: Context? = null
         private var connectivityManager: ConnectivityManager? = null
         private val networkBroadcastReceiver = NetworkCallbackReceiver()
 
         fun getInstance(context: Context): NetworkCallback {
-            if (connectivityManager != null) {
+            if (this.context != null) {
                 return NetworkCallback()
             }
             synchronized(this) {
+                this.context = context
                 connectivityManager = ConnectivityManagerCompat.getInstance(context)
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                    context.registerReceiver(networkBroadcastReceiver, IntentFilter().apply {
-                        addAction(CONNECTIVITY_ACTION)
-                    })
-                }
                 return NetworkCallback()
             }
         }
