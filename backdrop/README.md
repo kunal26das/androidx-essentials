@@ -1,4 +1,5 @@
 # Backdrop
+[ ![Download](https://api.bintray.com/packages/kunal26das/androidx.essentials/backdrop/images/download.svg) ](https://bintray.com/kunal26das/androidx.essentials/backdrop/_latestVersion)
 ```
 implementation 'androidx.essentials:backdrop:latest_version'
 ```
