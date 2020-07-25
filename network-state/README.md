@@ -30,7 +30,7 @@ networkCallback.setOnNetworkStateChangeListener { isOnline ->
 	}
 }
 ```
-3. Unregister
+3. Remove Listener
 ```
 networkCallback.removeListener()
 ```
