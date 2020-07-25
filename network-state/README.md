@@ -11,7 +11,7 @@ minSdkVersion 19
 ```
 val networkCallback = NetworkCallback.getInstance(context)
 ```
-2. Register
+2. Set Listener
 ```
 networkCallback.setOnNetworkStateChangeListener(object: NetworkCallback.OnNetworkStateChangeListener {
 	override fun onNetworkStateChange(isOnline: Boolean) {
@@ -32,5 +32,5 @@ networkCallback.setOnNetworkStateChangeListener { isOnline ->
 ```
 3. Unregister
 ```
-networkCallback.unregister(context)
+networkCallback.removeListener()
 ```
