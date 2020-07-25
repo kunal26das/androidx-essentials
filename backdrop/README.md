@@ -9,7 +9,7 @@ minSdkVersion 21
 ## Usage
 ```
 <androidx.coordinatorlayout.widget.CoordinatorLayout
-	android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.essentials.backdrop.BottomSheetView
