@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_playground.*
 class PlaygroundActivity : AppCompatActivity() {
 
     private lateinit var content: View
+    private lateinit var networkCallback: NetworkCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +24,8 @@ class PlaygroundActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         subscribeEvents()
         networkCallback()
     }
@@ -36,7 +37,7 @@ class PlaygroundActivity : AppCompatActivity() {
     }
 
     private fun networkCallback() {
-        NetworkCallback(this).register({
+        networkCallback = NetworkCallback(this).register({
             main {
                 bottomSheetView.expand()
                 bottomSheetView.isDraggable = false
@@ -49,5 +50,10 @@ class PlaygroundActivity : AppCompatActivity() {
             }
             Events.publish(getString(R.string.offline))
         })
+    }
+
+    override fun onStop() {
+        super.onStop()
+        networkCallback.unregister()
     }
 }

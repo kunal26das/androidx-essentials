@@ -5,5 +5,6 @@
 <resources>
     <declare-styleable name="BottomSheetView">
         <attr name="isDraggable" format="boolean" />
+        <attr name="peekHeight" format="dimension" />
     </declare-styleable>
 </resources>

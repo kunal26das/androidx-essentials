@@ -40,6 +40,8 @@ class BottomSheetView @JvmOverloads constructor(
 
     init {
         context.obtainStyledAttributes(attributes, R.styleable.BottomSheetView, 0, 0).apply {
+            peekHeight =
+                getDimensionPixelSize(R.styleable.BottomSheetView_peekHeight, DEFAULT_PEEK_HEIGHT)
             isDraggable = getBoolean(R.styleable.BottomSheetView_isDraggable, DEFAULT_IS_DRAGGABLE)
             recycle()
         }
@@ -54,6 +56,7 @@ class BottomSheetView @JvmOverloads constructor(
         (layoutParams as CoordinatorLayout.LayoutParams).apply {
             bottomSheetBehaviour = BottomSheetBehavior()
             bottomSheetBehaviour.isDraggable = isDraggable
+            bottomSheetBehaviour.peekHeight = peekHeight
             bottomSheetBehaviour.state = state
             behavior = bottomSheetBehaviour
         }
