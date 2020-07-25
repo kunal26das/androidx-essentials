@@ -6,7 +6,11 @@ repositories {
   }
 }
 ```
-1. Network State
+## Kotlin Extensions
+```
+implementation 'androidx.essentials:kotlin-extensions:latest_version'
+```
+## Network State
 ```
 implementation 'androidx.essentials:network-state:latest_version'
 ```
