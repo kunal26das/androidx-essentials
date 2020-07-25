@@ -9,6 +9,7 @@ import androidx.essentials.network.NetworkCallbackReceiver.Companion.CONNECTIVIT
 
 class NetworkCallback(private val context: Context) {
 
+    var isOnline = false
     private var currentNetworkState: NetworkState? = null
     private val networkBroadcastReceiver = NetworkCallbackReceiver()
     private var onNetworkStateChangeListener: OnNetworkStateChangeListener? = null
@@ -101,10 +102,12 @@ class NetworkCallback(private val context: Context) {
         onNetworkStateChangeListener = object : OnNetworkStateChangeListener {
             override fun onOnline() {
                 onOnline.invoke()
+                isOnline = true
             }
 
             override fun onOffline() {
                 onOffline.invoke()
+                isOnline = false
             }
         }
         return this
