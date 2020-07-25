@@ -22,3 +22,5 @@ dependencies {
     // Extensions
     implementation project(path: ':kotlin-extensions')
 }
+
+apply from: 'publish.gradle'
