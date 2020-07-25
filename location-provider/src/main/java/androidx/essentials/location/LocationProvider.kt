@@ -30,7 +30,10 @@ class LocationProvider private constructor() {
                 action.invoke(latitude, longitude)
             }
         }
+    }
 
+    fun removeListener() {
+        this.onLocationChangeListener = null
     }
 
     interface OnLocationChangeListener {
