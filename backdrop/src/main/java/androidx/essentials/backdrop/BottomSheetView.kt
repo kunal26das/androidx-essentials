@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.essentials.extensions.Try.Try
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.google.android.material.card.MaterialCardView
@@ -13,24 +14,22 @@ class BottomSheetView @JvmOverloads constructor(
     attributes: AttributeSet? = null
 ) : MaterialCardView(context, attributes) {
 
-    var peekHeight: Int = DEFAULT_PEEK_HEIGHT
-        get() = bottomSheetBehaviour.peekHeight
+    var peekHeight = DEFAULT_PEEK_HEIGHT
         set(value) {
-            try {
-                field = value
+            field = value
+            Try {
                 bottomSheetBehaviour.peekHeight = value
-            } catch (e: UninitializedPropertyAccessException) {
             }
         }
-    var isDraggable: Boolean = DEFAULT_IS_DRAGGABLE
-        get() = bottomSheetBehaviour.isDraggable
+
+    var isDraggable = DEFAULT_IS_DRAGGABLE
         set(value) {
-            try {
-                field = value
+            field = value
+            Try {
                 bottomSheetBehaviour.isDraggable = value
-            } catch (e: UninitializedPropertyAccessException) {
             }
         }
+
     private lateinit var bottomSheetBehaviour: BottomSheetBehavior<View>
     val isHidden get() = bottomSheetBehaviour.state == STATE_HIDDEN
     val isDragging get() = bottomSheetBehaviour.state == STATE_DRAGGING
@@ -92,7 +91,7 @@ class BottomSheetView @JvmOverloads constructor(
     }
 
     companion object {
-        private const val DEFAULT_PEEK_HEIGHT = 0
         private const val DEFAULT_IS_DRAGGABLE = false
+        private const val DEFAULT_PEEK_HEIGHT = PEEK_HEIGHT_AUTO
     }
 }
