@@ -8,6 +8,7 @@ import androidx.essentials.extensions.Try.Try
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.shape.CornerFamily
 
 class BottomSheetView @JvmOverloads constructor(
     context: Context,
@@ -45,6 +46,12 @@ class BottomSheetView @JvmOverloads constructor(
             isDraggable = getBoolean(R.styleable.BottomSheetView_isDraggable, DEFAULT_IS_DRAGGABLE)
             recycle()
         }
+        shapeAppearanceModel = shapeAppearanceModel.toBuilder().apply {
+            setTopLeftCorner(CornerFamily.ROUNDED, radius)
+            setTopRightCorner(CornerFamily.ROUNDED, radius)
+            setBottomLeftCorner(CornerFamily.ROUNDED, 0f)
+            setBottomRightCorner(CornerFamily.ROUNDED, 0f)
+        }.build()
     }
 
     override fun onAttachedToWindow() {
