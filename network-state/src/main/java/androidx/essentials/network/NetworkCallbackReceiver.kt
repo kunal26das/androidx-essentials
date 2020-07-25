@@ -3,6 +3,7 @@ package androidx.essentials.network
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.net.ConnectivityManager
 
 @Suppress("DEPRECATION")
@@ -21,6 +22,8 @@ class NetworkCallbackReceiver : BroadcastReceiver() {
     }
 
     companion object {
-        const val CONNECTIVITY_ACTION = ConnectivityManager.CONNECTIVITY_ACTION
+        val intentFilter = IntentFilter().apply {
+            addAction(ConnectivityManager.CONNECTIVITY_ACTION)
+        }
     }
 }

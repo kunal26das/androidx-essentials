@@ -1,11 +1,9 @@
 package androidx.essentials.network
 
 import android.content.Context
-import android.content.IntentFilter
 import android.net.*
 import android.os.Build
 import android.util.Log
-import androidx.essentials.network.NetworkCallbackReceiver.Companion.CONNECTIVITY_ACTION
 
 class NetworkCallback private constructor() {
 
@@ -93,9 +91,10 @@ class NetworkCallback private constructor() {
             )
         } else {
             networkBroadcastReceiver.onNetworkStateChangeListener = onNetworkStateChangeListener
-            context?.registerReceiver(networkBroadcastReceiver, IntentFilter().apply {
-                addAction(CONNECTIVITY_ACTION)
-            })
+            context?.registerReceiver(
+                networkBroadcastReceiver,
+                NetworkCallbackReceiver.intentFilter
+            )
         }
     }
 
