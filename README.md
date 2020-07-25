@@ -18,3 +18,7 @@ implementation 'androidx.essentials:network-state:latest_version'
 ```
 implementation 'androidx.essentials:events:latest_version'
 ```
+## Location Provider
+```
+implementation 'androidx.essentials:location-provider:latest_version'
+```
