@@ -1,3 +1,4 @@
+include ':extensions'
 include ':backdrop'
 include ':play-ground'
 include ':network-state'
