@@ -16,6 +16,7 @@ class PlaygroundActivity : AppCompatActivity() {
 
     private lateinit var content: View
     private lateinit var networkCallback: NetworkCallback
+    private lateinit var locationProvider: LocationProvider
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,20 +25,15 @@ class PlaygroundActivity : AppCompatActivity() {
         content.onGlobalLayoutListener {
             bottomSheetView.peekHeight = it.height / 2
         }
-        initLocationProvider()
+        networkCallback = NetworkCallback.getInstance(this)
+        locationProvider = LocationProvider.getInstance(this)
     }
 
     override fun onStart() {
         super.onStart()
         subscribeEvents()
         initNetworkCallback()
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun initLocationProvider() {
-        LocationProvider.getInstance(this).setOnLocationChangeListener { latitude, longitude ->
-            materialTextView.text = "$latitude\n$longitude"
-        }
+        initLocationProvider()
     }
 
     private fun subscribeEvents() {
@@ -47,7 +43,7 @@ class PlaygroundActivity : AppCompatActivity() {
     }
 
     private fun initNetworkCallback() {
-        networkCallback = NetworkCallback(this).register({
+        networkCallback.register({
             main {
                 bottomSheetView.expand()
                 bottomSheetView.isDraggable = false
@@ -62,8 +58,15 @@ class PlaygroundActivity : AppCompatActivity() {
         })
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun initLocationProvider() {
+        locationProvider.setOnLocationChangeListener { latitude, longitude ->
+            materialTextView.text = "$latitude\n$longitude"
+        }
+    }
+
     override fun onStop() {
-        networkCallback.unregister()
+        networkCallback.unregister(this)
         super.onStop()
     }
 }
