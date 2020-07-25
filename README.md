@@ -6,19 +6,19 @@ repositories {
   }
 }
 ```
-## Kotlin Extensions
-```
-implementation 'androidx.essentials:kotlin-extensions:latest_version'
-```
-## Network State
-```
-implementation 'androidx.essentials:network-state:latest_version'
-```
 ## Events
 ```
 implementation 'androidx.essentials:events:latest_version'
 ```
+## Kotlin Extensions
+```
+implementation 'androidx.essentials:kotlin-extensions:latest_version'
+```
 ## Location Provider
 ```
 implementation 'androidx.essentials:location-provider:latest_version'
+```
+## Network State
+```
+implementation 'androidx.essentials:network-state:latest_version'
 ```
