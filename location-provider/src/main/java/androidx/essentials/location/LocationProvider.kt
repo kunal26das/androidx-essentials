@@ -5,7 +5,7 @@ import android.content.Context
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
-class LocationProvider {
+class LocationProvider private constructor() {
 
     @SuppressLint("MissingPermission")
     fun setOnLocationChangeListener(action: (latitude: Double, longitude: Double) -> Unit) {
@@ -15,7 +15,9 @@ class LocationProvider {
     }
 
     companion object {
+
         private var fusedLocationProviderClient: FusedLocationProviderClient? = null
+
         fun getInstance(context: Context): LocationProvider {
             if (fusedLocationProviderClient != null) {
                 return LocationProvider()
