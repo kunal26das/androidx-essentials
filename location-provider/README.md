@@ -8,7 +8,7 @@ minSdkVersion 21
 ```
 ```
 ActivityCompat.requestPermissions(
-  this, arrayOf(
+  context, arrayOf(
     Manifest.permission.ACCESS_FINE_LOCATION,
     Manifest.permission.ACCESS_COARSE_LOCATION
   ), 0
