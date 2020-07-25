@@ -9,10 +9,10 @@ minSdkVersion 21
 ```
 ```
 ActivityCompat.requestPermissions(
-  context, arrayOf(
-    Manifest.permission.ACCESS_FINE_LOCATION,
-    Manifest.permission.ACCESS_COARSE_LOCATION
-  ), 0
+    context, arrayOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION
+    ), 0
 )
 ```
 ## Usage
@@ -23,7 +23,7 @@ val locationProvider = LocationProvider.getInstance(context)
 2. Set Listener
 ```
 locationProvider.setOnLocationChangeListener(object: OnLocationChangeListener {
-  override fun onLocationChange(latitude: Double, longitude: Double) {}
+    override fun onLocationChange(latitude: Double, longitude: Double) {}
 })
 ```
 ```
