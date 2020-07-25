@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.essentials.events.Events
-import androidx.essentials.extensions.Coroutines.main
 import androidx.essentials.extensions.View.onGlobalLayoutListener
 import androidx.essentials.location.LocationProvider
 import androidx.essentials.network.NetworkCallback
@@ -32,8 +31,8 @@ class PlaygroundActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         subscribeEvents()
-        registerNetworkCallback()
         setOnLocationChangeListener()
+        setOnNetworkStateChangeListener()
     }
 
     private fun subscribeEvents() {
@@ -42,20 +41,13 @@ class PlaygroundActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerNetworkCallback() {
-        networkCallback.register({
-            main {
-                bottomSheetView.expand()
-                bottomSheetView.isDraggable = false
+    private fun setOnNetworkStateChangeListener() {
+        networkCallback.setOnNetworkStateChangeListener { isOnline ->
+            when (isOnline) {
+                true -> bottomSheetView.expand()
+                false -> bottomSheetView.collapse()
             }
-            Events.publish(getString(R.string.online))
-        }, {
-            main {
-                bottomSheetView.collapse()
-                bottomSheetView.isDraggable = true
-            }
-            Events.publish(getString(R.string.offline))
-        })
+        }
     }
 
     @SuppressLint("SetTextI18n")
