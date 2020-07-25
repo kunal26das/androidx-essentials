@@ -7,11 +7,34 @@ import com.google.android.gms.location.LocationServices
 
 class LocationProvider private constructor() {
 
+    private var onLocationChangeListener: OnLocationChangeListener? = null
+
+    init {
+        init()
+    }
+
     @SuppressLint("MissingPermission")
-    fun setOnLocationChangeListener(action: (latitude: Double, longitude: Double) -> Unit) {
+    private fun init() {
         fusedLocationProviderClient?.lastLocation?.addOnSuccessListener {
-            action.invoke(it?.latitude ?: 0.0, it?.longitude ?: 0.0)
+            onLocationChangeListener?.onLocationChange(it.latitude, it.longitude)
         }
+    }
+
+    fun setOnLocationChangeListener(onLocationChangeListener: OnLocationChangeListener) {
+        this.onLocationChangeListener = onLocationChangeListener
+    }
+
+    fun setOnLocationChangeListener(action: (latitude: Double, longitude: Double) -> Unit) {
+        onLocationChangeListener = object : OnLocationChangeListener {
+            override fun onLocationChange(latitude: Double, longitude: Double) {
+                action.invoke(latitude, longitude)
+            }
+        }
+
+    }
+
+    interface OnLocationChangeListener {
+        fun onLocationChange(latitude: Double, longitude: Double)
     }
 
     companion object {
