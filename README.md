@@ -10,7 +10,7 @@ repositories {
 ```
 implementation 'androidx.essentials:backdrop:latest_version'
 ```
-## Events
+## [Events](https://bintray.com/kunal26das/androidx.essentials/events)
 ```
 implementation 'androidx.essentials:events:latest_version'
 ```
