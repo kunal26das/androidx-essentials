@@ -58,7 +58,7 @@ class PlaygroundActivity : AppCompatActivity() {
     }
 
     override fun onStop() {
-        networkCallback.unregister(this)
+        networkCallback.removeListener()
         super.onStop()
     }
 }
