@@ -9,7 +9,7 @@ minSdkVersion 19
 ## Usage
 1. Initialize
 ```
-val networkCallback = NetworkCallback(context)
+val networkCallback = NetworkCallback.getInstance(context)
 ```
 2. Register
 ```
@@ -23,5 +23,5 @@ networkCallback.register({}, {})
 ```
 3. Unregister
 ```
-networkCallback.unregister()
+networkCallback.unregister(context)
 ```

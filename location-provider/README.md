@@ -21,5 +21,10 @@ val locationProvider = LocationProvider.getInstance(context)
 ```
 2. Set Listener
 ```
+locationProvider.setOnLocationChangeListener(object: OnLocationChangeListener {
+  override fun onLocationChange(latitude: Double, longitude: Double) {}
+})
+```
+```
 locationProvider.setOnLocationChangeListener { latitude, longitude -> }
 ```
