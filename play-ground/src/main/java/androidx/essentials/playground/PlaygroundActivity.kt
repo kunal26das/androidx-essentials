@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.essentials.extensions.Coroutines.main
+import androidx.essentials.extensions.View.onGlobalLayoutListener
 import androidx.essentials.network.NetworkCallback
 import kotlinx.android.synthetic.main.activity_playground.*
 
@@ -15,6 +16,13 @@ class PlaygroundActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_playground)
         content = findViewById(android.R.id.content)
+        content.onGlobalLayoutListener {
+            bottomSheetView.peekHeight = it.height / 2
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
         networkCallback()
     }
 
