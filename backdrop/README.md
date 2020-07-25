@@ -1,4 +1,5 @@
 # Backdrop
+[ ![Download](https://api.bintray.com/packages/kunal26das/androidx.essentials/backdrop/images/download.svg) ](https://bintray.com/kunal26das/androidx.essentials/backdrop/_latestVersion)
 ```
 implementation 'androidx.essentials:backdrop:latest_version'
 ```
@@ -18,5 +19,7 @@ minSdkVersion 21
         android:layout_height="match_parent"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp">
+        
+    </androidx.essentials.backdrop.BottomSheetView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 ```

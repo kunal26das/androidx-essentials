@@ -1,4 +1,5 @@
 # Events
+[ ![Download](https://api.bintray.com/packages/kunal26das/androidx.essentials/events/images/download.svg) ](https://bintray.com/kunal26das/androidx.essentials/events/_latestVersion)
 ```
 implementation 'androidx.essentials:events:latest_version'
 ```

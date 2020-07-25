@@ -1,4 +1,5 @@
 # Network State
+[ ![Download](https://api.bintray.com/packages/kunal26das/androidx.essentials/network-state/images/download.svg) ](https://bintray.com/kunal26das/androidx.essentials/network-state/_latestVersion)
 ```
 implementation 'androidx.essentials:network-state:latest_version'
 ```
@@ -11,17 +12,26 @@ minSdkVersion 19
 ```
 val networkCallback = NetworkCallback.getInstance(context)
 ```
-2. Register
+2. Set Listener
 ```
-networkCallback.register(object: NetworkCallback.OnNetworkStateChangeListener {
-	override fun onOnline() {}
-	override fun onOffline() {}
-})
+networkCallback.setOnNetworkStateChangeListener(object: NetworkCallback.OnNetworkStateChangeListener {
+	override fun onNetworkStateChange(isOnline: Boolean) {
+		when (isOnline) {
+			true -> {}
+			false -> {}
+		}
+	}
+)
 ```
 ```
-networkCallback.register({}, {})
+networkCallback.setOnNetworkStateChangeListener { isOnline ->
+	when (isOnline) {
+		true -> {}
+		false -> {}
+	}
+}
 ```
-3. Unregister
+3. Remove Listener
 ```
-networkCallback.unregister(context)
+networkCallback.removeListener()
 ```
