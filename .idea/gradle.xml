@@ -12,7 +12,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/network-state" />
-            <option value="$PROJECT_DIR$/playground" />
+            <option value="$PROJECT_DIR$/play-ground" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
