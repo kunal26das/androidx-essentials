@@ -1,4 +1,1 @@
-<manifest package="androidx.essentials.application">
-
-    /
-</manifest>
+<manifest package="androidx.essentials.application" />
