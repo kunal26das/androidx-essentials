@@ -1,3 +1,4 @@
+include ':application'
 include ':location-provider'
 include ':events'
 include ':backdrop'
