@@ -20,7 +20,7 @@ dependencies {
     // Material Design
     implementation "com.google.android.material:material:$material_version"
     // Kotlin Extensions
-    implementation 'androidx.essentials:kotlin-extensions:1595664985213'
+    implementation 'androidx.essentials:kotlin-extensions:1595854347054'
 }
 
 apply from: 'publish.gradle'
