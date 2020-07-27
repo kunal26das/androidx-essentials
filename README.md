@@ -11,6 +11,11 @@ repositories {
 ```
 implementation 'androidx.essentials:backdrop:latest_version'
 ```
+## [Core](https://github.com/kunal26das/AndroidX-Essentials/tree/master/core)
+[ ![Download](https://api.bintray.com/packages/kunal26das/androidx.essentials/core/images/download.svg) ](https://bintray.com/kunal26das/androidx.essentials/core/_latestVersion)
+```
+implementation 'androidx.essentials:core:latest_version'
+```
 ## [Events](https://github.com/kunal26das/AndroidX-Essentials/tree/master/events)
 [ ![Download](https://api.bintray.com/packages/kunal26das/androidx.essentials/events/images/download.svg) ](https://bintray.com/kunal26das/androidx.essentials/events/_latestVersion)
 ```
