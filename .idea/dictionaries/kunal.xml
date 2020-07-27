@@ -2,7 +2,11 @@
   <dictionary name="kunal">
     <words>
       <w>bintray</w>
+      <w>koin</w>
+      <w>lateinit</w>
+      <w>latlng</w>
       <w>snackbar</w>
+      <w>viewmodel</w>
     </words>
   </dictionary>
 </component>
