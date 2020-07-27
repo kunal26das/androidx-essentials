@@ -2,11 +2,17 @@ package androidx.essentials.location
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.location.Location
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
 class LocationProvider private constructor() {
 
+    var location: Location? = null
+        set(value) {
+            field = value
+            onLocationChangeListener?.onLocationChange(value)
+        }
     private var onLocationChangeListener: OnLocationChangeListener? = null
 
     init {
@@ -16,7 +22,7 @@ class LocationProvider private constructor() {
     @SuppressLint("MissingPermission")
     private fun init() {
         fusedLocationProviderClient?.lastLocation?.addOnSuccessListener {
-            onLocationChangeListener?.onLocationChange(it.latitude, it.longitude)
+            location = it
         }
     }
 
@@ -24,10 +30,10 @@ class LocationProvider private constructor() {
         this.onLocationChangeListener = onLocationChangeListener
     }
 
-    fun setOnLocationChangeListener(action: (latitude: Double, longitude: Double) -> Unit) {
+    fun setOnLocationChangeListener(action: (location: Location?) -> Unit) {
         onLocationChangeListener = object : OnLocationChangeListener {
-            override fun onLocationChange(latitude: Double, longitude: Double) {
-                action.invoke(latitude, longitude)
+            override fun onLocationChange(location: Location?) {
+                action.invoke(location)
             }
         }
     }
@@ -37,7 +43,7 @@ class LocationProvider private constructor() {
     }
 
     interface OnLocationChangeListener {
-        fun onLocationChange(latitude: Double, longitude: Double)
+        fun onLocationChange(location: Location?)
     }
 
     companion object {
