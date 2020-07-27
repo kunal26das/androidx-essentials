@@ -13,7 +13,7 @@ abstract class Activity(private val dataBinding: Boolean = false) : AppCompatAct
     abstract val viewModel: ViewModel
     protected lateinit var root: View
     protected open var binding: ViewDataBinding? = null
-    inline fun <reified T : ViewModel> Any.viewModel() = koinViewModel<T>()
+    inline fun <reified T : ViewModel> Activity.viewModel() = koinViewModel<T>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

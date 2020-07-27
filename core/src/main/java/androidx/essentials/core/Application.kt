@@ -33,11 +33,11 @@ abstract class Application : Application(), Application.ActivityLifecycleCallbac
         }
     }
 
-    inline fun <reified T> single(noinline definition: () -> T) {
+    inline fun <reified T> Application.single(noinline definition: () -> T) {
         koinApplication.modules(module { single { definition.invoke() } })
     }
 
-    inline fun <reified T : ViewModel> viewModel(noinline definition: () -> T) {
+    inline fun <reified T : ViewModel> Application.viewModel(noinline definition: () -> T) {
         koinApplication.modules(module { viewModel { definition.invoke() } })
     }
 

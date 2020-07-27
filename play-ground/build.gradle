@@ -32,12 +32,12 @@ dependencies {
 
     dependencies {
         // AndroidX Libraries
-        implementation 'androidx.core:core-ktx:1.3.0'
         implementation 'androidx.appcompat:appcompat:1.1.0'
+        implementation "androidx.core:core-ktx:$core_version"
     }
 
     // Material Design
-    implementation 'com.google.android.material:material:1.3.0-alpha01'
+    implementation "com.google.android.material:material:$material_version"
 
     dependencies {
         // AndroidX Essentials
