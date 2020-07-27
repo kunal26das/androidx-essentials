@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import org.koin.android.viewmodel.ext.android.sharedViewModel as koinSharedViewModel
 
 abstract class Fragment(private val dataBinding: Boolean = false) : Fragment() {
@@ -47,6 +49,14 @@ abstract class Fragment(private val dataBinding: Boolean = false) : Fragment() {
         initObservers()
     }
 
+    open fun initObservers() {}
+
+    protected fun <T> LiveData<T>.observe(action: (T) -> Unit) {
+        observe(viewLifecycleOwner, Observer {
+            action.invoke(it)
+        })
+    }
+
     override fun onStart() {
         log(Lifecycle.Event.ON_START)
         super.onStart()
@@ -71,8 +81,6 @@ abstract class Fragment(private val dataBinding: Boolean = false) : Fragment() {
         log(Lifecycle.Event.ON_DESTROY)
         super.onDestroy()
     }
-
-    open fun initObservers() {}
 
     private fun log(event: Lifecycle.Event) {
         Log.d(javaClass.simpleName, event.name)
