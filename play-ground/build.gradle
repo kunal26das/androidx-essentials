@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -14,9 +15,14 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
         }
+    }
+
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
     }
 }
 
@@ -35,10 +41,12 @@ dependencies {
 
     dependencies {
         // AndroidX Essentials
+        implementation project(path: ':core')
         implementation project(path: ':events')
         implementation project(path: ':backdrop')
         implementation project(path: ':network-state')
         implementation project(path: ':kotlin-extensions')
         implementation project(path: ':location-provider')
     }
+
 }
