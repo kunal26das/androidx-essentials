@@ -9,7 +9,15 @@ class PlayGroundApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        initViewModels()
+        initComponents()
+    }
+
+    private fun initViewModels() {
         viewModel { PlayGroundViewModel() }
+    }
+
+    private fun initComponents() {
         single { NetworkCallback(applicationContext) }
         single { LocationProvider.getInstance(applicationContext) }
     }
