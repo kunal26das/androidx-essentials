@@ -1,6 +1,7 @@
 include ':core'
 include ':events'
 include ':backdrop'
+include ':resources'
 include ':play-ground'
 include ':network-state'
 include ':kotlin-extensions'

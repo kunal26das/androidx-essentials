@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/location-provider" />
             <option value="$PROJECT_DIR$/network-state" />
             <option value="$PROJECT_DIR$/play-ground" />
+            <option value="$PROJECT_DIR$/resources" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
