@@ -1,11 +1,11 @@
 package androidx.essentials.playground
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.essentials.core.Fragment
 import androidx.essentials.events.Events
 import androidx.essentials.playground.databinding.FragmentPlaygroundBinding
-import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_playground.*
 
 class PlaygroundFragment : Fragment(true) {
@@ -18,20 +18,14 @@ class PlaygroundFragment : Fragment(true) {
         (binding as FragmentPlaygroundBinding).viewModel = viewModel
     }
 
+    @SuppressLint("SetTextI18n")
     override fun initObservers() {
-        viewModel.isOnline.observe(this, Observer {
-            networkState.text = when (it) {
-                true -> {
-                    bottomSheetView.expand()
-                    getString(R.string.online)
-                }
-                false -> {
-                    bottomSheetView.collapse()
-                    getString(R.string.offline)
-                }
-            }
-            Events.publish(networkState.text)
-        })
+        viewModel.isOnline.observe {
+            Events.publish("$it")
+        }
+        viewModel.location.observe {
+            location.text = "${it?.latitude}\n${it?.longitude}"
+        }
     }
 
 }

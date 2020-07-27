@@ -11,9 +11,8 @@ class PlayGroundViewModel : ViewModel() {
     private val networkCallback: NetworkCallback by inject()
     private val locationProvider: LocationProvider by inject()
 
-    val latitude = MutableLiveData<Double>()
-    val longitude = MutableLiveData<Double>()
-    val isOnline = MutableLiveData<Boolean>()
+    val isOnline = MutableLiveData(networkCallback.isOnline)
+    val location = MutableLiveData(locationProvider.location)
 
     init {
         setOnLocationChangeListener()
@@ -21,15 +20,14 @@ class PlayGroundViewModel : ViewModel() {
     }
 
     private fun setOnNetworkStateChangeListener() {
-        networkCallback.setOnNetworkStateChangeListener { isOnline ->
-            this.isOnline.postValue(isOnline)
+        networkCallback.setOnNetworkStateChangeListener {
+            isOnline.postValue(it)
         }
     }
 
     private fun setOnLocationChangeListener() {
-        locationProvider.setOnLocationChangeListener { latitude, longitude ->
-            this.latitude.postValue(latitude)
-            this.longitude.postValue(longitude)
+        locationProvider.setOnLocationChangeListener {
+            location.postValue(it)
         }
     }
 
