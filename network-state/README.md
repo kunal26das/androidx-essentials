@@ -10,7 +10,7 @@ minSdkVersion 19
 ## Usage
 1. Initialize
 ```
-val networkCallback = NetworkCallback.getInstance(context)
+val networkCallback = NetworkCallback.(context)
 ```
 2. Set Listener
 ```
