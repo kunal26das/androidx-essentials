@@ -1,6 +1,7 @@
 include ':core'
 include ':events'
 include ':backdrop'
+include ':firebase'
 include ':resources'
 include ':play-ground'
 include ':network-state'
