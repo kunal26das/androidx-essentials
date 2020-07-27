@@ -11,8 +11,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/application" />
             <option value="$PROJECT_DIR$/backdrop" />
+            <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/events" />
             <option value="$PROJECT_DIR$/kotlin-extensions" />
             <option value="$PROJECT_DIR$/location-provider" />

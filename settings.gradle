@@ -1,8 +1,8 @@
-include ':application'
-include ':location-provider'
+include ':core'
 include ':events'
 include ':backdrop'
 include ':play-ground'
 include ':network-state'
 include ':kotlin-extensions'
+include ':location-provider'
 rootProject.name = "androidx.essentials"
