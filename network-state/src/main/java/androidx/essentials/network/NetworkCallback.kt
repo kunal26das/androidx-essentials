@@ -10,29 +10,22 @@ import android.util.Log
 
 class NetworkCallback(private val context: Context) {
 
+    val isOnline = IS_ONLINE
+    private val networkBroadcastReceiver = NetworkCallbackReceiver()
+
     private var currentNetworkState: NetworkState? = null
         set(value) {
             field = value
             value?.name?.let { Log.d(javaClass.simpleName, it) }
         }
 
-    var isOnline = false
-        set(value) {
-            if (field != value) {
-                onNetworkStateChangeListener?.onNetworkStateChange(value)
-                field = value
-            }
-        }
-
-    private val networkBroadcastReceiver = NetworkCallbackReceiver()
-    private var onNetworkStateChangeListener: OnNetworkStateChangeListener? = null
     private val networkCallback = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         object : android.net.ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 if (currentNetworkState != NetworkState.AVAILABLE) {
                     currentNetworkState = NetworkState.AVAILABLE
                     super.onAvailable(network)
-                    isOnline = true
+                    IS_ONLINE = true
                 }
             }
 
@@ -71,7 +64,7 @@ class NetworkCallback(private val context: Context) {
                 if (currentNetworkState != NetworkState.LOST) {
                     currentNetworkState = NetworkState.LOST
                     super.onLost(network)
-                    isOnline = false
+                    IS_ONLINE = false
                 }
             }
 
@@ -109,7 +102,7 @@ class NetworkCallback(private val context: Context) {
     }
 
     fun setOnNetworkStateChangeListener(onNetworkStateChangeListener: OnNetworkStateChangeListener?) {
-        this.onNetworkStateChangeListener = onNetworkStateChangeListener
+        Companion.onNetworkStateChangeListener = onNetworkStateChangeListener
         register()
     }
 
@@ -135,6 +128,15 @@ class NetworkCallback(private val context: Context) {
     }
 
     companion object {
+
+        var IS_ONLINE = false
+            private set(value) {
+                field = value
+                onNetworkStateChangeListener?.onNetworkStateChange(value)
+            }
+
         private var connectivityManager: android.net.ConnectivityManager? = null
+        private var onNetworkStateChangeListener: OnNetworkStateChangeListener? = null
+
     }
 }

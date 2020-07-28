@@ -8,29 +8,13 @@ import com.google.android.gms.location.LocationServices
 
 class LocationProvider private constructor() {
 
-    var location: Location? = null
-        set(value) {
-            field = value
-            onLocationChangeListener?.onLocationChange(value)
-        }
-    private var onLocationChangeListener: OnLocationChangeListener? = null
-
-    init {
-        init()
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun init() {
-        fusedLocationProviderClient?.lastLocation?.addOnSuccessListener {
-            location = it
-        }
-    }
+    val location = LOCATION
 
     fun setOnLocationChangeListener(onLocationChangeListener: OnLocationChangeListener) {
-        this.onLocationChangeListener = onLocationChangeListener
+        Companion.onLocationChangeListener = onLocationChangeListener
     }
 
-    fun setOnLocationChangeListener(action: (location: Location?) -> Unit) {
+    fun setOnLocationChangeListener(action: (Location?) -> Unit) {
         onLocationChangeListener = object : OnLocationChangeListener {
             override fun onLocationChange(location: Location?) {
                 action(location)
@@ -39,7 +23,7 @@ class LocationProvider private constructor() {
     }
 
     fun removeListener() {
-        this.onLocationChangeListener = null
+        onLocationChangeListener = null
     }
 
     interface OnLocationChangeListener {
@@ -48,8 +32,16 @@ class LocationProvider private constructor() {
 
     companion object {
 
+        var LOCATION: Location? = null
+            private set(value) {
+                field = value
+                onLocationChangeListener?.onLocationChange(value)
+            }
+
+        private var onLocationChangeListener: OnLocationChangeListener? = null
         private var fusedLocationProviderClient: FusedLocationProviderClient? = null
 
+        @SuppressLint("MissingPermission")
         fun getInstance(context: Context): LocationProvider {
             if (fusedLocationProviderClient != null) {
                 return LocationProvider()
@@ -57,6 +49,9 @@ class LocationProvider private constructor() {
             synchronized(this) {
                 fusedLocationProviderClient =
                     LocationServices.getFusedLocationProviderClient(context)
+                fusedLocationProviderClient?.lastLocation?.addOnSuccessListener {
+                    LOCATION = it
+                }
                 return LocationProvider()
             }
         }
