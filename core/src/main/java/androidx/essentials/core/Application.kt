@@ -30,6 +30,7 @@ abstract class Application : Application(), Application.ActivityLifecycleCallbac
         startKoin {
             androidContext(applicationContext)
             koinApplication = this
+            single { resources }
         }
     }
 
