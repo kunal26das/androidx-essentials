@@ -4,7 +4,17 @@
 
 <resources>
     <declare-styleable name="BottomSheetView">
-        <attr name="isDraggable" format="boolean" />
+        <attr name="hideable" format="boolean" />
+        <attr name="draggable" format="boolean" />
         <attr name="peekHeight" format="dimension" />
+        <attr name="skipCollapsed" format="boolean" />
+        <attr name="state" format="enum">
+            <enum name="dragging" value="1" />
+            <enum name="settling" value="2" />
+            <enum name="expanded" value="3" />
+            <enum name="collapsed" value="4" />
+            <enum name="hidden" value="5" />
+            <enum name="halfExpanded" value="6" />
+        </attr>
     </declare-styleable>
 </resources>

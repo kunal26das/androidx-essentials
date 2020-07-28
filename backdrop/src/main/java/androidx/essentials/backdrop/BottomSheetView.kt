@@ -15,6 +15,8 @@ class BottomSheetView @JvmOverloads constructor(
     attributes: AttributeSet? = null
 ) : MaterialCardView(context, attributes) {
 
+    private var state = STATE_EXPANDED
+
     var peekHeight = DEFAULT_PEEK_HEIGHT
         set(value) {
             field = value
@@ -31,6 +33,22 @@ class BottomSheetView @JvmOverloads constructor(
             }
         }
 
+    var skipCollapsed = false
+        set(value) {
+            field = value
+            Try {
+                bottomSheetBehaviour.skipCollapsed = value
+            }
+        }
+
+    var isHideable = false
+        set(value) {
+            field = value
+            Try {
+                bottomSheetBehaviour.isHideable = value
+            }
+        }
+
     private lateinit var bottomSheetBehaviour: BottomSheetBehavior<View>
     val isHidden get() = bottomSheetBehaviour.state == STATE_HIDDEN
     val isDragging get() = bottomSheetBehaviour.state == STATE_DRAGGING
@@ -43,7 +61,10 @@ class BottomSheetView @JvmOverloads constructor(
         context.obtainStyledAttributes(attributes, R.styleable.BottomSheetView, 0, 0).apply {
             peekHeight =
                 getDimensionPixelSize(R.styleable.BottomSheetView_peekHeight, DEFAULT_PEEK_HEIGHT)
-            isDraggable = getBoolean(R.styleable.BottomSheetView_isDraggable, DEFAULT_IS_DRAGGABLE)
+            isDraggable = getBoolean(R.styleable.BottomSheetView_draggable, DEFAULT_IS_DRAGGABLE)
+            skipCollapsed = getBoolean(R.styleable.BottomSheetView_skipCollapsed, false)
+            isHideable = getBoolean(R.styleable.BottomSheetView_hideable, false)
+            state = getInteger(R.styleable.BottomSheetView_state, STATE_EXPANDED)
             recycle()
         }
         shapeAppearanceModel = shapeAppearanceModel.toBuilder().apply {
@@ -57,41 +78,35 @@ class BottomSheetView @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        initBottomSheetBehaviour(STATE_EXPANDED)
+        initBottomSheetBehaviour()
     }
 
-    private fun initBottomSheetBehaviour(state: Int) {
+    private fun initBottomSheetBehaviour() {
         (layoutParams as CoordinatorLayout.LayoutParams).apply {
             bottomSheetBehaviour = BottomSheetBehavior()
+            bottomSheetBehaviour.skipCollapsed = skipCollapsed
             bottomSheetBehaviour.isDraggable = isDraggable
+            bottomSheetBehaviour.isHideable = isHideable
             bottomSheetBehaviour.peekHeight = peekHeight
             bottomSheetBehaviour.state = state
             behavior = bottomSheetBehaviour
         }
     }
 
-    fun hide() = try {
-        bottomSheetBehaviour.state = STATE_HIDDEN
-    } catch (e: RuntimeException) {
-        initBottomSheetBehaviour(STATE_HIDDEN)
+    fun hide() {
+        state = STATE_HIDDEN
     }
 
-    fun collapse() = try {
-        bottomSheetBehaviour.state = STATE_COLLAPSED
-    } catch (e: RuntimeException) {
-        initBottomSheetBehaviour(STATE_COLLAPSED)
+    fun collapse() {
+        state = STATE_COLLAPSED
     }
 
-    fun expand() = try {
-        bottomSheetBehaviour.state = STATE_EXPANDED
-    } catch (e: RuntimeException) {
-        initBottomSheetBehaviour(STATE_EXPANDED)
+    fun expand() {
+        state = STATE_EXPANDED
     }
 
-    fun halfExpand() = try {
-        bottomSheetBehaviour.state = STATE_HALF_EXPANDED
-    } catch (e: RuntimeException) {
-        initBottomSheetBehaviour(STATE_HALF_EXPANDED)
+    fun halfExpand() {
+        state = STATE_HALF_EXPANDED
     }
 
     fun switch() {
