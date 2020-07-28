@@ -18,6 +18,7 @@ dependencies {
     implementation "androidx.core:core-ktx:$core_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     // Crashlytics
+    implementation 'com.google.firebase:firebase-messaging:20.2.3'
     implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
     // Core
     implementation 'androidx.essentials:core:1595923600147'
