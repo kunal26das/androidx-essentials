@@ -2,7 +2,9 @@
   <dictionary name="kunal">
     <words>
       <w>bintray</w>
+      <w>crashlytics</w>
       <w>gilroy</w>
+      <w>hideable</w>
       <w>koin</w>
       <w>lateinit</w>
       <w>latlng</w>
