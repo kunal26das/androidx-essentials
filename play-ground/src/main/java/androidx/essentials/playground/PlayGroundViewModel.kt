@@ -1,5 +1,6 @@
 package androidx.essentials.playground
 
+import android.location.Location
 import androidx.essentials.core.KoinComponent.inject
 import androidx.essentials.core.ViewModel
 import androidx.essentials.firebase.Firebase
@@ -7,38 +8,32 @@ import androidx.essentials.location.LocationProvider
 import androidx.essentials.network.NetworkCallback
 import androidx.lifecycle.MutableLiveData
 
-class PlayGroundViewModel : ViewModel() {
+class PlayGroundViewModel : ViewModel(), Listeners {
 
     private val firebase: Firebase by inject()
     private val networkCallback: NetworkCallback by inject()
     private val locationProvider: LocationProvider by inject()
 
-    val token = MutableLiveData(Firebase.TOKEN)
+    val token = MutableLiveData(firebase.token)
     val isOnline = MutableLiveData(networkCallback.isOnline)
     val location = MutableLiveData(locationProvider.location)
 
     init {
-        setOnTokenChangeListener()
-        setOnLocationChangeListener()
-        setOnNetworkStateChangeListener()
+        firebase.setOnTokenChangeListener(this)
+        locationProvider.setOnLocationChangeListener(this)
+        networkCallback.setOnNetworkStateChangeListener(this)
     }
 
-    private fun setOnTokenChangeListener() {
-        firebase.setOnTokenChangeListener {
-            token.postValue(it)
-        }
+    override fun onNewToken(token: String?) {
+        this.token.postValue(token)
     }
 
-    private fun setOnLocationChangeListener() {
-        locationProvider.setOnLocationChangeListener {
-            location.postValue(it)
-        }
+    override fun onLocationChange(location: Location?) {
+        this.location.postValue(location)
     }
 
-    private fun setOnNetworkStateChangeListener() {
-        networkCallback.setOnNetworkStateChangeListener {
-            isOnline.postValue(it)
-        }
+    override fun onNetworkStateChange(isOnline: Boolean) {
+        this.isOnline.postValue(isOnline)
     }
 
     override fun onCleared() {
