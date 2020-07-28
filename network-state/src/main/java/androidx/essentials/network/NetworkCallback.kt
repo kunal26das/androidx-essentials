@@ -116,7 +116,7 @@ class NetworkCallback(private val context: Context) {
     fun setOnNetworkStateChangeListener(action: (Boolean) -> Unit) {
         onNetworkStateChangeListener = object : OnNetworkStateChangeListener {
             override fun onNetworkStateChange(isOnline: Boolean) {
-                action.invoke(isOnline)
+                action(isOnline)
             }
         }
         register()

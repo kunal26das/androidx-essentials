@@ -33,7 +33,7 @@ class LocationProvider private constructor() {
     fun setOnLocationChangeListener(action: (location: Location?) -> Unit) {
         onLocationChangeListener = object : OnLocationChangeListener {
             override fun onLocationChange(location: Location?) {
-                action.invoke(location)
+                action(location)
             }
         }
     }
