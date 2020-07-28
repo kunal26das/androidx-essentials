@@ -7,6 +7,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 30
+        multiDexEnabled true
         def date = new Date()
         version date.getTime().toString()
     }
