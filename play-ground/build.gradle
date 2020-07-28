@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion 30
@@ -38,6 +40,7 @@ dependencies {
         // AndroidX Libraries
         implementation 'androidx.appcompat:appcompat:1.1.0'
         implementation "androidx.core:core-ktx:$core_version"
+        implementation "androidx.security:security-crypto:1.0.0-rc02"
         implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     }
 
@@ -49,6 +52,7 @@ dependencies {
         implementation project(path: ':core')
         implementation project(path: ':events')
         implementation project(path: ':backdrop')
+        implementation project(path: ':firebase')
         implementation project(path: ':resources')
         implementation project(path: ':network-state')
         implementation project(path: ':kotlin-extensions')

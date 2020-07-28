@@ -4,9 +4,9 @@ import android.widget.Toast
 import androidx.essentials.core.Activity
 import androidx.essentials.events.Events
 
-class PlaygroundActivity : Activity() {
+class PlayGroundActivity : Activity() {
 
-    override val layout = R.layout.activity_playground
+    override val layout = R.layout.activity_play_ground
     override val viewModel by viewModel<PlayGroundViewModel>()
 
     override fun initObservers() {
