@@ -21,7 +21,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:20.2.3'
     implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
     // Core
-    implementation 'androidx.essentials:core:1595923600147'
+    implementation 'androidx.essentials:core:1595930684156'
 }
 
 apply from: 'publish.gradle'
