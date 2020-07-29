@@ -3,6 +3,7 @@ package androidx.essentials.playground
 import android.location.Location
 import androidx.essentials.core.KoinComponent.inject
 import androidx.essentials.core.ViewModel
+import androidx.essentials.extensions.Transformations
 import androidx.essentials.firebase.Firebase
 import androidx.essentials.location.LocationProvider
 import androidx.essentials.network.NetworkCallback
@@ -17,6 +18,10 @@ class PlayGroundViewModel : ViewModel(), Listeners {
     val token = MutableLiveData(firebase.token)
     val isOnline = MutableLiveData(networkCallback.isOnline)
     val location = MutableLiveData(locationProvider.location)
+
+    val combined = Transformations.switchMap<List<Any?>>(token, isOnline, location) {
+        MutableLiveData(it)
+    }
 
     init {
         firebase.setOnTokenChangeListener(this)

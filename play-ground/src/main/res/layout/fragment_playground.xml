@@ -23,91 +23,10 @@
             app:draggable="true"
             app:state="collapsed">
 
-            <RelativeLayout
+            <androidx.essentials.playground.PlayGroundRecyclerView
+                android:id="@+id/playGroundRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="16dp">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/uuid"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:fontFamily="monospace"
-                    android:textSize="16sp" />
-            </RelativeLayout>
-        </androidx.essentials.backdrop.BottomSheetView>
-
-        <androidx.essentials.backdrop.BottomSheetView
-            android:id="@+id/bottomSheetView2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="32dp"
-            app:draggable="true"
-            app:state="collapsed">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="16dp">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/token"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:fontFamily="monospace"
-                    android:textSize="16sp" />
-            </RelativeLayout>
-        </androidx.essentials.backdrop.BottomSheetView>
-
-        <androidx.essentials.backdrop.BottomSheetView
-            android:id="@+id/bottomSheetView3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="48dp"
-            app:draggable="true"
-            app:state="collapsed">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="16dp">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/isOnline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:fontFamily="monospace"
-                    android:textSize="16sp" />
-            </RelativeLayout>
-        </androidx.essentials.backdrop.BottomSheetView>
-
-        <androidx.essentials.backdrop.BottomSheetView
-            android:id="@+id/bottomSheetView4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="64dp"
-            app:draggable="true"
-            app:state="collapsed">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="16dp">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:fontFamily="monospace"
-                    android:textSize="16sp" />
-            </RelativeLayout>
+                android:layout_height="match_parent" />
         </androidx.essentials.backdrop.BottomSheetView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

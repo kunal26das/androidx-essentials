@@ -1,12 +1,14 @@
 package androidx.essentials.playground
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.essentials.core.Fragment
 import androidx.essentials.events.Events
 import androidx.essentials.extensions.View.onGlobalLayoutListener
+import androidx.essentials.firebase.Firebase
 import androidx.essentials.firebase.UUID
+import androidx.essentials.location.LocationProvider
+import androidx.essentials.network.NetworkCallback
 import androidx.essentials.playground.databinding.FragmentPlaygroundBinding
 import kotlinx.android.synthetic.main.fragment_playground.*
 
@@ -20,24 +22,25 @@ class PlayGroundFragment : Fragment(true) {
         (binding as FragmentPlaygroundBinding).viewModel = viewModel
         root.onGlobalLayoutListener {
             bottomSheetView1.peekHeight = it.height * 4 / 5
-            bottomSheetView2.peekHeight = it.height * 3 / 5
-            bottomSheetView3.peekHeight = it.height * 2 / 5
-            bottomSheetView4.peekHeight = it.height * 1 / 5
         }
+        playGroundRecyclerView.submitList(
+            listOf(
+                "$UUID",
+                "${Firebase.TOKEN}",
+                "${NetworkCallback.IS_ONLINE}",
+                "${LocationProvider.LOCATION}"
+            )
+        )
     }
 
-    @SuppressLint("SetTextI18n")
     override fun initObservers() {
-        uuid.text = UUID.toString()
-        viewModel.token.observe {
-            token.text = it
-        }
         viewModel.isOnline.observe {
-            isOnline.text = "$it"
             Events.publish("$it")
         }
-        viewModel.location.observe {
-            location.text = "${it?.latitude}\n${it?.longitude}"
+        viewModel.combined?.observe {
+            playGroundRecyclerView.submitList((it as MutableList).apply {
+                add(0, UUID)
+            })
         }
     }
 
