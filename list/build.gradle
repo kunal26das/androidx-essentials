@@ -10,6 +10,10 @@ android {
         def date = new Date()
         version date.getTime().toString()
     }
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -17,4 +21,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$core_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    // Material Design
+    implementation "com.google.android.material:material:$material_version"
 }
