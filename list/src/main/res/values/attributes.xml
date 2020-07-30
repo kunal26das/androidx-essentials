@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <attr name="showDivider" format="boolean" />
+    <declare-styleable name="List">
+        <attr name="showDivider" />
+    </declare-styleable>
+    <declare-styleable name="PagedList">
+        <attr name="showDivider" />
+    </declare-styleable>
+</resources>

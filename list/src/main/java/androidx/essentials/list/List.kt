@@ -9,54 +9,65 @@ import androidx.databinding.ViewDataBinding
 import androidx.essentials.list.adapter.EmptyAdapter
 import androidx.essentials.list.adapter.LoadingAdapter
 import androidx.recyclerview.widget.*
-import androidx.recyclerview.widget.RecyclerView
 
-abstract class RecyclerView<T, VDB : ViewDataBinding>(
+abstract class List<T, VDB : ViewDataBinding>(
     context: Context,
     attributes: AttributeSet? = null
 ) : RecyclerView(context, attributes) {
 
+    open val emptyMessage = ""
     abstract val itemLayout: Int
-    abstract val emptyMessage: String
+    private var showDivider: Boolean
+    abstract val mLayoutManager: LayoutManager
     private val loadingAdapter = LoadingAdapter()
     private lateinit var emptyAdapter: EmptyAdapter
-    private val linearLayoutManager = LinearLayoutManager(context)
+    protected val linearLayoutManager = LinearLayoutManager(context)
 
-    val currentList: List<T>?
+    val currentList: List<T>
         get() = dataAdapter.currentList
 
-    abstract fun areItemsTheSame(oldItem: T, newItem: T): Boolean
-    abstract fun areContentsTheSame(oldItem: T, newItem: T): Boolean
-    abstract fun onBindViewHolder(holder: ViewHolder<VDB>, item: T)
-    abstract class ViewHolder<VDB : ViewDataBinding>(val root: VDB) :
-        RecyclerView.ViewHolder(root.root)
-
     init {
+        context.obtainStyledAttributes(attributes, R.styleable.List, 0, 0).apply {
+            showDivider = getBoolean(R.styleable.List_showDivider, DEFAULT_DIVIDER)
+            recycle()
+        }
         adapter = loadingAdapter
-        layoutManager = linearLayoutManager
     }
 
     fun submitList(list: List<T>?) {
-        adapter = when {
-            list == null -> loadingAdapter
-            list.isEmpty() -> emptyAdapter
+        when {
+            list == null -> {
+                layoutManager = linearLayoutManager
+                adapter = loadingAdapter
+            }
+            list.isEmpty() -> {
+                layoutManager = linearLayoutManager
+                adapter = emptyAdapter
+            }
             else -> {
+                layoutManager = mLayoutManager
                 dataAdapter.submitList(list)
-                dataAdapter
+                adapter = dataAdapter
             }
         }
     }
 
-    protected fun getItem(position: Int) = dataAdapter.currentList[position]
+    open fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
+        return oldItem == newItem
+    }
+
+    open fun areContentsTheSame(oldItem: T, newItem: T): Boolean {
+        return oldItem == newItem
+    }
 
     private val dataAdapter =
         object : ListAdapter<T, ViewHolder<VDB>>(object : DiffUtil.ItemCallback<T>() {
             override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
-                return this@RecyclerView.areItemsTheSame(oldItem, newItem)
+                return this@List.areItemsTheSame(oldItem, newItem)
             }
 
             override fun areContentsTheSame(oldItem: T, newItem: T): Boolean {
-                return this@RecyclerView.areContentsTheSame(oldItem, newItem)
+                return this@List.areContentsTheSame(oldItem, newItem)
             }
         }) {
 
@@ -72,13 +83,31 @@ abstract class RecyclerView<T, VDB : ViewDataBinding>(
             }
 
             override fun onBindViewHolder(holder: ViewHolder<VDB>, position: Int) {
-                this@RecyclerView.onBindViewHolder(holder, getItem(position))
+                this@List.onBindViewHolder(holder.root, getItem(position))
             }
         }
 
+    abstract fun onBindViewHolder(itemView: VDB, item: T)
+
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
+        layoutManager = mLayoutManager
         emptyAdapter = EmptyAdapter(emptyMessage)
-        addItemDecoration(DividerItemDecoration(context, linearLayoutManager.orientation))
+        if (showDivider && mLayoutManager is LinearLayoutManager) {
+            addItemDecoration(
+                DividerItemDecoration(
+                    context,
+                    (mLayoutManager as LinearLayoutManager).orientation
+                )
+            )
+        }
     }
+
+    abstract class ViewHolder<VDB : ViewDataBinding>(val root: VDB) :
+        RecyclerView.ViewHolder(root.root)
+
+    companion object {
+        const val DEFAULT_DIVIDER = false
+    }
+
 }
