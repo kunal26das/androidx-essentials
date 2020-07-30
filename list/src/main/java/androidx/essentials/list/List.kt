@@ -23,9 +23,6 @@ abstract class List<T, VDB : ViewDataBinding>(
     private lateinit var emptyAdapter: EmptyAdapter
     protected val linearLayoutManager = LinearLayoutManager(context)
 
-    val currentList: List<T>
-        get() = dataAdapter.currentList
-
     init {
         context.obtainStyledAttributes(attributes, R.styleable.List, 0, 0).apply {
             showDivider = getBoolean(R.styleable.List_showDivider, DEFAULT_DIVIDER)
