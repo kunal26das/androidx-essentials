@@ -5,8 +5,6 @@ import com.google.firebase.iid.FirebaseInstanceId
 
 class Firebase private constructor() {
 
-    val token = TOKEN
-
     fun setOnTokenChangeListener(onTokenChangeListener: OnTokenChangeListener) {
         Companion.onTokenChangeListener = onTokenChangeListener
     }
