@@ -31,7 +31,7 @@ abstract class List<T, VDB : ViewDataBinding>(
         adapter = loadingAdapter
     }
 
-    fun submitList(list: List<T>?) {
+    fun submitList(list: kotlin.collections.List<T>?) {
         when {
             list == null -> {
                 layoutManager = linearLayoutManager
