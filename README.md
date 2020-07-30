@@ -31,6 +31,11 @@ implementation 'androidx.essentials:firebase:latest_version'
 ```
 implementation 'androidx.essentials:kotlin-extensions:latest_version'
 ```
+## [List](https://github.com/kunal26das/AndroidX-Essentials/tree/master/list)
+[ ![Download](https://api.bintray.com/packages/kunal26das/androidx.essentials/list/images/download.svg) ](https://bintray.com/kunal26das/androidx.essentials/list/_latestVersion)
+```
+implementation 'androidx.essentials:list:latest_version'
+```
 ## [Location Provider](https://github.com/kunal26das/AndroidX-Essentials/tree/master/location-provider)
 [ ![Download](https://api.bintray.com/packages/kunal26das/androidx.essentials/location-provider/images/download.svg) ](https://bintray.com/kunal26das/androidx.essentials/location-provider/_latestVersion)
 ```
