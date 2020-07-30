@@ -16,11 +16,11 @@ class PlayGroundFragment : Fragment(true) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (binding as FragmentPlayGroundBinding).viewModel = viewModel
-        statusBarMask.layoutParams.height = statusBarHeight
         root.addOnGlobalLayoutListener {
             bottomSheetView.peekHeight = it.height / 2
         }
+        statusBarMask.layoutParams.height = statusBarHeight
+        (binding as FragmentPlayGroundBinding).viewModel = viewModel
     }
 
     override fun initObservers() {

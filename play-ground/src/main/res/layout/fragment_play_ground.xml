@@ -11,8 +11,7 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark">
+        android:layout_height="match_parent">
 
         <androidx.essentials.backdrop.BottomSheetView
             android:id="@+id/bottomSheetView"
