@@ -8,8 +8,6 @@ import com.google.android.gms.location.LocationServices
 
 class LocationProvider private constructor() {
 
-    val location = LOCATION
-
     fun setOnLocationChangeListener(onLocationChangeListener: OnLocationChangeListener) {
         Companion.onLocationChangeListener = onLocationChangeListener
     }

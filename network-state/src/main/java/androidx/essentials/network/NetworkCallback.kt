@@ -10,14 +10,13 @@ import android.util.Log
 
 class NetworkCallback(private val context: Context) {
 
-    val isOnline = IS_ONLINE
-    private val networkBroadcastReceiver = NetworkCallbackReceiver()
-
     private var currentNetworkState: NetworkState? = null
         set(value) {
             field = value
             value?.name?.let { Log.d(javaClass.simpleName, it) }
         }
+
+    private val networkBroadcastReceiver = NetworkCallbackReceiver()
 
     private val networkCallback = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         object : android.net.ConnectivityManager.NetworkCallback() {
