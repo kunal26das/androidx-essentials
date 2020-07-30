@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">Play Ground</string>
-    <string name="online">Online</string>
-    <string name="offline">Offline</string>
+    <string name="empty_message">Empty Play Ground</string>
 </resources>

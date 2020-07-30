@@ -15,9 +15,9 @@ class PlayGroundViewModel : ViewModel(), Listeners {
     private val networkCallback: NetworkCallback by inject()
     private val locationProvider: LocationProvider by inject()
 
-    val token = MutableLiveData(firebase.token)
-    val isOnline = MutableLiveData(networkCallback.isOnline)
-    val location = MutableLiveData(locationProvider.location)
+    val token = MutableLiveData(Firebase.TOKEN)
+    val isOnline = MutableLiveData(NetworkCallback.IS_ONLINE)
+    val location = MutableLiveData(LocationProvider.LOCATION)
 
     val combined = Transformations.switchMap<List<Any?>>(token, isOnline, location) {
         MutableLiveData(it)
