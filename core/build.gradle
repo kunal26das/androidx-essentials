@@ -22,11 +22,13 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$core_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    // MultiDex
-    implementation "androidx.multidex:multidex:2.0.1"
     // Koin
     implementation "org.koin:koin-android:2.0.1"
     implementation "org.koin:koin-android-viewmodel:2.0.1"
+    // Material Design
+    implementation "com.google.android.material:material:$material_version"
+    // MultiDex
+    implementation "androidx.multidex:multidex:2.0.1"
 }
 
 apply from: 'publish.gradle'
