@@ -49,6 +49,8 @@ abstract class List<T, VDB : ViewDataBinding>(
         }
     }
 
+    abstract fun onBindViewHolder(itemView: VDB, item: T)
+
     open fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
         return oldItem == newItem
     }
@@ -80,11 +82,11 @@ abstract class List<T, VDB : ViewDataBinding>(
             }
 
             override fun onBindViewHolder(holder: ViewHolder<VDB>, position: Int) {
-                this@List.onBindViewHolder(holder.root, getItem(position))
+                getItem(position)?.apply {
+                    this@List.onBindViewHolder(holder.binding, this)
+                }
             }
         }
-
-    abstract fun onBindViewHolder(itemView: VDB, item: T)
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
@@ -100,8 +102,8 @@ abstract class List<T, VDB : ViewDataBinding>(
         }
     }
 
-    abstract class ViewHolder<VDB : ViewDataBinding>(val root: VDB) :
-        RecyclerView.ViewHolder(root.root)
+    abstract class ViewHolder<VDB : ViewDataBinding>(val binding: VDB) :
+        RecyclerView.ViewHolder(binding.root)
 
     companion object {
         const val DEFAULT_DIVIDER = false
