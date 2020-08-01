@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/events" />
             <option value="$PROJECT_DIR$/firebase" />
+            <option value="$PROJECT_DIR$/io" />
             <option value="$PROJECT_DIR$/kotlin-extensions" />
             <option value="$PROJECT_DIR$/list" />
             <option value="$PROJECT_DIR$/location-provider" />
