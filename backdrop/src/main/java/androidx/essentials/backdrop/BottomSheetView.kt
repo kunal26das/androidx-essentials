@@ -12,8 +12,9 @@ import com.google.android.material.shape.CornerFamily
 
 class BottomSheetView @JvmOverloads constructor(
     context: Context,
-    attributes: AttributeSet? = null
-) : MaterialCardView(context, attributes) {
+    attributes: AttributeSet? = null,
+    styleAttributes: Int = R.attr.materialCardViewStyle
+) : MaterialCardView(context, attributes, styleAttributes) {
 
     private var state = STATE_EXPANDED
 
