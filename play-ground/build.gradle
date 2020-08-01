@@ -53,6 +53,7 @@ dependencies {
 
     dependencies {
         // AndroidX Essentials
+        implementation project(path: ':io')
         implementation project(path: ':core')
         implementation project(path: ':list')
         implementation project(path: ':events')

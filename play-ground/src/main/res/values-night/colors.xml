@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2020.
+  -->
+
+<resources>
+    <color name="colorStatusBar">@color/colorBlack</color>
+    <color name="colorNavigationBar">@color/colorBlack</color>
+    <color name="colorWindowBackground">@color/colorBlack</color>
+
+    <color name="colorBackground">@color/colorBlack</color>
+    <color name="colorSurface">@color/colorBlack</color>
+    <color name="colorError">#CF6679</color>
+
+    <color name="colorOnPrimary">@color/colorBlack</color>
+    <color name="colorOnSecondary">@color/colorBlack</color>
+    <color name="colorOnBackground">@color/colorWhite</color>
+    <color name="colorOnSurface">@color/colorWhite</color>
+    <color name="colorOnError">@color/colorBlack</color>
+</resources>

@@ -3,9 +3,7 @@ package androidx.essentials.playground
 import android.os.Bundle
 import android.view.View
 import androidx.essentials.core.Fragment
-import androidx.essentials.core.Resources.statusBarHeight
 import androidx.essentials.events.Events
-import androidx.essentials.extensions.View.addOnGlobalLayoutListener
 import androidx.essentials.playground.databinding.FragmentPlayGroundBinding
 import kotlinx.android.synthetic.main.fragment_play_ground.*
 
@@ -16,10 +14,6 @@ class PlayGroundFragment : Fragment(true) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        root.addOnGlobalLayoutListener {
-            bottomSheetView.peekHeight = it.height / 2
-        }
-        statusBarMask.layoutParams.height = statusBarHeight
         (binding as FragmentPlayGroundBinding).viewModel = viewModel
     }
 
@@ -27,8 +21,14 @@ class PlayGroundFragment : Fragment(true) {
         viewModel.isOnline.observe {
             Events.publish("$it")
         }
-        viewModel.combined.observe {
+        viewModel.dummy.observe {
             playGroundRecyclerView.submitList(it)
+        }
+        viewModel.appBarLayoutHeight.observe {
+            if (it > 0) {
+                playGroundRecyclerView.marginVertical = it
+                playGroundRecyclerView.visibility = View.VISIBLE
+            }
         }
     }
 

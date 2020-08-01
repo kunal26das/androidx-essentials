@@ -2,12 +2,13 @@ package androidx.essentials.playground
 
 import android.os.Bundle
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.view.updateMargins
 import androidx.essentials.core.Activity
-import androidx.essentials.core.Resources.statusBarHeight
+import androidx.essentials.core.Resources.dp
 import androidx.essentials.events.Events
+import androidx.essentials.extensions.Coroutines.default
+import androidx.essentials.extensions.View.addOnGlobalLayoutListener
 import kotlinx.android.synthetic.main.activity_play_ground.*
 
 class PlayGroundActivity : Activity() {
@@ -17,14 +18,17 @@ class PlayGroundActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
-        (appBarLayout.layoutParams as ViewGroup.MarginLayoutParams).apply {
-            updateMargins(top = statusBarHeight)
-        }
+        initAppBarLayout()
+    }
+
+    private fun initAppBarLayout() {
         setSupportActionBar(appBarLayout.toolbar)
+        appBarLayout.addOnGlobalLayoutListener {
+            viewModel.appBarLayoutHeight.value = it.height
+        }
+        (appBarLayout.layoutParams as ViewGroup.MarginLayoutParams).default {
+            updateMargins(top = 8.dp, bottom = 8.dp)
+        }
     }
 
     override fun initObservers() {

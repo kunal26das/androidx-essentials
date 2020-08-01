@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,38 +10,18 @@
             type="androidx.essentials.playground.PlayGroundViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.essentials.backdrop.BottomSheetView
-            android:id="@+id/bottomSheetView"
+        <androidx.essentials.playground.PlayGroundList
+            android:id="@+id/playGroundRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="16dp"
-            app:draggable="true"
-            app:state="collapsed">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <View
-                    android:id="@+id/statusBarMask"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <include layout="@layout/divider_vertical" />
-
-                <androidx.essentials.playground.PlayGroundList
-                    android:id="@+id/playGroundRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:overScrollMode="never"
-                    app:showDivider="true" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.essentials.backdrop.BottomSheetView>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            android:visibility="gone"
+            app:item_marginHorizontal="16dp"
+            app:item_marginVertical="16dp"
+            tools:listitem="@layout/item_play_ground"
+            tools:visibility="visible" />
+    </FrameLayout>
 </layout>

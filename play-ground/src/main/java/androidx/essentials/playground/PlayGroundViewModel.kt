@@ -16,12 +16,20 @@ class PlayGroundViewModel : ViewModel(), Listeners {
     private val locationProvider: LocationProvider by inject()
 
     val token = MutableLiveData(Firebase.TOKEN)
+    val appBarLayoutHeight = MutableLiveData(0)
     val isOnline = MutableLiveData(NetworkCallback.IS_ONLINE)
     val location = MutableLiveData(LocationProvider.LOCATION)
 
     val combined = Transformations.switchMap<List<Any?>>(token, isOnline, location) {
         MutableLiveData(it)
     }
+
+    val dummy = MutableLiveData(
+        listOf(
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+            11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+        )
+    )
 
     init {
         firebase.setOnTokenChangeListener(this)
