@@ -18,7 +18,7 @@ abstract class Fragment(private val dataBinding: Boolean = false) : Fragment() {
     abstract val layout: Int
     abstract val viewModel: ViewModel
     protected lateinit var root: View
-    protected open var binding: ViewDataBinding? = null
+    protected var binding: ViewDataBinding? = null
     inline fun <reified T : ViewModel> Fragment.sharedViewModel() = koinSharedViewModel<T>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
