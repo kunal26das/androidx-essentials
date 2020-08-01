@@ -2,10 +2,20 @@
 
 <resources>
     <attr name="showDivider" format="boolean" />
+    <attr name="marginVertical" format="dimension" />
+    <attr name="marginHorizontal" format="dimension" />
+    <attr name="item_marginVertical" format="dimension" />
+    <attr name="item_marginHorizontal" format="dimension" />
     <declare-styleable name="List">
         <attr name="showDivider" />
+        <attr name="marginVertical" />
+        <attr name="item_marginVertical" />
+        <attr name="item_marginHorizontal" />
     </declare-styleable>
     <declare-styleable name="PagedList">
         <attr name="showDivider" />
+        <attr name="marginVertical" />
+        <attr name="item_marginVertical" />
+        <attr name="item_marginHorizontal" />
     </declare-styleable>
 </resources>

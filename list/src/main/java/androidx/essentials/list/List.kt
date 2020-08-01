@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.essentials.extensions.Coroutines.default
+import androidx.essentials.extensions.Try.Try
 import androidx.essentials.list.adapter.EmptyAdapter
 import androidx.essentials.list.adapter.LoadingAdapter
 import androidx.recyclerview.widget.*
+import kotlin.math.roundToInt
 
 abstract class List<T, VDB : ViewDataBinding>(
     context: Context,
@@ -17,7 +20,14 @@ abstract class List<T, VDB : ViewDataBinding>(
 
     open val emptyMessage = ""
     abstract val itemLayout: Int
+    var marginVertical: Int = 0
+        set(value) {
+            field = value
+            Try { dataAdapter.notifyDataSetChanged() }
+        }
     private var showDivider: Boolean
+    private val itemMarginVertical: Int
+    private val itemMarginHorizontal: Int
     abstract val mLayoutManager: LayoutManager
     private val loadingAdapter = LoadingAdapter()
     private lateinit var emptyAdapter: EmptyAdapter
@@ -26,6 +36,12 @@ abstract class List<T, VDB : ViewDataBinding>(
     init {
         context.obtainStyledAttributes(attributes, R.styleable.List, 0, 0).apply {
             showDivider = getBoolean(R.styleable.List_showDivider, DEFAULT_DIVIDER)
+            marginVertical =
+                getDimension(R.styleable.List_marginVertical, DEFAULT_MARGIN).roundToInt()
+            itemMarginVertical =
+                getDimension(R.styleable.List_item_marginVertical, DEFAULT_MARGIN).roundToInt()
+            itemMarginHorizontal =
+                getDimension(R.styleable.List_item_marginHorizontal, DEFAULT_MARGIN).roundToInt()
             recycle()
         }
         adapter = loadingAdapter
@@ -51,13 +67,9 @@ abstract class List<T, VDB : ViewDataBinding>(
 
     abstract fun onBindViewHolder(itemView: VDB, item: T)
 
-    open fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
-        return oldItem == newItem
-    }
+    open fun areItemsTheSame(oldItem: T, newItem: T) = oldItem == newItem
 
-    open fun areContentsTheSame(oldItem: T, newItem: T): Boolean {
-        return oldItem == newItem
-    }
+    open fun areContentsTheSame(oldItem: T, newItem: T) = oldItem == newItem
 
     private val dataAdapter =
         object : ListAdapter<T, ViewHolder<VDB>>(object : DiffUtil.ItemCallback<T>() {
@@ -69,6 +81,8 @@ abstract class List<T, VDB : ViewDataBinding>(
                 return this@List.areContentsTheSame(oldItem, newItem)
             }
         }) {
+
+            override fun getItemViewType(position: Int) = position
 
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<VDB> {
                 return object : ViewHolder<VDB>(
@@ -82,6 +96,42 @@ abstract class List<T, VDB : ViewDataBinding>(
             }
 
             override fun onBindViewHolder(holder: ViewHolder<VDB>, position: Int) {
+                if (mLayoutManager is LinearLayoutManager) {
+                    (holder.itemView.layoutParams as MarginLayoutParams).default {
+                        when (position) {
+                            0 -> setMargins(
+                                itemMarginHorizontal,
+                                itemMarginVertical + marginVertical,
+                                itemMarginHorizontal,
+                                when {
+                                    showDivider -> itemMarginVertical
+                                    else -> itemMarginVertical / 2
+                                }
+                            )
+                            itemCount - 1 -> setMargins(
+                                itemMarginHorizontal,
+                                when {
+                                    showDivider -> itemMarginVertical
+                                    else -> itemMarginVertical / 2
+                                },
+                                itemMarginHorizontal,
+                                itemMarginVertical + marginVertical
+                            )
+                            else -> setMargins(
+                                itemMarginHorizontal,
+                                when {
+                                    showDivider -> itemMarginVertical
+                                    else -> itemMarginVertical / 2
+                                },
+                                itemMarginHorizontal,
+                                when {
+                                    showDivider -> itemMarginVertical
+                                    else -> itemMarginVertical / 2
+                                }
+                            )
+                        }
+                    }
+                }
                 getItem(position)?.apply {
                     this@List.onBindViewHolder(holder.binding, this)
                 }
@@ -106,6 +156,7 @@ abstract class List<T, VDB : ViewDataBinding>(
         RecyclerView.ViewHolder(binding.root)
 
     companion object {
+        const val DEFAULT_MARGIN = 0f
         const val DEFAULT_DIVIDER = false
     }
 
