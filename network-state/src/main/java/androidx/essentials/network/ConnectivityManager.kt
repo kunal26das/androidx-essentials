@@ -8,9 +8,9 @@ object ConnectivityManager {
 
     private var connectivityManager: ConnectivityManager? = null
 
-    fun getInstance(context: Context): ConnectivityManager? {
+    fun getInstance(context: Context): ConnectivityManager {
         if (connectivityManager != null) {
-            return connectivityManager
+            return connectivityManager!!
         }
         synchronized(this) {
             connectivityManager = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -18,7 +18,7 @@ object ConnectivityManager {
             } else {
                 context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             }
-            return connectivityManager
+            return connectivityManager!!
         }
     }
 }
