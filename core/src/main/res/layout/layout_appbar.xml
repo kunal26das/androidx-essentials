@@ -2,31 +2,27 @@
   ~ Copyright (c) 2020.
   -->
 
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.card.MaterialCardView
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:liftOnScroll="true">
 
-        <com.google.android.material.appbar.AppBarLayout
-            style="?appBarLayoutStyle"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="?toolbarStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" />
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/materialToolbar"
-                style="?toolbarStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <androidx.core.widget.ContentLoadingProgressBar
-                android:id="@+id/contentLoadingProgressBar"
-                style="?progressBarStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-6dp"
-                android:layout_marginBottom="-6dp"
-                android:indeterminate="true" />
-        </com.google.android.material.appbar.AppBarLayout>
-    </com.google.android.material.card.MaterialCardView>
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/contentLoadingProgressBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-6dp"
+            android:layout_marginBottom="-6dp"
+            android:indeterminate="true" />
+    </com.google.android.material.appbar.AppBarLayout>
 </merge>

@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
@@ -14,6 +15,9 @@ android {
     buildFeatures {
         dataBinding = true
         viewBinding = true
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
