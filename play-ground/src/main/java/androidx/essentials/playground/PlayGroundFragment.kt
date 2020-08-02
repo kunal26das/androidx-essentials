@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.essentials.core.Fragment
 import androidx.essentials.core.Resources.dp
+import androidx.essentials.core.Resources.statusBarHeight
 import androidx.essentials.events.Events
 import androidx.essentials.playground.databinding.FragmentPlayGroundBinding
 import kotlinx.android.synthetic.main.fragment_play_ground.*
@@ -27,8 +28,11 @@ class PlayGroundFragment : Fragment(true) {
         }
         viewModel.appBarLayoutHeight.observe {
             if (it > 0) {
-                playGroundRecyclerView.marginVertical = it + 8.dp
-                playGroundRecyclerView.visibility = View.VISIBLE
+                with(binding as FragmentPlayGroundBinding) {
+                    refreshPlayGround.setProgressViewOffset(false, 0, it + statusBarHeight)
+                    playGroundRecyclerView.marginVertical = it + 8.dp
+                    playGroundRecyclerView.visibility = View.VISIBLE
+                }
             }
         }
     }

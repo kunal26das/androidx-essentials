@@ -46,6 +46,7 @@ dependencies {
         implementation "androidx.core:core-ktx:$core_version"
         implementation "androidx.security:security-crypto:1.0.0-rc02"
         implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+        implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     }
 
     // Material Design
