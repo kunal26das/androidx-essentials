@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <bool name="isLightTheme">true</bool>
+
     <color name="colorStatusBar">@color/colorNotNight</color>
     <color name="colorNavigationBar">@color/colorNotNight</color>
     <color name="colorWindowBackground">@color/colorNotNight</color>
