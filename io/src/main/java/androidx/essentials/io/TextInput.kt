@@ -18,14 +18,24 @@ class TextInput @JvmOverloads constructor(
     var regex: Regex? = null
     private lateinit var mHint: String
     private val keyListener: KeyListener
+    private val defaultBoxStrokeWidth: Int
+    private val defaultBoxStrokeWidthFocused: Int
     private val inputMethodManager = InputMethodManager.getInstance(context)
 
     var isEditable = DEFAULT_IS_EDITABLE
         set(value) {
             field = value
-            editText?.keyListener = when (value) {
-                true -> keyListener
-                false -> null
+            when (value) {
+                true -> {
+                    editText?.keyListener = keyListener
+                    boxStrokeWidth = defaultBoxStrokeWidth
+                    boxStrokeWidthFocused = defaultBoxStrokeWidthFocused
+                }
+                false -> {
+                    boxStrokeWidth = 0
+                    boxStrokeWidthFocused = 0
+                    editText?.keyListener = null
+                }
             }
         }
 
@@ -43,7 +53,7 @@ class TextInput @JvmOverloads constructor(
                     error = MESSAGE_MANDATORY
                     true
                 }
-                isEditable && regex != null && text.matches(regex!!) -> {
+                isEditable && regex != null && !text.matches(regex!!) -> {
                     error = MESSAGE_REGEX
                     true
                 }
@@ -55,6 +65,9 @@ class TextInput @JvmOverloads constructor(
     init {
         addView(TextInputEditText(context))
         keyListener = editText?.keyListener!!
+        defaultBoxStrokeWidth = boxStrokeWidth
+        defaultBoxStrokeWidthFocused = boxStrokeWidthFocused
+
         context.obtainStyledAttributes(attrs, R.styleable.TextInput, defStyleAttr, 0).apply {
             isEditable = getBoolean(R.styleable.TextInput_editable, DEFAULT_IS_EDITABLE)
             isMandatory =
@@ -63,6 +76,7 @@ class TextInput @JvmOverloads constructor(
             if (pattern != null) regex = Regex(pattern)
             recycle()
         }
+
         editText?.apply {
             setLines(1)
             doAfterTextChanged { isValid }
