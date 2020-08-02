@@ -96,39 +96,46 @@ abstract class List<T, VDB : ViewDataBinding>(
             }
 
             override fun onBindViewHolder(holder: ViewHolder<VDB>, position: Int) {
-                if (mLayoutManager is LinearLayoutManager) {
-                    (holder.itemView.layoutParams as MarginLayoutParams).default {
-                        when (position) {
-                            0 -> setMargins(
-                                itemMarginHorizontal,
-                                itemMarginVertical + marginVertical,
-                                itemMarginHorizontal,
-                                when {
-                                    showDivider -> itemMarginVertical
-                                    else -> itemMarginVertical / 2
-                                }
-                            )
-                            itemCount - 1 -> setMargins(
-                                itemMarginHorizontal,
-                                when {
-                                    showDivider -> itemMarginVertical
-                                    else -> itemMarginVertical / 2
-                                },
-                                itemMarginHorizontal,
-                                itemMarginVertical + marginVertical
-                            )
-                            else -> setMargins(
-                                itemMarginHorizontal,
-                                when {
-                                    showDivider -> itemMarginVertical
-                                    else -> itemMarginVertical / 2
-                                },
-                                itemMarginHorizontal,
-                                when {
-                                    showDivider -> itemMarginVertical
-                                    else -> itemMarginVertical / 2
-                                }
-                            )
+                when (mLayoutManager) {
+                    is LinearLayoutManager -> {
+                        (holder.itemView.layoutParams as MarginLayoutParams).default {
+                            when (position) {
+                                0 -> setMargins(
+                                    itemMarginHorizontal,
+                                    itemMarginVertical + marginVertical,
+                                    itemMarginHorizontal,
+                                    when {
+                                        showDivider -> itemMarginVertical
+                                        else -> itemMarginVertical / 2
+                                    }
+                                )
+                                itemCount - 1 -> setMargins(
+                                    itemMarginHorizontal,
+                                    when {
+                                        showDivider -> itemMarginVertical
+                                        else -> itemMarginVertical / 2
+                                    },
+                                    itemMarginHorizontal,
+                                    itemMarginVertical + marginVertical
+                                )
+                                else -> setMargins(
+                                    itemMarginHorizontal,
+                                    when {
+                                        showDivider -> itemMarginVertical
+                                        else -> itemMarginVertical / 2
+                                    },
+                                    itemMarginHorizontal,
+                                    when {
+                                        showDivider -> itemMarginVertical
+                                        else -> itemMarginVertical / 2
+                                    }
+                                )
+                            }
+                        }
+                    }
+                    is GridLayoutManager -> {
+                        (holder.itemView.layoutParams as MarginLayoutParams).default {
+
                         }
                     }
                 }
@@ -142,13 +149,25 @@ abstract class List<T, VDB : ViewDataBinding>(
         super.onAttachedToWindow()
         layoutManager = mLayoutManager
         emptyAdapter = EmptyAdapter(emptyMessage)
-        if (showDivider && mLayoutManager is LinearLayoutManager) {
-            addItemDecoration(
-                DividerItemDecoration(
-                    context,
-                    (mLayoutManager as LinearLayoutManager).orientation
-                )
-            )
+        if (showDivider) {
+            when (mLayoutManager) {
+                is LinearLayoutManager -> {
+                    addItemDecoration(
+                        DividerItemDecoration(
+                            context,
+                            (mLayoutManager as LinearLayoutManager).orientation
+                        )
+                    )
+                }
+                is GridLayoutManager -> {
+                    addItemDecoration(
+                        DividerItemDecoration(
+                            context,
+                            (mLayoutManager as GridLayoutManager).orientation
+                        )
+                    )
+                }
+            }
         }
     }
 
