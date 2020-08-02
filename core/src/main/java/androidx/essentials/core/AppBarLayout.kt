@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.widget.ContentLoadingProgressBar
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.card.MaterialCardView
 
@@ -15,6 +16,7 @@ class AppBarLayout @JvmOverloads constructor(
 ) : MaterialCardView(context, attrs, defStyleAttr) {
 
     val toolbar: MaterialToolbar
+    private val appBarLayout: AppBarLayout
     private val contentLoadingProgressBar: ContentLoadingProgressBar
     var isLoading: Boolean = DEFAULT_LOADING
         set(value) {
@@ -28,6 +30,8 @@ class AppBarLayout @JvmOverloads constructor(
     init {
         LayoutInflater.from(context).inflate(R.layout.layout_appbar, this, true).apply {
             contentLoadingProgressBar = findViewById(R.id.contentLoadingProgressBar)
+            appBarLayout = findViewById(R.id.materialAppBarLayout)
+            appBarLayout.backgroundTintList = cardBackgroundColor
             toolbar = findViewById(R.id.toolbar)
             contentLoadingProgressBar.hide()
         }
