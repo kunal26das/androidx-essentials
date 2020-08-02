@@ -3,17 +3,22 @@
   -->
 
 <resources>
-    <color name="colorStatusBar">@color/colorBlack</color>
-    <color name="colorNavigationBar">@color/colorBlack</color>
-    <color name="colorWindowBackground">@color/colorBlack</color>
+    <color name="colorStatusBar">@color/colorNight</color>
+    <color name="colorNavigationBar">@color/colorNight</color>
+    <color name="colorWindowBackground">@color/colorNight</color>
 
-    <color name="colorBackground">@color/colorBlack</color>
-    <color name="colorSurface">@color/colorBlack</color>
+    <color name="colorPrimary">@color/colorNotNight</color>
+    <color name="colorPrimaryVariant">@color/colorNight</color>
+    <color name="colorSecondary">@color/colorNight</color>
+    <color name="colorSecondaryVariant">@color/colorNight</color>
+
+    <color name="colorBackground">@color/colorNight</color>
+    <color name="colorSurface">@color/colorNight</color>
     <color name="colorError">#CF6679</color>
 
-    <color name="colorOnPrimary">@color/colorBlack</color>
-    <color name="colorOnSecondary">@color/colorBlack</color>
-    <color name="colorOnBackground">@color/colorWhite</color>
-    <color name="colorOnSurface">@color/colorWhite</color>
-    <color name="colorOnError">@color/colorBlack</color>
+    <color name="colorOnPrimary">@color/colorNight</color>
+    <color name="colorOnSecondary">@color/colorNight</color>
+    <color name="colorOnBackground">@color/colorNotNight</color>
+    <color name="colorOnSurface">@color/colorNotNight</color>
+    <color name="colorOnError">@color/colorNight</color>
 </resources>

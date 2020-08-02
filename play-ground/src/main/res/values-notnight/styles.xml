@@ -26,5 +26,11 @@
 
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowActivityTransitions">true</item>
+
+        <item name="materialCardViewStyle">@style/MaterialCardViewStyle</item>
+    </style>
+
+    <style name="MaterialCardViewStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/colorNotNight</item>
     </style>
 </resources>

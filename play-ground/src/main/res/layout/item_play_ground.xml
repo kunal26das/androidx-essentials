@@ -15,7 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:editable="false"
+        android:hint="Hint"
+        app:mandatory="true"
+        app:regex="(^[1-9]$)"
         app:text="@{string}"
         tools:text="String" />
 </layout>
