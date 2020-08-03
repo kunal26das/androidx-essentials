@@ -18,24 +18,14 @@ class TextInput @JvmOverloads constructor(
     var regex: Regex? = null
     private lateinit var mHint: String
     private val keyListener: KeyListener
-    private val defaultBoxStrokeWidth = boxStrokeWidth
-    private val defaultBoxStrokeWidthFocused = boxStrokeWidthFocused
     private val inputMethodManager = InputMethodManager.getInstance(context)
 
     var isEditable = DEFAULT_IS_EDITABLE
         set(value) {
             field = value
-            when (value) {
-                true -> {
-                    editText?.keyListener = keyListener
-                    boxStrokeWidth = defaultBoxStrokeWidth
-                    boxStrokeWidthFocused = defaultBoxStrokeWidthFocused
-                }
-                false -> {
-                    boxStrokeWidth = 0
-                    boxStrokeWidthFocused = 0
-                    editText?.keyListener = null
-                }
+            editText?.keyListener = when (value) {
+                true -> keyListener
+                false -> null
             }
         }
 
@@ -66,7 +56,7 @@ class TextInput @JvmOverloads constructor(
         LayoutInflater.from(context).inflate(
             when (boxBackgroundMode) {
                 BOX_BACKGROUND_FILLED -> R.layout.layout_text_input_edit_text_filled
-                BOX_BACKGROUND_OUTLINE -> R.layout.layout_text_input_edit_text_outlined
+                BOX_BACKGROUND_OUTLINE -> R.layout.layout_text_input_edit_text_outline
                 else -> R.layout.layout_text_input_edit_text
             }, this, true
         )
