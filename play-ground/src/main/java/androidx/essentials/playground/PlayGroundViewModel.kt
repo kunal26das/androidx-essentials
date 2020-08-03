@@ -24,12 +24,7 @@ class PlayGroundViewModel : ViewModel(), Listeners {
         MutableLiveData(it)
     }
 
-    val dummy = MutableLiveData(
-        listOf(
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-            11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-        )
-    )
+    val dummy = MutableLiveData(listOf(""))
 
     init {
         firebase.setOnTokenChangeListener(this)

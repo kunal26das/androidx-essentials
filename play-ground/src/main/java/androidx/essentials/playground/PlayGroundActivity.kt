@@ -19,6 +19,7 @@ class PlayGroundActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initAppBarLayout()
+        supportFragmentManager
     }
 
     private fun initAppBarLayout() {

@@ -10,13 +10,14 @@
             type="String" />
     </data>
 
-    <androidx.essentials.io.TextInput
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <androidx.essentials.io.AutoComplete
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@{string}"
+        app:array="@array/sample_array"
+        app:editable="false"
         app:mandatory="true"
-        app:regex="^[1-9]$"
         app:text="@{string}"
         tools:text="String" />
 </layout>
