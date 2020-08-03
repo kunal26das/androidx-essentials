@@ -2,6 +2,7 @@
 
 <resources>
     <declare-styleable name="TextInput">
+        <attr name="boxBackgroundMode" />
         <attr name="editable" format="boolean" />
         <attr name="mandatory" format="boolean" />
         <attr name="regex" format="string" />

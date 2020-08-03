@@ -3,10 +3,10 @@ package androidx.essentials.io
 import android.content.Context
 import android.text.method.KeyListener
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.widget.doAfterTextChanged
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 class TextInput @JvmOverloads constructor(
@@ -18,8 +18,8 @@ class TextInput @JvmOverloads constructor(
     var regex: Regex? = null
     private lateinit var mHint: String
     private val keyListener: KeyListener
-    private val defaultBoxStrokeWidth: Int
-    private val defaultBoxStrokeWidthFocused: Int
+    private val defaultBoxStrokeWidth = boxStrokeWidth
+    private val defaultBoxStrokeWidthFocused = boxStrokeWidthFocused
     private val inputMethodManager = InputMethodManager.getInstance(context)
 
     var isEditable = DEFAULT_IS_EDITABLE
@@ -63,20 +63,26 @@ class TextInput @JvmOverloads constructor(
         }
 
     init {
-        addView(TextInputEditText(context))
+        LayoutInflater.from(context).inflate(
+            when (boxBackgroundMode) {
+                BOX_BACKGROUND_FILLED -> R.layout.layout_text_input_edit_text_filled
+                BOX_BACKGROUND_OUTLINE -> R.layout.layout_text_input_edit_text_outlined
+                else -> R.layout.layout_text_input_edit_text
+            }, this, true
+        )
         keyListener = editText?.keyListener!!
-        defaultBoxStrokeWidth = boxStrokeWidth
-        defaultBoxStrokeWidthFocused = boxStrokeWidthFocused
-
         context.obtainStyledAttributes(attrs, R.styleable.TextInput, defStyleAttr, 0).apply {
             isEditable = getBoolean(R.styleable.TextInput_editable, DEFAULT_IS_EDITABLE)
             isMandatory =
                 isEditable and getBoolean(R.styleable.TextInput_mandatory, DEFAULT_IS_MANDATORY)
             val pattern = getString(R.styleable.TextInput_regex)
             if (pattern != null) regex = Regex(pattern)
+            initEditText()
             recycle()
         }
+    }
 
+    private fun initEditText() {
         editText?.apply {
             setLines(1)
             doAfterTextChanged { isValid }
