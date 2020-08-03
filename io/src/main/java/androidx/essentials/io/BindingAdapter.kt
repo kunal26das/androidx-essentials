@@ -6,6 +6,26 @@ import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 
 @BindingAdapter("text")
+fun setText(autoComplete: AutoComplete, text: String?) {
+    autoComplete.editText?.setText(text)
+}
+
+@InverseBindingAdapter(attribute = "text")
+fun getText(autoComplete: AutoComplete): String? {
+    return "${autoComplete.editText?.text}"
+}
+
+@BindingAdapter(value = ["textAttrChanged"])
+fun setOnFieldInputChangeListener(
+    autoComplete: AutoComplete,
+    inverseBindingListener: InverseBindingListener
+) {
+    autoComplete.editText?.doAfterTextChanged {
+        inverseBindingListener.onChange()
+    }
+}
+
+@BindingAdapter("text")
 fun setText(textInput: TextInput, text: String?) {
     textInput.editText?.setText(text)
 }
