@@ -2,6 +2,7 @@
 <resources>
     <bool name="isLightTheme">true</bool>
 
+    <color name="colorNavigationBarDivider">#CCCCCC</color>
     <color name="colorStatusBar">@color/colorNotNight</color>
     <color name="colorNavigationBar">@color/colorNotNight</color>
     <color name="colorWindowBackground">@color/colorNotNight</color>

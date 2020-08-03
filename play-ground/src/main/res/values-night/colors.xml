@@ -6,6 +6,7 @@
     <bool name="isLightTheme">false</bool>
 
     <color name="colorStatusBar">@color/colorNight</color>
+    <color name="colorNavigationBarDivider">#00000000</color>
     <color name="colorNavigationBar">@color/colorNight</color>
     <color name="colorWindowBackground">@color/colorNight</color>
 
