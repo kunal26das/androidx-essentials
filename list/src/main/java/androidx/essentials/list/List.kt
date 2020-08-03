@@ -15,16 +15,12 @@ import kotlin.math.roundToInt
 
 abstract class List<T, VDB : ViewDataBinding>(
     context: Context,
-    attributes: AttributeSet? = null
-) : RecyclerView(context, attributes) {
+    attrs: AttributeSet? = null
+) : RecyclerView(context, attrs) {
 
+    private var rowCount = 0
     open val emptyMessage = ""
     abstract val itemLayout: Int
-    var marginVertical: Int = 0
-        set(value) {
-            field = value
-            Try { dataAdapter.notifyDataSetChanged() }
-        }
     private var showDivider: Boolean
     private val itemMarginVertical: Int
     private val itemMarginHorizontal: Int
@@ -33,8 +29,14 @@ abstract class List<T, VDB : ViewDataBinding>(
     private lateinit var emptyAdapter: EmptyAdapter
     protected val linearLayoutManager = LinearLayoutManager(context)
 
+    var marginVertical: Int = 0
+        set(value) {
+            field = value
+            Try { dataAdapter.notifyDataSetChanged() }
+        }
+
     init {
-        context.obtainStyledAttributes(attributes, R.styleable.List, 0, 0).apply {
+        context.obtainStyledAttributes(attrs, R.styleable.List, 0, 0).apply {
             showDivider = getBoolean(R.styleable.List_showDivider, DEFAULT_DIVIDER)
             marginVertical =
                 getDimension(R.styleable.List_marginVertical, DEFAULT_MARGIN).roundToInt()
@@ -58,10 +60,19 @@ abstract class List<T, VDB : ViewDataBinding>(
                 adapter = emptyAdapter
             }
             else -> {
+                calculateRowCount()
                 layoutManager = mLayoutManager
                 dataAdapter.submitList(list)
                 adapter = dataAdapter
             }
+        }
+    }
+
+    private fun calculateRowCount() {
+        if (mLayoutManager is GridLayoutManager) {
+            val size = dataAdapter.currentList.size
+            val spanCount = (mLayoutManager as GridLayoutManager).spanCount
+            rowCount = (size + (size % spanCount)) / spanCount
         }
     }
 
@@ -97,6 +108,82 @@ abstract class List<T, VDB : ViewDataBinding>(
 
             override fun onBindViewHolder(holder: ViewHolder<VDB>, position: Int) {
                 when (mLayoutManager) {
+                    is GridLayoutManager -> {
+                        val spanCount = (mLayoutManager as GridLayoutManager).spanCount
+                        (holder.itemView.layoutParams as MarginLayoutParams).default {
+                            val topLeft = 0
+                            val topRight = spanCount - 1
+                            val bottomLeft = spanCount * (rowCount - 1)
+                            val bottomRight = (spanCount * rowCount) - 1
+                            val corners = setOf(topLeft, topRight, bottomLeft, bottomRight)
+                            when {
+                                // Corners
+                                position in corners -> {
+                                    when (position) {
+                                        topLeft -> setMargins(
+                                            itemMarginHorizontal,
+                                            itemMarginVertical + marginVertical,
+                                            itemMarginHorizontal / 2,
+                                            itemMarginVertical / 2
+                                        )
+                                        topRight -> setMargins(
+                                            itemMarginHorizontal / 2,
+                                            itemMarginVertical + marginVertical,
+                                            itemMarginHorizontal,
+                                            itemMarginVertical / 2
+                                        )
+                                        bottomLeft -> setMargins(
+                                            itemMarginHorizontal,
+                                            itemMarginVertical / 2,
+                                            itemMarginHorizontal / 2,
+                                            itemMarginVertical + marginVertical
+                                        )
+                                        bottomRight -> setMargins(
+                                            itemMarginHorizontal / 2,
+                                            itemMarginVertical / 2,
+                                            itemMarginHorizontal,
+                                            itemMarginVertical + marginVertical
+                                        )
+                                    }
+                                }
+                                // Top Row
+                                position in topLeft..topRight -> setMargins(
+                                    itemMarginHorizontal / 2,
+                                    itemMarginVertical + marginVertical,
+                                    itemMarginHorizontal / 2,
+                                    itemMarginVertical / 2
+                                )
+                                // Bottom Row
+                                position in bottomLeft..bottomRight -> setMargins(
+                                    itemMarginHorizontal / 2,
+                                    itemMarginVertical / 2,
+                                    itemMarginHorizontal / 2,
+                                    itemMarginVertical + marginVertical
+                                )
+                                // Left Column
+                                position % spanCount == 0 -> setMargins(
+                                    itemMarginHorizontal,
+                                    itemMarginVertical / 2,
+                                    itemMarginHorizontal / 2,
+                                    itemMarginVertical / 2
+                                )
+                                // Right Column
+                                position % topRight == 0 -> setMargins(
+                                    itemMarginHorizontal / 2,
+                                    itemMarginVertical / 2,
+                                    itemMarginHorizontal,
+                                    itemMarginVertical / 2
+                                )
+                                // Center
+                                else -> setMargins(
+                                    itemMarginHorizontal / 2,
+                                    itemMarginVertical / 2,
+                                    itemMarginHorizontal / 2,
+                                    itemMarginVertical / 2
+                                )
+                            }
+                        }
+                    }
                     is LinearLayoutManager -> {
                         (holder.itemView.layoutParams as MarginLayoutParams).default {
                             when (position) {
@@ -131,11 +218,6 @@ abstract class List<T, VDB : ViewDataBinding>(
                                     }
                                 )
                             }
-                        }
-                    }
-                    is GridLayoutManager -> {
-                        (holder.itemView.layoutParams as MarginLayoutParams).default {
-
                         }
                     }
                 }
