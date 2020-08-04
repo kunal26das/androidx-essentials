@@ -26,7 +26,7 @@ implementation 'androidx.essentials:events:latest_version'
 ```
 implementation 'androidx.essentials:firebase:latest_version'
 ```
-## [Input-Output](https://github.com/kunal26das/AndroidX-Essentials/tree/master/io)
+## [I/O](https://github.com/kunal26das/AndroidX-Essentials/tree/master/io)
 [ ![Download](https://api.bintray.com/packages/kunal26das/androidx.essentials/io/images/download.svg) ](https://bintray.com/kunal26das/androidx.essentials/io/_latestVersion)
 ```
 implementation 'androidx.essentials:io:latest_version'
