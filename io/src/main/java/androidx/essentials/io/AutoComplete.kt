@@ -37,12 +37,14 @@ class AutoComplete @JvmOverloads constructor(
                 true -> keyListener
                 false -> null
             }
+            isValid
         }
 
     var isMandatory = DEFAULT_IS_MANDATORY
         set(value) {
             field = value
             hint = mHint
+            isValid
         }
 
     val isValid: Boolean
@@ -95,6 +97,7 @@ class AutoComplete @JvmOverloads constructor(
             imeOptions = EditorInfo.IME_ACTION_NEXT
             setOnFocusChangeListener { view, itHasFocus ->
                 if (!isEditable && itHasFocus) {
+                    view.clearFocus()
                     hideKeyboard(view)
                     autoCompleteTextView.showDropDown()
                 } else if (!itHasFocus) {

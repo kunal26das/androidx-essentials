@@ -6,19 +6,19 @@ import android.view.inputmethod.InputMethodManager
 
 object InputMethodManager {
 
-    private var connectivityManager: InputMethodManager? = null
+    private var inputMethodManager: InputMethodManager? = null
 
     fun getInstance(context: Context): InputMethodManager {
-        if (connectivityManager != null) {
-            return connectivityManager!!
+        if (inputMethodManager != null) {
+            return inputMethodManager!!
         }
         synchronized(this) {
-            connectivityManager = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            inputMethodManager = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 context.getSystemService(InputMethodManager::class.java)
             } else {
                 context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             }
-            return connectivityManager!!
+            return inputMethodManager!!
         }
     }
 }

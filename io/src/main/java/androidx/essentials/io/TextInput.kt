@@ -23,6 +23,7 @@ class TextInput @JvmOverloads constructor(
     var isEditable = DEFAULT_IS_EDITABLE
         set(value) {
             field = value
+            isMandatory = isMandatory
             editText?.keyListener = when (value) {
                 true -> keyListener
                 false -> null
@@ -33,17 +34,18 @@ class TextInput @JvmOverloads constructor(
         set(value) {
             field = value
             hint = mHint
+            isValid
         }
 
     val isValid: Boolean
         get() {
             val text = editText?.text?.toString() ?: ""
-            isErrorEnabled = when {
+            isErrorEnabled = isEditable and when {
                 isMandatory and text.isBlank() -> {
                     error = MESSAGE_MANDATORY
                     true
                 }
-                isEditable && regex != null && !text.matches(regex!!) -> {
+                regex != null && !text.matches(regex!!) -> {
                     error = MESSAGE_REGEX
                     true
                 }
@@ -63,8 +65,7 @@ class TextInput @JvmOverloads constructor(
         keyListener = editText?.keyListener!!
         context.obtainStyledAttributes(attrs, R.styleable.TextInput, defStyleAttr, 0).apply {
             isEditable = getBoolean(R.styleable.TextInput_editable, DEFAULT_IS_EDITABLE)
-            isMandatory =
-                isEditable and getBoolean(R.styleable.TextInput_mandatory, DEFAULT_IS_MANDATORY)
+            isMandatory = getBoolean(R.styleable.TextInput_mandatory, DEFAULT_IS_MANDATORY)
             val pattern = getString(R.styleable.TextInput_regex)
             if (pattern != null) regex = Regex(pattern)
             initEditText()
@@ -80,6 +81,7 @@ class TextInput @JvmOverloads constructor(
             setOnFocusChangeListener { view, itHasFocus ->
                 if (!isEditable && itHasFocus) {
                     hideKeyboard(view)
+                    view.clearFocus()
                 } else if (!itHasFocus) {
                     hideKeyboard(view)
                 }
@@ -90,7 +92,7 @@ class TextInput @JvmOverloads constructor(
     override fun setHint(hint: CharSequence?) {
         mHint = hint.toString()
         super.setHint(
-            when (isMandatory) {
+            when (isEditable and isMandatory) {
                 true -> "$mHint*"
                 else -> mHint
             }
