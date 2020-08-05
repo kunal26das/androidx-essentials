@@ -49,30 +49,32 @@ abstract class List<T, VDB : ViewDataBinding>(
         adapter = loadingAdapter
     }
 
-    fun submitList(list: kotlin.collections.List<T>?) {
-        when {
+    fun submitList(list: List<T>?) {
+        adapter = when {
             list == null -> {
                 layoutManager = linearLayoutManager
-                adapter = loadingAdapter
+                loadingAdapter
             }
             list.isEmpty() -> {
                 layoutManager = linearLayoutManager
-                adapter = emptyAdapter
+                emptyAdapter
             }
             else -> {
-                calculateRowCount()
+                rowCount = calculateRowCount(list)
                 layoutManager = mLayoutManager
                 dataAdapter.submitList(list)
-                adapter = dataAdapter
+                dataAdapter
             }
         }
     }
 
-    private fun calculateRowCount() {
-        if (mLayoutManager is GridLayoutManager) {
-            val size = dataAdapter.currentList.size
-            val spanCount = (mLayoutManager as GridLayoutManager).spanCount
-            rowCount = (size + (size % spanCount)) / spanCount
+    private fun calculateRowCount(list: List<T>): Int {
+        return when (mLayoutManager) {
+            is GridLayoutManager -> {
+                val spanCount = (mLayoutManager as GridLayoutManager).spanCount
+                (list.size + (list.size % spanCount)) / spanCount
+            }
+            else -> list.size
         }
     }
 
@@ -108,118 +110,14 @@ abstract class List<T, VDB : ViewDataBinding>(
 
             override fun onBindViewHolder(holder: ViewHolder<VDB>, position: Int) {
                 when (mLayoutManager) {
-                    is GridLayoutManager -> {
-                        val spanCount = (mLayoutManager as GridLayoutManager).spanCount
-                        (holder.itemView.layoutParams as MarginLayoutParams).default {
-                            val topLeft = 0
-                            val topRight = spanCount - 1
-                            val bottomLeft = spanCount * (rowCount - 1)
-                            val bottomRight = (spanCount * rowCount) - 1
-                            val corners = setOf(topLeft, topRight, bottomLeft, bottomRight)
-                            when {
-                                // Corners
-                                position in corners -> {
-                                    when (position) {
-                                        topLeft -> setMargins(
-                                            itemMarginHorizontal,
-                                            itemMarginVertical + marginVertical,
-                                            itemMarginHorizontal / 2,
-                                            itemMarginVertical / 2
-                                        )
-                                        topRight -> setMargins(
-                                            itemMarginHorizontal / 2,
-                                            itemMarginVertical + marginVertical,
-                                            itemMarginHorizontal,
-                                            itemMarginVertical / 2
-                                        )
-                                        bottomLeft -> setMargins(
-                                            itemMarginHorizontal,
-                                            itemMarginVertical / 2,
-                                            itemMarginHorizontal / 2,
-                                            itemMarginVertical + marginVertical
-                                        )
-                                        bottomRight -> setMargins(
-                                            itemMarginHorizontal / 2,
-                                            itemMarginVertical / 2,
-                                            itemMarginHorizontal,
-                                            itemMarginVertical + marginVertical
-                                        )
-                                    }
-                                }
-                                // Top Row
-                                position in topLeft..topRight -> setMargins(
-                                    itemMarginHorizontal / 2,
-                                    itemMarginVertical + marginVertical,
-                                    itemMarginHorizontal / 2,
-                                    itemMarginVertical / 2
-                                )
-                                // Bottom Row
-                                position in bottomLeft..bottomRight -> setMargins(
-                                    itemMarginHorizontal / 2,
-                                    itemMarginVertical / 2,
-                                    itemMarginHorizontal / 2,
-                                    itemMarginVertical + marginVertical
-                                )
-                                // Left Column
-                                position % spanCount == 0 -> setMargins(
-                                    itemMarginHorizontal,
-                                    itemMarginVertical / 2,
-                                    itemMarginHorizontal / 2,
-                                    itemMarginVertical / 2
-                                )
-                                // Right Column
-                                position % topRight == 0 -> setMargins(
-                                    itemMarginHorizontal / 2,
-                                    itemMarginVertical / 2,
-                                    itemMarginHorizontal,
-                                    itemMarginVertical / 2
-                                )
-                                // Center
-                                else -> setMargins(
-                                    itemMarginHorizontal / 2,
-                                    itemMarginVertical / 2,
-                                    itemMarginHorizontal / 2,
-                                    itemMarginVertical / 2
-                                )
-                            }
-                        }
-                    }
-                    is LinearLayoutManager -> {
-                        (holder.itemView.layoutParams as MarginLayoutParams).default {
-                            when (position) {
-                                0 -> setMargins(
-                                    itemMarginHorizontal,
-                                    itemMarginVertical + marginVertical,
-                                    itemMarginHorizontal,
-                                    when {
-                                        showDivider -> itemMarginVertical
-                                        else -> itemMarginVertical / 2
-                                    }
-                                )
-                                itemCount - 1 -> setMargins(
-                                    itemMarginHorizontal,
-                                    when {
-                                        showDivider -> itemMarginVertical
-                                        else -> itemMarginVertical / 2
-                                    },
-                                    itemMarginHorizontal,
-                                    itemMarginVertical + marginVertical
-                                )
-                                else -> setMargins(
-                                    itemMarginHorizontal,
-                                    when {
-                                        showDivider -> itemMarginVertical
-                                        else -> itemMarginVertical / 2
-                                    },
-                                    itemMarginHorizontal,
-                                    when {
-                                        showDivider -> itemMarginVertical
-                                        else -> itemMarginVertical / 2
-                                    }
-                                )
-                            }
-                        }
-                    }
+                    is GridLayoutManager -> setGridLayoutMargins(
+                        holder.itemView.layoutParams,
+                        position
+                    )
+                    is LinearLayoutManager -> setLinearLayoutMargins(
+                        holder.itemView.layoutParams,
+                        position
+                    )
                 }
                 getItem(position)?.apply {
                     this@List.onBindViewHolder(holder.binding, this)
@@ -227,25 +125,175 @@ abstract class List<T, VDB : ViewDataBinding>(
             }
         }
 
+    private fun setGridLayoutMargins(marginLayoutParams: ViewGroup.LayoutParams, position: Int) {
+        val spanCount = (mLayoutManager as GridLayoutManager).spanCount
+        (marginLayoutParams as MarginLayoutParams).default {
+            val topLeft = 0
+            val topRight = spanCount - 1
+            val bottomLeft = spanCount * (rowCount - 1)
+            val bottomRight = (spanCount * rowCount) - 1
+            val corners = setOf(topLeft, topRight, bottomLeft, bottomRight)
+            when {
+                // Corners
+                position in corners -> {
+                    when (position) {
+                        topLeft -> setMargins(
+                            itemMarginHorizontal,
+                            itemMarginVertical + marginVertical,
+                            itemMarginHorizontal / 2,
+                            when {
+                                showDivider -> itemMarginVertical
+                                else -> itemMarginVertical / 2
+                            }
+                        )
+                        topRight -> setMargins(
+                            itemMarginHorizontal / 2,
+                            itemMarginVertical + marginVertical,
+                            itemMarginHorizontal,
+                            when {
+                                showDivider -> itemMarginVertical
+                                else -> itemMarginVertical / 2
+                            }
+                        )
+                        bottomLeft -> setMargins(
+                            itemMarginHorizontal,
+                            when {
+                                showDivider -> itemMarginVertical
+                                else -> itemMarginVertical / 2
+                            },
+                            itemMarginHorizontal / 2,
+                            itemMarginVertical + marginVertical
+                        )
+                        bottomRight -> setMargins(
+                            itemMarginHorizontal / 2,
+                            when {
+                                showDivider -> itemMarginVertical
+                                else -> itemMarginVertical / 2
+                            },
+                            itemMarginHorizontal,
+                            itemMarginVertical + marginVertical
+                        )
+                    }
+                }
+                // Top Row
+                position in topLeft..topRight -> setMargins(
+                    itemMarginHorizontal / 2,
+                    itemMarginVertical + marginVertical,
+                    itemMarginHorizontal / 2,
+                    when {
+                        showDivider -> itemMarginVertical
+                        else -> itemMarginVertical / 2
+                    }
+                )
+                // Bottom Row
+                position in bottomLeft..bottomRight -> setMargins(
+                    itemMarginHorizontal / 2,
+                    when {
+                        showDivider -> itemMarginVertical
+                        else -> itemMarginVertical / 2
+                    },
+                    itemMarginHorizontal / 2,
+                    itemMarginVertical + marginVertical
+                )
+                // Left Column
+                position % spanCount == 0 -> setMargins(
+                    itemMarginHorizontal,
+                    when {
+                        showDivider -> itemMarginVertical
+                        else -> itemMarginVertical / 2
+                    },
+                    itemMarginHorizontal / 2,
+                    when {
+                        showDivider -> itemMarginVertical
+                        else -> itemMarginVertical / 2
+                    }
+                )
+                // Right Column
+                position % topRight == 0 -> setMargins(
+                    itemMarginHorizontal / 2,
+                    when {
+                        showDivider -> itemMarginVertical
+                        else -> itemMarginVertical / 2
+                    },
+                    itemMarginHorizontal,
+                    when {
+                        showDivider -> itemMarginVertical
+                        else -> itemMarginVertical / 2
+                    }
+                )
+                // Center
+                else -> setMargins(
+                    itemMarginHorizontal / 2,
+                    when {
+                        showDivider -> itemMarginVertical
+                        else -> itemMarginVertical / 2
+                    },
+                    itemMarginHorizontal / 2,
+                    when {
+                        showDivider -> itemMarginVertical
+                        else -> itemMarginVertical / 2
+                    }
+                )
+            }
+        }
+    }
+
+    private fun setLinearLayoutMargins(layoutParams: ViewGroup.LayoutParams, position: Int) {
+        (layoutParams as MarginLayoutParams).default {
+            when (position) {
+                0 -> setMargins(
+                    itemMarginHorizontal,
+                    itemMarginVertical + marginVertical,
+                    itemMarginHorizontal,
+                    when {
+                        showDivider -> itemMarginVertical
+                        else -> itemMarginVertical / 2
+                    }
+                )
+                rowCount - 1 -> setMargins(
+                    itemMarginHorizontal,
+                    when {
+                        showDivider -> itemMarginVertical
+                        else -> itemMarginVertical / 2
+                    },
+                    itemMarginHorizontal,
+                    itemMarginVertical + marginVertical
+                )
+                else -> setMargins(
+                    itemMarginHorizontal,
+                    when {
+                        showDivider -> itemMarginVertical
+                        else -> itemMarginVertical / 2
+                    },
+                    itemMarginHorizontal,
+                    when {
+                        showDivider -> itemMarginVertical
+                        else -> itemMarginVertical / 2
+                    }
+                )
+            }
+        }
+    }
+
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         layoutManager = mLayoutManager
         emptyAdapter = EmptyAdapter(emptyMessage)
         if (showDivider) {
             when (mLayoutManager) {
-                is LinearLayoutManager -> {
-                    addItemDecoration(
-                        DividerItemDecoration(
-                            context,
-                            (mLayoutManager as LinearLayoutManager).orientation
-                        )
-                    )
-                }
                 is GridLayoutManager -> {
                     addItemDecoration(
                         DividerItemDecoration(
                             context,
                             (mLayoutManager as GridLayoutManager).orientation
+                        )
+                    )
+                }
+                is LinearLayoutManager -> {
+                    addItemDecoration(
+                        DividerItemDecoration(
+                            context,
+                            (mLayoutManager as LinearLayoutManager).orientation
                         )
                     )
                 }
