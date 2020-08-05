@@ -55,7 +55,8 @@ class AutoComplete @JvmOverloads constructor(
                     error = MESSAGE_MANDATORY
                     true
                 }
-                else -> array.contains(text)
+                isEditable -> !array.contains(text)
+                else -> false
             }
             return !isErrorEnabled
         }
