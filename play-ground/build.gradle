@@ -40,15 +40,23 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+    // AndroidX Libraries
     dependencies {
-        // AndroidX Libraries
         implementation 'androidx.appcompat:appcompat:1.1.0'
         implementation "androidx.core:core-ktx:$core_version"
-        implementation "androidx.security:security-crypto:1.0.0-rc02"
-        implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+        // Layouts
         implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+        // Live Data
+        implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+        // Navigation
+        implementation "androidx.navigation:navigation-ui-ktx:2.3.0"
+        implementation "androidx.navigation:navigation-fragment-ktx:2.3.0"
+        // Security
+        implementation "androidx.security:security-crypto:1.0.0-rc02"
     }
 
+    // Fluent Design
+    implementation 'com.microsoft.uifabric:OfficeUIFabric:0.3.7'
     // Material Design
     implementation "com.google.android.material:material:$material_version"
 

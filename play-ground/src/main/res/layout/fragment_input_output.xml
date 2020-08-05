@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="androidx.essentials.playground.ui.PlayGroundViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="?actionBarSize"
+            android:orientation="vertical"
+            tools:layout_marginVertical="0dp">
+
+            <androidx.essentials.io.TextInput
+                android:id="@+id/textInput"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/text_input"
+                app:editable="@{viewModel.isEditable}"
+                app:mandatory="@{viewModel.isMandatory}" />
+
+            <androidx.essentials.io.AutoComplete
+                android:id="@+id/autoComplete"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="8dp"
+                android:hint="@string/auto_complete"
+                app:editable="@{viewModel.isEditable}"
+                app:mandatory="@{viewModel.isMandatory}" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/background_selectable_item"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="@={viewModel.isEditable}"
+                    android:layoutDirection="rtl"
+                    android:text="@string/editable" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="@={viewModel.isMandatory}"
+                    android:layoutDirection="rtl"
+                    android:text="@string/mandatory" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
+</layout>

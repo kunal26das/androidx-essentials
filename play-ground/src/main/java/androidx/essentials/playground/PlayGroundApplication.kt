@@ -7,6 +7,7 @@ import androidx.essentials.events.Events
 import androidx.essentials.firebase.FirebaseApplication
 import androidx.essentials.location.LocationProvider
 import androidx.essentials.network.NetworkCallback
+import androidx.essentials.playground.ui.PlayGroundViewModel
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 

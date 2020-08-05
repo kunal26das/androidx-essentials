@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="menuItem"
+            type="android.view.MenuItem" />
+    </data>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_selectable_item"
+        android:orientation="vertical"
+        android:padding="12dp"
+        tools:layout_margin="16dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@{menuItem.icon}"
+            app:tint="@color/colorText" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/materialTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:paddingTop="4dp"
+            android:text="@{menuItem.title}"
+            android:textAlignment="textStart"
+            android:textSize="16sp"
+            tools:text="Library" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

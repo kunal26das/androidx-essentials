@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/libraries">
+        <item
+            android:id="@+id/backdrop"
+            android:title="@string/backdrop" />
+        <item
+            android:id="@+id/core"
+            android:checkable="true"
+            android:title="@string/core" />
+        <item
+            android:id="@+id/events"
+            android:icon="@drawable/ic_notifications_24dp"
+            android:title="@string/events" />
+        <item
+            android:id="@+id/firebase"
+            android:title="@string/firebase" />
+        <item
+            android:id="@+id/io"
+            android:title="@string/io" />
+        <item
+            android:id="@+id/extensions"
+            android:icon="@drawable/ic_kotlin_24dp"
+            android:title="@string/extensions" />
+        <item
+            android:id="@+id/list"
+            android:icon="@drawable/ic_list_24dp"
+            android:title="@string/list" />
+        <item
+            android:id="@+id/location"
+            android:icon="@drawable/ic_location_on_24dp"
+            android:title="@string/location" />
+        <item
+            android:id="@+id/network"
+            android:title="@string/network" />
+        <item
+            android:id="@+id/resources"
+            android:icon="@drawable/ic_architecture_24dp"
+            android:title="@string/resources" />
+    </group>
+</menu>

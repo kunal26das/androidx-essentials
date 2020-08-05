@@ -1,4 +1,4 @@
-package androidx.essentials.playground
+package androidx.essentials.playground.utils
 
 import androidx.essentials.firebase.Firebase
 import androidx.essentials.location.LocationProvider

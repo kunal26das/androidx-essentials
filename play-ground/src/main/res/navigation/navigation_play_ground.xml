@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_play_ground.xml"
+    app:startDestination="@id/core">
+
+    <fragment
+        android:id="@+id/backdrop"
+        android:name="androidx.essentials.playground.ui.fragment.BackdropFragment"
+        android:label="@string/backdrop"
+        tools:layout="@layout/fragment_backdrop" />
+
+    <fragment
+        android:id="@+id/core"
+        android:name="androidx.essentials.playground.ui.fragment.CoreFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_core" />
+
+    <fragment
+        android:id="@+id/firebase"
+        android:name="androidx.essentials.playground.ui.fragment.FirebaseFragment"
+        android:label="@string/firebase"
+        tools:layout="@layout/fragment_firebase" />
+
+    <fragment
+        android:id="@+id/io"
+        android:name="androidx.essentials.playground.ui.fragment.InputOutputFragment"
+        android:label="@string/io"
+        tools:layout="@layout/fragment_input_output" />
+
+    <fragment
+        android:id="@+id/location"
+        android:name="androidx.essentials.playground.ui.fragment.LocationFragment"
+        android:label="@string/network"
+        tools:layout="@layout/fragment_location" />
+
+    <fragment
+        android:id="@+id/network"
+        android:name="androidx.essentials.playground.ui.fragment.NetworkFragment"
+        android:label="@string/network"
+        tools:layout="@layout/fragment_network" />
+</navigation>
