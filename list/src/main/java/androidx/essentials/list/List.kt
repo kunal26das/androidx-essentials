@@ -49,7 +49,7 @@ abstract class List<T, VDB : ViewDataBinding>(
         adapter = loadingAdapter
     }
 
-    fun submitList(list: List<T>?) {
+    fun submitList(list: kotlin.collections.List<T>?) {
         adapter = when {
             list == null -> {
                 layoutManager = linearLayoutManager
@@ -68,7 +68,7 @@ abstract class List<T, VDB : ViewDataBinding>(
         }
     }
 
-    private fun calculateRowCount(list: List<T>): Int {
+    private fun calculateRowCount(list: kotlin.collections.List<T>): Int {
         return when (mLayoutManager) {
             is GridLayoutManager -> {
                 val spanCount = (mLayoutManager as GridLayoutManager).spanCount
