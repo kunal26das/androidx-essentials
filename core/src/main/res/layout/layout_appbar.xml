@@ -9,7 +9,7 @@
         android:id="@+id/materialAppBarLayout"
         style="?appBarLayoutStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?actionBarSize"
         app:liftOnScroll="true">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -26,5 +26,12 @@
             android:layout_marginTop="-6dp"
             android:layout_marginBottom="-6dp"
             android:indeterminate="true" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?dividerVertical"
+            android:visibility="gone" />
     </com.google.android.material.appbar.AppBarLayout>
 </merge>
