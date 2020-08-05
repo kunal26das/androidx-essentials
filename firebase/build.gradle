@@ -10,6 +10,9 @@ android {
         def date = new Date()
         version date.getTime().toString()
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -18,10 +21,10 @@ dependencies {
     implementation "androidx.core:core-ktx:$core_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     // Crashlytics
-    implementation 'com.google.firebase:firebase-messaging:20.2.3'
+    implementation 'com.google.firebase:firebase-messaging:20.2.4'
     implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
     // Core
-    implementation 'androidx.essentials:core:1595930684156'
+    implementation 'androidx.essentials:core:1596425397110'
 }
 
 apply from: 'publish.gradle'
