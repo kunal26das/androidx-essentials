@@ -1,53 +1,29 @@
 package androidx.essentials.io
 
 import android.content.Context
-import android.text.method.KeyListener
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import androidx.core.content.res.getResourceIdOrThrow
-import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
-import com.google.android.material.textfield.TextInputLayout
 
 class AutoComplete @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.textInputStyle
-) : TextInputLayout(context, attrs, defStyleAttr) {
+) : Field(context, attrs, defStyleAttr) {
 
-    private lateinit var mHint: String
-    private val keyListener: KeyListener
     private val listItem = android.R.layout.simple_list_item_1
     private val autoCompleteTextView: MaterialAutoCompleteTextView
-    private val inputMethodManager = InputMethodManager.getInstance(context)
 
     var array = emptyArray<String>()
         set(value) {
             field = value
+            isValid
             autoCompleteTextView.setAdapter(ArrayAdapter(context, listItem, array))
         }
 
-    var isEditable = DEFAULT_IS_EDITABLE
-        set(value) {
-            field = value
-            editText?.keyListener = when (value) {
-                true -> keyListener
-                false -> null
-            }
-            isValid
-        }
-
-    var isMandatory = DEFAULT_IS_MANDATORY
-        set(value) {
-            field = value
-            hint = mHint
-            isValid
-        }
-
-    val isValid: Boolean
+    override val isValid: Boolean
         get() {
             val text = editText?.text?.toString() ?: ""
             isErrorEnabled = when {
@@ -55,7 +31,7 @@ class AutoComplete @JvmOverloads constructor(
                     error = MESSAGE_MANDATORY
                     true
                 }
-                isEditable -> !array.contains(text)
+                isEditable -> text.isNotBlank() and !array.contains(text)
                 else -> false
             }
             return !isErrorEnabled
@@ -79,32 +55,22 @@ class AutoComplete @JvmOverloads constructor(
             } catch (e: IllegalArgumentException) {
                 emptyArray()
             }
-            initAutoCompleteTextView()
-            initEditText()
             recycle()
         }
     }
 
-    private fun initAutoCompleteTextView() {
-        autoCompleteTextView.setOnItemClickListener { _, _, _, _ ->
-            autoCompleteTextView.clearFocus()
-        }
-    }
-
-    private fun initEditText() {
-        editText?.apply {
-            setLines(1)
-            doAfterTextChanged { isValid }
-            imeOptions = EditorInfo.IME_ACTION_NEXT
-            setOnFocusChangeListener { view, itHasFocus ->
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        autoCompleteTextView.apply {
+            setOnFocusChangeListener { _, itHasFocus ->
                 if (!isEditable && itHasFocus) {
-                    view.clearFocus()
-                    hideKeyboard(view)
                     autoCompleteTextView.showDropDown()
                 } else if (!itHasFocus) {
-                    hideKeyboard(view)
                     autoCompleteTextView.dismissDropDown()
                 }
+            }
+            setOnItemClickListener { _, _, _, _ ->
+                autoCompleteTextView.clearFocus()
             }
         }
     }
@@ -117,15 +83,5 @@ class AutoComplete @JvmOverloads constructor(
                 else -> mHint
             }
         )
-    }
-
-    private fun hideKeyboard(view: View) {
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-
-    companion object {
-        private const val DEFAULT_IS_EDITABLE = true
-        private const val DEFAULT_IS_MANDATORY = false
-        private const val MESSAGE_MANDATORY = "Mandatory Field"
     }
 }
