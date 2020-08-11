@@ -22,8 +22,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
@@ -42,8 +42,8 @@ dependencies {
 
     // AndroidX Libraries
     dependencies {
-        implementation 'androidx.appcompat:appcompat:1.1.0'
         implementation "androidx.core:core-ktx:$core_version"
+        implementation "androidx.appcompat:appcompat:$appcompat_version"
         // Layouts
         implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
         // Live Data
@@ -55,10 +55,9 @@ dependencies {
         implementation "androidx.security:security-crypto:1.0.0-rc02"
     }
 
-    // Fluent Design
-    implementation 'com.microsoft.uifabric:OfficeUIFabric:0.3.7'
     // Material Design
     implementation "com.google.android.material:material:$material_version"
+    implementation 'com.google.firebase:firebase-database-ktx:19.3.1'
 
     dependencies {
         // AndroidX Essentials
