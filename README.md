@@ -7,6 +7,8 @@ buildscript {
     classpath 'com.google.firebase:firebase-crashlytics-gradle:latest_version'
   }
 }
+```
+```
 allprojects {
   repositories {
     maven {
