@@ -1,10 +1,12 @@
 package androidx.essentials.io
 
 import android.content.Context
+import android.text.Editable
 import android.text.method.KeyListener
 import android.util.AttributeSet
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.textfield.TextInputLayout
 
@@ -52,6 +54,28 @@ abstract class Field @JvmOverloads constructor(
             }
         }
     }
+
+    fun doBeforeTextChanged(
+        action: (
+            text: CharSequence?,
+            start: Int,
+            count: Int,
+            after: Int
+        ) -> Unit
+    ) = editText?.addTextChangedListener(beforeTextChanged = action)
+
+    fun doOnTextChanged(
+        action: (
+            text: CharSequence?,
+            start: Int,
+            count: Int,
+            after: Int
+        ) -> Unit
+    ) = editText?.addTextChangedListener(onTextChanged = action)
+
+    fun doAfterTextChanged(
+        action: (text: Editable?) -> Unit
+    ) = editText?.addTextChangedListener(afterTextChanged = action)
 
     private fun hideKeyboard(view: View) {
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
