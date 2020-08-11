@@ -1,6 +1,7 @@
-package androidx.essentials.firebase
+package androidx.essentials.firebase.messaging
 
 import android.util.Log
+import androidx.essentials.firebase.Firebase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
