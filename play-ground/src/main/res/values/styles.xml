@@ -27,6 +27,7 @@
         <item name="android:colorBackground">@color/colorBackground</item>
         <item name="colorOnBackground">@color/colorOnBackground</item>
 
+        <item name="android:textColor">@color/colorText</item>
         <item name="fontFamily">@font/product_sans</item>
 
         <item name="android:windowContentTransitions">true</item>

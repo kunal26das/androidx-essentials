@@ -12,11 +12,11 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_play_ground.*
 
+
 class PlayGroundActivity : Activity(true) {
 
     private lateinit var navController: NavController
-    override val layout =
-        R.layout.activity_play_ground
+    override val layout = R.layout.activity_play_ground
     override val viewModel by viewModel<PlayGroundViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

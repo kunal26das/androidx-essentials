@@ -41,7 +41,9 @@ class CoreFragment : Fragment() {
             MenuInflater(context).inflate(R.menu.menu_play_ground, menu)
             libraryList.submitList(menu.children.toList())
             libraryList.setOnItemClickListener {
-                Try { findNavController().navigate(it.itemId) }
+                if (it.itemId != R.id.core) Try {
+                    findNavController().navigate(it.itemId)
+                }
             }
         }
     }

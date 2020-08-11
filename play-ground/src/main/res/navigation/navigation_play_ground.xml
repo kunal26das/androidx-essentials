@@ -40,4 +40,10 @@
         android:name="androidx.essentials.playground.ui.fragment.NetworkFragment"
         android:label="@string/network"
         tools:layout="@layout/fragment_network" />
+
+    <fragment
+        android:id="@+id/resources"
+        android:name="androidx.essentials.playground.ui.fragment.ResourcesFragment"
+        android:label="@string/resources"
+        tools:layout="@layout/fragment_resources" />
 </navigation>
