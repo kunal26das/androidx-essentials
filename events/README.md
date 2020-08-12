@@ -16,3 +16,7 @@ Events.subscribe(String::class.java) {}
 ```
 Events.publish("Message")
 ```
+3. Garbage Collection
+```
+Events.clear()
+```
