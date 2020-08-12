@@ -17,6 +17,12 @@ class BottomSheetView @JvmOverloads constructor(
 ) : MaterialCardView(context, attributes, styleAttributes) {
 
     private var state = STATE_EXPANDED
+        set(value) {
+            field = value
+            Try {
+                bottomSheetBehaviour.state = value
+            }
+        }
 
     var peekHeight = DEFAULT_PEEK_HEIGHT
         set(value) {
@@ -63,8 +69,9 @@ class BottomSheetView @JvmOverloads constructor(
             peekHeight =
                 getDimensionPixelSize(R.styleable.BottomSheetView_peekHeight, DEFAULT_PEEK_HEIGHT)
             isDraggable = getBoolean(R.styleable.BottomSheetView_draggable, DEFAULT_IS_DRAGGABLE)
-            skipCollapsed = getBoolean(R.styleable.BottomSheetView_skipCollapsed, false)
-            isHideable = getBoolean(R.styleable.BottomSheetView_hideable, false)
+            isHideable = getBoolean(R.styleable.BottomSheetView_hideable, DEFAULT_IS_HIDEABLE)
+            skipCollapsed =
+                getBoolean(R.styleable.BottomSheetView_skipCollapsed, DEFAULT_SKIP_COLLAPSED)
             state = getInteger(R.styleable.BottomSheetView_state, STATE_EXPANDED)
             recycle()
         }
@@ -118,7 +125,9 @@ class BottomSheetView @JvmOverloads constructor(
     }
 
     companion object {
+        private const val DEFAULT_IS_HIDEABLE = true
         private const val DEFAULT_IS_DRAGGABLE = false
+        private const val DEFAULT_SKIP_COLLAPSED = false
         private const val DEFAULT_PEEK_HEIGHT = PEEK_HEIGHT_AUTO
     }
 }
