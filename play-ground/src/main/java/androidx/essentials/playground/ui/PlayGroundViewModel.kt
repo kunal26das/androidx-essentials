@@ -1,8 +1,8 @@
 package androidx.essentials.playground.ui
 
 import android.location.Location
-import androidx.essentials.core.KoinComponent.inject
-import androidx.essentials.core.ViewModel
+import androidx.essentials.core.injector.KoinComponent.inject
+import androidx.essentials.core.mvvm.ViewModel
 import androidx.essentials.firebase.Firebase
 import androidx.essentials.location.LocationProvider
 import androidx.essentials.network.NetworkCallback

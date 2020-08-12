@@ -1,7 +1,7 @@
 package androidx.essentials.playground.ui.fragment
 
 import android.annotation.SuppressLint
-import androidx.essentials.core.Fragment
+import androidx.essentials.core.ui.Fragment
 import androidx.essentials.playground.R
 import androidx.essentials.playground.ui.PlayGroundViewModel
 import kotlinx.android.synthetic.main.fragment_location.*

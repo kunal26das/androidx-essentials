@@ -2,7 +2,7 @@ package androidx.essentials.playground.ui
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.essentials.core.Activity
+import androidx.essentials.core.ui.Activity
 import androidx.essentials.events.Events
 import androidx.essentials.playground.R
 import androidx.navigation.NavController

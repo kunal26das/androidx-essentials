@@ -1,6 +1,6 @@
 package androidx.essentials.playground.ui.fragment
 
-import androidx.essentials.core.Fragment
+import androidx.essentials.core.ui.Fragment
 import androidx.essentials.playground.R
 import androidx.essentials.playground.ui.PlayGroundViewModel
 

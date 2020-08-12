@@ -2,8 +2,8 @@ package androidx.essentials.playground.ui.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.essentials.core.Fragment
-import androidx.essentials.core.KoinComponent.inject
+import androidx.essentials.core.injector.KoinComponent.inject
+import androidx.essentials.core.ui.Fragment
 import androidx.essentials.firebase.UUID
 import androidx.essentials.playground.R
 import androidx.essentials.playground.ui.PlayGroundViewModel

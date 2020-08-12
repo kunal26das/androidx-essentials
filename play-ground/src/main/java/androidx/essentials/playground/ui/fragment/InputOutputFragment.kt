@@ -5,7 +5,7 @@ import android.view.MenuInflater
 import android.view.View
 import android.widget.PopupMenu
 import androidx.core.view.children
-import androidx.essentials.core.Fragment
+import androidx.essentials.core.ui.Fragment
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentInputOutputBinding
 import androidx.essentials.playground.ui.PlayGroundViewModel
