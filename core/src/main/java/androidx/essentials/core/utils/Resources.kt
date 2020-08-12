@@ -1,8 +1,8 @@
-package androidx.essentials.core
+package androidx.essentials.core.utils
 
 import android.content.res.Resources
 import android.util.TypedValue
-import androidx.essentials.core.KoinComponent.inject
+import androidx.essentials.core.injector.KoinComponent.inject
 import kotlin.math.roundToInt
 
 object Resources {

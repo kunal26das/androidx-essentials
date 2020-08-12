@@ -1,4 +1,4 @@
-package androidx.essentials.core
+package androidx.essentials.core.view
 
 import androidx.databinding.BindingAdapter
 

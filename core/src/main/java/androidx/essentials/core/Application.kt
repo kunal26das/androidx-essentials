@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import androidx.essentials.core.mvvm.ViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.multidex.MultiDex
 import org.koin.android.ext.koin.androidContext

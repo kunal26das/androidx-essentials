@@ -1,4 +1,4 @@
-package androidx.essentials.core
+package androidx.essentials.core.mvvm
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

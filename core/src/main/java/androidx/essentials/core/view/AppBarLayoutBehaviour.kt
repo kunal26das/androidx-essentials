@@ -1,4 +1,4 @@
-package androidx.essentials.core
+package androidx.essentials.core.view
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -12,7 +12,8 @@ import com.google.android.material.animation.AnimationUtils
 
 open class AppBarLayoutBehaviour : CoordinatorLayout.Behavior<AppBarLayout>() {
     private var height = 0
-    private var currentState = STATE_SCROLLED_DOWN
+    private var currentState =
+        STATE_SCROLLED_DOWN
     private var additionalHiddenOffsetY = 0
     private var currentAnimator: ViewPropertyAnimator? = null
 
@@ -61,7 +62,8 @@ open class AppBarLayoutBehaviour : CoordinatorLayout.Behavior<AppBarLayout>() {
             currentAnimator!!.cancel()
             child.clearAnimation()
         }
-        currentState = STATE_SCROLLED_UP
+        currentState =
+            STATE_SCROLLED_UP
         animateChildTo(
             child,
             0 - height - additionalHiddenOffsetY,
@@ -78,7 +80,8 @@ open class AppBarLayoutBehaviour : CoordinatorLayout.Behavior<AppBarLayout>() {
             currentAnimator!!.cancel()
             child.clearAnimation()
         }
-        currentState = STATE_SCROLLED_DOWN
+        currentState =
+            STATE_SCROLLED_DOWN
         animateChildTo(
             child,
             0,

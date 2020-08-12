@@ -1,10 +1,11 @@
-package androidx.essentials.core
+package androidx.essentials.core.ui
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.essentials.core.mvvm.ViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import org.koin.android.viewmodel.ext.android.viewModel as koinViewModel

@@ -1,4 +1,4 @@
-package androidx.essentials.core
+package androidx.essentials.core.injector
 
 import org.koin.core.KoinComponent
 
