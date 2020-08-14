@@ -2,6 +2,7 @@ package androidx.essentials.list
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.essentials.extensions.Coroutines.default
@@ -43,7 +44,7 @@ abstract class AbstractList<T, VDB : ViewDataBinding>(
         return when (mLayoutManager) {
             is GridLayoutManager -> {
                 val spanCount = (mLayoutManager as GridLayoutManager).spanCount
-                (list.size + (list.size % spanCount)) / spanCount
+                (list.size / spanCount) + (list.size % spanCount)
             }
             else -> list.size
         }
@@ -65,103 +66,130 @@ abstract class AbstractList<T, VDB : ViewDataBinding>(
                 // Corners
                 position in corners -> {
                     when (position) {
-                        topLeft -> setMargins(
-                            itemMarginHorizontal,
-                            itemMarginVertical + marginVertical,
-                            itemMarginHorizontal / 2,
-                            when {
-                                showDivider -> itemMarginVertical
-                                else -> itemMarginVertical / 2
-                            }
-                        )
-                        topRight -> setMargins(
-                            itemMarginHorizontal / 2,
-                            itemMarginVertical + marginVertical,
-                            itemMarginHorizontal,
-                            when {
-                                showDivider -> itemMarginVertical
-                                else -> itemMarginVertical / 2
-                            }
-                        )
-                        bottomLeft -> setMargins(
-                            itemMarginHorizontal,
-                            when {
-                                showDivider -> itemMarginVertical
-                                else -> itemMarginVertical / 2
-                            },
-                            itemMarginHorizontal / 2,
-                            itemMarginVertical + marginVertical
-                        )
-                        bottomRight -> setMargins(
-                            itemMarginHorizontal / 2,
-                            when {
-                                showDivider -> itemMarginVertical
-                                else -> itemMarginVertical / 2
-                            },
-                            itemMarginHorizontal,
-                            itemMarginVertical + marginVertical
-                        )
+                        topLeft -> {
+                            log(position, "Top Left")
+                            setMargins(
+                                itemMarginHorizontal,
+                                itemMarginVertical + marginVertical,
+                                itemMarginHorizontal / 2,
+                                when {
+                                    showDivider -> itemMarginVertical
+                                    else -> itemMarginVertical / 2
+                                }
+                            )
+                        }
+                        topRight -> {
+                            log(position, "Top Right")
+                            setMargins(
+                                itemMarginHorizontal / 2,
+                                itemMarginVertical + marginVertical,
+                                itemMarginHorizontal,
+                                when {
+                                    showDivider -> itemMarginVertical
+                                    else -> itemMarginVertical / 2
+                                }
+                            )
+                        }
+                        bottomLeft -> {
+                            log(position, "Bottom Left")
+                            setMargins(
+                                itemMarginHorizontal,
+                                when {
+                                    showDivider -> itemMarginVertical
+                                    else -> itemMarginVertical / 2
+                                },
+                                itemMarginHorizontal / 2,
+                                itemMarginVertical + marginVertical
+                            )
+                        }
+                        bottomRight -> {
+                            log(position, "Bottom Right")
+                            setMargins(
+                                itemMarginHorizontal / 2,
+                                when {
+                                    showDivider -> itemMarginVertical
+                                    else -> itemMarginVertical / 2
+                                },
+                                itemMarginHorizontal,
+                                itemMarginVertical + marginVertical
+                            )
+                        }
                     }
                 }
                 // Top Row
-                position in topLeft..topRight -> setMargins(
-                    itemMarginHorizontal / 2,
-                    itemMarginVertical + marginVertical,
-                    itemMarginHorizontal / 2,
-                    when {
-                        showDivider -> itemMarginVertical
-                        else -> itemMarginVertical / 2
-                    }
-                )
+                position in topLeft..topRight -> {
+                    log(position, "Top Row")
+                    setMargins(
+                        itemMarginHorizontal / 2,
+                        itemMarginVertical + marginVertical,
+                        itemMarginHorizontal / 2,
+                        when {
+                            showDivider -> itemMarginVertical
+                            else -> itemMarginVertical / 2
+                        }
+                    )
+                }
                 // Bottom Row
-                position in bottomLeft..bottomRight -> setMargins(
-                    itemMarginHorizontal / 2,
-                    when {
-                        showDivider -> itemMarginVertical
-                        else -> itemMarginVertical / 2
-                    },
-                    itemMarginHorizontal / 2,
-                    itemMarginVertical + marginVertical
-                )
+                position in bottomLeft..bottomRight -> {
+                    log(position, "Bottom Row")
+                    setMargins(
+                        itemMarginHorizontal / 2,
+                        when {
+                            showDivider -> itemMarginVertical
+                            else -> itemMarginVertical / 2
+                        },
+                        itemMarginHorizontal / 2,
+                        itemMarginVertical + marginVertical
+                    )
+                }
                 // Left Column
-                position % spanCount == 0 -> setMargins(
-                    itemMarginHorizontal,
-                    when {
-                        showDivider -> itemMarginVertical
-                        else -> itemMarginVertical / 2
-                    },
-                    itemMarginHorizontal / 2,
-                    when {
-                        showDivider -> itemMarginVertical
-                        else -> itemMarginVertical / 2
-                    }
-                )
+                position % spanCount == 0 -> {
+                    log(position, "Left Column")
+                    setMargins(
+                        itemMarginHorizontal,
+                        when {
+                            showDivider -> itemMarginVertical
+                            else -> itemMarginVertical / 2
+                        },
+                        itemMarginHorizontal / 2,
+                        when {
+                            showDivider -> itemMarginVertical
+                            else -> itemMarginVertical / 2
+                        }
+                    )
+                }
                 // Right Column
-                position % topRight == 0 -> setMargins(
-                    itemMarginHorizontal / 2,
-                    when {
-                        showDivider -> itemMarginVertical
-                        else -> itemMarginVertical / 2
-                    },
-                    itemMarginHorizontal,
-                    when {
-                        showDivider -> itemMarginVertical
-                        else -> itemMarginVertical / 2
-                    }
-                )
+                (position + 1) % spanCount == 0 -> {
+                    log(position, "Right Column")
+                    setMargins(
+                        itemMarginHorizontal / 2,
+                        when {
+                            showDivider -> itemMarginVertical
+                            else -> itemMarginVertical / 2
+                        },
+                        itemMarginHorizontal,
+                        when {
+                            showDivider -> itemMarginVertical
+                            else -> itemMarginVertical / 2
+                        }
+                    )
+                }
                 // Center
-                else -> setMargins(
-                    itemMarginHorizontal / 2,
-                    when {
-                        showDivider -> itemMarginVertical
-                        else -> itemMarginVertical / 2
-                    },
-                    itemMarginHorizontal / 2,
-                    when {
-                        showDivider -> itemMarginVertical
-                        else -> itemMarginVertical / 2
-                    }
-                )
+                else -> {
+                    log(position, "Center")
+                    setMargins(
+                        itemMarginHorizontal / 2,
+                        when {
+                            showDivider -> itemMarginVertical
+                            else -> itemMarginVertical / 2
+                        },
+                        itemMarginHorizontal / 2,
+                        when {
+                            showDivider -> itemMarginVertical
+                            else -> itemMarginVertical / 2
+                        }
+                    )
+                }
             }
         }
     }
@@ -230,6 +258,10 @@ abstract class AbstractList<T, VDB : ViewDataBinding>(
 
     abstract class ViewHolder<VDB : ViewDataBinding>(val binding: VDB) :
         RecyclerView.ViewHolder(binding.root)
+
+    private fun log(position: Int, place: String) {
+        Log.d(javaClass.simpleName, "$position: $place")
+    }
 
     companion object {
         const val DEFAULT_MARGIN = 0

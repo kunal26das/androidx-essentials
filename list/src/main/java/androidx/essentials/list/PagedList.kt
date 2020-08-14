@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.essentials.list.adapter.EmptyAdapter
 import androidx.paging.PagedList
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -46,10 +45,6 @@ abstract class PagedList<T, VDB : ViewDataBinding>(
             list == null -> {
                 layoutManager = linearLayoutManager
                 loadingAdapter
-            }
-            list.isEmpty() -> {
-                layoutManager = linearLayoutManager
-                EmptyAdapter(emptyMessage)
             }
             else -> {
                 rowCount = calculateRowCount(list)
