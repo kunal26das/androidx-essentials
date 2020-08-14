@@ -125,7 +125,7 @@ class BottomSheetView @JvmOverloads constructor(
     }
 
     companion object {
-        private const val DEFAULT_IS_HIDEABLE = true
+        private const val DEFAULT_IS_HIDEABLE = false
         private const val DEFAULT_IS_DRAGGABLE = false
         private const val DEFAULT_SKIP_COLLAPSED = false
         private const val DEFAULT_PEEK_HEIGHT = PEEK_HEIGHT_AUTO
