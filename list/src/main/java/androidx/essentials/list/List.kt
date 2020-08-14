@@ -18,6 +18,8 @@ abstract class List<T, VDB : ViewDataBinding>(
     attrs: AttributeSet? = null
 ) : AbstractList<T, VDB>(context, attrs) {
 
+    protected open val emptyMessage = ""
+
     init {
         context.obtainStyledAttributes(attrs, R.styleable.List, 0, 0).apply {
             showDivider = getBoolean(R.styleable.List_showDivider, DEFAULT_SHOW_DIVIDER)

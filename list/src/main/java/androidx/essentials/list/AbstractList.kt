@@ -17,7 +17,6 @@ abstract class AbstractList<T, VDB : ViewDataBinding>(
     attributes: AttributeSet? = null
 ) : RecyclerView(context, attributes) {
 
-    open val emptyMessage = ""
     internal var rowCount = 0
     abstract val itemLayout: Int
     abstract val mLayoutManager: LayoutManager
