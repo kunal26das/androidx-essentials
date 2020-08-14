@@ -25,7 +25,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
     implementation 'com.google.firebase:firebase-database-ktx:19.3.1'
     // Core
-    implementation 'androidx.essentials:core:1596900395057'
+    implementation 'androidx.essentials:core:1597418636648'
 }
 
 apply from: 'publish.gradle'
