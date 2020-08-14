@@ -1,6 +1,6 @@
 package androidx.essentials.firebase
 
-import androidx.essentials.core.KoinComponent.inject
+import androidx.essentials.core.injector.KoinComponent.inject
 import com.google.firebase.iid.FirebaseInstanceId
 
 class Firebase private constructor() {

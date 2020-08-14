@@ -1,7 +1,7 @@
 package androidx.essentials.firebase.utils
 
 import android.content.SharedPreferences
-import androidx.essentials.core.KoinComponent.inject
+import androidx.essentials.core.injector.KoinComponent.inject
 import java.util.UUID
 
 object UUID {

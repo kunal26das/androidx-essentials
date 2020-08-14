@@ -1,4 +1,4 @@
-package androidx.essentials.network
+package androidx.essentials.network.connectivity
 
 import android.content.Context
 import android.net.ConnectivityManager

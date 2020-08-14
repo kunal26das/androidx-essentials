@@ -1,4 +1,4 @@
-package androidx.essentials.io
+package androidx.essentials.io.input
 
 import android.content.Context
 import android.os.Build

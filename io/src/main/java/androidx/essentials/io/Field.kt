@@ -8,6 +8,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
+import androidx.essentials.io.input.InputMethodManager
 import com.google.android.material.textfield.TextInputLayout
 
 abstract class Field @JvmOverloads constructor(
