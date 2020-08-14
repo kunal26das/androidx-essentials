@@ -7,7 +7,10 @@
         android:id="@+id/libraryList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fadeScrollbars="false"
+        android:scrollbars="vertical"
         app:item_marginHorizontal="16dp"
         app:item_marginVertical="16dp"
+        tools:visibility="visible"
         tools:listitem="@layout/item_library" />
 </layout>

@@ -8,12 +8,10 @@ import androidx.essentials.location.LocationProvider
 import androidx.essentials.network.NetworkCallback
 import androidx.essentials.playground.utils.Listeners
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.database.DatabaseReference
 
 class PlayGroundViewModel : ViewModel(), Listeners {
 
     private val firebase: Firebase by inject()
-    val database: DatabaseReference by inject()
     private val networkCallback: NetworkCallback by inject()
     private val locationProvider: LocationProvider by inject()
 

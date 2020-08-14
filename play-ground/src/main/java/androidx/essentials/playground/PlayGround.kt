@@ -9,7 +9,6 @@ import androidx.essentials.network.NetworkCallback
 import androidx.essentials.playground.ui.PlayGroundViewModel
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
-import com.google.firebase.database.FirebaseDatabase
 
 class PlayGround : FirebaseApplication() {
 
@@ -40,11 +39,6 @@ class PlayGround : FirebaseApplication() {
     private fun initComponents() {
         single { LocationProvider.getInstance(applicationContext) }
         single { NetworkCallback(applicationContext) }
-        single {
-            FirebaseDatabase.getInstance().apply {
-                setPersistenceEnabled(true)
-            }.reference
-        }
     }
 
     override fun onTerminate() {

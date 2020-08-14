@@ -23,6 +23,6 @@
     <color name="colorOnError">@color/colorNotNight</color>
 
     <color name="colorNotNight">#FFFFFF</color>
-    <color name="colorNight">#323232</color>
+    <color name="colorNight">#303030</color>
     <color name="colorText">#757575</color>
 </resources>

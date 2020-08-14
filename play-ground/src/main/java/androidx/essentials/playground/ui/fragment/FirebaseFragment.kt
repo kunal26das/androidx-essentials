@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.essentials.core.injector.KoinComponent.inject
 import androidx.essentials.core.ui.Fragment
-import androidx.essentials.firebase.UUID
+import androidx.essentials.firebase.utils.UUID
 import androidx.essentials.playground.R
 import androidx.essentials.playground.ui.PlayGroundViewModel
 import kotlinx.android.synthetic.main.fragment_firebase.*
