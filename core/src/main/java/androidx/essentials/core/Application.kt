@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.essentials.core.mvvm.ViewModel
+import androidx.essentials.core.ui.Event
 import androidx.lifecycle.Lifecycle
 import androidx.multidex.MultiDex
 import org.koin.android.ext.koin.androidContext
@@ -80,13 +81,5 @@ abstract class Application : Application(), Application.ActivityLifecycleCallbac
 
     private fun log(activity: Activity, event: Lifecycle.Event) {
         Log.d(activity.javaClass.simpleName, event.name)
-    }
-
-    companion object {
-
-        private enum class Event {
-            ON_TERMINATE,
-            ON_SAVE_INSTANCE_STATE
-        }
     }
 }
