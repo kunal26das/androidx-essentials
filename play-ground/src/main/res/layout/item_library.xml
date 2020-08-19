@@ -10,7 +10,6 @@
             type="android.view.MenuItem" />
     </data>
 
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -3,14 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.essentials.playground.view.LibraryList
+    <androidx.essentials.playground.list.LibraryList
         android:id="@+id/libraryList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fadeScrollbars="false"
+        android:paddingVertical="8dp"
         android:scrollbars="vertical"
         app:item_marginHorizontal="16dp"
         app:item_marginVertical="16dp"
-        tools:visibility="visible"
-        tools:listitem="@layout/item_library" />
+        app:marginVertical="?actionBarSize"
+        app:spanCount="3"
+        tools:listitem="@layout/item_library"
+        tools:visibility="visible" />
 </layout>
