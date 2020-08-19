@@ -49,8 +49,8 @@ abstract class PagedList<T, V : ViewDataBinding>(
     }
 
     fun submitList(list: PagedList<T>?) {
-        adapter = when {
-            list == null -> {
+        adapter = when (list) {
+            null -> {
                 layoutManager = linearLayoutManager
                 loadingAdapter
             }

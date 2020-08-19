@@ -91,10 +91,10 @@ abstract class List<T, V : ViewDataBinding>(
             override fun onBindViewHolder(holder: ListItemView.ViewHolder<T, V>, position: Int) {
                 when (mLayoutManager) {
                     is GridLayoutManager -> setGridLayoutMargins(
-                        holder.listItemView.binding.root.layoutParams, position
+                        holder.listItemView.layoutParams, position
                     )
                     is LinearLayoutManager -> setLinearLayoutMargins(
-                        holder.listItemView.binding.root.layoutParams, position
+                        holder.listItemView.layoutParams, position
                     )
                 }
                 getItem(position)?.apply {

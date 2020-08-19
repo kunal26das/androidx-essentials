@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import androidx.essentials.extensions.Coroutines.default
 import androidx.essentials.list.adapter.LoadingAdapter
 import androidx.essentials.list.view.ListItemView
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -52,7 +51,7 @@ abstract class AbstractList<T, V : ViewDataBinding>(
 
     internal fun setGridLayoutMargins(marginLayoutParams: ViewGroup.LayoutParams, position: Int) {
         val spanCount = (mLayoutManager as GridLayoutManager).spanCount
-        (marginLayoutParams as MarginLayoutParams).default {
+        (marginLayoutParams as MarginLayoutParams).apply {
             val topLeft = 0
             val topRight = spanCount - 1
             val bottomLeft = spanCount * (rowCount - 1)
@@ -191,7 +190,7 @@ abstract class AbstractList<T, V : ViewDataBinding>(
     }
 
     internal fun setLinearLayoutMargins(layoutParams: ViewGroup.LayoutParams, position: Int) {
-        (layoutParams as MarginLayoutParams).default {
+        (layoutParams as MarginLayoutParams).apply {
             when (position) {
                 0 -> setMargins(
                     itemMarginHorizontal,
