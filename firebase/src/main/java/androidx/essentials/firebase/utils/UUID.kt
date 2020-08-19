@@ -10,9 +10,7 @@ object UUID {
     private val sharedPreferences: SharedPreferences by inject()
 
     init {
-        if (!sharedPreferences.contains(
-                KEY_UUID
-            )) {
+        if (!sharedPreferences.contains(KEY_UUID)) {
             with(sharedPreferences.edit()) {
                 putString(KEY_UUID, UUID.randomUUID().toString())
                 apply()
@@ -20,9 +18,6 @@ object UUID {
         }
     }
 
-    override fun toString(): String {
-        return sharedPreferences.getString(
-            KEY_UUID, "") ?: ""
-    }
+    override fun toString() = sharedPreferences.getString(KEY_UUID, "") ?: ""
 
 }
