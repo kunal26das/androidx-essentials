@@ -6,39 +6,35 @@ import android.util.Log
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.essentials.extensions.Coroutines.default
-import androidx.essentials.extensions.Try.Try
 import androidx.essentials.list.adapter.LoadingAdapter
+import androidx.essentials.list.view.ListItemView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class AbstractList<T, VDB : ViewDataBinding>(
+abstract class AbstractList<T, V : ViewDataBinding>(
     context: Context,
     attributes: AttributeSet? = null
 ) : RecyclerView(context, attributes) {
 
-    internal var rowCount = 0
-    abstract val itemLayout: Int
-    abstract val mLayoutManager: LayoutManager
+    var marginVertical = DEFAULT_MARGIN
+    lateinit var mLayoutManager: LayoutManager
+    internal var rowCount = DEFAULT_ROW_COUNT
     internal val loadingAdapter = LoadingAdapter()
-    abstract val dataAdapter: Adapter<ViewHolder<VDB>>
     internal var itemMarginVertical = DEFAULT_MARGIN
     internal var itemMarginHorizontal = DEFAULT_MARGIN
     internal var showDivider = DEFAULT_SHOW_DIVIDER
     protected val linearLayoutManager = LinearLayoutManager(context)
-
-    var marginVertical: Int = 0
-        set(value) {
-            field = value
-            Try { dataAdapter.notifyDataSetChanged() }
-        }
+    abstract val dataAdapter: Adapter<ListItemView.ViewHolder<T, V>>
 
     init {
         adapter = loadingAdapter
     }
 
-    abstract fun onBindViewHolder(itemView: VDB, item: T)
+    abstract fun onCreateViewHolder(parent: ViewGroup): ListItemView.ViewHolder<T, V>
+
+    open fun onBindViewHolder(holder: ListItemView.ViewHolder<T, V>) {}
 
     internal fun calculateRowCount(list: kotlin.collections.List<T>): Int {
         return when (mLayoutManager) {
@@ -256,16 +252,15 @@ abstract class AbstractList<T, VDB : ViewDataBinding>(
         }
     }
 
-    abstract class ViewHolder<VDB : ViewDataBinding>(val binding: VDB) :
-        RecyclerView.ViewHolder(binding.root)
-
     private fun log(position: Int, place: String) {
         Log.d(javaClass.simpleName, "$position: $place")
     }
 
     companion object {
-        const val DEFAULT_MARGIN = 0
-        const val DEFAULT_SHOW_DIVIDER = false
+        internal const val DEFAULT_MARGIN = 0
+        internal const val DEFAULT_ROW_COUNT = 0
+        internal const val DEFAULT_SPAN_COUNT = 1
+        internal const val DEFAULT_SHOW_DIVIDER = false
     }
 
 }

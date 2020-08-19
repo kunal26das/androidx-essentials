@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+    <attr name="spanCount" format="integer" />
     <attr name="showDivider" format="boolean" />
     <attr name="marginVertical" format="dimension" />
     <attr name="marginHorizontal" format="dimension" />
     <attr name="item_marginVertical" format="dimension" />
     <attr name="item_marginHorizontal" format="dimension" />
     <declare-styleable name="List">
+        <attr name="spanCount" />
         <attr name="showDivider" />
         <attr name="marginVertical" />
         <attr name="item_marginVertical" />
         <attr name="item_marginHorizontal" />
     </declare-styleable>
     <declare-styleable name="PagedList">
+        <attr name="spanCount" />
         <attr name="showDivider" />
         <attr name="marginVertical" />
         <attr name="item_marginVertical" />

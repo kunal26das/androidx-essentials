@@ -2,27 +2,38 @@ package androidx.essentials.list
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.essentials.list.adapter.EmptyAdapter
+import androidx.essentials.list.view.ListItemView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import kotlin.math.roundToInt
 
-abstract class List<T, VDB : ViewDataBinding>(
+abstract class List<T, V : ViewDataBinding>(
     context: Context,
     attrs: AttributeSet? = null
-) : AbstractList<T, VDB>(context, attrs) {
+) : AbstractList<T, V>(context, attrs) {
 
     protected open val emptyMessage = ""
 
     init {
         context.obtainStyledAttributes(attrs, R.styleable.List, 0, 0).apply {
-            showDivider = getBoolean(R.styleable.List_showDivider, DEFAULT_SHOW_DIVIDER)
+            getInteger(
+                R.styleable.List_spanCount,
+                DEFAULT_SPAN_COUNT
+            ).let { spanCount ->
+                mLayoutManager = when {
+                    spanCount > 1 -> GridLayoutManager(context, spanCount)
+                    else -> linearLayoutManager
+                }
+            }
+            showDivider = getBoolean(
+                R.styleable.List_showDivider,
+                DEFAULT_SHOW_DIVIDER
+            )
             marginVertical =
                 getDimension(
                     R.styleable.List_marginVertical,
@@ -62,7 +73,7 @@ abstract class List<T, VDB : ViewDataBinding>(
     }
 
     override val dataAdapter =
-        object : ListAdapter<T, ViewHolder<VDB>>(object : DiffUtil.ItemCallback<T>() {
+        object : ListAdapter<T, ListItemView.ViewHolder<T, V>>(object : DiffUtil.ItemCallback<T>() {
             override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
                 return this@List.areItemsTheSame(oldItem, newItem)
             }
@@ -74,30 +85,21 @@ abstract class List<T, VDB : ViewDataBinding>(
 
             override fun getItemViewType(position: Int) = position
 
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<VDB> {
-                return object : ViewHolder<VDB>(
-                    DataBindingUtil.inflate(
-                        LayoutInflater.from(parent.context),
-                        itemLayout,
-                        parent,
-                        false
-                    )
-                ) {}
-            }
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+                onCreateViewHolder(parent)
 
-            override fun onBindViewHolder(holder: ViewHolder<VDB>, position: Int) {
+            override fun onBindViewHolder(holder: ListItemView.ViewHolder<T, V>, position: Int) {
                 when (mLayoutManager) {
                     is GridLayoutManager -> setGridLayoutMargins(
-                        holder.itemView.layoutParams,
-                        position
+                        holder.listItemView.binding.root.layoutParams, position
                     )
                     is LinearLayoutManager -> setLinearLayoutMargins(
-                        holder.itemView.layoutParams,
-                        position
+                        holder.listItemView.binding.root.layoutParams, position
                     )
                 }
                 getItem(position)?.apply {
-                    onBindViewHolder(holder.binding, this)
+                    holder.bind(this)
+                    onBindViewHolder(holder)
                 }
             }
         }
