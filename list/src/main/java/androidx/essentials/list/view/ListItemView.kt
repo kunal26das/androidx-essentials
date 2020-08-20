@@ -35,7 +35,7 @@ abstract class ListItemView<T, V : ViewDataBinding> @JvmOverloads constructor(
     init {
         if (!attachToRoot) {
             layoutParams = when (listOrientation) {
-                HORIZONTAL -> MarginLayoutParams(MATCH_PARENT, WRAP_CONTENT)
+                HORIZONTAL -> MarginLayoutParams(WRAP_CONTENT, MATCH_PARENT)
                 VERTICAL -> MarginLayoutParams(MATCH_PARENT, WRAP_CONTENT)
                 else -> MarginLayoutParams(WRAP_CONTENT, WRAP_CONTENT)
             }
