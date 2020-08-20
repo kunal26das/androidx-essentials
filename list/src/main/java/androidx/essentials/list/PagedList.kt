@@ -36,16 +36,20 @@ abstract class PagedList<T, V : ViewDataBinding>(
                 else -> linearLayoutManager
             }
             showDivider = getBoolean(R.styleable.PagedList_showDivider, DEFAULT_SHOW_DIVIDER)
+            marginHorizontal = getDimension(
+                R.styleable.PagedList_marginHorizontal,
+                DEFAULT_MARGIN.toFloat()
+            ).roundToInt()
             marginVertical = getDimension(
                 R.styleable.PagedList_marginVertical,
                 DEFAULT_MARGIN.toFloat()
             ).roundToInt()
-            itemMarginVertical = getDimension(
-                R.styleable.PagedList_item_marginVertical,
-                DEFAULT_MARGIN.toFloat()
-            ).roundToInt()
             itemMarginHorizontal = getDimension(
                 R.styleable.PagedList_item_marginHorizontal,
+                DEFAULT_MARGIN.toFloat()
+            ).roundToInt()
+            itemMarginVertical = getDimension(
+                R.styleable.PagedList_item_marginVertical,
                 DEFAULT_MARGIN.toFloat()
             ).roundToInt()
             recycle()

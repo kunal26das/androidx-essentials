@@ -38,14 +38,19 @@ abstract class List<T, V : ViewDataBinding>(
                 else -> linearLayoutManager
             }
             showDivider = getBoolean(R.styleable.List_showDivider, DEFAULT_SHOW_DIVIDER)
+            marginHorizontal =
+                getDimension(
+                    R.styleable.List_marginHorizontal,
+                    DEFAULT_MARGIN.toFloat()
+                ).roundToInt()
             marginVertical =
                 getDimension(R.styleable.List_marginVertical, DEFAULT_MARGIN.toFloat()).roundToInt()
-            itemMarginVertical = getDimension(
-                R.styleable.List_item_marginVertical,
-                DEFAULT_MARGIN.toFloat()
-            ).roundToInt()
             itemMarginHorizontal = getDimension(
                 R.styleable.List_item_marginHorizontal,
+                DEFAULT_MARGIN.toFloat()
+            ).roundToInt()
+            itemMarginVertical = getDimension(
+                R.styleable.List_item_marginVertical,
                 DEFAULT_MARGIN.toFloat()
             ).roundToInt()
             recycle()
