@@ -5,15 +5,19 @@ import android.util.AttributeSet
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.databinding.ViewDataBinding
+import androidx.essentials.list.AbstractList
 import androidx.essentials.list.R
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
+import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.google.android.material.card.MaterialCardView
 
 abstract class ListItemView<T, V : ViewDataBinding> @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.materialCardViewStyle,
-    private val attachToRoot: Boolean = true
+    private val attachToRoot: Boolean = DEFAULT_ATTACH_TO_ROOT,
+    listOrientation: Int = AbstractList.DEFAULT_ORIENTATION
 ) : MaterialCardView(context, attrs, defStyleAttr) {
 
     var item: T? = null
@@ -30,9 +34,11 @@ abstract class ListItemView<T, V : ViewDataBinding> @JvmOverloads constructor(
 
     init {
         if (!attachToRoot) {
-            layoutParams = MarginLayoutParams(
-                MATCH_PARENT, WRAP_CONTENT
-            )
+            layoutParams = when (listOrientation) {
+                HORIZONTAL -> MarginLayoutParams(MATCH_PARENT, WRAP_CONTENT)
+                VERTICAL -> MarginLayoutParams(MATCH_PARENT, WRAP_CONTENT)
+                else -> MarginLayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+            }
         }
         isClickable = !attachToRoot
         isFocusable = !attachToRoot
@@ -57,6 +63,10 @@ abstract class ListItemView<T, V : ViewDataBinding> @JvmOverloads constructor(
         fun bind(item: T) {
             listItemView.item = item
         }
+    }
+
+    companion object {
+        const val DEFAULT_ATTACH_TO_ROOT = true
     }
 
 }

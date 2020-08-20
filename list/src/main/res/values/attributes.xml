@@ -11,6 +11,7 @@
         <attr name="spanCount" />
         <attr name="showDivider" />
         <attr name="marginVertical" />
+        <attr name="marginHorizontal" />
         <attr name="android:orientation" />
         <attr name="item_marginVertical" />
         <attr name="item_marginHorizontal" />
@@ -19,6 +20,7 @@
         <attr name="spanCount" />
         <attr name="showDivider" />
         <attr name="marginVertical" />
+        <attr name="marginHorizontal" />
         <attr name="android:orientation" />
         <attr name="item_marginVertical" />
         <attr name="item_marginHorizontal" />

@@ -21,7 +21,7 @@ abstract class List<T, V : ViewDataBinding>(
 
     init {
         context.obtainStyledAttributes(attrs, R.styleable.List, 0, 0).apply {
-            val orientation =
+            orientation =
                 when (getInteger(R.styleable.List_android_orientation, DEFAULT_ORIENTATION)) {
                     DEFAULT_ORIENTATION -> VERTICAL
                     else -> HORIZONTAL
