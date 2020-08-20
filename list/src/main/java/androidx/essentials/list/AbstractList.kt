@@ -17,14 +17,14 @@ abstract class AbstractList<T, V : ViewDataBinding>(
     attributes: AttributeSet? = null
 ) : RecyclerView(context, attributes) {
 
-    var marginVertical = DEFAULT_MARGIN
-    lateinit var mLayoutManager: LayoutManager
     internal var rowCount = DEFAULT_ROW_COUNT
     internal val loadingAdapter = LoadingAdapter()
+    internal var marginVertical = DEFAULT_MARGIN
+    internal lateinit var mLayoutManager: LayoutManager
     internal var itemMarginVertical = DEFAULT_MARGIN
     internal var itemMarginHorizontal = DEFAULT_MARGIN
     internal var showDivider = DEFAULT_SHOW_DIVIDER
-    protected val linearLayoutManager = LinearLayoutManager(context)
+    internal lateinit var linearLayoutManager: LinearLayoutManager
     abstract val dataAdapter: Adapter<ListItemView.ViewHolder<T, V>>
 
     init {
@@ -259,7 +259,9 @@ abstract class AbstractList<T, V : ViewDataBinding>(
         internal const val DEFAULT_MARGIN = 0
         internal const val DEFAULT_ROW_COUNT = 0
         internal const val DEFAULT_SPAN_COUNT = 1
+        internal const val DEFAULT_ORIENTATION = 1
         internal const val DEFAULT_SHOW_DIVIDER = false
+        internal const val DEFAULT_REVERSE_LAYOUT = false
     }
 
 }

@@ -14,24 +14,28 @@ import kotlin.math.roundToInt
 
 abstract class PagedList<T, V : ViewDataBinding>(
     context: Context,
-    attributes: AttributeSet? = null
-) : AbstractList<T, V>(context, attributes) {
+    attrs: AttributeSet? = null
+) : AbstractList<T, V>(context, attrs) {
 
     init {
-        context.obtainStyledAttributes(attributes, R.styleable.PagedList, 0, 0).apply {
-            getInteger(
-                R.styleable.PagedList_spanCount,
-                DEFAULT_SPAN_COUNT
-            ).let { spanCount ->
-                mLayoutManager = when {
-                    spanCount > 1 -> GridLayoutManager(context, spanCount)
-                    else -> linearLayoutManager
+        context.obtainStyledAttributes(attrs, R.styleable.PagedList, 0, 0).apply {
+            val orientation =
+                when (getInteger(R.styleable.List_android_orientation, DEFAULT_ORIENTATION)) {
+                    DEFAULT_ORIENTATION -> VERTICAL
+                    else -> HORIZONTAL
                 }
+            linearLayoutManager = LinearLayoutManager(context, orientation, DEFAULT_REVERSE_LAYOUT)
+            val spanCount = getInteger(R.styleable.PagedList_spanCount, DEFAULT_SPAN_COUNT)
+            mLayoutManager = when {
+                spanCount > 1 -> GridLayoutManager(
+                    context,
+                    spanCount,
+                    orientation,
+                    DEFAULT_REVERSE_LAYOUT
+                )
+                else -> linearLayoutManager
             }
-            showDivider = getBoolean(
-                R.styleable.PagedList_showDivider,
-                DEFAULT_SHOW_DIVIDER
-            )
+            showDivider = getBoolean(R.styleable.PagedList_showDivider, DEFAULT_SHOW_DIVIDER)
             marginVertical = getDimension(
                 R.styleable.PagedList_marginVertical,
                 DEFAULT_MARGIN.toFloat()

@@ -21,34 +21,33 @@ abstract class List<T, V : ViewDataBinding>(
 
     init {
         context.obtainStyledAttributes(attrs, R.styleable.List, 0, 0).apply {
-            getInteger(
-                R.styleable.List_spanCount,
-                DEFAULT_SPAN_COUNT
-            ).let { spanCount ->
-                mLayoutManager = when {
-                    spanCount > 1 -> GridLayoutManager(context, spanCount)
-                    else -> linearLayoutManager
+            val orientation =
+                when (getInteger(R.styleable.List_android_orientation, DEFAULT_ORIENTATION)) {
+                    DEFAULT_ORIENTATION -> VERTICAL
+                    else -> HORIZONTAL
                 }
+            linearLayoutManager = LinearLayoutManager(context, orientation, DEFAULT_REVERSE_LAYOUT)
+            val spanCount = getInteger(R.styleable.List_spanCount, DEFAULT_SPAN_COUNT)
+            mLayoutManager = when {
+                spanCount > 1 -> GridLayoutManager(
+                    context,
+                    spanCount,
+                    orientation,
+                    DEFAULT_REVERSE_LAYOUT
+                )
+                else -> linearLayoutManager
             }
-            showDivider = getBoolean(
-                R.styleable.List_showDivider,
-                DEFAULT_SHOW_DIVIDER
-            )
+            showDivider = getBoolean(R.styleable.List_showDivider, DEFAULT_SHOW_DIVIDER)
             marginVertical =
-                getDimension(
-                    R.styleable.List_marginVertical,
-                    DEFAULT_MARGIN.toFloat()
-                ).roundToInt()
-            itemMarginVertical =
-                getDimension(
-                    R.styleable.List_item_marginVertical,
-                    DEFAULT_MARGIN.toFloat()
-                ).roundToInt()
-            itemMarginHorizontal =
-                getDimension(
-                    R.styleable.List_item_marginHorizontal,
-                    DEFAULT_MARGIN.toFloat()
-                ).roundToInt()
+                getDimension(R.styleable.List_marginVertical, DEFAULT_MARGIN.toFloat()).roundToInt()
+            itemMarginVertical = getDimension(
+                R.styleable.List_item_marginVertical,
+                DEFAULT_MARGIN.toFloat()
+            ).roundToInt()
+            itemMarginHorizontal = getDimension(
+                R.styleable.List_item_marginHorizontal,
+                DEFAULT_MARGIN.toFloat()
+            ).roundToInt()
             recycle()
         }
     }
