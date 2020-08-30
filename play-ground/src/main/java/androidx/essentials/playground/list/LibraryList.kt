@@ -31,8 +31,7 @@ class LibraryList(
     }
 
     fun setOnItemClickListener(action: (MenuItem) -> Unit) {
-        onItemClickListener = object :
-            OnItemClickListener {
+        onItemClickListener = object : OnItemClickListener {
             override fun onClick(item: MenuItem) {
                 action(item)
             }

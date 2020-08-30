@@ -14,34 +14,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_selectable_item"
-        android:orientation="vertical"
+        android:gravity="center_vertical"
         android:padding="12dp"
+        android:orientation="horizontal"
         tools:layout_margin="16dp">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:src="@{menuItem.icon}"
             app:tint="@color/colorText" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:paddingTop="4dp"
-            android:text="@{menuItem.title}"
-            android:textAlignment="textStart"
-            android:textSize="16sp"
-            tools:text="Library" />
+            android:orientation="vertical"
+            android:paddingHorizontal="12dp">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/version"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:textAlignment="textStart"
-            tools:text="Version" />
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="@{menuItem.title}"
+                android:textAlignment="textStart"
+                tools:text="Library" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textAlignment="textStart"
+                android:textSize="12sp"
+                tools:text="Version" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
