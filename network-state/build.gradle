@@ -3,12 +3,16 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion rootProject.ext.sdkVersion
+
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 30
-        def date = new Date()
-        version date.getTime().toString()
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.sdkVersion
+        def vName = getVersionName(this.name)
+        def vCode = getVersionCode(this.name)
+        versionName vName
+        versionCode vCode
+        version vName
     }
 }
 
