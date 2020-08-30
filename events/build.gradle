@@ -2,14 +2,27 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+ext {
+    versionMajorKey = 'events.version.major'
+    versionMinorKey = 'events.version.minor'
+    versionPatchKey = 'events.version.patch'
+}
+
 android {
     compileSdkVersion 30
+
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion 30
-        def date = new Date()
-        version date.getTime().toString()
+
+        def vName = getVersionName(versionMajorKey, versionMinorKey, versionPatchKey)
+        def vCode = getVersionCode(versionMajorKey, versionMinorKey, versionPatchKey)
+
+        version vName
+        versionName vName
+        versionCode vCode
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
