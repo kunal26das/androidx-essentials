@@ -17,8 +17,9 @@ class LibraryList(
     private var onItemClickListener: OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup) = LibraryView(
+        attachToRoot = false,
         context = parent.context,
-        attachToRoot = false
+        listOrientation = orientation
     ).viewHolder
 
     override fun onBindViewHolder(holder: ListItemView.ViewHolder<MenuItem, ItemLibraryBinding>) {
