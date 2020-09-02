@@ -17,7 +17,7 @@ class PlayGroundViewModel : ViewModel(), Listeners {
 
     val token = MutableLiveData(Firebase.TOKEN)
     val isEditable = MutableLiveData(true)
-    val isMandatory = MutableLiveData(false)
+    val isMandatory = MutableLiveData(true)
     val isOnline = MutableLiveData(NetworkCallback.IS_ONLINE)
     val location = MutableLiveData(LocationProvider.LOCATION)
 
