@@ -28,7 +28,7 @@ dependencies {
     // Firebase
     implementation 'com.google.firebase:firebase-messaging:20.2.4'
     implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
-    implementation 'com.google.firebase:firebase-database-ktx:19.3.1'
+    implementation 'com.google.firebase:firebase-database-ktx:19.4.0'
     // Core
     implementation 'androidx.essentials:core:1597418636648'
 }
