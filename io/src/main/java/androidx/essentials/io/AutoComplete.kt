@@ -26,7 +26,7 @@ class AutoComplete @JvmOverloads constructor(
     override val isValid: Boolean
         get() {
             val text = editText?.text?.toString() ?: ""
-            isErrorEnabled = when {
+            isErrorEnabled = textChanged and when {
                 isMandatory and text.isBlank() -> {
                     error = MESSAGE_MANDATORY
                     true

@@ -19,7 +19,7 @@ class TextInput @JvmOverloads constructor(
     override val isValid: Boolean
         get() {
             val text = editText?.text?.toString() ?: ""
-            isErrorEnabled = isEditable and when {
+            isErrorEnabled = isEditable and textChanged and when {
                 isMandatory and text.isBlank() -> {
                     error = MESSAGE_MANDATORY
                     true

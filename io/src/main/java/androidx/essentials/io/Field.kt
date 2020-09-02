@@ -18,6 +18,7 @@ abstract class Field @JvmOverloads constructor(
 ) : TextInputLayout(context, attrs, defStyleAttr) {
 
     abstract val isValid: Boolean
+    protected var textChanged = false
     protected lateinit var mHint: String
     protected lateinit var keyListener: KeyListener
     private val inputMethodManager = InputMethodManager.getInstance(context)
@@ -43,7 +44,10 @@ abstract class Field @JvmOverloads constructor(
         super.onAttachedToWindow()
         editText?.apply {
             setLines(1)
-            doAfterTextChanged { isValid }
+            doAfterTextChanged {
+                textChanged = true
+                isValid
+            }
             imeOptions = EditorInfo.IME_ACTION_NEXT
             setOnFocusChangeListener { view, itHasFocus ->
                 if (!isEditable && itHasFocus) {
