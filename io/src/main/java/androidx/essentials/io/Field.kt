@@ -23,6 +23,12 @@ abstract class Field @JvmOverloads constructor(
     protected lateinit var keyListener: KeyListener
     private val inputMethodManager = InputMethodManager.getInstance(context)
 
+    var imeOptions = DEFAULT_IME_OPTIONS
+        set(value) {
+            field = value
+            editText?.imeOptions = value
+        }
+
     var isEditable = DEFAULT_IS_EDITABLE
         set(value) {
             field = value
@@ -40,15 +46,32 @@ abstract class Field @JvmOverloads constructor(
             isValid
         }
 
+
+    var lines = DEFAULT_LINES
+        set(value) {
+            field = value
+            editText?.setLines(value)
+        }
+
+    var maxLines = DEFAULT_LINES
+        set(value) {
+            field = value
+            editText?.maxLines = value
+        }
+
+    var minLines = DEFAULT_LINES
+        set(value) {
+            field = value
+            editText?.minLines = value
+        }
+
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         editText?.apply {
-            setLines(1)
             doAfterTextChanged {
                 textChanged = true
                 isValid
             }
-            imeOptions = EditorInfo.IME_ACTION_NEXT
             setOnFocusChangeListener { view, itHasFocus ->
                 if (!isEditable && itHasFocus) {
                     view.clearFocus()
@@ -87,9 +110,11 @@ abstract class Field @JvmOverloads constructor(
     }
 
     companion object {
+        const val DEFAULT_LINES = 1
         const val DEFAULT_IS_EDITABLE = true
         const val DEFAULT_IS_MANDATORY = false
         const val MESSAGE_REGEX = "Invalid Input"
         const val MESSAGE_MANDATORY = "Mandatory Field"
+        const val DEFAULT_IME_OPTIONS = EditorInfo.IME_ACTION_NEXT
     }
 }

@@ -48,8 +48,12 @@ class AutoComplete @JvmOverloads constructor(
         keyListener = editText?.keyListener!!
         autoCompleteTextView = findViewById(R.id.autoCompleteTextView)
         context.obtainStyledAttributes(attrs, R.styleable.AutoComplete, defStyleAttr, 0).apply {
+            lines = getInt(R.styleable.AutoComplete_android_lines, DEFAULT_LINES)
+            maxLines = getInt(R.styleable.AutoComplete_android_maxLines, DEFAULT_LINES)
+            minLines = getInt(R.styleable.AutoComplete_android_minLines, DEFAULT_LINES)
             isEditable = getBoolean(R.styleable.AutoComplete_editable, DEFAULT_IS_EDITABLE)
             isMandatory = getBoolean(R.styleable.AutoComplete_mandatory, DEFAULT_IS_MANDATORY)
+            imeOptions = getInt(R.styleable.AutoComplete_android_imeOptions, DEFAULT_IME_OPTIONS)
             array = try {
                 context.resources.getStringArray(getResourceIdOrThrow(R.styleable.AutoComplete_array))
             } catch (e: IllegalArgumentException) {

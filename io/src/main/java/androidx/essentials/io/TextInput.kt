@@ -1,6 +1,7 @@
 package androidx.essentials.io
 
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
 import android.view.LayoutInflater
 
@@ -9,6 +10,12 @@ class TextInput @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.textInputStyle
 ) : Field(context, attrs, defStyleAttr) {
+
+    var inputType = DEFAULT_INPUT_TYPE
+        set(value) {
+            field = value
+            editText?.inputType = value
+        }
 
     var regex: Regex? = null
         set(value) {
@@ -43,8 +50,13 @@ class TextInput @JvmOverloads constructor(
         )
         keyListener = editText?.keyListener!!
         context.obtainStyledAttributes(attrs, R.styleable.TextInput, defStyleAttr, 0).apply {
+            lines = getInt(R.styleable.TextInput_android_lines, DEFAULT_LINES)
+            maxLines = getInt(R.styleable.TextInput_android_maxLines, DEFAULT_LINES)
+            minLines = getInt(R.styleable.TextInput_android_minLines, DEFAULT_LINES)
             isEditable = getBoolean(R.styleable.TextInput_editable, DEFAULT_IS_EDITABLE)
             isMandatory = getBoolean(R.styleable.TextInput_mandatory, DEFAULT_IS_MANDATORY)
+            inputType = getInt(R.styleable.TextInput_android_inputType, DEFAULT_INPUT_TYPE)
+            imeOptions = getInt(R.styleable.TextInput_android_imeOptions, DEFAULT_IME_OPTIONS)
             val pattern = getString(R.styleable.TextInput_regex)
             if (pattern != null) regex = Regex(pattern)
             recycle()
@@ -59,5 +71,9 @@ class TextInput @JvmOverloads constructor(
                 else -> mHint
             }
         )
+    }
+
+    companion object {
+        const val DEFAULT_INPUT_TYPE = InputType.TYPE_CLASS_TEXT
     }
 }
