@@ -16,7 +16,7 @@ fun getText(autoComplete: AutoComplete): String? {
 }
 
 @BindingAdapter(value = ["textAttrChanged"])
-fun setOnFieldInputChangeListener(
+fun setOnTextAttrChangeListener(
     autoComplete: AutoComplete,
     inverseBindingListener: InverseBindingListener
 ) {
@@ -36,11 +36,31 @@ fun getText(textInput: TextInput): String? {
 }
 
 @BindingAdapter(value = ["textAttrChanged"])
-fun setOnFieldInputChangeListener(
+fun setOnTextAttrChangeListener(
     textInput: TextInput,
     inverseBindingListener: InverseBindingListener
 ) {
     textInput.editText?.doAfterTextChanged {
+        inverseBindingListener.onChange()
+    }
+}
+
+@BindingAdapter("date")
+fun setDate(view: Date, date: Long?) {
+    view.date = date
+}
+
+@InverseBindingAdapter(attribute = "date")
+fun getDate(view: Date): Long? {
+    return view.date
+}
+
+@BindingAdapter(value = ["dateAttrChanged"])
+fun setOnDateAttrChangeListener(
+    view: Date,
+    inverseBindingListener: InverseBindingListener
+) {
+    view.editText?.doAfterTextChanged {
         inverseBindingListener.onChange()
     }
 }

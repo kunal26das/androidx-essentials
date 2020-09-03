@@ -30,6 +30,12 @@ class Date @JvmOverloads constructor(
             field = null
         }
 
+    var date: Long? = null
+        internal set(value) {
+            field = value
+            value?.let { editText?.setText(displayDateFormat.format(it)) }
+        }
+
     private val locale = Locale.getDefault()
     private val materialDatePicker: MaterialDatePicker<Long>
     private val calendarConstraintsBuilder = CalendarConstraints.Builder()
@@ -51,9 +57,7 @@ class Date @JvmOverloads constructor(
                 materialDatePickerBuilder.setTitleText(hint)
                 materialDatePickerBuilder.setCalendarConstraints(build())
                 materialDatePicker = materialDatePickerBuilder.build()
-                materialDatePicker.addOnPositiveButtonClickListener {
-                    editText?.setText(displayDateFormat.format(it))
-                }
+                materialDatePicker.addOnPositiveButtonClickListener { date = it }
             }
             recycle()
         }
