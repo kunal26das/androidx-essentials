@@ -54,7 +54,9 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginVertical="8dp"
                 android:hint="@string/date"
+                app:date="@={viewModel.date}"
                 app:editable="@{viewModel.isEditable}"
+                app:helperText="@{String.valueOf(viewModel.date)}"
                 app:mandatory="@{viewModel.isMandatory}" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
