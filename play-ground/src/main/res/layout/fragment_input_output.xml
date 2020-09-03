@@ -31,6 +31,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="8dp"
                 android:hint="@string/text_input"
+                android:inputType="number"
                 app:editable="@{viewModel.isEditable}"
                 app:mandatory="@{viewModel.isMandatory}" />
 
@@ -42,6 +43,17 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginVertical="8dp"
                 android:hint="@string/auto_complete"
+                app:editable="@{viewModel.isEditable}"
+                app:mandatory="@{viewModel.isMandatory}" />
+
+            <androidx.essentials.io.Date
+                android:id="@+id/date"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="8dp"
+                android:hint="@string/date"
                 app:editable="@{viewModel.isEditable}"
                 app:mandatory="@{viewModel.isMandatory}" />
 
