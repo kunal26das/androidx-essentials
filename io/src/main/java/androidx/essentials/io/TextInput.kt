@@ -5,19 +5,19 @@ import android.text.InputType
 import android.util.AttributeSet
 import android.view.LayoutInflater
 
-class TextInput @JvmOverloads constructor(
+open class TextInput @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.textInputStyle
 ) : Field(context, attrs, defStyleAttr) {
 
-    var inputType = DEFAULT_INPUT_TYPE
+    open var inputType = DEFAULT_INPUT_TYPE
         set(value) {
             field = value
             editText?.inputType = value
         }
 
-    var regex: Regex? = null
+    open var regex: Regex? = null
         set(value) {
             field = value
             isValid

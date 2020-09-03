@@ -29,7 +29,7 @@ abstract class Field @JvmOverloads constructor(
             editText?.imeOptions = value
         }
 
-    var isEditable = DEFAULT_IS_EDITABLE
+    open var isEditable = DEFAULT_IS_EDITABLE
         set(value) {
             field = value
             isMandatory = isMandatory
@@ -73,7 +73,7 @@ abstract class Field @JvmOverloads constructor(
                 isValid
             }
             setOnFocusChangeListener { view, itHasFocus ->
-                if (!isEditable && itHasFocus) {
+                if (!isEditable and itHasFocus) {
                     view.clearFocus()
                     hideKeyboard(view)
                 } else if (!itHasFocus) {
@@ -105,7 +105,7 @@ abstract class Field @JvmOverloads constructor(
         action: (text: Editable?) -> Unit
     ) = editText?.addTextChangedListener(afterTextChanged = action)
 
-    private fun hideKeyboard(view: View) {
+    internal fun hideKeyboard(view: View) {
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 

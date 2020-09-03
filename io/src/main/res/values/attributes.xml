@@ -23,4 +23,8 @@
         <attr name="mandatory" />
         <attr name="regex" />
     </declare-styleable>
+    <declare-styleable name="Date">
+        <attr name="future" format="boolean" />
+        <attr name="past" format="boolean" />
+    </declare-styleable>
 </resources>
