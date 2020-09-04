@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuInflater
 import android.view.View
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.core.view.children
 import androidx.essentials.core.ui.Fragment
 import androidx.essentials.playground.R
@@ -24,6 +25,13 @@ class InputOutputFragment : Fragment(true) {
             autoComplete.array = menu.children.map {
                 "${it.title}"
             }.toList().toTypedArray()
+        }
+        validate.setOnClickListener {
+            Toast.makeText(
+                requireContext(), "${
+                    textInput.isValid and autoComplete.isValid and date.isValid
+                }", Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
