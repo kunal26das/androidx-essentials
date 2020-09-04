@@ -20,13 +20,15 @@ open class TextInput @JvmOverloads constructor(
     open var regex: Regex? = null
         set(value) {
             field = value
-            isValid
+            if (isEditable and textChanged) {
+                isValid
+            }
         }
 
     override val isValid: Boolean
         get() {
             val text = editText?.text?.toString() ?: ""
-            isErrorEnabled = isEditable and textChanged and when {
+            isErrorEnabled = isEditable and when {
                 isMandatory and text.isBlank() -> {
                     error = MESSAGE_MANDATORY
                     true

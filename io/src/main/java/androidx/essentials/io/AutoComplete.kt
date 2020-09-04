@@ -19,14 +19,16 @@ class AutoComplete @JvmOverloads constructor(
     var array = emptyArray<String>()
         set(value) {
             field = value
-            isValid
+            if (isEditable and textChanged) {
+                isValid
+            }
             autoCompleteTextView.setAdapter(ArrayAdapter(context, listItem, array))
         }
 
     override val isValid: Boolean
         get() {
             val text = editText?.text?.toString() ?: ""
-            isErrorEnabled = textChanged and when {
+            isErrorEnabled = when {
                 isMandatory and text.isBlank() -> {
                     error = MESSAGE_MANDATORY
                     true

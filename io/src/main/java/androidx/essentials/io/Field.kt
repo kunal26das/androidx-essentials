@@ -43,7 +43,9 @@ abstract class Field @JvmOverloads constructor(
         set(value) {
             field = value
             hint = mHint
-            isValid
+            if (isEditable and textChanged) {
+                isValid
+            }
         }
 
 
