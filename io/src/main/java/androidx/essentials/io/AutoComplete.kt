@@ -29,11 +29,11 @@ class AutoComplete @JvmOverloads constructor(
         get() {
             val text = editText?.text?.toString() ?: ""
             isErrorEnabled = when {
-                isMandatory and text.isBlank() -> {
+                isMandatory and isEditable and text.isBlank() -> {
                     error = MESSAGE_MANDATORY
                     true
                 }
-                isEditable -> text.isNotBlank() and array.isNotEmpty() and !array.contains(text)
+                isMandatory and !isEditable -> array.isNotEmpty() and !array.contains(text)
                 else -> false
             }
             return !isErrorEnabled
@@ -90,5 +90,9 @@ class AutoComplete @JvmOverloads constructor(
                 else -> mHint
             }
         )
+    }
+
+    companion object {
+        const val DEFAULT_IS_EDITABLE = false
     }
 }
