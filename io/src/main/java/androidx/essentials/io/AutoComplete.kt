@@ -22,7 +22,7 @@ class AutoComplete @JvmOverloads constructor(
             if (isEditable and textChanged) {
                 isValid
             }
-            autoCompleteTextView.setAdapter(ArrayAdapter(context, listItem, array))
+            autoCompleteTextView.setAdapter(ArrayAdapter(context, listItem, value))
         }
 
     override val isValid: Boolean
@@ -68,11 +68,12 @@ class AutoComplete @JvmOverloads constructor(
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         autoCompleteTextView.apply {
-            setOnFocusChangeListener { _, itHasFocus ->
+            setOnFocusChangeListener { view, itHasFocus ->
                 if (!isEditable && itHasFocus) {
                     autoCompleteTextView.showDropDown()
                 } else if (!itHasFocus) {
                     autoCompleteTextView.dismissDropDown()
+                    hideKeyboard(view)
                 }
             }
             setOnItemClickListener { _, _, _, _ ->
