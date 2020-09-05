@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
 import androidx.essentials.list.AbstractList.Companion.DEFAULT_ORIENTATION
 import androidx.essentials.list.view.ListItemView
 import androidx.essentials.playground.R
@@ -42,6 +43,10 @@ class LibraryView @JvmOverloads constructor(
                 context.getString(R.string.network) -> androidx.essentials.network.BuildConfig.VERSION_NAME
                 context.getString(R.string.resources) -> androidx.essentials.resources.BuildConfig.VERSION_NAME
                 else -> ""
+            }
+            version.visibility = when (version.text.isEmpty()) {
+                true -> View.GONE
+                false -> View.VISIBLE
             }
         }
     }

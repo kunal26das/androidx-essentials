@@ -3,6 +3,7 @@
     <group android:id="@+id/libraries">
         <item
             android:id="@+id/backdrop"
+            android:icon="@drawable/ic_rounded_corner_24dp"
             android:title="@string/backdrop" />
         <item
             android:id="@+id/core"
@@ -35,6 +36,7 @@
             android:title="@string/location" />
         <item
             android:id="@+id/network"
+            android:icon="@drawable/ic_cloud_24dp"
             android:title="@string/network" />
         <item
             android:id="@+id/resources"
