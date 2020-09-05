@@ -3,6 +3,7 @@ package androidx.essentials.io
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.content.res.getResourceIdOrThrow
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -90,6 +91,13 @@ class AutoComplete @JvmOverloads constructor(
                 else -> mHint
             }
         )
+    }
+
+    fun setOnItemClickListener(onItemClickListener: (index: Int, item: String) -> Unit) {
+        autoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
+            autoCompleteTextView.clearFocus()
+            onItemClickListener(i, array[i])
+        }
     }
 
     companion object {
