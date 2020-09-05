@@ -3,7 +3,6 @@ package androidx.essentials.io
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.content.res.getResourceIdOrThrow
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -15,6 +14,7 @@ class AutoComplete @JvmOverloads constructor(
 ) : Field(context, attrs, defStyleAttr) {
 
     private val listItem = android.R.layout.simple_list_item_1
+    private var onItemClickListener: OnItemClickListener? = null
     private val autoCompleteTextView: MaterialAutoCompleteTextView
 
     var array = emptyArray<String>()
@@ -77,8 +77,9 @@ class AutoComplete @JvmOverloads constructor(
                     hideKeyboard(view)
                 }
             }
-            setOnItemClickListener { _, _, _, _ ->
+            setOnItemClickListener { _, _, i, _ ->
                 autoCompleteTextView.clearFocus()
+                this@AutoComplete.onItemClickListener?.onItemClick(i, array[i])
             }
         }
     }
@@ -93,11 +94,20 @@ class AutoComplete @JvmOverloads constructor(
         )
     }
 
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
+        this.onItemClickListener = onItemClickListener
+    }
+
     fun setOnItemClickListener(onItemClickListener: (index: Int, item: String) -> Unit) {
-        autoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
-            autoCompleteTextView.clearFocus()
-            onItemClickListener(i, array[i])
+        this.onItemClickListener = object : OnItemClickListener {
+            override fun onItemClick(index: Int, item: String) {
+                onItemClickListener(index, item)
+            }
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(index: Int, item: String)
     }
 
     companion object {
