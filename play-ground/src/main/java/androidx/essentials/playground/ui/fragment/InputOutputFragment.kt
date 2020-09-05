@@ -33,6 +33,9 @@ class InputOutputFragment : Fragment(true) {
                 }", Toast.LENGTH_SHORT
             ).show()
         }
+        autoComplete.setOnItemClickListener { index, item ->
+            Toast.makeText(requireContext(), "$index: $item", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }
