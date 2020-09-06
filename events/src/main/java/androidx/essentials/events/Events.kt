@@ -6,8 +6,8 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 
 object Events {
 
-    private val compositeDisposable = CompositeDisposable()
     private val events = PublishSubject.create<Any>()
+    private val compositeDisposable = CompositeDisposable()
 
     fun <T> subscribe(eventClass: Class<T>, action: (data: T) -> Unit) {
         compositeDisposable.add(

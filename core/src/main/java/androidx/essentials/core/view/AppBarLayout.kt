@@ -44,8 +44,7 @@ class AppBarLayout @JvmOverloads constructor(
         when (layoutParams) {
             is CoordinatorLayout.LayoutParams -> {
                 with(layoutParams as CoordinatorLayout.LayoutParams) {
-                    behavior =
-                        AppBarLayoutBehaviour()
+                    behavior = AppBarLayoutBehaviour()
                 }
             }
         }
