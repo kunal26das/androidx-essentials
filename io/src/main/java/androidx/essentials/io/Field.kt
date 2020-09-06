@@ -2,6 +2,7 @@ package androidx.essentials.io
 
 import android.content.Context
 import android.text.Editable
+import android.text.InputType
 import android.text.method.KeyListener
 import android.util.AttributeSet
 import android.view.View
@@ -27,6 +28,12 @@ abstract class Field @JvmOverloads constructor(
         set(value) {
             field = value
             editText?.imeOptions = value
+        }
+
+    open var inputType = DEFAULT_INPUT_TYPE
+        set(value) {
+            field = value
+            editText?.inputType = value
         }
 
     open var isEditable = DEFAULT_IS_EDITABLE
@@ -117,6 +124,7 @@ abstract class Field @JvmOverloads constructor(
         const val DEFAULT_IS_MANDATORY = false
         const val MESSAGE_REGEX = "Invalid Input"
         const val MESSAGE_MANDATORY = "Mandatory Field"
+        const val DEFAULT_INPUT_TYPE = InputType.TYPE_CLASS_TEXT
         const val DEFAULT_IME_OPTIONS = EditorInfo.IME_ACTION_NEXT
     }
 }

@@ -1,7 +1,6 @@
 package androidx.essentials.io
 
 import android.content.Context
-import android.text.InputType
 import android.util.AttributeSet
 import android.view.LayoutInflater
 
@@ -10,12 +9,6 @@ open class TextInput @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.textInputStyle
 ) : Field(context, attrs, defStyleAttr) {
-
-    open var inputType = DEFAULT_INPUT_TYPE
-        set(value) {
-            field = value
-            editText?.inputType = value
-        }
 
     open var regex: Regex? = null
         set(value) {
@@ -75,7 +68,4 @@ open class TextInput @JvmOverloads constructor(
         )
     }
 
-    companion object {
-        const val DEFAULT_INPUT_TYPE = InputType.TYPE_CLASS_TEXT
-    }
 }
