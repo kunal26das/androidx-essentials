@@ -4,8 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.res.getResourceIdOrThrow
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
+
 
 class AutoComplete @JvmOverloads constructor(
     context: Context,
@@ -28,10 +30,12 @@ class AutoComplete @JvmOverloads constructor(
 
     var array = emptyArray<String>()
         set(value) {
-            field = value
-            adapter = ArrayAdapter(context, listItem, value)
-            if (isEditable and textChanged) {
-                isValid
+            if (!field.contentEquals(value)) {
+                field = value
+                adapter = ArrayAdapter(context, listItem, value)
+                if (isEditable and textChanged) {
+                    isValid
+                }
             }
         }
 
@@ -72,6 +76,12 @@ class AutoComplete @JvmOverloads constructor(
             } catch (e: IllegalArgumentException) {
                 emptyArray()
             }
+            try {
+                getResourceIdOrThrow(R.styleable.AutoComplete_android_fontFamily).let {
+                    typeface = ResourcesCompat.getFont(context, it)
+                }
+            } catch (e: IllegalArgumentException) {
+            }
             recycle()
         }
     }
@@ -103,6 +113,9 @@ class AutoComplete @JvmOverloads constructor(
             }
         )
     }
+
+    fun showDropDown() = autoCompleteTextView.showDropDown()
+    fun dismissDropDown() = autoCompleteTextView.dismissDropDown()
 
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
         this.onItemClickListener = onItemClickListener

@@ -3,6 +3,8 @@ package androidx.essentials.io
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.content.res.getResourceIdOrThrow
 
 open class TextInput @JvmOverloads constructor(
     context: Context,
@@ -52,6 +54,12 @@ open class TextInput @JvmOverloads constructor(
             isMandatory = getBoolean(R.styleable.TextInput_mandatory, DEFAULT_IS_MANDATORY)
             inputType = getInt(R.styleable.TextInput_android_inputType, DEFAULT_INPUT_TYPE)
             imeOptions = getInt(R.styleable.TextInput_android_imeOptions, DEFAULT_IME_OPTIONS)
+            try {
+                getResourceIdOrThrow(R.styleable.TextInput_android_fontFamily).let {
+                    typeface = ResourcesCompat.getFont(context, it)
+                }
+            } catch (e: IllegalArgumentException) {
+            }
             val pattern = getString(R.styleable.TextInput_regex)
             if (pattern != null) regex = Regex(pattern)
             recycle()

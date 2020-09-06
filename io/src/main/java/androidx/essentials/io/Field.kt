@@ -55,7 +55,6 @@ abstract class Field @JvmOverloads constructor(
             }
         }
 
-
     var lines = DEFAULT_LINES
         set(value) {
             field = value

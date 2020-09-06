@@ -6,6 +6,7 @@
     <attr name="mandatory" format="boolean" />
     <attr name="regex" format="string" />
     <declare-styleable name="AutoComplete">
+        <attr name="android:fontFamily" />
         <attr name="android:imeOptions" />
         <attr name="android:inputType" />
         <attr name="android:lines" />
@@ -29,6 +30,7 @@
         <attr name="past" format="boolean" />
     </declare-styleable>
     <declare-styleable name="TextInput">
+        <attr name="android:fontFamily" />
         <attr name="android:imeOptions" />
         <attr name="android:inputType" />
         <attr name="android:lines" />
