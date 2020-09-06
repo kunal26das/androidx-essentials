@@ -17,13 +17,22 @@ class AutoComplete @JvmOverloads constructor(
     private var onItemClickListener: OnItemClickListener? = null
     private val autoCompleteTextView: MaterialAutoCompleteTextView
 
+    private var adapter = ArrayAdapter<String>(context, listItem, emptyList())
+        set(value) {
+            field = value
+            autoCompleteTextView.setAdapter(value)
+            if (textChanged) {
+                autoCompleteTextView.showDropDown()
+            }
+        }
+
     var array = emptyArray<String>()
         set(value) {
             field = value
+            adapter = ArrayAdapter(context, listItem, value)
             if (isEditable and textChanged) {
                 isValid
             }
-            autoCompleteTextView.setAdapter(ArrayAdapter(context, listItem, value))
         }
 
     override val isValid: Boolean
