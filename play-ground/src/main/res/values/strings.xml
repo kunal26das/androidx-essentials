@@ -22,4 +22,5 @@
     <string name="valid">Valid</string>
     <string name="library">Library</string>
     <string name="date">Date</string>
+    <string name="single_selection">Single Selection</string>
 </resources>

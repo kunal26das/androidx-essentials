@@ -61,6 +61,17 @@
                 app:helperText="@{String.valueOf(viewModel.date)}"
                 app:mandatory="@{viewModel.isMandatory}" />
 
+            <androidx.essentials.io.Chips
+                android:id="@+id/chips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="8dp"
+                app:selection="@={viewModel.selection}"
+                app:selectionRequired="@{viewModel.isMandatory}"
+                app:singleSelection="@{viewModel.singleSelection}"
+                app:type="filter" />
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,6 +94,13 @@
                     android:checked="@={viewModel.isMandatory}"
                     android:layoutDirection="rtl"
                     android:text="@string/mandatory" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="@={viewModel.singleSelection}"
+                    android:layoutDirection="rtl"
+                    android:text="@string/single_selection" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <com.google.android.material.button.MaterialButton

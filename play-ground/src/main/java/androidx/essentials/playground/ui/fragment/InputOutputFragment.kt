@@ -22,14 +22,21 @@ class InputOutputFragment : Fragment(true) {
         (binding as FragmentInputOutputBinding).viewModel = viewModel
         PopupMenu(context, null).apply {
             MenuInflater(context).inflate(R.menu.menu_play_ground, menu)
-            autoComplete.array = menu.children.map {
+            menu.children.map {
                 "${it.title}"
-            }.toList().toTypedArray()
+            }.toList().toTypedArray().let {
+                autoComplete.array = it
+                chips.array = it
+            }
         }
         validate.setOnClickListener {
             Toast.makeText(
                 requireContext(), "${
-                    textInput.isValid and autoComplete.isValid and date.isValid
+                    true
+                        and textInput.isValid
+                        and autoComplete.isValid
+                        and date.isValid
+                        and chips.isValid
                 }", Toast.LENGTH_SHORT
             ).show()
         }

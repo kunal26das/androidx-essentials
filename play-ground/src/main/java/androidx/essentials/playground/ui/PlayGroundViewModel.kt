@@ -19,6 +19,8 @@ class PlayGroundViewModel : ViewModel(), Listeners {
     val date = MutableLiveData<Long>(null)
     val isEditable = MutableLiveData(true)
     val isMandatory = MutableLiveData(true)
+    val singleSelection = MutableLiveData(true)
+    val selection = MutableLiveData(emptyArray<String>())
     val isOnline = MutableLiveData(NetworkCallback.IS_ONLINE)
     val location = MutableLiveData(LocationProvider.LOCATION)
 
