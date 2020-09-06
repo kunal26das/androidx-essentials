@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="androidx.essentials.playground.ui.PlayGroundViewModel" />
+    </data>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -12,13 +20,33 @@
             android:layout_marginVertical="?actionBarSize"
             android:orientation="vertical">
 
-            <androidx.essentials.playground.view.ListItem
-                android:id="@+id/location"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="24dp"
+                android:orientation="horizontal">
+
+                <androidx.essentials.io.TextInput
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_weight="1"
+                    android:hint="@string/latitude"
+                    app:editable="false"
+                    app:text="@{String.valueOf(viewModel.location.latitude)}" />
+
+                <androidx.essentials.io.TextInput
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_weight="1"
+                    android:hint="@string/longitude"
+                    app:editable="false"
+                    app:text="@{String.valueOf(viewModel.location.longitude)}" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 </layout>

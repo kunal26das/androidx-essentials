@@ -1,5 +1,6 @@
 package androidx.essentials.playground
 
+import android.app.Activity
 import android.content.Context
 import android.os.Build
 import androidx.essentials.events.Events
@@ -41,8 +42,8 @@ class PlayGround : FirebaseApplication() {
         single { NetworkCallback(applicationContext) }
     }
 
-    override fun onTerminate() {
-        super.onTerminate()
+    override fun onActivityPreDestroyed(activity: Activity) {
+        super.onActivityPreDestroyed(activity)
         Events.clear()
     }
 

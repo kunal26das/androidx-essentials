@@ -23,4 +23,6 @@
     <string name="library">Library</string>
     <string name="date">Date</string>
     <string name="single_selection">Single Selection</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
 </resources>

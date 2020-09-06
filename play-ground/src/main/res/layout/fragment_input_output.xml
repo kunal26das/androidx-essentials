@@ -122,6 +122,7 @@
             android:textColor="@color/colorBackground"
             app:backgroundTint="@color/colorPrimary"
             app:icon="@drawable/ic_check_24dp"
-            app:iconTint="@color/colorBackground" />
+            app:iconTint="@color/colorBackground"
+            app:layout_behavior="androidx.essentials.resources.behaviour.ExtendedFloatingActionButton" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
