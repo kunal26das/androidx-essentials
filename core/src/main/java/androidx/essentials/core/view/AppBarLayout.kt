@@ -19,8 +19,8 @@ class AppBarLayout @JvmOverloads constructor(
     val toolbar: MaterialToolbar
     private val appBarLayout: AppBarLayout
     private val contentLoadingProgressBar: ContentLoadingProgressBar
-    var isLoading: Boolean =
-        DEFAULT_LOADING
+
+    var isLoading: Boolean = DEFAULT_LOADING
         set(value) {
             field = value
             when (value) {

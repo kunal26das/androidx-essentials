@@ -1,6 +1,7 @@
 package androidx.essentials.core.ui
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import org.koin.android.viewmodel.ext.android.viewModel as koinViewModel
 
 abstract class Activity(private val dataBinding: Boolean = false) : AppCompatActivity() {
@@ -132,9 +132,21 @@ abstract class Activity(private val dataBinding: Boolean = false) : AppCompatAct
     open fun initObservers() {}
 
     protected fun <T> LiveData<T>.observe(action: (T) -> Unit) {
-        observe(this@Activity, Observer {
+        observe(this@Activity, {
             action.invoke(it)
         })
+    }
+
+    protected fun resumeApplication(): Boolean {
+        if (!isTaskRoot
+            && intent.hasCategory(Intent.CATEGORY_LAUNCHER)
+            && intent.action != null
+            && intent.action.equals(Intent.ACTION_MAIN)
+        ) {
+            finish()
+            return true
+        }
+        return false
     }
 
     override fun onDestroy() {
