@@ -11,105 +11,117 @@
             type="androidx.essentials.playground.ui.PlayGroundViewModel" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="?actionBarSize"
-            android:orientation="vertical"
-            tools:layout_marginVertical="0dp">
-
-            <androidx.essentials.io.TextInput
-                android:id="@+id/textInput"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/text_input"
-                android:inputType="number"
-                android:maxLines="1"
-                app:editable="@{viewModel.isEditable}"
-                app:mandatory="@{viewModel.isMandatory}" />
-
-            <androidx.essentials.io.AutoComplete
-                android:id="@+id/autoComplete"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginVertical="8dp"
-                android:hint="@string/auto_complete"
-                android:inputType="textCapWords"
-                app:editable="@{viewModel.isEditable}"
-                app:mandatory="@{viewModel.isMandatory}" />
-
-            <androidx.essentials.io.Date
-                android:id="@+id/date"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginVertical="8dp"
-                android:hint="@string/date"
-                app:date="@={viewModel.date}"
-                app:editable="@{viewModel.isEditable}"
-                app:helperText="@{String.valueOf(viewModel.date)}"
-                app:mandatory="@{viewModel.isMandatory}" />
-
-            <androidx.essentials.io.Chips
-                android:id="@+id/chips"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginVertical="8dp"
-                app:selection="@={viewModel.selection}"
-                app:selectionRequired="@{viewModel.isMandatory}"
-                app:singleSelection="@{viewModel.singleSelection}"
-                app:type="filter" />
+            android:layout_height="match_parent">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginVertical="8dp"
-                android:background="@drawable/background_selectable_item"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="?actionBarSize"
                 android:orientation="vertical"
-                android:padding="12dp">
+                tools:layout_marginVertical="0dp">
 
-                <com.google.android.material.checkbox.MaterialCheckBox
+                <androidx.essentials.io.TextInput
+                    android:id="@+id/textInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:checked="@={viewModel.isEditable}"
-                    android:layoutDirection="rtl"
-                    android:text="@string/editable" />
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/text_input"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    app:editable="@{viewModel.isEditable}"
+                    app:mandatory="@{viewModel.isMandatory}" />
 
-                <com.google.android.material.checkbox.MaterialCheckBox
+                <androidx.essentials.io.AutoComplete
+                    android:id="@+id/autoComplete"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:checked="@={viewModel.isMandatory}"
-                    android:layoutDirection="rtl"
-                    android:text="@string/mandatory" />
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="8dp"
+                    android:hint="@string/auto_complete"
+                    android:inputType="textCapWords"
+                    app:editable="@{viewModel.isEditable}"
+                    app:mandatory="@{viewModel.isMandatory}" />
 
-                <com.google.android.material.checkbox.MaterialCheckBox
+                <androidx.essentials.io.Date
+                    android:id="@+id/date"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:checked="@={viewModel.singleSelection}"
-                    android:layoutDirection="rtl"
-                    android:text="@string/single_selection" />
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="8dp"
+                    android:hint="@string/date"
+                    app:date="@={viewModel.date}"
+                    app:editable="@{viewModel.isEditable}"
+                    app:helperText="@{String.valueOf(viewModel.date)}"
+                    app:mandatory="@{viewModel.isMandatory}"
+                    app:startIconDrawable="@drawable/ic_event_available_24dp" />
+
+                <androidx.essentials.io.Chips
+                    android:id="@+id/chips"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="8dp"
+                    android:background="@drawable/background_selectable_item"
+                    android:padding="12dp"
+                    app:selection="@={viewModel.selection}"
+                    app:selectionRequired="@{viewModel.isMandatory}"
+                    app:singleSelection="@{viewModel.singleSelection}"
+                    app:type="filter" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="8dp"
+                    android:background="@drawable/background_selectable_item"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@={viewModel.isEditable}"
+                        android:layoutDirection="rtl"
+                        android:text="@string/editable" />
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@={viewModel.isMandatory}"
+                        android:layoutDirection="rtl"
+                        android:text="@string/mandatory" />
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@={viewModel.singleSelection}"
+                        android:layoutDirection="rtl"
+                        android:text="@string/single_selection" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.core.widget.NestedScrollView>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/validate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginVertical="8dp"
-                android:text="@string/validate" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.core.widget.NestedScrollView>
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/validate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:text="@string/validate"
+            android:textColor="@color/colorBackground"
+            app:backgroundTint="@color/colorPrimary"
+            app:icon="@drawable/ic_check_24dp"
+            app:iconTint="@color/colorBackground" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
