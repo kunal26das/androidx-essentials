@@ -25,5 +25,6 @@
     <color name="colorOnSurface">@color/colorNotNight</color>
     <color name="colorOnError">@color/colorNight</color>
 
+    <color name="colorStroke">#757575</color>
     <color name="colorText">#C0C0C0</color>
 </resources>

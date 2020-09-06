@@ -2,10 +2,10 @@
 <resources>
     <bool name="isLightTheme">true</bool>
 
-    <color name="colorNavigationBarDivider">#C0C0C0</color>
     <color name="colorStatusBar">@color/colorNotNight</color>
     <color name="colorNavigationBar">@color/colorNotNight</color>
     <color name="colorWindowBackground">@color/colorNotNight</color>
+    <color name="colorNavigationBarDivider">@color/colorStroke</color>
 
     <color name="colorPrimary">@color/colorNight</color>
     <color name="colorPrimaryVariant">@color/colorNotNight</color>
@@ -23,6 +23,7 @@
     <color name="colorOnError">@color/colorNotNight</color>
 
     <color name="colorNotNight">#FFFFFF</color>
+    <color name="colorStroke">#C0C0C0</color>
     <color name="colorNight">#303030</color>
     <color name="colorText">#757575</color>
 </resources>
