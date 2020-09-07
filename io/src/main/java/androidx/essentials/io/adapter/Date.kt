@@ -6,9 +6,14 @@ import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import androidx.essentials.io.Date
 
+private var fromUser = false
+
 @BindingAdapter("date")
 fun setDate(view: Date, date: Long?) {
-    view.date = date
+    when (fromUser) {
+        true -> fromUser = false
+        false -> view.date = date
+    }
 }
 
 @InverseBindingAdapter(attribute = "date")
@@ -22,6 +27,7 @@ fun setOnDateAttrChangeListener(
     inverseBindingListener: InverseBindingListener
 ) {
     view.editText?.doAfterTextChanged {
+        fromUser = true
         inverseBindingListener.onChange()
     }
 }

@@ -6,14 +6,22 @@ import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import androidx.essentials.io.AutoComplete
 
+private var fromUser = false
+
 @BindingAdapter("text")
 fun setText(autoComplete: AutoComplete, text: String?) {
-    autoComplete.editText?.setText(text)
+    when (fromUser) {
+        true -> fromUser = false
+        false -> text?.let { autoComplete.editText?.setText(it) }
+    }
 }
 
 @InverseBindingAdapter(attribute = "text")
 fun getText(autoComplete: AutoComplete): String? {
-    return "${autoComplete.editText?.text}"
+    return when (autoComplete.editText?.text) {
+        null -> null
+        else -> "${autoComplete.editText?.text}"
+    }
 }
 
 @BindingAdapter(value = ["textAttrChanged"])
@@ -22,6 +30,7 @@ fun setOnTextAttrChangeListener(
     inverseBindingListener: InverseBindingListener
 ) {
     autoComplete.editText?.doAfterTextChanged {
+        fromUser = true
         inverseBindingListener.onChange()
     }
 }
