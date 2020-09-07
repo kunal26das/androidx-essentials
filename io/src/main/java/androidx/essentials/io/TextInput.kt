@@ -1,6 +1,7 @@
 package androidx.essentials.io
 
 import android.content.Context
+import android.text.InputFilter
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.core.content.res.ResourcesCompat
@@ -11,6 +12,15 @@ open class TextInput @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.textInputStyle
 ) : Field(context, attrs, defStyleAttr) {
+
+    var maxLength = DEFAULT_MAX_LENGTH
+        set(value) {
+            field = value
+            editText?.filters?.toCollection(ArrayList())?.apply {
+                add(InputFilter.LengthFilter(value))
+                editText?.filters = toTypedArray()
+            }
+        }
 
     open var regex: Regex? = null
         set(value) {
@@ -53,6 +63,7 @@ open class TextInput @JvmOverloads constructor(
             isEditable = getBoolean(R.styleable.TextInput_editable, DEFAULT_IS_EDITABLE)
             isMandatory = getBoolean(R.styleable.TextInput_mandatory, DEFAULT_IS_MANDATORY)
             inputType = getInt(R.styleable.TextInput_android_inputType, DEFAULT_INPUT_TYPE)
+            maxLength = getInt(R.styleable.TextInput_android_maxLength, DEFAULT_MAX_LENGTH)
             imeOptions = getInt(R.styleable.TextInput_android_imeOptions, DEFAULT_IME_OPTIONS)
             try {
                 getResourceIdOrThrow(R.styleable.TextInput_android_fontFamily).let {
@@ -74,6 +85,10 @@ open class TextInput @JvmOverloads constructor(
                 else -> mHint
             }
         )
+    }
+
+    companion object {
+        const val DEFAULT_MAX_LENGTH = Int.MAX_VALUE
     }
 
 }
