@@ -94,7 +94,7 @@ class AutoComplete @JvmOverloads constructor(
                     autoCompleteTextView.showDropDown()
                 } else if (!itHasFocus) {
                     autoCompleteTextView.dismissDropDown()
-                    hideKeyboard(view)
+                    hideSoftInput(view)
                 }
             }
             setOnItemClickListener { _, _, i, _ ->

@@ -68,7 +68,7 @@ class Date @JvmOverloads constructor(
         editText?.apply {
             setOnFocusChangeListener { view, itHasFocus ->
                 view.clearFocus()
-                hideKeyboard(view)
+                hideSoftInput(view)
                 if (isEditable and itHasFocus) {
                     try {
                         materialDatePicker.show(

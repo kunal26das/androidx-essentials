@@ -81,11 +81,17 @@ abstract class Field @JvmOverloads constructor(
                 isValid
             }
             setOnFocusChangeListener { view, itHasFocus ->
-                if (!isEditable and itHasFocus) {
-                    view.clearFocus()
-                    hideKeyboard(view)
-                } else if (!itHasFocus) {
-                    hideKeyboard(view)
+                when (isEditable) {
+                    true -> when (itHasFocus) {
+                        true -> showSoftInput(view)
+                        false -> hideSoftInput(view)
+                    }
+                    false -> when (itHasFocus) {
+                        true -> {
+                            hideSoftInput(view)
+                            clearFocus()
+                        }
+                    }
                 }
             }
         }
@@ -113,8 +119,12 @@ abstract class Field @JvmOverloads constructor(
         action: (text: Editable?) -> Unit
     ) = editText?.addTextChangedListener(afterTextChanged = action)
 
-    internal fun hideKeyboard(view: View) {
+    internal fun hideSoftInput(view: View) {
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    internal fun showSoftInput(view: View) {
+        inputMethodManager.showSoftInput(view, 0)
     }
 
     companion object {
