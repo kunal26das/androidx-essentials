@@ -15,9 +15,11 @@ class PlayGroundViewModel : ViewModel(), Listeners {
     private val networkCallback: NetworkCallback by inject()
     private val locationProvider: LocationProvider by inject()
 
+    val date = MutableLiveData<Long>()
+    val textInput = MutableLiveData<String>()
     val token = MutableLiveData(Firebase.TOKEN)
-    val date = MutableLiveData<Long>(null)
     val isEditable = MutableLiveData(true)
+    val autoComplete = MutableLiveData<String>()
     val isMandatory = MutableLiveData(true)
     val singleSelection = MutableLiveData(true)
     val selection = MutableLiveData(emptyArray<String>())

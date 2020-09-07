@@ -35,10 +35,11 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="8dp"
                     android:hint="@string/text_input"
-                    android:inputType="number"
                     android:maxLines="1"
                     app:editable="@{viewModel.isEditable}"
-                    app:mandatory="@{viewModel.isMandatory}" />
+                    app:helperText="@{viewModel.textInput}"
+                    app:mandatory="@{viewModel.isMandatory}"
+                    app:text="@={viewModel.textInput}" />
 
                 <androidx.essentials.io.AutoComplete
                     android:id="@+id/autoComplete"
@@ -49,8 +50,11 @@
                     android:layout_marginVertical="8dp"
                     android:hint="@string/auto_complete"
                     android:inputType="textCapWords"
+                    android:maxLines="1"
                     app:editable="@{viewModel.isEditable}"
-                    app:mandatory="@{viewModel.isMandatory}" />
+                    app:helperText="@{viewModel.autoComplete}"
+                    app:mandatory="@{viewModel.isMandatory}"
+                    app:text="@={viewModel.autoComplete}" />
 
                 <androidx.essentials.io.Date
                     android:id="@+id/date"

@@ -44,11 +44,12 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    // AndroidX Libraries
+    // Jetpack
     dependencies {
         implementation "androidx.core:core-ktx:$core_version"
         implementation "androidx.appcompat:appcompat:$appcompat_version"
         // Layouts
+        implementation "androidx.drawerlayout:drawerlayout:1.1.1"
         implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
         // Live Data
         implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
