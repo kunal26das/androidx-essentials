@@ -83,7 +83,10 @@ abstract class Field @JvmOverloads constructor(
             setOnFocusChangeListener { view, itHasFocus ->
                 when (isEditable) {
                     true -> when (itHasFocus) {
-                        true -> showSoftInput(view)
+                        true -> {
+                            showSoftInput(view)
+                            post { setSelection(length()) }
+                        }
                         false -> hideSoftInput(view)
                     }
                     false -> when (itHasFocus) {
