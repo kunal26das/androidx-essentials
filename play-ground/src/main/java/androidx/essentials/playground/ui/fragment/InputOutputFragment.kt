@@ -43,7 +43,6 @@ class InputOutputFragment : Fragment(true) {
         autoComplete.setOnItemClickListener { index, item ->
             Toast.makeText(requireContext(), "$index: $item", Toast.LENGTH_SHORT).show()
         }
-        (binding as FragmentInputOutputBinding).textInput.requestFocus()
     }
 
 }
