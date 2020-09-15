@@ -73,12 +73,16 @@ abstract class Field @JvmOverloads constructor(
             editText?.minLines = value
         }
 
+    var validate = DEFAULT_VALIDATE
+
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         editText?.apply {
             doAfterTextChanged {
                 textChanged = true
-                isValid
+                if (validate) {
+                    isValid
+                }
             }
             setOnFocusChangeListener { view, itHasFocus ->
                 when (isEditable) {
@@ -132,6 +136,7 @@ abstract class Field @JvmOverloads constructor(
 
     companion object {
         const val DEFAULT_LINES = 1
+        const val DEFAULT_VALIDATE = false
         const val DEFAULT_IS_EDITABLE = true
         const val DEFAULT_IS_MANDATORY = false
         const val MESSAGE_REGEX = "Invalid Input"

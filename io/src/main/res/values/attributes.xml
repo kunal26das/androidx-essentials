@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+
     <attr name="array" format="reference" />
     <attr name="editable" format="boolean" />
     <attr name="mandatory" format="boolean" />
     <attr name="regex" format="string" />
+    <attr name="validate" format="boolean" />
+
     <declare-styleable name="AutoComplete">
         <attr name="android:fontFamily" />
         <attr name="android:imeOptions" />
@@ -15,7 +18,9 @@
         <attr name="array" />
         <attr name="editable" />
         <attr name="mandatory" />
+        <attr name="validate" />
     </declare-styleable>
+
     <declare-styleable name="Chips">
         <attr name="array" />
         <attr name="type" format="enum">
@@ -25,10 +30,12 @@
             <enum name="filter" value="3" />
         </attr>
     </declare-styleable>
+
     <declare-styleable name="Date">
         <attr name="future" format="boolean" />
         <attr name="past" format="boolean" />
     </declare-styleable>
+
     <declare-styleable name="TextInput">
         <attr name="android:fontFamily" />
         <attr name="android:imeOptions" />
@@ -40,5 +47,7 @@
         <attr name="editable" />
         <attr name="mandatory" />
         <attr name="regex" />
+        <attr name="validate" />
     </declare-styleable>
+
 </resources>

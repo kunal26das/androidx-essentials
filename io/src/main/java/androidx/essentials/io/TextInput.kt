@@ -58,6 +58,7 @@ open class TextInput @JvmOverloads constructor(
         keyListener = editText?.keyListener!!
         context.obtainStyledAttributes(attrs, R.styleable.TextInput, defStyleAttr, 0).apply {
             lines = getInt(R.styleable.TextInput_android_lines, DEFAULT_LINES)
+            validate = getBoolean(R.styleable.TextInput_validate, DEFAULT_VALIDATE)
             maxLines = getInt(R.styleable.TextInput_android_maxLines, DEFAULT_LINES)
             minLines = getInt(R.styleable.TextInput_android_minLines, DEFAULT_LINES)
             isEditable = getBoolean(R.styleable.TextInput_editable, DEFAULT_IS_EDITABLE)
