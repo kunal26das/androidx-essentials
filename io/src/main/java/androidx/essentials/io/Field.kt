@@ -94,10 +94,7 @@ abstract class Field @JvmOverloads constructor(
                         false -> hideSoftInput(view)
                     }
                     false -> when (itHasFocus) {
-                        true -> {
-                            hideSoftInput(view)
-                            clearFocus()
-                        }
+                        true -> hideSoftInput(view)
                     }
                 }
             }
