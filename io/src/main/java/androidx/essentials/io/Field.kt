@@ -40,6 +40,7 @@ abstract class Field @JvmOverloads constructor(
         set(value) {
             field = value
             isMandatory = isMandatory
+            editText?.isFocusable = value
             editText?.keyListener = when (value) {
                 true -> keyListener
                 false -> null
