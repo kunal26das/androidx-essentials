@@ -40,7 +40,11 @@ abstract class Field @JvmOverloads constructor(
         set(value) {
             field = value
             isMandatory = isMandatory
-            editText?.isFocusable = value
+            if (!value) {
+                editText?.clearFocus()
+                isErrorEnabled = false
+            }
+            editText?.isCursorVisible = value
             editText?.keyListener = when (value) {
                 true -> keyListener
                 false -> null
@@ -81,23 +85,24 @@ abstract class Field @JvmOverloads constructor(
         editText?.apply {
             doAfterTextChanged {
                 textChanged = true
-                if (validate) {
-                    isValid
-                }
+                if (validate) isValid
             }
             setOnFocusChangeListener { view, itHasFocus ->
-                when (isEditable) {
-                    true -> when (itHasFocus) {
+                editText?.apply {
+                    when (isEditable and itHasFocus) {
                         true -> {
                             showSoftInput(view)
                             post { setSelection(length()) }
                         }
                         false -> hideSoftInput(view)
                     }
-                    false -> when (itHasFocus) {
-                        true -> hideSoftInput(view)
-                    }
                 }
+            }
+        }
+        setOnFocusChangeListener { _, itHasFocus ->
+            when (isEditable and itHasFocus) {
+                true -> editText?.requestFocus()
+                false -> editText?.clearFocus()
             }
         }
     }

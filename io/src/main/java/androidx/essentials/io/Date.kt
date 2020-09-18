@@ -66,10 +66,12 @@ class Date @JvmOverloads constructor(
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         editText?.apply {
+            keyListener = null
+            isCursorVisible = false
             setOnFocusChangeListener { view, itHasFocus ->
-                view.clearFocus()
-                hideSoftInput(view)
                 if (isEditable and itHasFocus) {
+                    view.clearFocus()
+                    hideSoftInput(view)
                     try {
                         materialDatePicker.show(
                             (context as AppCompatActivity).supportFragmentManager,
