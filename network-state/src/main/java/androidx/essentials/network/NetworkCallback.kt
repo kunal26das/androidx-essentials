@@ -92,16 +92,16 @@ class NetworkCallback private constructor() {
                     addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
                     addTransportType(NetworkCapabilities.TRANSPORT_ETHERNET)
                     addTransportType(NetworkCapabilities.TRANSPORT_BLUETOOTH)
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-                        addTransportType(NetworkCapabilities.TRANSPORT_LOWPAN)
-                    }
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        addTransportType(NetworkCapabilities.TRANSPORT_WIFI_AWARE)
-                    }
                 }.build(), networkCallback!!
             )
         }
     }
+
+    fun refresh() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        connectivityManager?.isDefaultNetworkActive ?: false
+    } else {
+        connectivityManager?.activeNetworkInfo?.isConnected ?: false
+    } or isOnline
 
     fun setOnNetworkStateChangeListener(onNetworkStateChangeListener: OnNetworkStateChangeListener?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -145,11 +145,11 @@ class NetworkCallback private constructor() {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                     context.registerReceiver(
                         networkBroadcastReceiver,
-                        NetworkCallbackReceiver.intentFilter
+                        NetworkCallbackReceiver.INTENT_FILTER
                     )
                 }
+                return NetworkCallback()
             }
-            return NetworkCallback()
         }
     }
 }

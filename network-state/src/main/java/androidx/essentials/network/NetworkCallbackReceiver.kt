@@ -21,7 +21,8 @@ class NetworkCallbackReceiver : BroadcastReceiver() {
     }
 
     companion object {
-        val intentFilter = IntentFilter().apply {
+
+        val INTENT_FILTER = IntentFilter().apply {
             addAction(android.net.ConnectivityManager.CONNECTIVITY_ACTION)
         }
     }
