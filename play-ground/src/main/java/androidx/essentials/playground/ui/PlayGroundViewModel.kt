@@ -32,6 +32,8 @@ class PlayGroundViewModel : ViewModel(), Listeners {
         networkCallback.setOnNetworkStateChangeListener(this)
     }
 
+    fun refreshNetworkState() = networkCallback.refreshNetworkState()
+
     override fun onNewToken(token: String?) {
         this.token.postValue(token)
     }
