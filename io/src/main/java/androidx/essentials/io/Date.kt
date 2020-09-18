@@ -73,10 +73,12 @@ class Date @JvmOverloads constructor(
                     view.clearFocus()
                     hideSoftInput(view)
                     try {
-                        materialDatePicker.show(
-                            (context as AppCompatActivity).supportFragmentManager,
-                            null
-                        )
+                        if (!materialDatePicker.isAdded) {
+                            materialDatePicker.show(
+                                (context as AppCompatActivity).supportFragmentManager,
+                                null
+                            )
+                        }
                     } catch (e: Exception) {
                     }
                 }
