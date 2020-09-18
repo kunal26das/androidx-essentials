@@ -8,19 +8,38 @@ import com.google.android.gms.location.LocationServices
 
 class LocationProvider private constructor() {
 
-    fun setOnLocationChangeListener(onLocationChangeListener: OnLocationChangeListener) {
-        Companion.onLocationChangeListener = onLocationChangeListener
+    var location: Location? = null
+        private set(value) {
+            field = value
+            onLocationChangeListener?.onLocationChange(value)
+        }
+
+    private var onLocationChangeListener: OnLocationChangeListener? = null
+
+    init {
+        initOnLocationChangeListener()
     }
 
-    fun setOnLocationChangeListener(action: (Location?) -> Unit) {
-        onLocationChangeListener = object : OnLocationChangeListener {
-            override fun onLocationChange(location: Location?) {
-                action(location)
-            }
+    @SuppressLint("MissingPermission")
+    private fun initOnLocationChangeListener() {
+        fusedLocationProviderClient?.lastLocation?.addOnSuccessListener {
+            location = it
         }
     }
 
-    fun removeListener() {
+    fun setOnLocationChangeListener(onLocationChangeListener: OnLocationChangeListener) {
+        this.onLocationChangeListener = onLocationChangeListener
+    }
+
+    fun setOnLocationChangeListener(action: (Location?) -> Unit) {
+        setOnLocationChangeListener(object : OnLocationChangeListener {
+            override fun onLocationChange(location: Location?) {
+                action(location)
+            }
+        })
+    }
+
+    fun removeOnLocationChangeListener() {
         onLocationChangeListener = null
     }
 
@@ -30,16 +49,8 @@ class LocationProvider private constructor() {
 
     companion object {
 
-        var LOCATION: Location? = null
-            private set(value) {
-                field = value
-                onLocationChangeListener?.onLocationChange(value)
-            }
-
-        private var onLocationChangeListener: OnLocationChangeListener? = null
         private var fusedLocationProviderClient: FusedLocationProviderClient? = null
 
-        @SuppressLint("MissingPermission")
         fun getInstance(context: Context): LocationProvider {
             if (fusedLocationProviderClient != null) {
                 return LocationProvider()
@@ -47,12 +58,8 @@ class LocationProvider private constructor() {
             synchronized(this) {
                 fusedLocationProviderClient =
                     LocationServices.getFusedLocationProviderClient(context)
-                fusedLocationProviderClient?.lastLocation?.addOnSuccessListener {
-                    LOCATION = it
-                }
                 return LocationProvider()
             }
         }
     }
-
 }
