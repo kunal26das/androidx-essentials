@@ -1,11 +1,14 @@
 package androidx.essentials.firebase.messaging
 
 import android.util.Log
+import androidx.essentials.core.injector.KoinComponent.inject
 import androidx.essentials.firebase.Firebase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
 abstract class FirebaseMessagingService : FirebaseMessagingService() {
+
+    private val firebase by inject<Firebase>()
 
     override fun onDeletedMessages() {
         log(Event.ON_DELETED_MESSAGES)
@@ -21,7 +24,7 @@ abstract class FirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         log(Event.ON_NEW_TOKEN)
-        Firebase.TOKEN = token
+        firebase.token = token
     }
 
     override fun onSendError(string: String, e: Exception) {

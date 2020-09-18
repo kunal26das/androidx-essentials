@@ -5,19 +5,27 @@ import com.google.firebase.iid.FirebaseInstanceId
 
 class Firebase private constructor() {
 
+    var token: String? = null
+        internal set(value) {
+            field = value
+            onTokenChangeListener?.onNewToken(value)
+        }
+
+    private var onTokenChangeListener: OnTokenChangeListener? = null
+
     fun setOnTokenChangeListener(onTokenChangeListener: OnTokenChangeListener) {
-        Companion.onTokenChangeListener = onTokenChangeListener
+        this.onTokenChangeListener = onTokenChangeListener
     }
 
     fun setOnTokenChangeListener(action: (String?) -> Unit) {
-        onTokenChangeListener = object : OnTokenChangeListener {
+        setOnTokenChangeListener(object : OnTokenChangeListener {
             override fun onNewToken(token: String?) {
                 action(token)
             }
-        }
+        })
     }
 
-    fun removeListener() {
+    fun removeOnTokenChangeListener() {
         onTokenChangeListener = null
     }
 
@@ -27,23 +35,20 @@ class Firebase private constructor() {
 
     companion object {
 
-        var TOKEN: String? = null
-            internal set(value) {
-                field = value
-                onTokenChangeListener?.onNewToken(value)
-            }
-
+        private var firebase: Firebase? = null
         private val firebaseInstanceId: FirebaseInstanceId by inject()
-        private var onTokenChangeListener: OnTokenChangeListener? = null
 
-        init {
+        fun getInstance(): Firebase {
+            if (firebase != null) {
+                return firebase!!
+            }
             synchronized(this) {
+                firebase = Firebase()
                 firebaseInstanceId.instanceId.addOnSuccessListener {
-                    TOKEN = it.token
+                    firebase?.token = it.token
                 }
+                return firebase!!
             }
         }
-
-        fun getInstance() = Firebase()
     }
 }

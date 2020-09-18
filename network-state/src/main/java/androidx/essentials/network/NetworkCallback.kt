@@ -9,7 +9,13 @@ import android.os.Build
 import android.util.Log
 import androidx.essentials.network.connectivity.ConnectivityManager
 
-class NetworkCallback(private val context: Context) {
+class NetworkCallback private constructor() {
+
+    var isOnline = false
+        private set(value) {
+            field = value
+            onNetworkStateChangeListener?.onNetworkStateChange(value)
+        }
 
     private var currentNetworkState: NetworkState? = null
         set(value) {
@@ -17,7 +23,7 @@ class NetworkCallback(private val context: Context) {
             value?.name?.let { Log.d(javaClass.simpleName, it) }
         }
 
-    private val networkBroadcastReceiver = NetworkCallbackReceiver()
+    private var onNetworkStateChangeListener: OnNetworkStateChangeListener? = null
 
     private val networkCallback = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         object : android.net.ConnectivityManager.NetworkCallback() {
@@ -25,7 +31,7 @@ class NetworkCallback(private val context: Context) {
                 if (currentNetworkState != NetworkState.AVAILABLE) {
                     currentNetworkState = NetworkState.AVAILABLE
                     super.onAvailable(network)
-                    IS_ONLINE = true
+                    isOnline = true
                 }
             }
 
@@ -64,7 +70,7 @@ class NetworkCallback(private val context: Context) {
                 if (currentNetworkState != NetworkState.LOST) {
                     currentNetworkState = NetworkState.LOST
                     super.onLost(network)
-                    IS_ONLINE = false
+                    isOnline = false
                 }
             }
 
@@ -78,10 +84,6 @@ class NetworkCallback(private val context: Context) {
     } else null
 
     init {
-        connectivityManager = ConnectivityManager.getInstance(context)
-    }
-
-    private fun register() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             connectivityManager?.registerNetworkCallback(
                 NetworkRequest.Builder().apply {
@@ -90,36 +92,38 @@ class NetworkCallback(private val context: Context) {
                     addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
                     addTransportType(NetworkCapabilities.TRANSPORT_ETHERNET)
                     addTransportType(NetworkCapabilities.TRANSPORT_BLUETOOTH)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+                        addTransportType(NetworkCapabilities.TRANSPORT_LOWPAN)
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        addTransportType(NetworkCapabilities.TRANSPORT_WIFI_AWARE)
+                    }
                 }.build(), networkCallback!!
-            )
-        } else {
-            networkBroadcastReceiver.onNetworkStateChangeListener = onNetworkStateChangeListener
-            context.registerReceiver(
-                networkBroadcastReceiver,
-                NetworkCallbackReceiver.intentFilter
             )
         }
     }
 
     fun setOnNetworkStateChangeListener(onNetworkStateChangeListener: OnNetworkStateChangeListener?) {
-        Companion.onNetworkStateChangeListener = onNetworkStateChangeListener
-        register()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            this.onNetworkStateChangeListener = onNetworkStateChangeListener
+        } else {
+            networkBroadcastReceiver.onNetworkStateChangeListener = onNetworkStateChangeListener
+        }
     }
 
     fun setOnNetworkStateChangeListener(action: (Boolean) -> Unit) {
-        onNetworkStateChangeListener = object : OnNetworkStateChangeListener {
+        setOnNetworkStateChangeListener(object : OnNetworkStateChangeListener {
             override fun onNetworkStateChange(isOnline: Boolean) {
                 action(isOnline)
             }
-        }
-        register()
+        })
     }
 
-    fun removeListener() {
+    fun removeOnNetworkStateChangeListener() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            connectivityManager?.unregisterNetworkCallback(networkCallback!!)
+            this.onNetworkStateChangeListener = null
         } else {
-            context.unregisterReceiver(networkBroadcastReceiver)
+            networkBroadcastReceiver.onNetworkStateChangeListener = null
         }
     }
 
@@ -129,14 +133,23 @@ class NetworkCallback(private val context: Context) {
 
     companion object {
 
-        var IS_ONLINE = false
-            private set(value) {
-                field = value
-                onNetworkStateChangeListener?.onNetworkStateChange(value)
-            }
-
+        private val networkBroadcastReceiver = NetworkCallbackReceiver()
         private var connectivityManager: android.net.ConnectivityManager? = null
-        private var onNetworkStateChangeListener: OnNetworkStateChangeListener? = null
 
+        fun getInstance(context: Context): NetworkCallback {
+            if (connectivityManager != null) {
+                return NetworkCallback()
+            }
+            synchronized(this) {
+                connectivityManager = ConnectivityManager.getInstance(context)
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                    context.registerReceiver(
+                        networkBroadcastReceiver,
+                        NetworkCallbackReceiver.intentFilter
+                    )
+                }
+            }
+            return NetworkCallback()
+        }
     }
 }
