@@ -9,6 +9,7 @@ import android.os.Build
 import android.util.Log
 import androidx.essentials.network.connectivity.ConnectivityManager
 
+@Suppress("DEPRECATION")
 class NetworkCallback private constructor() {
 
     var isOnline = false
