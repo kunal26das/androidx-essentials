@@ -95,13 +95,14 @@ class NetworkCallback private constructor() {
                 }.build(), networkCallback!!
             )
         }
+        isOnline = refreshNetworkState()
     }
 
-    fun refresh() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        connectivityManager?.isDefaultNetworkActive ?: false
+    fun refreshNetworkState() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        connectivityManager?.activeNetwork != null
     } else {
         connectivityManager?.activeNetworkInfo?.isConnected ?: false
-    } or isOnline
+    }
 
     fun setOnNetworkStateChangeListener(onNetworkStateChangeListener: OnNetworkStateChangeListener?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
