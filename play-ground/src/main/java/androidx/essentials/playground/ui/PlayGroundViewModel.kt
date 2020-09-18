@@ -17,14 +17,14 @@ class PlayGroundViewModel : ViewModel(), Listeners {
 
     val date = MutableLiveData<Long>()
     val textInput = MutableLiveData<String>()
-    val token = MutableLiveData(Firebase.TOKEN)
-    val isEditable = MutableLiveData(true)
     val autoComplete = MutableLiveData<String>()
+    val token = MutableLiveData(firebase.token)
+    val isEditable = MutableLiveData(true)
     val isMandatory = MutableLiveData(true)
     val singleSelection = MutableLiveData(true)
+    val isOnline = MutableLiveData(networkCallback.isOnline)
+    val location = MutableLiveData(locationProvider.location)
     val selection = MutableLiveData(emptyArray<String>())
-    val isOnline = MutableLiveData(NetworkCallback.IS_ONLINE)
-    val location = MutableLiveData(LocationProvider.LOCATION)
 
     init {
         firebase.setOnTokenChangeListener(this)
@@ -45,9 +45,9 @@ class PlayGroundViewModel : ViewModel(), Listeners {
     }
 
     override fun onCleared() {
-        locationProvider.removeListener()
-        networkCallback.removeListener()
-        firebase.removeListener()
+        networkCallback.removeOnNetworkStateChangeListener()
+        locationProvider.removeOnLocationChangeListener()
+        firebase.removeOnTokenChangeListener()
         super.onCleared()
     }
 

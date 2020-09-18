@@ -18,8 +18,8 @@ class PlayGroundActivity : Activity() {
 
     private lateinit var navController: NavController
     override val layout = R.layout.activity_play_ground
-    override val viewModel by viewModel<PlayGroundViewModel>()
     private lateinit var appBarConfiguration: AppBarConfiguration
+    override val viewModel by viewModel<PlayGroundViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

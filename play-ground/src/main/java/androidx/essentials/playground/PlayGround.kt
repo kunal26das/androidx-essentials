@@ -39,7 +39,7 @@ class PlayGround : FirebaseApplication() {
 
     private fun initComponents() {
         single { LocationProvider.getInstance(applicationContext) }
-        single { NetworkCallback(applicationContext) }
+        single { NetworkCallback.getInstance(applicationContext) }
     }
 
     override fun onActivityPreDestroyed(activity: Activity) {
