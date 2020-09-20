@@ -72,14 +72,12 @@ class Date @JvmOverloads constructor(
                 if (isEditable and itHasFocus) {
                     view.clearFocus()
                     hideSoftInput(view)
-                    try {
-                        if (!materialDatePicker.isAdded) {
-                            materialDatePicker.show(
-                                (context as AppCompatActivity).supportFragmentManager,
-                                null
-                            )
+                    if ((context is AppCompatActivity)
+                        and !materialDatePicker.isAdded
+                    ) {
+                        with(context as AppCompatActivity) {
+                            materialDatePicker.show(supportFragmentManager, null)
                         }
-                    } catch (e: Exception) {
                     }
                 }
             }
