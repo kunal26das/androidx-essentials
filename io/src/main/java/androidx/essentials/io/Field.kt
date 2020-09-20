@@ -44,10 +44,14 @@ abstract class Field @JvmOverloads constructor(
                 editText?.clearFocus()
                 isErrorEnabled = false
             }
-            editText?.isCursorVisible = value
-            editText?.keyListener = when (value) {
-                true -> keyListener
-                false -> null
+            editText?.apply {
+                isFocusable = value
+                isCursorVisible = value
+                isFocusableInTouchMode = value
+                keyListener = when (value) {
+                    true -> keyListener
+                    false -> null
+                }
             }
         }
 
@@ -88,13 +92,13 @@ abstract class Field @JvmOverloads constructor(
                 if (validate) isValid
             }
             setOnFocusChangeListener { view, itHasFocus ->
-                editText?.apply {
-                    when (isEditable and itHasFocus) {
-                        true -> {
-                            showSoftInput(view)
-                            post { setSelection(length()) }
-                        }
-                        false -> hideSoftInput(view)
+                when (isEditable and itHasFocus) {
+                    true -> post {
+                        showSoftInput(view)
+                        setSelection(length())
+                    }
+                    false -> post {
+                        hideSoftInput(view)
                     }
                 }
             }
