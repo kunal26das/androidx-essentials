@@ -21,7 +21,7 @@ abstract class Field @JvmOverloads constructor(
     abstract val isValid: Boolean
     protected var textChanged = false
     protected lateinit var mHint: String
-    protected lateinit var keyListener: KeyListener
+    protected lateinit var mKeyListener: KeyListener
     private val inputMethodManager = InputMethodManager.getInstance(context)
 
     var imeOptions = DEFAULT_IME_OPTIONS
@@ -49,7 +49,7 @@ abstract class Field @JvmOverloads constructor(
                 isCursorVisible = value
                 isFocusableInTouchMode = value
                 keyListener = when (value) {
-                    true -> keyListener
+                    true -> mKeyListener
                     false -> null
                 }
             }

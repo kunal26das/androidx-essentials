@@ -61,7 +61,7 @@ class AutoComplete @JvmOverloads constructor(
                 else -> R.layout.layout_auto_complete_text_view
             }, this, true
         )
-        keyListener = editText?.keyListener!!
+        mKeyListener = editText?.keyListener!!
         autoCompleteTextView = findViewById(R.id.autoCompleteTextView)
         context.obtainStyledAttributes(attrs, R.styleable.AutoComplete, defStyleAttr, 0).apply {
             lines = getInt(R.styleable.AutoComplete_android_lines, DEFAULT_LINES)
