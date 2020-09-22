@@ -22,6 +22,7 @@ abstract class Field @JvmOverloads constructor(
     protected var textChanged = false
     protected lateinit var mHint: String
     protected lateinit var mKeyListener: KeyListener
+    protected val isInvalid get() = !isValid
     private val inputMethodManager = InputMethodManager.getInstance(context)
 
     var imeOptions = DEFAULT_IME_OPTIONS

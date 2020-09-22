@@ -33,13 +33,17 @@ class Date @JvmOverloads constructor(
     var date: Long? = null
         internal set(value) {
             field = value
-            value?.let { editText?.setText(displayDateFormat.format(it)) }
+            value?.let {
+                editText?.setText(displayDateFormat.format(it))
+                setOpenAt(value)
+            }
         }
 
     private val locale = Locale.getDefault()
-    private val materialDatePicker: MaterialDatePicker<Long>
+    private lateinit var materialDatePicker: MaterialDatePicker<Long>
     private val calendarConstraintsBuilder = CalendarConstraints.Builder()
     private val displayDateFormat = SimpleDateFormat(DATE_FORMAT_DISPLAY, locale)
+
     private val materialDatePickerBuilder = MaterialDatePicker.Builder.datePicker().apply {
         setTheme(R.style.ThemeOverlay_MaterialComponents_MaterialCalendar)
         setInputMode(MaterialDatePicker.INPUT_MODE_CALENDAR)
@@ -55,12 +59,18 @@ class Date @JvmOverloads constructor(
                     !future and past -> setValidator(DateValidatorPointBackward.now())
                 }
                 materialDatePickerBuilder.setTitleText(hint)
-                materialDatePickerBuilder.setCalendarConstraints(build())
-                materialDatePicker = materialDatePickerBuilder.build()
-                materialDatePicker.addOnPositiveButtonClickListener { date = it }
+                setOpenAt(null)
             }
             recycle()
         }
+    }
+
+    private fun setOpenAt(month: Long?) {
+        month?.let { calendarConstraintsBuilder.setOpenAt(it) }
+        materialDatePickerBuilder.setCalendarConstraints(calendarConstraintsBuilder.build())
+        materialDatePickerBuilder.build()
+        materialDatePicker = materialDatePickerBuilder.build()
+        materialDatePicker.addOnPositiveButtonClickListener { date = it }
     }
 
     override fun onAttachedToWindow() {
