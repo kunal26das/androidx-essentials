@@ -39,6 +39,8 @@
                     app:editable="@{viewModel.isEditable}"
                     app:helperText="@{viewModel.textInput}"
                     app:mandatory="@{viewModel.isMandatory}"
+                    app:mandatoryMessage="@string/mandatory_field"
+                    app:regexMessage="@string/invalid_input"
                     app:text="@={viewModel.textInput}" />
 
                 <androidx.essentials.io.AutoComplete
@@ -54,6 +56,8 @@
                     app:editable="@{viewModel.isEditable}"
                     app:helperText="@{viewModel.autoComplete}"
                     app:mandatory="@{viewModel.isMandatory}"
+                    app:mandatoryMessage="@string/mandatory_field"
+                    app:regexMessage="@string/invalid_input"
                     app:text="@={viewModel.autoComplete}" />
 
                 <androidx.essentials.io.Date
@@ -68,6 +72,8 @@
                     app:editable="@{viewModel.isEditable}"
                     app:helperText="@{String.valueOf(viewModel.date)}"
                     app:mandatory="@{viewModel.isMandatory}"
+                    app:mandatoryMessage="@string/mandatory_field"
+                    app:regexMessage="@string/invalid_input"
                     app:startIconDrawable="@drawable/ic_event_available_24dp" />
 
                 <androidx.essentials.io.Chips
