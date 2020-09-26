@@ -9,20 +9,20 @@ import androidx.databinding.ViewDataBinding
 import androidx.essentials.core.R
 import androidx.essentials.core.mvvm.ViewModel
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.viewmodel.ext.android.sharedViewModel as koinSharedViewModel
 
-abstract class BottomSheetDialogFragment(private val dataBinding: Boolean = false) :
-    BottomSheetDialogFragment() {
+abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     abstract val layout: Int
     abstract val viewModel: ViewModel
-    protected lateinit var root: View
-    protected var binding: ViewDataBinding? = null
-    inline fun <reified T : ViewModel> Fragment.sharedViewModel() = koinSharedViewModel<T>()
+    lateinit var viewDataBinding: ViewDataBinding
+    inline fun <reified T : ViewModel> BottomSheetDialogFragment.sharedViewModel() =
+        koinSharedViewModel<T>()
+
+    inline fun <reified T : ViewDataBinding> BottomSheetDialogFragment.dataBinding() =
+        lazy { viewDataBinding as T }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,15 +34,13 @@ abstract class BottomSheetDialogFragment(private val dataBinding: Boolean = fals
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        root = when (dataBinding) {
-            true -> {
-                binding = DataBindingUtil.inflate(inflater, layout, container, false)
-                binding?.lifecycleOwner = viewLifecycleOwner
-                binding?.root!!
-            }
-            false -> inflater.inflate(layout, container, false)
+        return try {
+            viewDataBinding = DataBindingUtil.inflate(inflater, layout, container, false)
+            viewDataBinding.lifecycleOwner = viewLifecycleOwner
+            viewDataBinding.root
+        } catch (e: Exception) {
+            inflater.inflate(layout, container, false)
         }
-        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +51,7 @@ abstract class BottomSheetDialogFragment(private val dataBinding: Boolean = fals
     open fun initObservers() {}
 
     protected fun <T> LiveData<T>.observe(action: (T) -> Unit) {
-        observe(viewLifecycleOwner, Observer {
+        observe(viewLifecycleOwner, {
             action.invoke(it)
         })
     }

@@ -9,31 +9,30 @@ import androidx.databinding.ViewDataBinding
 import androidx.essentials.core.mvvm.ViewModel
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import org.koin.android.viewmodel.ext.android.sharedViewModel as koinSharedViewModel
+import org.koin.android.viewmodel.ext.android.viewModel as koinViewModel
 
-abstract class Fragment(private val dataBinding: Boolean = false) : Fragment() {
+abstract class Fragment : Fragment() {
 
     abstract val layout: Int
     abstract val viewModel: ViewModel
-    protected lateinit var root: View
-    protected var binding: ViewDataBinding? = null
+    lateinit var viewDataBinding: ViewDataBinding
+    inline fun <reified T : ViewModel> Fragment.viewModel() = koinViewModel<T>()
     inline fun <reified T : ViewModel> Fragment.sharedViewModel() = koinSharedViewModel<T>()
+    inline fun <reified T : ViewDataBinding> Fragment.dataBinding() = lazy { viewDataBinding as T }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        root = when (dataBinding) {
-            true -> {
-                binding = DataBindingUtil.inflate(inflater, layout, container, false)
-                binding?.lifecycleOwner = viewLifecycleOwner
-                binding?.root!!
-            }
-            false -> inflater.inflate(layout, container, false)
+        return try {
+            viewDataBinding = DataBindingUtil.inflate(inflater, layout, container, false)
+            viewDataBinding.lifecycleOwner = viewLifecycleOwner
+            viewDataBinding.root
+        } catch (e: Exception) {
+            inflater.inflate(layout, container, false)
         }
-        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +43,7 @@ abstract class Fragment(private val dataBinding: Boolean = false) : Fragment() {
     open fun initObservers() {}
 
     protected fun <T> LiveData<T>.observe(action: (T) -> Unit) {
-        observe(viewLifecycleOwner, Observer {
+        observe(viewLifecycleOwner, {
             action.invoke(it)
         })
     }

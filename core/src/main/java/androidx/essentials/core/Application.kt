@@ -1,10 +1,9 @@
 package androidx.essentials.core
 
-import android.app.Activity
 import android.app.Application
 import android.content.Context
-import android.os.Bundle
 import android.util.Log
+import androidx.essentials.core.callback.ActivityLifecycleCallbacks
 import androidx.essentials.core.mvvm.ViewModel
 import androidx.essentials.core.ui.Event
 import androidx.lifecycle.Lifecycle
@@ -16,9 +15,10 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.dsl.module
 
-abstract class Application : Application(), Application.ActivityLifecycleCallbacks {
+abstract class Application : Application() {
 
     lateinit var koinApplication: KoinApplication
+    private val activityLifecycleCallbacks = ActivityLifecycleCallbacks()
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
@@ -26,8 +26,8 @@ abstract class Application : Application(), Application.ActivityLifecycleCallbac
     }
 
     override fun onCreate() {
+        registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
         Log.d(javaClass.simpleName, Lifecycle.Event.ON_CREATE.name)
-        registerActivityLifecycleCallbacks(this)
         super.onCreate()
         startKoin {
             androidContext(applicationContext)
@@ -45,41 +45,11 @@ abstract class Application : Application(), Application.ActivityLifecycleCallbac
     }
 
     override fun onTerminate() {
+        unregisterActivityLifecycleCallbacks(activityLifecycleCallbacks)
         Log.d(javaClass.simpleName, Event.ON_TERMINATE.name)
-        unregisterActivityLifecycleCallbacks(this)
         super.onTerminate()
         stopKoin()
     }
 
-    override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
-        log(activity, Lifecycle.Event.ON_CREATE)
-    }
 
-    override fun onActivityStarted(activity: Activity) {
-        log(activity, Lifecycle.Event.ON_START)
-    }
-
-    override fun onActivityResumed(activity: Activity) {
-        log(activity, Lifecycle.Event.ON_RESUME)
-    }
-
-    override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle) {
-        Log.d(activity.javaClass.simpleName, Event.ON_SAVE_INSTANCE_STATE.name)
-    }
-
-    override fun onActivityPaused(activity: Activity) {
-        log(activity, Lifecycle.Event.ON_PAUSE)
-    }
-
-    override fun onActivityStopped(activity: Activity) {
-        log(activity, Lifecycle.Event.ON_STOP)
-    }
-
-    override fun onActivityDestroyed(activity: Activity) {
-        log(activity, Lifecycle.Event.ON_DESTROY)
-    }
-
-    private fun log(activity: Activity, event: Lifecycle.Event) {
-        Log.d(activity.javaClass.simpleName, event.name)
-    }
 }
