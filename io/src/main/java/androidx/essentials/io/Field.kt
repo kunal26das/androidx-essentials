@@ -21,8 +21,8 @@ abstract class Field @JvmOverloads constructor(
     abstract val isValid: Boolean
     protected var textChanged = false
     protected lateinit var mHint: String
+    val isInvalid get() = !isValid
     protected lateinit var mKeyListener: KeyListener
-    protected val isInvalid get() = !isValid
     private val inputMethodManager = InputMethodManager.getInstance(context)
 
     var imeOptions = DEFAULT_IME_OPTIONS
@@ -71,6 +71,8 @@ abstract class Field @JvmOverloads constructor(
             editText?.setLines(value)
         }
 
+    var mandatoryMessage = context.getString(R.string.mandatory_field)
+
     var maxLines = DEFAULT_LINES
         set(value) {
             field = value
@@ -82,6 +84,8 @@ abstract class Field @JvmOverloads constructor(
             field = value
             editText?.minLines = value
         }
+
+    var regexMessage = context.getString(R.string.invalid_input)
 
     var validate = DEFAULT_VALIDATE
 
@@ -147,8 +151,6 @@ abstract class Field @JvmOverloads constructor(
         const val DEFAULT_VALIDATE = false
         const val DEFAULT_IS_EDITABLE = true
         const val DEFAULT_IS_MANDATORY = false
-        const val MESSAGE_REGEX = "Invalid Input"
-        const val MESSAGE_MANDATORY = "Mandatory Field"
         const val DEFAULT_INPUT_TYPE = InputType.TYPE_CLASS_TEXT
         const val DEFAULT_IME_OPTIONS = EditorInfo.IME_ACTION_NEXT
     }

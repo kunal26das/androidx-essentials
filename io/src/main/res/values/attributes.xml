@@ -5,7 +5,9 @@
     <attr name="array" format="reference" />
     <attr name="editable" format="boolean" />
     <attr name="mandatory" format="boolean" />
+    <attr name="mandatoryMessage" format="string" />
     <attr name="regex" format="string" />
+    <attr name="regexMessage" format="string" />
     <attr name="validate" format="boolean" />
 
     <declare-styleable name="AutoComplete">
@@ -18,6 +20,7 @@
         <attr name="array" />
         <attr name="editable" />
         <attr name="mandatory" />
+        <attr name="mandatoryMessage" />
         <attr name="validate" />
     </declare-styleable>
 
@@ -46,7 +49,9 @@
         <attr name="android:minLines" />
         <attr name="editable" />
         <attr name="mandatory" />
+        <attr name="mandatoryMessage" />
         <attr name="regex" />
+        <attr name="regexMessage" />
         <attr name="validate" />
     </declare-styleable>
 

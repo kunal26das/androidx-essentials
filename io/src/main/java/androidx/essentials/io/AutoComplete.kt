@@ -44,7 +44,7 @@ class AutoComplete @JvmOverloads constructor(
             val text = editText?.text?.toString() ?: ""
             isErrorEnabled = when {
                 isMandatory and isEditable and text.isBlank() -> {
-                    error = MESSAGE_MANDATORY
+                    error = mandatoryMessage
                     true
                 }
                 isMandatory and !isEditable -> array.isNotEmpty() and !array.contains(text)
@@ -72,6 +72,8 @@ class AutoComplete @JvmOverloads constructor(
             isMandatory = getBoolean(R.styleable.AutoComplete_mandatory, DEFAULT_IS_MANDATORY)
             inputType = getInt(R.styleable.AutoComplete_android_inputType, DEFAULT_INPUT_TYPE)
             imeOptions = getInt(R.styleable.AutoComplete_android_imeOptions, DEFAULT_IME_OPTIONS)
+            mandatoryMessage = getString(R.styleable.AutoComplete_mandatoryMessage)
+                ?: context.getString(R.string.mandatory_field)
             array = try {
                 context.resources.getStringArray(getResourceIdOrThrow(R.styleable.AutoComplete_array))
             } catch (e: IllegalArgumentException) {

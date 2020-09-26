@@ -35,11 +35,11 @@ open class TextInput @JvmOverloads constructor(
             val text = editText?.text?.toString() ?: ""
             isErrorEnabled = isEditable and when {
                 isMandatory and text.isBlank() -> {
-                    error = MESSAGE_MANDATORY
+                    error = mandatoryMessage
                     true
                 }
                 regex != null && !text.matches(regex!!) -> {
-                    error = MESSAGE_REGEX
+                    error = regexMessage
                     true
                 }
                 else -> false
@@ -57,23 +57,26 @@ open class TextInput @JvmOverloads constructor(
         )
         mKeyListener = editText?.keyListener!!
         context.obtainStyledAttributes(attrs, R.styleable.TextInput, defStyleAttr, 0).apply {
+            regex = getString(R.styleable.TextInput_regex)?.let { Regex(it) }
             lines = getInt(R.styleable.TextInput_android_lines, DEFAULT_LINES)
             validate = getBoolean(R.styleable.TextInput_validate, DEFAULT_VALIDATE)
             maxLines = getInt(R.styleable.TextInput_android_maxLines, DEFAULT_LINES)
             minLines = getInt(R.styleable.TextInput_android_minLines, DEFAULT_LINES)
             isEditable = getBoolean(R.styleable.TextInput_editable, DEFAULT_IS_EDITABLE)
-            isMandatory = getBoolean(R.styleable.TextInput_mandatory, DEFAULT_IS_MANDATORY)
             inputType = getInt(R.styleable.TextInput_android_inputType, DEFAULT_INPUT_TYPE)
             maxLength = getInt(R.styleable.TextInput_android_maxLength, DEFAULT_MAX_LENGTH)
+            isMandatory = getBoolean(R.styleable.TextInput_mandatory, DEFAULT_IS_MANDATORY)
             imeOptions = getInt(R.styleable.TextInput_android_imeOptions, DEFAULT_IME_OPTIONS)
+            regexMessage = getString(R.styleable.TextInput_regexMessage)
+                ?: context.getString(R.string.invalid_input)
+            mandatoryMessage = getString(R.styleable.TextInput_mandatoryMessage)
+                ?: context.getString(R.string.mandatory_field)
             try {
                 getResourceIdOrThrow(R.styleable.TextInput_android_fontFamily).let {
                     typeface = ResourcesCompat.getFont(context, it)
                 }
             } catch (e: IllegalArgumentException) {
             }
-            val pattern = getString(R.styleable.TextInput_regex)
-            if (pattern != null) regex = Regex(pattern)
             recycle()
         }
     }
