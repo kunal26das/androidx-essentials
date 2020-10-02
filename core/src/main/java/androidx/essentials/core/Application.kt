@@ -3,9 +3,8 @@ package androidx.essentials.core
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import androidx.essentials.core.callback.ActivityLifecycleCallbacks
-import androidx.essentials.core.mvvm.ViewModel
-import androidx.essentials.core.ui.Event
+import androidx.essentials.core.lifecycle.ActivityLifecycleCallbacks
+import androidx.essentials.core.lifecycle.ViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.multidex.MultiDex
 import org.koin.android.ext.koin.androidContext
@@ -51,5 +50,14 @@ abstract class Application : Application() {
         stopKoin()
     }
 
+    private fun logApplicationLifecycleEvent(event: String) {
+        Log.d(javaClass.simpleName, event)
+    }
 
+    companion object {
+
+        private enum class Event {
+            ON_TERMINATE
+        }
+    }
 }

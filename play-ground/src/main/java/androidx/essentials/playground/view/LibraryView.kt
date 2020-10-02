@@ -35,7 +35,6 @@ class LibraryView @JvmOverloads constructor(
                 context.getString(R.string.backdrop) -> androidx.essentials.backdrop.BuildConfig.VERSION_NAME
                 context.getString(R.string.core) -> androidx.essentials.core.BuildConfig.VERSION_NAME
                 context.getString(R.string.events) -> androidx.essentials.events.BuildConfig.VERSION_NAME
-                context.getString(R.string.firebase) -> androidx.essentials.firebase.BuildConfig.VERSION_NAME
                 context.getString(R.string.io) -> androidx.essentials.io.BuildConfig.VERSION_NAME
                 context.getString(R.string.extensions) -> androidx.essentials.extensions.BuildConfig.VERSION_NAME
                 context.getString(R.string.list) -> androidx.essentials.list.BuildConfig.VERSION_NAME

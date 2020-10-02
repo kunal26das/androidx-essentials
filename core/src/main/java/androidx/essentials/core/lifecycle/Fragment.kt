@@ -1,4 +1,4 @@
-package androidx.essentials.core.ui
+package androidx.essentials.core.lifecycle
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,28 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.essentials.core.R
-import androidx.essentials.core.mvvm.ViewModel
-import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.viewmodel.ext.android.sharedViewModel as koinSharedViewModel
+import org.koin.android.viewmodel.ext.android.viewModel as koinViewModel
 
-abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
+abstract class Fragment : Fragment() {
 
     abstract val layout: Int
     abstract val viewModel: ViewModel
     lateinit var viewDataBinding: ViewDataBinding
-    inline fun <reified T : ViewModel> BottomSheetDialogFragment.sharedViewModel() =
-        koinSharedViewModel<T>()
-
-    inline fun <reified T : ViewDataBinding> BottomSheetDialogFragment.dataBinding() =
-        lazy { viewDataBinding as T }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_MaterialComponents_BottomSheetDialog)
-    }
+    inline fun <reified T : ViewModel> Fragment.viewModel() = koinViewModel<T>()
+    inline fun <reified T : ViewModel> Fragment.sharedViewModel() = koinSharedViewModel<T>()
+    inline fun <reified T : ViewDataBinding> Fragment.dataBinding() = lazy { viewDataBinding as T }
 
     override fun onCreateView(
         inflater: LayoutInflater,

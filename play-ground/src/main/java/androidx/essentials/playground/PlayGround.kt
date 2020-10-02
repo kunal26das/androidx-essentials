@@ -1,19 +1,17 @@
 package androidx.essentials.playground
 
-import android.app.Activity
 import android.content.Context
 import android.os.Build
-import androidx.essentials.events.Events
-import androidx.essentials.firebase.FirebaseApplication
+import androidx.essentials.core.Application
 import androidx.essentials.location.LocationProvider
 import androidx.essentials.network.NetworkCallback
 import androidx.essentials.playground.ui.PlayGroundViewModel
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 
-class PlayGround : FirebaseApplication() {
+class PlayGround : Application() {
 
-    override val sharedPreferences
+    private val sharedPreferences
         get() = when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
                 EncryptedSharedPreferences.create(
@@ -40,11 +38,6 @@ class PlayGround : FirebaseApplication() {
     private fun initComponents() {
         single { LocationProvider.getInstance(applicationContext) }
         single { NetworkCallback.getInstance(applicationContext) }
-    }
-
-    override fun onActivityPreDestroyed(activity: Activity) {
-        super.onActivityPreDestroyed(activity)
-        Events.clear()
     }
 
 }

@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="uuid"
-            type="androidx.essentials.firebase.utils.UUID" />
-
-        <variable
             name="viewModel"
             type="androidx.essentials.playground.ui.PlayGroundViewModel" />
     </data>
@@ -34,8 +30,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="8dp"
                 android:hint="@string/uuid"
-                app:editable="false"
-                app:text="@{String.valueOf(uuid)}" />
+                app:editable="false" />
 
             <androidx.essentials.io.TextInput
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -45,8 +40,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="24dp"
                 android:hint="@string/token"
-                app:editable="false"
-                app:text="@{viewModel.token}" />
+                app:editable="false" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 </layout>

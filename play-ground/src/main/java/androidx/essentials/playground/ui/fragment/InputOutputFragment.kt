@@ -6,42 +6,44 @@ import android.view.View
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.core.view.children
-import androidx.essentials.core.ui.Fragment
+import androidx.essentials.core.lifecycle.Fragment
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentInputOutputBinding
 import androidx.essentials.playground.ui.PlayGroundViewModel
-import kotlinx.android.synthetic.main.fragment_input_output.*
 
-class InputOutputFragment : Fragment(true) {
+class InputOutputFragment : Fragment() {
 
     override val layout = R.layout.fragment_input_output
     override val viewModel by sharedViewModel<PlayGroundViewModel>()
+    private val binding by dataBinding<FragmentInputOutputBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (binding as FragmentInputOutputBinding).viewModel = viewModel
-        PopupMenu(context, null).apply {
-            MenuInflater(context).inflate(R.menu.menu_play_ground, menu)
-            menu.children.map {
-                "${it.title}"
-            }.toList().toTypedArray().let {
-                autoComplete.array = it
-                chips.array = it
+        binding.apply {
+            binding.viewModel = viewModel
+            PopupMenu(context, null).apply {
+                MenuInflater(context).inflate(R.menu.menu_play_ground, menu)
+                menu.children.map {
+                    "${it.title}"
+                }.toList().toTypedArray().let {
+                    autoComplete.array = it
+                    chips.array = it
+                }
             }
-        }
-        validate.setOnClickListener {
-            Toast.makeText(
-                requireContext(), "${
+            validate.setOnClickListener {
+                Toast.makeText(
+                    requireContext(), "${
                     true
                         and textInput.isValid
                         and autoComplete.isValid
                         and date.isValid
                         and chips.isValid
                 }", Toast.LENGTH_SHORT
-            ).show()
-        }
-        autoComplete.setOnItemClickListener { index, item ->
-            Toast.makeText(requireContext(), "$index: $item", Toast.LENGTH_SHORT).show()
+                ).show()
+            }
+            autoComplete.setOnItemClickListener { index, item ->
+                Toast.makeText(requireContext(), "$index: $item", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

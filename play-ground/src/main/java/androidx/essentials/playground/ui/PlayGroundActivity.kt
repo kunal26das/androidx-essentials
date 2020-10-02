@@ -2,17 +2,16 @@ package androidx.essentials.playground.ui
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.essentials.core.ui.Activity
+import androidx.essentials.core.lifecycle.Activity
 import androidx.essentials.events.Events
 import androidx.essentials.playground.R
+import androidx.essentials.playground.databinding.ActivityPlayGroundBinding
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import kotlinx.android.synthetic.main.activity_play_ground.*
-
 
 class PlayGroundActivity : Activity() {
 
@@ -20,6 +19,7 @@ class PlayGroundActivity : Activity() {
     override val layout = R.layout.activity_play_ground
     private lateinit var appBarConfiguration: AppBarConfiguration
     override val viewModel by viewModel<PlayGroundViewModel>()
+    private val binding by dataBinding<ActivityPlayGroundBinding>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +28,9 @@ class PlayGroundActivity : Activity() {
     }
 
     private fun initAppBarLayout() {
-        appBarLayout.apply {
-            setSupportActionBar(toolbar)
-            toolbar.setTitleTextAppearance(
+        binding.apply {
+            setSupportActionBar(appBarLayout.toolbar)
+            appBarLayout.toolbar.setTitleTextAppearance(
                 baseContext,
                 R.style.ToolbarTitle
             )
@@ -40,8 +40,8 @@ class PlayGroundActivity : Activity() {
     private fun initNavigation() {
         (supportFragmentManager.findFragmentById(R.id.playGroundNavigation) as NavHostFragment).navController.apply {
             navController = this
-            navigationView.setupWithNavController(this)
-            appBarConfiguration = AppBarConfiguration(graph, drawerLayout)
+            binding.navigationView.setupWithNavController(this)
+            appBarConfiguration = AppBarConfiguration(graph, binding.drawerLayout)
             setupActionBarWithNavController(this, appBarConfiguration)
         }
     }
@@ -54,6 +54,11 @@ class PlayGroundActivity : Activity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Events.clear()
     }
 
 }

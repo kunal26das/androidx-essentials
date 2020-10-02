@@ -1,10 +1,9 @@
-package androidx.essentials.core.callback
+package androidx.essentials.core.lifecycle
 
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.essentials.core.ui.Event
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -16,7 +15,7 @@ open class FragmentLifecycleCallbacks : FragmentManager.FragmentLifecycleCallbac
         fragment: Fragment,
         context: Context
     ) {
-        log(fragment, Event.ON_ATTACH.name)
+        logFragmentLifecycleEvent(fragment, Event.ON_ATTACH.name)
     }
 
     override fun onFragmentCreated(
@@ -24,7 +23,7 @@ open class FragmentLifecycleCallbacks : FragmentManager.FragmentLifecycleCallbac
         fragment: Fragment,
         savedInstanceState: Bundle?
     ) {
-        log(fragment, Lifecycle.Event.ON_CREATE.name)
+        logFragmentLifecycleEvent(fragment, Lifecycle.Event.ON_CREATE.name)
     }
 
     override fun onFragmentViewCreated(
@@ -33,56 +32,56 @@ open class FragmentLifecycleCallbacks : FragmentManager.FragmentLifecycleCallbac
         v: View,
         savedInstanceState: Bundle?
     ) {
-        log(fragment, Event.ON_VIEW_CREATE.name)
+        logFragmentLifecycleEvent(fragment, Event.ON_VIEW_CREATE.name)
     }
 
     override fun onFragmentStarted(
         fragmentManager: FragmentManager,
         fragment: Fragment
     ) {
-        log(fragment, Lifecycle.Event.ON_START.name)
+        logFragmentLifecycleEvent(fragment, Lifecycle.Event.ON_START.name)
     }
 
     override fun onFragmentResumed(
         fragmentManager: FragmentManager,
         fragment: Fragment
     ) {
-        log(fragment, Lifecycle.Event.ON_RESUME.name)
+        logFragmentLifecycleEvent(fragment, Lifecycle.Event.ON_RESUME.name)
     }
 
     override fun onFragmentPaused(
         fragmentManager: FragmentManager,
         fragment: Fragment
     ) {
-        log(fragment, Lifecycle.Event.ON_PAUSE.name)
+        logFragmentLifecycleEvent(fragment, Lifecycle.Event.ON_PAUSE.name)
     }
 
     override fun onFragmentStopped(
         fragmentManager: FragmentManager,
         fragment: Fragment
     ) {
-        log(fragment, Lifecycle.Event.ON_STOP.name)
+        logFragmentLifecycleEvent(fragment, Lifecycle.Event.ON_STOP.name)
     }
 
     override fun onFragmentViewDestroyed(
         fragmentManager: FragmentManager,
         fragment: Fragment
     ) {
-        log(fragment, Event.ON_VIEW_DESTROY.name)
+        logFragmentLifecycleEvent(fragment, Event.ON_VIEW_DESTROY.name)
     }
 
     override fun onFragmentDestroyed(
         fragmentManager: FragmentManager,
         fragment: Fragment
     ) {
-        log(fragment, Lifecycle.Event.ON_DESTROY.name)
+        logFragmentLifecycleEvent(fragment, Lifecycle.Event.ON_DESTROY.name)
     }
 
     override fun onFragmentDetached(
         fragmentManager: FragmentManager,
         fragment: Fragment
     ) {
-        log(fragment, Event.ON_DETACH.name)
+        logFragmentLifecycleEvent(fragment, Event.ON_DETACH.name)
     }
 
     override fun onFragmentSaveInstanceState(
@@ -90,11 +89,21 @@ open class FragmentLifecycleCallbacks : FragmentManager.FragmentLifecycleCallbac
         fragment: Fragment,
         outState: Bundle
     ) {
-        log(fragment, Event.ON_SAVE_INSTANCE_STATE.name)
+        logFragmentLifecycleEvent(fragment, Event.ON_SAVE_INSTANCE_STATE.name)
     }
 
-    private fun log(fragment: Fragment, event: String) {
+    private fun logFragmentLifecycleEvent(fragment: Fragment, event: String) {
         Log.d(fragment.javaClass.simpleName, event)
     }
 
+    companion object {
+
+        private enum class Event {
+            ON_ATTACH,
+            ON_DETACH,
+            ON_SAVE_INSTANCE_STATE,
+            ON_VIEW_CREATE,
+            ON_VIEW_DESTROY
+        }
+    }
 }

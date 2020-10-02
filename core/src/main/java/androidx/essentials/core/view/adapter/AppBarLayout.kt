@@ -1,6 +1,7 @@
-package androidx.essentials.core.view
+package androidx.essentials.core.view.adapter
 
 import androidx.databinding.BindingAdapter
+import androidx.essentials.core.view.AppBarLayout
 
 @BindingAdapter("loading")
 fun setLoading(appBarLayout: AppBarLayout, isLoading: Boolean) {
