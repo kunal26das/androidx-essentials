@@ -89,10 +89,12 @@ open class TextInput @JvmOverloads constructor(
     }
 
     override fun setHint(hint: CharSequence?) {
-        mHint = hint.toString()
+        mHint = hint?.toString() ?: ""
         super.setHint(
             when (isEditable and isMandatory) {
-                true -> "$mHint*"
+                true -> if (mHint.isNotEmpty()) {
+                    "$mHint*"
+                } else mHint
                 else -> mHint
             }.apply {
                 if (!isHintEnabled) {

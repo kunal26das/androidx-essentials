@@ -115,10 +115,12 @@ class AutoComplete @JvmOverloads constructor(
     }
 
     override fun setHint(hint: CharSequence?) {
-        mHint = hint.toString()
+        mHint = hint?.toString() ?: ""
         super.setHint(
-            when (isMandatory) {
-                true -> "$mHint*"
+            when (isEditable and isMandatory) {
+                true -> if (mHint.isNotEmpty()) {
+                    "$mHint*"
+                } else mHint
                 else -> mHint
             }.apply {
                 if (!isHintEnabled) {
