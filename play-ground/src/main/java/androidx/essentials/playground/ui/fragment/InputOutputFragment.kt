@@ -19,8 +19,8 @@ class InputOutputFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.viewModel = viewModel
         binding.apply {
-            binding.viewModel = viewModel
             PopupMenu(context, null).apply {
                 MenuInflater(context).inflate(R.menu.menu_play_ground, menu)
                 menu.children.map {

@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="androidx.essentials.playground.ui.PlayGroundViewModel" />
+    </data>
+
     <androidx.essentials.playground.list.LibraryList
         android:id="@+id/libraryList"
         android:layout_width="match_parent"
@@ -12,6 +19,7 @@
         android:scrollbars="vertical"
         app:item_marginHorizontal="16dp"
         app:item_marginVertical="16dp"
+        app:libraries="@{viewModel.libraries}"
         app:marginVertical="?actionBarSize"
         app:spanCount="2"
         tools:listitem="@layout/item_library"

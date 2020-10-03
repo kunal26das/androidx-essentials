@@ -1,8 +1,7 @@
 package androidx.essentials.playground.ui.fragment
 
-import android.view.MenuInflater
-import android.widget.PopupMenu
-import androidx.core.view.children
+import android.os.Bundle
+import android.view.View
 import androidx.essentials.core.lifecycle.Fragment
 import androidx.essentials.extensions.Try.Try
 import androidx.essentials.playground.R
@@ -16,15 +15,12 @@ class CoreFragment : Fragment() {
     private val binding by dataBinding<FragmentCoreBinding>()
     override val viewModel by sharedViewModel<PlayGroundViewModel>()
 
-    override fun onResume() {
-        super.onResume()
-        PopupMenu(context, null).apply {
-            MenuInflater(context).inflate(R.menu.menu_play_ground, menu)
-            binding.libraryList.submitList(menu.children.toList())
-            binding.libraryList.setOnItemClickListener {
-                if (it.itemId != R.id.core) Try {
-                    findNavController().navigate(it.itemId)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.viewModel = viewModel
+        binding.libraryList.setOnItemClickListener {
+            if (it.itemId != R.id.core) Try {
+                findNavController().navigate(it.itemId)
             }
         }
     }

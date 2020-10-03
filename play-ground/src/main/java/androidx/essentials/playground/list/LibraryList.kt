@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.ViewGroup
+import androidx.databinding.BindingAdapter
 import androidx.essentials.list.List
 import androidx.essentials.list.view.ListItemView
 import androidx.essentials.playground.databinding.ItemLibraryBinding
@@ -40,6 +41,16 @@ class LibraryList(
 
     internal interface OnItemClickListener {
         fun onClick(item: MenuItem)
+    }
+
+    companion object {
+
+        @JvmStatic
+        @BindingAdapter("libraries")
+        fun submitLibraries(libraryList: LibraryList, libraries: kotlin.collections.List<MenuItem>?) {
+            libraryList.submitList(libraries)
+        }
+
     }
 
 }
