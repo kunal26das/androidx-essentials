@@ -1,6 +1,7 @@
 package androidx.essentials.io
 
 import android.content.Context
+import android.graphics.Typeface
 import android.text.Editable
 import android.text.InputType
 import android.text.method.KeyListener
@@ -87,6 +88,20 @@ abstract class Field @JvmOverloads constructor(
 
     var regexMessage = context.getString(R.string.invalid_input)
 
+    var mTypeFace = Typeface.NORMAL
+        set(value) {
+            field = value
+            editText?.setTypeface(
+                editText?.typeface,
+                when (value) {
+                    Typeface.BOLD -> Typeface.BOLD
+                    Typeface.ITALIC -> Typeface.ITALIC
+                    Typeface.BOLD_ITALIC -> Typeface.BOLD_ITALIC
+                    else -> Typeface.NORMAL
+                }
+            )
+        }
+
     var validate = DEFAULT_VALIDATE
 
     override fun onAttachedToWindow() {
@@ -151,6 +166,7 @@ abstract class Field @JvmOverloads constructor(
         const val DEFAULT_VALIDATE = false
         const val DEFAULT_IS_EDITABLE = true
         const val DEFAULT_IS_MANDATORY = false
+        const val DEFAULT_TYPEFACE = Typeface.NORMAL
         const val DEFAULT_INPUT_TYPE = InputType.TYPE_CLASS_TEXT
         const val DEFAULT_IME_OPTIONS = EditorInfo.IME_ACTION_NEXT
     }

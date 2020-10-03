@@ -79,7 +79,14 @@ class AutoComplete @JvmOverloads constructor(
             } catch (e: IllegalArgumentException) {
                 emptyArray()
             }
+            editText?.apply {
+                textSize = getDimensionPixelSize(
+                    R.styleable.AutoComplete_android_textSize,
+                    textSize.toInt()
+                ) / resources.displayMetrics.scaledDensity
+            }
             try {
+                mTypeFace = getInt(R.styleable.AutoComplete_android_textStyle, DEFAULT_TYPEFACE)
                 getResourceIdOrThrow(R.styleable.AutoComplete_android_fontFamily).let {
                     typeface = ResourcesCompat.getFont(context, it)
                 }
@@ -113,6 +120,10 @@ class AutoComplete @JvmOverloads constructor(
             when (isMandatory) {
                 true -> "$mHint*"
                 else -> mHint
+            }.apply {
+                if (!isHintEnabled) {
+                    editText?.hint = this
+                }
             }
         )
     }

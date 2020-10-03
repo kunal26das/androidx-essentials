@@ -71,7 +71,14 @@ open class TextInput @JvmOverloads constructor(
                 ?: context.getString(R.string.invalid_input)
             mandatoryMessage = getString(R.styleable.TextInput_mandatoryMessage)
                 ?: context.getString(R.string.mandatory_field)
+            editText?.apply {
+                textSize = getDimensionPixelSize(
+                    R.styleable.TextInput_android_textSize,
+                    textSize.toInt()
+                ) / resources.displayMetrics.scaledDensity
+            }
             try {
+                mTypeFace = getInt(R.styleable.TextInput_android_textStyle, DEFAULT_TYPEFACE)
                 getResourceIdOrThrow(R.styleable.TextInput_android_fontFamily).let {
                     typeface = ResourcesCompat.getFont(context, it)
                 }
@@ -87,6 +94,10 @@ open class TextInput @JvmOverloads constructor(
             when (isEditable and isMandatory) {
                 true -> "$mHint*"
                 else -> mHint
+            }.apply {
+                if (!isHintEnabled) {
+                    editText?.hint = this
+                }
             }
         )
     }
