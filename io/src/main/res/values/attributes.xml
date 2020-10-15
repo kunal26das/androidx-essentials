@@ -27,13 +27,9 @@
     </declare-styleable>
 
     <declare-styleable name="Chips">
+        <attr name="android:checkable" format="boolean" />
         <attr name="array" />
-        <attr name="type" format="enum">
-            <enum name="action" value="0" />
-            <enum name="choice" value="1" />
-            <enum name="entry" value="2" />
-            <enum name="filter" value="3" />
-        </attr>
+        <attr name="chip" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="Date">

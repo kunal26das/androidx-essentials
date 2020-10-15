@@ -34,8 +34,8 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="8dp"
-                    android:maxLines="1"
                     android:hint="@string/text_input"
+                    android:maxLines="1"
                     app:editable="@{viewModel.isEditable}"
                     app:helperText="@{viewModel.textInput}"
                     app:mandatory="@{viewModel.isMandatory}"
@@ -84,10 +84,10 @@
                     android:layout_marginVertical="8dp"
                     android:background="@drawable/background_selectable_item"
                     android:padding="12dp"
+                    app:chip="@layout/layout_chip_filter"
                     app:selection="@={viewModel.selection}"
                     app:selectionRequired="@{viewModel.isMandatory}"
-                    app:singleSelection="@{viewModel.singleSelection}"
-                    app:type="filter" />
+                    app:singleSelection="@{viewModel.singleSelection}" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"

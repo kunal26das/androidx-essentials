@@ -107,4 +107,5 @@ abstract class List<T, V : ViewDataBinding>(
                 }
             }
         }
+
 }

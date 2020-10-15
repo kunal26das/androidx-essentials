@@ -21,8 +21,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
-    // Kotlin Extensions
-    implementation 'androidx.essentials:kotlin-extensions:1595854347054'
     // Material Design
     implementation "com.google.android.material:material:$material_version"
 }

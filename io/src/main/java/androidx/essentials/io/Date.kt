@@ -4,6 +4,10 @@ import android.content.Context
 import android.text.InputType
 import android.util.AttributeSet
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
+import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.DateValidatorPointForward
@@ -95,10 +99,38 @@ class Date @JvmOverloads constructor(
     }
 
     companion object {
+
         const val DEFAULT_PAST = false
         const val DEFAULT_FUTURE = false
         const val DATE_FORMAT_DISPLAY = "dd MMM yyyy"
         const val DEFAULT_INPUT_TYPE = InputType.TYPE_DATETIME_VARIATION_DATE
+
+        @JvmStatic
+        @BindingAdapter("date")
+        fun Date.setDate(date: Long?) {
+            when (fromUser) {
+                true -> fromUser = false
+                false -> this.date = date
+            }
+        }
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "date")
+        fun getDate(view: Date): Long? {
+            return view.date
+        }
+
+        @JvmStatic
+        @BindingAdapter(value = ["dateAttrChanged"])
+        fun Date.setOnDateAttrChangeListener(
+            inverseBindingListener: InverseBindingListener
+        ) {
+            editText?.doAfterTextChanged {
+                fromUser = true
+                inverseBindingListener.onChange()
+            }
+        }
+
     }
 
 }

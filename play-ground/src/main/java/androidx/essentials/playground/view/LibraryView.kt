@@ -32,15 +32,15 @@ class LibraryView @JvmOverloads constructor(
             menuItem = item
             executePendingBindings()
             version.text = when (item.title) {
-                context.getString(R.string.backdrop) -> androidx.essentials.backdrop.BuildConfig.VERSION_NAME
-                context.getString(R.string.core) -> androidx.essentials.core.BuildConfig.VERSION_NAME
-                context.getString(R.string.events) -> androidx.essentials.events.BuildConfig.VERSION_NAME
-                context.getString(R.string.io) -> androidx.essentials.io.BuildConfig.VERSION_NAME
-                context.getString(R.string.extensions) -> androidx.essentials.extensions.BuildConfig.VERSION_NAME
-                context.getString(R.string.list) -> androidx.essentials.list.BuildConfig.VERSION_NAME
-                context.getString(R.string.location) -> androidx.essentials.location.BuildConfig.VERSION_NAME
-                context.getString(R.string.network) -> androidx.essentials.network.BuildConfig.VERSION_NAME
-                context.getString(R.string.resources) -> androidx.essentials.resources.BuildConfig.VERSION_NAME
+//                context.getString(R.string.backdrop) -> androidx.essentials.backdrop.BuildConfig.VERSION_NAME
+//                context.getString(R.string.core) -> androidx.essentials.core.BuildConfig.VERSION_NAME
+//                context.getString(R.string.events) -> androidx.essentials.events.BuildConfig.VERSION_NAME
+//                context.getString(R.string.io) -> androidx.essentials.io.BuildConfig.VERSION_NAME
+//                context.getString(R.string.extensions) -> androidx.essentials.extensions.BuildConfig.VERSION_NAME
+//                context.getString(R.string.list) -> androidx.essentials.list.BuildConfig.VERSION_NAME
+//                context.getString(R.string.location) -> androidx.essentials.location.BuildConfig.VERSION_NAME
+//                context.getString(R.string.network) -> androidx.essentials.network.BuildConfig.VERSION_NAME
+//                context.getString(R.string.resources) -> androidx.essentials.resources.BuildConfig.VERSION_NAME
                 else -> ""
             }
             version.visibility = when (version.text.isEmpty()) {

@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.widget.ContentLoadingProgressBar
+import androidx.databinding.BindingAdapter
 import androidx.essentials.core.R
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.MaterialToolbar
@@ -20,7 +21,7 @@ class AppBarLayout @JvmOverloads constructor(
     private val appBarLayout: AppBarLayout
     private val contentLoadingProgressBar: ContentLoadingProgressBar
 
-    var isLoading: Boolean = DEFAULT_LOADING
+    var isLoading = DEFAULT_LOADING
         set(value) {
             field = value
             when (value) {
@@ -51,7 +52,15 @@ class AppBarLayout @JvmOverloads constructor(
     }
 
     companion object {
+
         private const val DEFAULT_LOADING = false
+
+        @JvmStatic
+        @BindingAdapter("loading")
+        fun androidx.essentials.core.view.AppBarLayout.setIsLoading(isLoading: Boolean?) {
+            this.isLoading = isLoading ?: false
+        }
+
     }
 
 }

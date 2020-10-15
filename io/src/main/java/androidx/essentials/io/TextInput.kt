@@ -6,6 +6,10 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.res.getResourceIdOrThrow
+import androidx.core.widget.doAfterTextChanged
+import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 
 open class TextInput @JvmOverloads constructor(
     context: Context,
@@ -105,7 +109,40 @@ open class TextInput @JvmOverloads constructor(
     }
 
     companion object {
+
         const val DEFAULT_MAX_LENGTH = Int.MAX_VALUE
+
+        @JvmStatic
+        @BindingAdapter("text")
+        fun TextInput.setText(text: String?) {
+            when (fromUser) {
+                true -> fromUser = false
+                false -> text?.let { editText?.setText(it) }
+            }
+        }
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "text")
+        fun getText(textInput: TextInput): String? {
+            with(textInput.editText?.text) {
+                return when (this) {
+                    null -> null
+                    else -> toString()
+                }
+            }
+        }
+
+        @JvmStatic
+        @BindingAdapter(value = ["textAttrChanged"])
+        fun TextInput.setOnTextAttrChangeListener(
+            inverseBindingListener: InverseBindingListener
+        ) {
+            editText?.doAfterTextChanged {
+                fromUser = true
+                inverseBindingListener.onChange()
+            }
+        }
+
     }
 
 }

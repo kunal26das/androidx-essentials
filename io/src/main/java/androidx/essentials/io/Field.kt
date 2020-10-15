@@ -20,6 +20,7 @@ abstract class Field @JvmOverloads constructor(
 ) : TextInputLayout(context, attrs, defStyleAttr) {
 
     abstract val isValid: Boolean
+    protected var fromUser = false
     protected var textChanged = false
     protected lateinit var mHint: String
     val isInvalid get() = !isValid

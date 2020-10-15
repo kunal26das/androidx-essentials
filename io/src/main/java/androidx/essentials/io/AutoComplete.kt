@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.res.getResourceIdOrThrow
+import androidx.core.widget.doAfterTextChanged
+import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 
 
@@ -150,6 +154,39 @@ class AutoComplete @JvmOverloads constructor(
     }
 
     companion object {
+
         const val DEFAULT_IS_EDITABLE = false
+
+        @JvmStatic
+        @BindingAdapter("text")
+        fun AutoComplete.setText(text: String?) {
+            when (fromUser) {
+                true -> fromUser = false
+                false -> text?.let { editText?.setText(it) }
+            }
+        }
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "text")
+        fun getText(autoComplete: AutoComplete): String? {
+            with(autoComplete.editText?.text) {
+                return when (this) {
+                    null -> null
+                    else -> toString()
+                }
+            }
+        }
+
+        @JvmStatic
+        @BindingAdapter(value = ["textAttrChanged"])
+        fun AutoComplete.setOnTextAttrChangeListener(
+            inverseBindingListener: InverseBindingListener
+        ) {
+            editText?.doAfterTextChanged {
+                fromUser = true
+                inverseBindingListener.onChange()
+            }
+        }
+
     }
 }

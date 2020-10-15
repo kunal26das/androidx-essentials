@@ -11,10 +11,10 @@ import androidx.core.view.ViewCompat
 import com.google.android.material.animation.AnimationUtils
 
 open class AppBarLayoutBehaviour : CoordinatorLayout.Behavior<AppBarLayout>() {
+
     private var height = 0
-    private var currentState =
-        STATE_SCROLLED_DOWN
     private var additionalHiddenOffsetY = 0
+    private var currentState = STATE_SCROLLED_DOWN
     private var currentAnimator: ViewPropertyAnimator? = null
 
     override fun onLayoutChild(
