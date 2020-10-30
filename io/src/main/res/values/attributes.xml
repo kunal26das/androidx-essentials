@@ -33,6 +33,7 @@
     </declare-styleable>
 
     <declare-styleable name="Date">
+        <attr name="materialCalendarStyle" format="reference" />
         <attr name="future" format="boolean" />
         <attr name="past" format="boolean" />
     </declare-styleable>

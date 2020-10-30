@@ -12,7 +12,6 @@ import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 
-
 class AutoComplete @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

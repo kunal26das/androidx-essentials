@@ -48,10 +48,8 @@ class Date @JvmOverloads constructor(
     private val calendarConstraintsBuilder = CalendarConstraints.Builder()
     private val displayDateFormat = SimpleDateFormat(DATE_FORMAT_DISPLAY, locale)
 
-    private val materialDatePickerBuilder = MaterialDatePicker.Builder.datePicker().apply {
-        setTheme(R.style.ThemeOverlay_MaterialComponents_MaterialCalendar)
-        setInputMode(MaterialDatePicker.INPUT_MODE_CALENDAR)
-    }
+    private val materialDatePickerBuilder = MaterialDatePicker.Builder
+        .datePicker().setInputMode(MaterialDatePicker.INPUT_MODE_CALENDAR)
 
     init {
         context.obtainStyledAttributes(attrs, R.styleable.Date, defStyleAttr, 0).apply {
@@ -63,6 +61,12 @@ class Date @JvmOverloads constructor(
                     !future and past -> setValidator(DateValidatorPointBackward.now())
                 }
                 materialDatePickerBuilder.setTitleText(hint)
+                getResourceId(
+                    R.styleable.Date_materialCalendarStyle,
+                    R.style.ThemeOverlay_MaterialComponents_MaterialCalendar
+                ).let {
+                    materialDatePickerBuilder.setTheme(it)
+                }
                 setOpenAt(null)
             }
             recycle()
