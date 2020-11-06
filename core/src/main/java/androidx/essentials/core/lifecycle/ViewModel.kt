@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 
-abstract class ViewModel : ViewModel() {
+open class ViewModel : ViewModel() {
 
     init {
         logViewModelLifecycleEvent(Lifecycle.State.CREATED.name)

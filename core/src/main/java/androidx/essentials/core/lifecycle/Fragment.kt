@@ -13,9 +13,11 @@ import org.koin.android.viewmodel.ext.android.viewModel as koinViewModel
 
 abstract class Fragment : Fragment() {
 
-    abstract val layout: Int
-    abstract val viewModel: ViewModel
+    protected abstract val layout: Int
+    protected open val viewModel = ViewModel()
     lateinit var viewDataBinding: ViewDataBinding
+    protected open val sharedViewModel = ViewModel()
+
     inline fun <reified T : ViewModel> Fragment.viewModel() = koinViewModel<T>()
     inline fun <reified T : ViewModel> Fragment.sharedViewModel() = koinSharedViewModel<T>()
     inline fun <reified T : ViewDataBinding> Fragment.dataBinding() = lazy { viewDataBinding as T }

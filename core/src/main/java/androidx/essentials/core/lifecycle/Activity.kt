@@ -10,10 +10,11 @@ import org.koin.android.viewmodel.ext.android.viewModel as koinViewModel
 
 abstract class Activity : AppCompatActivity() {
 
-    abstract val layout: Int
-    abstract val viewModel: ViewModel
+    protected abstract val layout: Int
+    protected open val viewModel = ViewModel()
     lateinit var viewDataBinding: ViewDataBinding
     private val fragmentLifecycleCallbacks = FragmentLifecycleCallbacks()
+
     inline fun <reified T : ViewModel> Activity.viewModel() = koinViewModel<T>()
     inline fun <reified T : ViewDataBinding> Activity.dataBinding() = lazy { viewDataBinding as T }
 
@@ -38,15 +39,14 @@ abstract class Activity : AppCompatActivity() {
     }
 
     protected fun resumeApplication(): Boolean {
-        if (!isTaskRoot
-            && intent.hasCategory(Intent.CATEGORY_LAUNCHER)
+        return if (!isTaskRoot
             && intent.action != null
             && intent.action.equals(Intent.ACTION_MAIN)
+            && intent.hasCategory(Intent.CATEGORY_LAUNCHER)
         ) {
             finish()
-            return true
-        }
-        return false
+            true
+        } else false
     }
 
     override fun onDestroy() {

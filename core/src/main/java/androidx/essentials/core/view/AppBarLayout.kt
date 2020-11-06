@@ -7,6 +7,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.databinding.BindingAdapter
 import androidx.essentials.core.R
+import androidx.essentials.core.databinding.LayoutAppbarBinding
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.card.MaterialCardView
@@ -17,9 +18,21 @@ class AppBarLayout @JvmOverloads constructor(
     defStyleAttr: Int = R.attr.materialCardViewStyle
 ) : MaterialCardView(context, attrs, defStyleAttr) {
 
-    val toolbar: MaterialToolbar
-    private val appBarLayout: AppBarLayout
-    private val contentLoadingProgressBar: ContentLoadingProgressBar
+    val toolbar: MaterialToolbar by lazy {
+        findViewById(R.id.toolbar)
+    }
+
+    private val appBarLayout: AppBarLayout by lazy {
+        findViewById(R.id.materialAppBarLayout)
+    }
+
+    private val contentLoadingProgressBar: ContentLoadingProgressBar by lazy {
+        findViewById(R.id.contentLoadingProgressBar)
+    }
+
+    private val binding = LayoutAppbarBinding.inflate(
+        LayoutInflater.from(context), this, true
+    )
 
     var isLoading = DEFAULT_LOADING
         set(value) {
@@ -31,13 +44,8 @@ class AppBarLayout @JvmOverloads constructor(
         }
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.layout_appbar, this, true).apply {
-            contentLoadingProgressBar = findViewById(R.id.contentLoadingProgressBar)
-            appBarLayout = findViewById(R.id.materialAppBarLayout)
-            appBarLayout.backgroundTintList = cardBackgroundColor
-            toolbar = findViewById(R.id.toolbar)
-            contentLoadingProgressBar.hide()
-        }
+        contentLoadingProgressBar.hide()
+        appBarLayout.backgroundTintList = cardBackgroundColor
     }
 
     override fun onAttachedToWindow() {
@@ -54,6 +62,7 @@ class AppBarLayout @JvmOverloads constructor(
     companion object {
 
         private const val DEFAULT_LOADING = false
+        private const val DEFAULT_DIVIDER_VISIBLE = false
 
         @JvmStatic
         @BindingAdapter("loading")

@@ -14,9 +14,11 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel as koinSharedViewM
 
 abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
 
-    abstract val layout: Int
-    abstract val viewModel: ViewModel
+    protected abstract val layout: Int
+    protected open val viewModel = ViewModel()
     lateinit var viewDataBinding: ViewDataBinding
+    protected open val sharedViewModel = ViewModel()
+
     inline fun <reified T : ViewModel> BottomSheetDialogFragment.sharedViewModel() =
         koinSharedViewModel<T>()
 
