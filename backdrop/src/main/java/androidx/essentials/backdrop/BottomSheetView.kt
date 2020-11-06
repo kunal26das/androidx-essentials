@@ -11,9 +11,9 @@ import com.google.android.material.shape.CornerFamily
 
 class BottomSheetView @JvmOverloads constructor(
     context: Context,
-    attributes: AttributeSet? = null,
-    styleAttributes: Int = R.attr.materialCardViewStyle
-) : MaterialCardView(context, attributes, styleAttributes) {
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = R.attr.materialCardViewStyle
+) : MaterialCardView(context, attrs, defStyleAttr) {
 
     private var state = STATE_EXPANDED
         set(value) {
@@ -64,7 +64,7 @@ class BottomSheetView @JvmOverloads constructor(
     val isHalfExpanded get() = bottomSheetBehaviour.state == STATE_HALF_EXPANDED
 
     init {
-        context.obtainStyledAttributes(attributes, R.styleable.BottomSheetView, 0, 0).apply {
+        context.obtainStyledAttributes(attrs, R.styleable.BottomSheetView, defStyleAttr, 0).apply {
             peekHeight =
                 getDimensionPixelSize(R.styleable.BottomSheetView_peekHeight, DEFAULT_PEEK_HEIGHT)
             isDraggable = getBoolean(R.styleable.BottomSheetView_draggable, DEFAULT_IS_DRAGGABLE)
