@@ -62,7 +62,7 @@ abstract class PagedList<T, V : ViewDataBinding> @JvmOverloads constructor(
     ) {
         override fun onCreateViewHolder(
             parent: ViewGroup, viewType: Int
-        ) = onCreateViewHolder(parent)
+        ) = this@PagedList.onCreateViewHolder(parent, viewType)
 
         override fun onBindViewHolder(
             holder: ListItemView.ViewHolder<T, V>, position: Int

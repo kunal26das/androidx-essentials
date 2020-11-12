@@ -29,17 +29,18 @@ abstract class AbstractList<T, V : ViewDataBinding> @JvmOverloads constructor(
         adapter = loadingAdapter
     }
 
-    abstract fun onCreateViewHolder(parent: ViewGroup): ListItemView.ViewHolder<T, V>
+    abstract fun onCreateViewHolder(
+        parent: ViewGroup, viewType: Int
+    ): ListItemView.ViewHolder<T, V>
 
     open fun onBindViewHolder(
         holder: ListItemView.ViewHolder<T, V>,
         position: Int, item: T
-    ) {
-    }
+    ) = Unit
 
-    open fun areItemsTheSame(oldItem: T, newItem: T) = oldItem == newItem
+    open fun areItemsTheSame(oldItem: T, newItem: T) = false
 
-    open fun areContentsTheSame(oldItem: T, newItem: T) = oldItem == newItem
+    open fun areContentsTheSame(oldItem: T, newItem: T) = false
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()

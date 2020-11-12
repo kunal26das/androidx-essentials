@@ -40,19 +40,20 @@ abstract class List<T, V : ViewDataBinding> @JvmOverloads constructor(
     }
 
     fun submitList(list: kotlin.collections.List<T>?) {
-        adapter = when {
+        when {
             list == null -> {
                 layoutManager = linearLayoutManager
-                loadingAdapter
+                adapter = loadingAdapter
             }
             list.isEmpty() -> {
                 layoutManager = linearLayoutManager
-                EmptyAdapter(emptyMessage)
+                adapter = EmptyAdapter(emptyMessage)
             }
             else -> {
                 layoutManager = mLayoutManager
-                dataAdapter.submitList(list)
-                dataAdapter
+                dataAdapter.submitList(list) {
+                    adapter = dataAdapter
+                }
             }
         }
     }
@@ -68,7 +69,7 @@ abstract class List<T, V : ViewDataBinding> @JvmOverloads constructor(
     ) {
         override fun onCreateViewHolder(
             parent: ViewGroup, viewType: Int
-        ) = onCreateViewHolder(parent)
+        ) = this@List.onCreateViewHolder(parent, viewType)
 
         override fun onBindViewHolder(
             holder: ListItemView.ViewHolder<T, V>, position: Int
