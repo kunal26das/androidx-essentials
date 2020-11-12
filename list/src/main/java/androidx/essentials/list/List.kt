@@ -17,24 +17,26 @@ abstract class List<T, V : ViewDataBinding> @JvmOverloads constructor(
     defStyleAttr: Int = R.attr.recyclerViewStyle
 ) : AbstractList<T, V>(context, attrs, defStyleAttr) {
 
-    protected open val emptyMessage = ""
+    var emptyLayout: Int
 
     init {
+        clipToPadding = false
         context.obtainStyledAttributes(attrs, R.styleable.List, 0, 0).apply {
             orientation =
                 when (getInteger(R.styleable.List_android_orientation, DEFAULT_ORIENTATION)) {
                     DEFAULT_ORIENTATION -> VERTICAL
                     else -> HORIZONTAL
                 }
-            linearLayoutManager = LinearLayoutManager(context, orientation, DEFAULT_REVERSE_LAYOUT)
+            linearLayoutManager = LinearLayoutManager(context, orientation, reverseLayout)
             val spanCount = getInteger(R.styleable.List_spanCount, DEFAULT_SPAN_COUNT)
             mLayoutManager = when {
                 spanCount > 1 -> GridLayoutManager(
-                    context, spanCount, orientation, DEFAULT_REVERSE_LAYOUT
+                    context, spanCount, orientation, reverseLayout
                 )
                 else -> linearLayoutManager
             }
-            showDivider = getBoolean(R.styleable.List_showDivider, DEFAULT_SHOW_DIVIDER)
+            showDivider = getBoolean(R.styleable.List_dividers, DEFAULT_SHOW_DIVIDER)
+            emptyLayout = getResourceId(R.styleable.List_emptyLayout, R.layout.item_loading)
             recycle()
         }
     }
@@ -47,7 +49,7 @@ abstract class List<T, V : ViewDataBinding> @JvmOverloads constructor(
             }
             list.isEmpty() -> {
                 layoutManager = linearLayoutManager
-                adapter = EmptyAdapter(emptyMessage)
+                adapter = EmptyAdapter(emptyLayout)
             }
             else -> {
                 layoutManager = mLayoutManager

@@ -22,11 +22,13 @@ abstract class AbstractList<T, V : ViewDataBinding> @JvmOverloads constructor(
     internal var showDivider = DEFAULT_SHOW_DIVIDER
     protected var orientation = DEFAULT_ORIENTATION
     internal lateinit var mLayoutManager: LayoutManager
+    protected val reverseLayout = DEFAULT_REVERSE_LAYOUT
     internal lateinit var linearLayoutManager: LinearLayoutManager
     abstract val dataAdapter: Adapter<ListItemView.ViewHolder<T, V>>
 
     init {
         adapter = loadingAdapter
+        layoutManager = LinearLayoutManager(context)
     }
 
     abstract fun onCreateViewHolder(
@@ -44,21 +46,13 @@ abstract class AbstractList<T, V : ViewDataBinding> @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        layoutManager = mLayoutManager
         if (showDivider) {
             when (mLayoutManager) {
-                is GridLayoutManager -> addItemDecoration(
-                    DividerItemDecoration(
-                        context,
-                        (mLayoutManager as GridLayoutManager).orientation
-                    )
-                )
-                is LinearLayoutManager -> addItemDecoration(
-                    DividerItemDecoration(
-                        context,
-                        (mLayoutManager as LinearLayoutManager).orientation
-                    )
-                )
+                is GridLayoutManager -> {
+                    addItemDecoration(DividerItemDecoration(context, VERTICAL))
+                    addItemDecoration(DividerItemDecoration(context, HORIZONTAL))
+                }
+                else -> addItemDecoration(DividerItemDecoration(context, orientation))
             }
         }
     }

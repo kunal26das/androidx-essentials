@@ -32,7 +32,7 @@ abstract class PagedList<T, V : ViewDataBinding> @JvmOverloads constructor(
                 )
                 else -> linearLayoutManager
             }
-            showDivider = getBoolean(R.styleable.PagedList_showDivider, DEFAULT_SHOW_DIVIDER)
+            showDivider = getBoolean(R.styleable.PagedList_dividers, DEFAULT_SHOW_DIVIDER)
             recycle()
         }
     }

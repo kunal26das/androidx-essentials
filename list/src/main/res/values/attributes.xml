@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+    <attr name="dividers" format="boolean" />
+    <attr name="emptyLayout" format="reference" />
     <attr name="spanCount" format="integer" />
-    <attr name="showDivider" format="boolean" />
     <declare-styleable name="List">
-        <attr name="spanCount" />
-        <attr name="showDivider" />
         <attr name="android:orientation" />
+        <attr name="emptyLayout" />
+        <attr name="dividers" />
+        <attr name="spanCount" />
     </declare-styleable>
     <declare-styleable name="PagedList">
-        <attr name="spanCount" />
-        <attr name="showDivider" />
         <attr name="android:orientation" />
+        <attr name="emptyLayout" />
+        <attr name="dividers" />
+        <attr name="spanCount" />
     </declare-styleable>
 </resources>

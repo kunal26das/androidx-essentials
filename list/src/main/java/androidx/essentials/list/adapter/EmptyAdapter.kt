@@ -1,30 +1,27 @@
 package androidx.essentials.list.adapter
 
-import android.view.Gravity
-import android.view.View.TEXT_ALIGNMENT_CENTER
+import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.textview.MaterialTextView
 
 class EmptyAdapter(
-    private val message: String
+    private val layout: Int
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemCount() = 1
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return object : RecyclerView.ViewHolder(MaterialTextView(parent.context).apply {
-            text = message
-            gravity = Gravity.CENTER
-            textAlignment = TEXT_ALIGNMENT_CENTER
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
+    override fun onCreateViewHolder(
+        parent: ViewGroup, viewType: Int
+    ): RecyclerView.ViewHolder {
+        return object : RecyclerView.ViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                layout, parent, false
             )
-        }) {}
+        ) {}
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {}
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder, position: Int
+    ) = Unit
 
 }
