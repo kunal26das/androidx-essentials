@@ -39,6 +39,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:headerLayout="@layout/header_play_ground"
-            app:menu="@menu/menu_play_ground" />
+            app:menu="@menu/menu_library" />
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

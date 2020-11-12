@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="sharedViewModel"
             type="androidx.essentials.playground.ui.PlayGroundViewModel" />
     </data>
 
@@ -35,7 +35,7 @@
                     android:layout_weight="1"
                     android:hint="@string/latitude"
                     app:editable="false"
-                    app:text="@{String.valueOf(viewModel.location.latitude)}" />
+                    app:text="@{String.valueOf(sharedViewModel.location.latitude)}" />
 
                 <androidx.essentials.io.TextInput
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -45,7 +45,7 @@
                     android:layout_weight="1"
                     android:hint="@string/longitude"
                     app:editable="false"
-                    app:text="@{String.valueOf(viewModel.location.longitude)}" />
+                    app:text="@{String.valueOf(sharedViewModel.location.longitude)}" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>

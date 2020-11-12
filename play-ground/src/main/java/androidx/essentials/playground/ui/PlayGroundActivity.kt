@@ -13,14 +13,13 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 
-class PlayGroundActivity : Activity() {
+class PlayGroundActivity : Activity<ActivityPlayGroundBinding>() {
 
     private lateinit var navController: NavController
     override val layout = R.layout.activity_play_ground
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override val viewModel by viewModel<PlayGroundViewModel>()
-    private val binding by dataBinding<ActivityPlayGroundBinding>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

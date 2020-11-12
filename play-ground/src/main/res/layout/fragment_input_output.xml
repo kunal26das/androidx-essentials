@@ -7,7 +7,7 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="sharedViewModel"
             type="androidx.essentials.playground.ui.PlayGroundViewModel" />
     </data>
 
@@ -36,12 +36,12 @@
                     android:layout_marginBottom="8dp"
                     android:hint="@string/text_input"
                     android:maxLines="1"
-                    app:editable="@{viewModel.isEditable}"
-                    app:helperText="@{viewModel.textInput}"
-                    app:mandatory="@{viewModel.isMandatory}"
+                    app:editable="@{sharedViewModel.isEditable}"
+                    app:helperText="@{sharedViewModel.textInput}"
+                    app:mandatory="@{sharedViewModel.isMandatory}"
                     app:mandatoryMessage="@string/mandatory_field"
                     app:regexMessage="@string/invalid_input"
-                    app:text="@={viewModel.textInput}" />
+                    app:text="@={sharedViewModel.textInput}" />
 
                 <androidx.essentials.io.AutoComplete
                     android:id="@+id/autoComplete"
@@ -53,12 +53,13 @@
                     android:hint="@string/auto_complete"
                     android:inputType="textCapWords"
                     android:maxLines="1"
-                    app:editable="@{viewModel.isEditable}"
-                    app:helperText="@{viewModel.autoComplete}"
-                    app:mandatory="@{viewModel.isMandatory}"
+                    app:array="@{sharedViewModel.libraryArray}"
+                    app:editable="@{sharedViewModel.isEditable}"
+                    app:helperText="@{sharedViewModel.autoComplete}"
+                    app:mandatory="@{sharedViewModel.isMandatory}"
                     app:mandatoryMessage="@string/mandatory_field"
                     app:regexMessage="@string/invalid_input"
-                    app:text="@={viewModel.autoComplete}" />
+                    app:text="@={sharedViewModel.autoComplete}" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -75,12 +76,12 @@
                         android:layout_marginVertical="8dp"
                         android:layout_weight="1"
                         android:hint="@string/start_date"
-                        app:date="@={viewModel.startDate}"
-                        app:editable="@{viewModel.isEditable}"
-                        app:endDate="@{viewModel.endDate}"
+                        app:date="@={sharedViewModel.startDate}"
+                        app:editable="@{sharedViewModel.isEditable}"
+                        app:endDate="@{sharedViewModel.endDate}"
                         app:future="true"
-                        app:helperText="@{String.valueOf(viewModel.startDate)}"
-                        app:mandatory="@{viewModel.isMandatory}"
+                        app:helperText="@{String.valueOf(sharedViewModel.startDate)}"
+                        app:mandatory="@{sharedViewModel.isMandatory}"
                         app:mandatoryMessage="@string/mandatory_field"
                         app:past="false"
                         app:regexMessage="@string/invalid_input"
@@ -95,15 +96,15 @@
                         android:layout_marginVertical="8dp"
                         android:layout_weight="1"
                         android:hint="@string/end_date"
-                        app:date="@={viewModel.endDate}"
-                        app:editable="@{viewModel.isEditable}"
+                        app:date="@={sharedViewModel.endDate}"
+                        app:editable="@{sharedViewModel.isEditable}"
                         app:future="true"
-                        app:helperText="@{String.valueOf(viewModel.endDate)}"
-                        app:mandatory="@{viewModel.isMandatory}"
+                        app:helperText="@{String.valueOf(sharedViewModel.endDate)}"
+                        app:mandatory="@{sharedViewModel.isMandatory}"
                         app:mandatoryMessage="@string/mandatory_field"
                         app:past="false"
                         app:regexMessage="@string/invalid_input"
-                        app:startDate="@{viewModel.startDate}"
+                        app:startDate="@{sharedViewModel.startDate}"
                         app:startIconDrawable="@drawable/ic_event_available_24dp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -115,10 +116,11 @@
                     android:layout_marginVertical="8dp"
                     android:background="@drawable/background_selectable_item"
                     android:padding="12dp"
+                    app:array="@{sharedViewModel.libraryArray}"
                     app:chip="@layout/layout_chip_filter"
-                    app:selection="@={viewModel.selection}"
-                    app:selectionRequired="@{viewModel.isMandatory}"
-                    app:singleSelection="@{viewModel.singleSelection}" />
+                    app:selection="@={sharedViewModel.selection}"
+                    app:selectionRequired="@{sharedViewModel.isMandatory}"
+                    app:singleSelection="@{sharedViewModel.singleSelection}" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -132,21 +134,21 @@
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:checked="@={viewModel.isEditable}"
+                        android:checked="@={sharedViewModel.isEditable}"
                         android:layoutDirection="rtl"
                         android:text="@string/editable" />
 
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:checked="@={viewModel.isMandatory}"
+                        android:checked="@={sharedViewModel.isMandatory}"
                         android:layoutDirection="rtl"
                         android:text="@string/mandatory" />
 
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:checked="@={viewModel.singleSelection}"
+                        android:checked="@={sharedViewModel.singleSelection}"
                         android:layoutDirection="rtl"
                         android:text="@string/single_selection" />
                 </androidx.appcompat.widget.LinearLayoutCompat>

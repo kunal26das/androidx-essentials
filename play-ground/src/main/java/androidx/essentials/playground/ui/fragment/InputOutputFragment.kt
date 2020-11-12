@@ -1,35 +1,22 @@
 package androidx.essentials.playground.ui.fragment
 
 import android.os.Bundle
-import android.view.MenuInflater
 import android.view.View
-import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.core.view.children
 import androidx.essentials.core.lifecycle.Fragment
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentInputOutputBinding
 import androidx.essentials.playground.ui.PlayGroundViewModel
 
-class InputOutputFragment : Fragment() {
+class InputOutputFragment : Fragment<FragmentInputOutputBinding>() {
 
     override val layout = R.layout.fragment_input_output
-    override val viewModel by sharedViewModel<PlayGroundViewModel>()
-    private val binding by dataBinding<FragmentInputOutputBinding>()
+    override val sharedViewModel by sharedViewModel<PlayGroundViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = viewModel
+        binding.sharedViewModel = sharedViewModel
         binding.apply {
-            PopupMenu(context, null).apply {
-                MenuInflater(context).inflate(R.menu.menu_play_ground, menu)
-                menu.children.map {
-                    "${it.title}"
-                }.toList().toTypedArray().let {
-                    autoComplete.array = it
-                    chips.array = it
-                }
-            }
             validate.setOnClickListener {
                 Toast.makeText(
                     requireContext(), "${
@@ -41,9 +28,6 @@ class InputOutputFragment : Fragment() {
                             and chips.isValid
                     }", Toast.LENGTH_SHORT
                 ).show()
-            }
-            autoComplete.setOnItemClickListener { index, item ->
-                Toast.makeText(requireContext(), "$index: $item", Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -5,10 +5,9 @@ import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentBackdropBinding
 import androidx.essentials.playground.ui.PlayGroundViewModel
 
-class BackdropFragment : Fragment() {
+class BackdropFragment : Fragment<FragmentBackdropBinding>() {
 
     override val layout = R.layout.fragment_backdrop
-    private val binding by dataBinding<FragmentBackdropBinding>()
     override val viewModel by sharedViewModel<PlayGroundViewModel>()
 
 }

@@ -1,35 +1,29 @@
 package androidx.essentials.playground.ui.fragment
 
 import android.os.Bundle
-import android.view.MenuInflater
 import android.view.View
-import android.widget.PopupMenu
-import androidx.core.view.children
 import androidx.essentials.core.lifecycle.Fragment
-import androidx.essentials.extensions.Try.Try
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentCoreBinding
 import androidx.essentials.playground.ui.PlayGroundViewModel
 import androidx.navigation.fragment.findNavController
 
-class CoreFragment : Fragment() {
+class CoreFragment : Fragment<FragmentCoreBinding>() {
 
     override val layout = R.layout.fragment_core
-    private val binding by dataBinding<FragmentCoreBinding>()
     override val sharedViewModel by sharedViewModel<PlayGroundViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.sharedViewModel = sharedViewModel
-        PopupMenu(context, null).apply {
-            MenuInflater(context).inflate(R.menu.menu_play_ground, menu)
-            sharedViewModel.libraries.value = menu.children.toList()
-        }
         binding.libraryList.setOnItemClickListener {
-            if (it.itemId != R.id.core) Try {
+            if (it.itemId != R.id.core) try {
                 findNavController().navigate(it.itemId)
+            } catch (e: IllegalArgumentException) {
+
             }
         }
     }
+
 
 }

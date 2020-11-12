@@ -1,16 +1,22 @@
 package androidx.essentials.playground.ui
 
+import android.content.Context
 import android.location.Location
-import android.view.MenuItem
+import android.view.MenuInflater
+import android.widget.PopupMenu
+import androidx.core.view.children
 import androidx.essentials.core.injector.KoinComponent.inject
 import androidx.essentials.core.lifecycle.ViewModel
 import androidx.essentials.location.LocationProvider
 import androidx.essentials.network.NetworkCallback
+import androidx.essentials.playground.R
 import androidx.essentials.playground.utils.Listeners
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 
 class PlayGroundViewModel : ViewModel(), Listeners {
 
+    private val applicationContext by inject<Context>()
     private val networkCallback by inject<NetworkCallback>()
     private val locationProvider by inject<LocationProvider>()
 
@@ -18,7 +24,6 @@ class PlayGroundViewModel : ViewModel(), Listeners {
     val startDate = MutableLiveData<Long>()
     val textInput = MutableLiveData<String>()
     val autoComplete = MutableLiveData<String>()
-    val libraries = MutableLiveData<List<MenuItem>>()
     val selection = MutableLiveData(emptyArray<String>())
 
     val isEditable = MutableLiveData(true)
@@ -27,6 +32,14 @@ class PlayGroundViewModel : ViewModel(), Listeners {
 
     val isOnline = MutableLiveData(networkCallback.isOnline)
     val location = MutableLiveData(locationProvider.location)
+
+    val libraries = PopupMenu(applicationContext, null).apply {
+        MenuInflater(applicationContext).inflate(R.menu.menu_library, menu)
+    }.menu.children
+    val libraryList = MutableLiveData(libraries.toList())
+    val libraryArray = Transformations.map(libraryList) {
+        it.map { "${it.title}" }.toTypedArray()
+    }
 
     init {
         locationProvider.setOnLocationChangeListener(this)

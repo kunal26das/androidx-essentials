@@ -19,7 +19,7 @@ class Libraries @JvmOverloads constructor(
 
     private var onItemClickListener: LibraryView.OnItemClickListener? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup) = LibraryView(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = LibraryView(
         context = parent.context, attachToRoot = false
     ).viewHolder
 
