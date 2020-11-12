@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import androidx.essentials.list.adapter.EmptyAdapter
+import androidx.essentials.list.adapter.EmptyStateAdapter
 import androidx.essentials.list.view.ListItemView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,7 +17,8 @@ abstract class List<T, V : ViewDataBinding> @JvmOverloads constructor(
     defStyleAttr: Int = R.attr.recyclerViewStyle
 ) : AbstractList<T, V>(context, attrs, defStyleAttr) {
 
-    var emptyLayout: Int
+    private val emptyStateLayout: Int
+    var emptyStateAdapter: EmptyStateAdapter
 
     init {
         clipToPadding = false
@@ -36,7 +37,8 @@ abstract class List<T, V : ViewDataBinding> @JvmOverloads constructor(
                 else -> linearLayoutManager
             }
             showDivider = getBoolean(R.styleable.List_dividers, DEFAULT_SHOW_DIVIDER)
-            emptyLayout = getResourceId(R.styleable.List_emptyLayout, R.layout.item_loading)
+            emptyStateLayout = getResourceId(R.styleable.List_emptyLayout, R.layout.item_loading)
+            emptyStateAdapter = EmptyStateAdapter(emptyStateLayout)
             recycle()
         }
     }
@@ -49,7 +51,7 @@ abstract class List<T, V : ViewDataBinding> @JvmOverloads constructor(
             }
             list.isEmpty() -> {
                 layoutManager = linearLayoutManager
-                adapter = EmptyAdapter(emptyLayout)
+                adapter = emptyStateAdapter
             }
             else -> {
                 layoutManager = mLayoutManager
