@@ -16,6 +16,7 @@
         android:background="@drawable/background_selectable_item"
         android:gravity="center_vertical"
         android:padding="12dp"
+        android:layout_margin="8dp"
         android:orientation="horizontal"
         tools:layout_margin="16dp">
 
@@ -49,6 +50,7 @@
                 android:maxLines="1"
                 android:textAlignment="textStart"
                 android:textSize="12sp"
+                android:visible="false"
                 tools:text="Version" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>

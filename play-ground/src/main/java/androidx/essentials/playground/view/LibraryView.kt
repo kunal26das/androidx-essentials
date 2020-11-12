@@ -4,8 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.View
-import androidx.essentials.list.AbstractList.Companion.DEFAULT_ORIENTATION
 import androidx.essentials.list.view.ListItemView
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ItemLibraryBinding
@@ -14,9 +12,12 @@ class LibraryView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.materialCardViewStyle,
-    attachToRoot: Boolean = DEFAULT_ATTACH_TO_ROOT,
-    listOrientation: Int = DEFAULT_ORIENTATION
-) : ListItemView<MenuItem, ItemLibraryBinding>(context, attrs, defStyleAttr, attachToRoot) {
+    attachToRoot: Boolean = DEFAULT_ATTACH_TO_ROOT
+) : ListItemView<MenuItem, ItemLibraryBinding>(
+    context, attrs, defStyleAttr, attachToRoot
+) {
+
+    private var onItemClickListener: OnItemClickListener? = null
 
     override val binding = ItemLibraryBinding.inflate(
         LayoutInflater.from(context), this, attachToRoot
@@ -31,23 +32,22 @@ class LibraryView @JvmOverloads constructor(
         binding.apply {
             menuItem = item
             executePendingBindings()
-            version.text = when (item.title) {
-//                context.getString(R.string.backdrop) -> androidx.essentials.backdrop.BuildConfig.VERSION_NAME
-//                context.getString(R.string.core) -> androidx.essentials.core.BuildConfig.VERSION_NAME
-//                context.getString(R.string.events) -> androidx.essentials.events.BuildConfig.VERSION_NAME
-//                context.getString(R.string.io) -> androidx.essentials.io.BuildConfig.VERSION_NAME
-//                context.getString(R.string.extensions) -> androidx.essentials.extensions.BuildConfig.VERSION_NAME
-//                context.getString(R.string.list) -> androidx.essentials.list.BuildConfig.VERSION_NAME
-//                context.getString(R.string.location) -> androidx.essentials.location.BuildConfig.VERSION_NAME
-//                context.getString(R.string.network) -> androidx.essentials.network.BuildConfig.VERSION_NAME
-//                context.getString(R.string.resources) -> androidx.essentials.resources.BuildConfig.VERSION_NAME
-                else -> ""
-            }
-            version.visibility = when (version.text.isEmpty()) {
-                true -> View.GONE
-                false -> View.VISIBLE
+            root.setOnClickListener {
+                onItemClickListener?.onClick(item)
             }
         }
+    }
+
+    fun setOnItemClickListener(action: (MenuItem) -> Unit) {
+        onItemClickListener = object : OnItemClickListener {
+            override fun onClick(item: MenuItem) {
+                action(item)
+            }
+        }
+    }
+
+    interface OnItemClickListener {
+        fun onClick(item: MenuItem)
     }
 
 }

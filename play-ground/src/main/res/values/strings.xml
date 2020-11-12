@@ -25,4 +25,8 @@
     <string name="single_selection">Single Selection</string>
     <string name="latitude">Latitude</string>
     <string name="longitude">Longitude</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="past">Past</string>
+    <string name="future">Future</string>
 </resources>

@@ -33,12 +33,13 @@ class InputOutputFragment : Fragment() {
             validate.setOnClickListener {
                 Toast.makeText(
                     requireContext(), "${
-                    true
-                        and textInput.isValid
-                        and autoComplete.isValid
-                        and date.isValid
-                        and chips.isValid
-                }", Toast.LENGTH_SHORT
+                        true
+                            and textInput.isValid
+                            and autoComplete.isValid
+                            and startDate.isValid
+                            and endDate.isValid
+                            and chips.isValid
+                    }", Toast.LENGTH_SHORT
                 ).show()
             }
             autoComplete.setOnItemClickListener { index, item ->

@@ -60,21 +60,52 @@
                     app:regexMessage="@string/invalid_input"
                     app:text="@={viewModel.autoComplete}" />
 
-                <androidx.essentials.io.Date
-                    android:id="@+id/date"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginVertical="8dp"
-                    android:hint="@string/date"
-                    app:date="@={viewModel.date}"
-                    app:editable="@{viewModel.isEditable}"
-                    app:helperText="@{String.valueOf(viewModel.date)}"
-                    app:mandatory="@{viewModel.isMandatory}"
-                    app:mandatoryMessage="@string/mandatory_field"
-                    app:regexMessage="@string/invalid_input"
-                    app:startIconDrawable="@drawable/ic_event_available_24dp" />
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="8dp">
+
+                    <androidx.essentials.io.Date
+                        android:id="@+id/startDate"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_marginVertical="8dp"
+                        android:layout_weight="1"
+                        android:hint="@string/start_date"
+                        app:date="@={viewModel.startDate}"
+                        app:editable="@{viewModel.isEditable}"
+                        app:endDate="@{viewModel.endDate}"
+                        app:future="true"
+                        app:helperText="@{String.valueOf(viewModel.startDate)}"
+                        app:mandatory="@{viewModel.isMandatory}"
+                        app:mandatoryMessage="@string/mandatory_field"
+                        app:past="false"
+                        app:regexMessage="@string/invalid_input"
+                        app:startIconDrawable="@drawable/ic_event_available_24dp" />
+
+                    <androidx.essentials.io.Date
+                        android:id="@+id/endDate"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_marginVertical="8dp"
+                        android:layout_weight="1"
+                        android:hint="@string/end_date"
+                        app:date="@={viewModel.endDate}"
+                        app:editable="@{viewModel.isEditable}"
+                        app:future="true"
+                        app:helperText="@{String.valueOf(viewModel.endDate)}"
+                        app:mandatory="@{viewModel.isMandatory}"
+                        app:mandatoryMessage="@string/mandatory_field"
+                        app:past="false"
+                        app:regexMessage="@string/invalid_input"
+                        app:startDate="@{viewModel.startDate}"
+                        app:startIconDrawable="@drawable/ic_event_available_24dp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.essentials.io.Chips
                     android:id="@+id/chips"

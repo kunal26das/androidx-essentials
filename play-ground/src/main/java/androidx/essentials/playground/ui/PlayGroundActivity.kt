@@ -18,6 +18,7 @@ class PlayGroundActivity : Activity() {
     private lateinit var navController: NavController
     override val layout = R.layout.activity_play_ground
     private lateinit var appBarConfiguration: AppBarConfiguration
+
     override val viewModel by viewModel<PlayGroundViewModel>()
     private val binding by dataBinding<ActivityPlayGroundBinding>()
 
