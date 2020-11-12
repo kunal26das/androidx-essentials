@@ -11,19 +11,20 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LiveData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.viewmodel.ext.android.sharedViewModel as koinSharedViewModel
+import org.koin.android.viewmodel.ext.android.viewModel as koinViewModel
 
-abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
+abstract class BottomSheetDialogFragment<T : ViewDataBinding> : BottomSheetDialogFragment() {
 
+    /** View **/
     protected abstract val layout: Int
-    protected open val viewModel = ViewModel()
-    lateinit var viewDataBinding: ViewDataBinding
-    protected open val sharedViewModel = ViewModel()
+    protected lateinit var binding: T
 
+    /** ViewModel **/
+    protected open val viewModel = ViewModel()
+    protected open val sharedViewModel = ViewModel()
+    inline fun <reified T : ViewModel> BottomSheetDialogFragment.viewModel() = koinViewModel<T>()
     inline fun <reified T : ViewModel> BottomSheetDialogFragment.sharedViewModel() =
         koinSharedViewModel<T>()
-
-    inline fun <reified T : ViewDataBinding> BottomSheetDialogFragment.dataBinding() =
-        lazy { viewDataBinding as T }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,13 +36,9 @@ abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return try {
-            viewDataBinding = DataBindingUtil.inflate(inflater, layout, container, false)
-            viewDataBinding.lifecycleOwner = viewLifecycleOwner
-            viewDataBinding.root
-        } catch (e: Exception) {
-            inflater.inflate(layout, container, false)
-        }
+        binding = DataBindingUtil.inflate(inflater, layout, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

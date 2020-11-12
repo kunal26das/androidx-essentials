@@ -8,26 +8,25 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
 import org.koin.android.viewmodel.ext.android.viewModel as koinViewModel
 
-abstract class Activity : AppCompatActivity() {
+abstract class Activity<T : ViewDataBinding> : AppCompatActivity() {
 
+    /** View **/
     protected abstract val layout: Int
-    protected open val viewModel = ViewModel()
-    lateinit var viewDataBinding: ViewDataBinding
-    private val fragmentLifecycleCallbacks = FragmentLifecycleCallbacks()
+    protected lateinit var binding: T
 
-    inline fun <reified T : ViewModel> Activity.viewModel() = koinViewModel<T>()
-    inline fun <reified T : ViewDataBinding> Activity.dataBinding() = lazy { viewDataBinding as T }
+    /** ViewModel **/
+    protected open val viewModel = ViewModel()
+    inline fun <reified T : ViewModel> AppCompatActivity.viewModel() = koinViewModel<T>()
+
+    /** Fragment **/
+    private val fragmentLifecycleCallbacks = FragmentLifecycleCallbacks()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        try {
-            viewDataBinding = DataBindingUtil.setContentView(this, layout)
-            viewDataBinding.lifecycleOwner = this
-        } catch (e: Exception) {
-            setContentView(layout)
-        }
-        initObservers()
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentLifecycleCallbacks, true)
+        binding = DataBindingUtil.setContentView(this, layout)
+        binding.lifecycleOwner = this
+        initObservers()
     }
 
     open fun initObservers() {}

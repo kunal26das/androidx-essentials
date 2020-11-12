@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 open class ViewModel : ViewModel() {
 
     init {
-        logViewModelLifecycleEvent(Lifecycle.State.CREATED.name)
+        logViewModelLifecycleEvent(Lifecycle.Event.ON_CREATE.name)
     }
 
     override fun onCleared() {
@@ -16,7 +16,9 @@ open class ViewModel : ViewModel() {
     }
 
     private fun logViewModelLifecycleEvent(event: String) {
-        Log.d(javaClass.simpleName, event)
+        if (javaClass.simpleName != ViewModel::class.java.simpleName) {
+            Log.d(javaClass.simpleName, event)
+        }
     }
 
     companion object {
