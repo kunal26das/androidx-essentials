@@ -30,7 +30,7 @@ abstract class ListItemView<T, V : ViewDataBinding> @JvmOverloads constructor(
 
     protected abstract fun bind(item: T)
     abstract val binding: ViewDataBinding
-    val viewHolder get() = ViewHolder(this)
+    val viewHolder by lazy { ViewHolder(this) }
 
     init {
         if (!attachToRoot) {
@@ -58,8 +58,9 @@ abstract class ListItemView<T, V : ViewDataBinding> @JvmOverloads constructor(
         super.onDetachedFromWindow()
     }
 
-    class ViewHolder<T, V : ViewDataBinding>(val listItemView: ListItemView<T, V>) :
-        RecyclerView.ViewHolder(listItemView) {
+    class ViewHolder<T, V : ViewDataBinding>(
+        val listItemView: ListItemView<T, V>
+    ) : RecyclerView.ViewHolder(listItemView) {
         fun bind(item: T) {
             listItemView.item = item
         }
