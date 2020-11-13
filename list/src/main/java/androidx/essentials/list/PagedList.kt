@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
+import androidx.essentials.list.adapter.ListStateAdapter
 import androidx.essentials.list.view.ListItemView
 import androidx.paging.PagedList
 import androidx.paging.PagedListAdapter
@@ -18,7 +19,8 @@ abstract class PagedList<T, V : ViewDataBinding> @JvmOverloads constructor(
 ) : AbstractList<T, V>(context, attrs, defStyleAttr) {
 
     init {
-        context.obtainStyledAttributes(attrs, R.styleable.PagedList, 0, 0).apply {
+        layoutManager = LinearLayoutManager(context)
+        context.obtainStyledAttributes(attrs, R.styleable.PagedList, defStyleAttr, 0).apply {
             val orientation =
                 when (getInteger(R.styleable.List_android_orientation, DEFAULT_ORIENTATION)) {
                     DEFAULT_ORIENTATION -> VERTICAL
@@ -33,15 +35,25 @@ abstract class PagedList<T, V : ViewDataBinding> @JvmOverloads constructor(
                 else -> linearLayoutManager
             }
             showDivider = getBoolean(R.styleable.PagedList_dividers, DEFAULT_SHOW_DIVIDER)
+            loadingStateAdapter = ListStateAdapter(
+                getResourceId(R.styleable.PagedList_loadingState, R.layout.layout_loading),
+                this@PagedList
+            )
+            emptyStateAdapter = ListStateAdapter(
+                getResourceId(R.styleable.PagedList_emptyState, R.layout.layout_empty),
+                this@PagedList
+            )
             recycle()
         }
+        adapter = loadingStateAdapter
+        clipToPadding = false
     }
 
     fun submitList(list: PagedList<T>?) {
         adapter = when (list) {
             null -> {
                 layoutManager = linearLayoutManager
-                loadingAdapter
+                loadingStateAdapter
             }
             else -> {
                 layoutManager = mLayoutManager

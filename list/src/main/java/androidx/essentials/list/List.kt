@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import androidx.essentials.list.adapter.EmptyStateAdapter
+import androidx.essentials.list.adapter.ListStateAdapter
 import androidx.essentials.list.view.ListItemView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,12 +17,9 @@ abstract class List<T, V : ViewDataBinding> @JvmOverloads constructor(
     defStyleAttr: Int = R.attr.recyclerViewStyle
 ) : AbstractList<T, V>(context, attrs, defStyleAttr) {
 
-    private val emptyStateLayout: Int
-    var emptyStateAdapter: EmptyStateAdapter
-
     init {
-        clipToPadding = false
-        context.obtainStyledAttributes(attrs, R.styleable.List, 0, 0).apply {
+        layoutManager = LinearLayoutManager(context)
+        context.obtainStyledAttributes(attrs, R.styleable.List, defStyleAttr, 0).apply {
             orientation =
                 when (getInteger(R.styleable.List_android_orientation, DEFAULT_ORIENTATION)) {
                     DEFAULT_ORIENTATION -> VERTICAL
@@ -37,17 +34,23 @@ abstract class List<T, V : ViewDataBinding> @JvmOverloads constructor(
                 else -> linearLayoutManager
             }
             showDivider = getBoolean(R.styleable.List_dividers, DEFAULT_SHOW_DIVIDER)
-            emptyStateLayout = getResourceId(R.styleable.List_emptyLayout, R.layout.item_loading)
-            emptyStateAdapter = EmptyStateAdapter(emptyStateLayout)
+            loadingStateAdapter = ListStateAdapter(
+                getResourceId(R.styleable.List_loadingState, R.layout.layout_loading), this@List
+            )
+            emptyStateAdapter = ListStateAdapter(
+                getResourceId(R.styleable.List_emptyState, R.layout.layout_empty), this@List
+            )
             recycle()
         }
+        adapter = loadingStateAdapter
+        clipToPadding = false
     }
 
     fun submitList(list: kotlin.collections.List<T>?) {
         when {
             list == null -> {
                 layoutManager = linearLayoutManager
-                adapter = loadingAdapter
+                adapter = loadingStateAdapter
             }
             list.isEmpty() -> {
                 layoutManager = linearLayoutManager

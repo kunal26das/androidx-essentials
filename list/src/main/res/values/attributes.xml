@@ -2,18 +2,21 @@
 
 <resources>
     <attr name="dividers" format="boolean" />
-    <attr name="emptyLayout" format="reference" />
+    <attr name="emptyState" format="reference" />
+    <attr name="loadingState" format="reference" />
     <attr name="spanCount" format="integer" />
     <declare-styleable name="List">
         <attr name="android:orientation" />
-        <attr name="emptyLayout" />
         <attr name="dividers" />
+        <attr name="emptyState" />
+        <attr name="loadingState" />
         <attr name="spanCount" />
     </declare-styleable>
     <declare-styleable name="PagedList">
         <attr name="android:orientation" />
-        <attr name="emptyLayout" />
         <attr name="dividers" />
+        <attr name="emptyState" />
+        <attr name="loadingState" />
         <attr name="spanCount" />
     </declare-styleable>
 </resources>
