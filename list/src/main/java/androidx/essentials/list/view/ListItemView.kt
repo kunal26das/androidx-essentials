@@ -28,7 +28,7 @@ abstract class ListItemView<T, V : ViewDataBinding> @JvmOverloads constructor(
             }
         }
 
-    protected abstract fun bind(item: T)
+    abstract fun bind(item: T)
     abstract val binding: ViewDataBinding
     val viewHolder by lazy { ViewHolder(this) }
 
