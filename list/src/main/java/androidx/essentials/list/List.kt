@@ -34,15 +34,15 @@ abstract class List<T, V : ViewDataBinding> @JvmOverloads constructor(
                 else -> linearLayoutManager
             }
             showDivider = getBoolean(R.styleable.List_dividers, DEFAULT_SHOW_DIVIDER)
-            loadingStateAdapter = ListStateAdapter(
+            loadingState = ListStateAdapter(
                 getResourceId(R.styleable.List_loadingState, R.layout.layout_loading), this@List
             )
-            emptyStateAdapter = ListStateAdapter(
+            emptyState = ListStateAdapter(
                 getResourceId(R.styleable.List_emptyState, R.layout.layout_empty), this@List
             )
             recycle()
         }
-        adapter = loadingStateAdapter
+        adapter = loadingState
         clipToPadding = false
     }
 
@@ -50,11 +50,11 @@ abstract class List<T, V : ViewDataBinding> @JvmOverloads constructor(
         when {
             list == null -> {
                 layoutManager = linearLayoutManager
-                adapter = loadingStateAdapter
+                adapter = loadingState
             }
             list.isEmpty() -> {
                 layoutManager = linearLayoutManager
-                adapter = emptyStateAdapter
+                adapter = emptyState
             }
             else -> {
                 layoutManager = mLayoutManager

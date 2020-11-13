@@ -35,17 +35,17 @@ abstract class PagedList<T, V : ViewDataBinding> @JvmOverloads constructor(
                 else -> linearLayoutManager
             }
             showDivider = getBoolean(R.styleable.PagedList_dividers, DEFAULT_SHOW_DIVIDER)
-            loadingStateAdapter = ListStateAdapter(
+            loadingState = ListStateAdapter(
                 getResourceId(R.styleable.PagedList_loadingState, R.layout.layout_loading),
                 this@PagedList
             )
-            emptyStateAdapter = ListStateAdapter(
+            emptyState = ListStateAdapter(
                 getResourceId(R.styleable.PagedList_emptyState, R.layout.layout_empty),
                 this@PagedList
             )
             recycle()
         }
-        adapter = loadingStateAdapter
+        adapter = loadingState
         clipToPadding = false
     }
 
@@ -53,7 +53,7 @@ abstract class PagedList<T, V : ViewDataBinding> @JvmOverloads constructor(
         adapter = when (list) {
             null -> {
                 layoutManager = linearLayoutManager
-                loadingStateAdapter
+                loadingState
             }
             else -> {
                 layoutManager = mLayoutManager

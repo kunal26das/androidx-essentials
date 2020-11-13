@@ -19,12 +19,14 @@ abstract class AbstractList<T, V : ViewDataBinding> @JvmOverloads constructor(
 
     internal var showDivider = DEFAULT_SHOW_DIVIDER
     protected var orientation = DEFAULT_ORIENTATION
-    lateinit var emptyStateAdapter: ListStateAdapter
-    lateinit var loadingStateAdapter: ListStateAdapter
-    internal lateinit var mLayoutManager: LayoutManager
     protected val reverseLayout = DEFAULT_REVERSE_LAYOUT
-    internal lateinit var linearLayoutManager: LinearLayoutManager
+
+    lateinit var emptyState: ListStateAdapter
+    lateinit var loadingState: ListStateAdapter
     abstract val dataAdapter: Adapter<ListItemView.ViewHolder<T, V>>
+
+    internal lateinit var mLayoutManager: LayoutManager
+    internal lateinit var linearLayoutManager: LinearLayoutManager
 
     abstract fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
