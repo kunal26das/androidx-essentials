@@ -8,6 +8,6 @@ import androidx.essentials.playground.ui.PlayGroundViewModel
 class BackdropFragment : Fragment<FragmentBackdropBinding>() {
 
     override val layout = R.layout.fragment_backdrop
-    override val viewModel by sharedViewModel<PlayGroundViewModel>()
+    override val sharedViewModel by sharedViewModel<PlayGroundViewModel>()
 
 }

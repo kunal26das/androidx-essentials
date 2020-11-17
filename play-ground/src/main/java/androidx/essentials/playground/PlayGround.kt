@@ -2,16 +2,16 @@ package androidx.essentials.playground
 
 import android.content.Context
 import android.os.Build
-import androidx.essentials.core.Application
+import androidx.essentials.firebase.FirebaseApplication
 import androidx.essentials.location.LocationProvider
 import androidx.essentials.network.NetworkCallback
 import androidx.essentials.playground.ui.PlayGroundViewModel
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 
-class PlayGround : Application() {
+class PlayGround : FirebaseApplication() {
 
-    private val sharedPreferences
+    override val sharedPreferences
         get() = when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
                 EncryptedSharedPreferences.create(

@@ -7,6 +7,8 @@ import android.widget.PopupMenu
 import androidx.core.view.children
 import androidx.essentials.core.injector.KoinComponent.inject
 import androidx.essentials.core.lifecycle.ViewModel
+import androidx.essentials.firebase.Firebase
+import androidx.essentials.firebase.utils.UUID
 import androidx.essentials.location.LocationProvider
 import androidx.essentials.network.NetworkCallback
 import androidx.essentials.playground.R
@@ -16,6 +18,7 @@ import androidx.lifecycle.Transformations
 
 class PlayGroundViewModel : ViewModel(), Listeners {
 
+    private val firebase by inject<Firebase>()
     private val applicationContext by inject<Context>()
     private val networkCallback by inject<NetworkCallback>()
     private val locationProvider by inject<LocationProvider>()
@@ -30,10 +33,12 @@ class PlayGroundViewModel : ViewModel(), Listeners {
     val isMandatory = MutableLiveData(true)
     val singleSelection = MutableLiveData(true)
 
+    val token = MutableLiveData<String>()
+    val uuid = MutableLiveData("$UUID")
     val isOnline = MutableLiveData(networkCallback.isOnline)
     val location = MutableLiveData(locationProvider.location)
 
-    val libraries = PopupMenu(applicationContext, null).apply {
+    private val libraries = PopupMenu(applicationContext, null).apply {
         MenuInflater(applicationContext).inflate(R.menu.menu_library, menu)
     }.menu.children
     val libraryList = MutableLiveData(libraries.toList())
@@ -42,6 +47,7 @@ class PlayGroundViewModel : ViewModel(), Listeners {
     }
 
     init {
+        firebase.setOnTokenChangeListener(this)
         locationProvider.setOnLocationChangeListener(this)
         networkCallback.setOnNetworkStateChangeListener(this)
     }
@@ -56,9 +62,14 @@ class PlayGroundViewModel : ViewModel(), Listeners {
         this.isOnline.postValue(isOnline)
     }
 
+    override fun onNewToken(token: String?) {
+        this.token.value = token
+    }
+
     override fun onCleared() {
         networkCallback.removeOnNetworkStateChangeListener()
         locationProvider.removeOnLocationChangeListener()
+        firebase.removeOnTokenChangeListener()
         super.onCleared()
     }
 

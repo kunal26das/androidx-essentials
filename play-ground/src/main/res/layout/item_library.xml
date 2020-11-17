@@ -10,48 +10,53 @@
             type="android.view.MenuItem" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_selectable_item"
-        android:gravity="center_vertical"
-        android:padding="12dp"
         android:layout_margin="8dp"
-        android:orientation="horizontal"
-        tools:layout_margin="16dp">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@{menuItem.icon}"
-            app:tint="@color/colorText" />
+        app:strokeColor="@color/colorStroke"
+        app:strokeWidth="1dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center_vertical"
-            android:paddingHorizontal="12dp">
+            android:orientation="horizontal"
+            android:padding="12dp">
 
-            <com.google.android.material.textview.MaterialTextView
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@{menuItem.icon}"
+                app:tint="@color/colorText" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="@{menuItem.title}"
-                android:textAlignment="textStart"
-                tools:text="Library" />
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingHorizontal="12dp">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/version"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:textAlignment="textStart"
-                android:textSize="12sp"
-                android:visible="false"
-                tools:text="Version" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="@{menuItem.title}"
+                    android:textAlignment="textStart"
+                    tools:text="Library" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:textAlignment="textStart"
+                    android:textSize="12sp"
+                    android:visible="false"
+                    tools:text="Version" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </com.google.android.material.card.MaterialCardView>
 </layout>
