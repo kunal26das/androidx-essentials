@@ -33,8 +33,8 @@ class PlayGroundViewModel : ViewModel(), Listeners {
     val isMandatory = MutableLiveData(true)
     val singleSelection = MutableLiveData(true)
 
-    val token = MutableLiveData<String>()
     val uuid = MutableLiveData("$UUID")
+    val token = MutableLiveData(firebase.token)
     val isOnline = MutableLiveData(networkCallback.isOnline)
     val location = MutableLiveData(locationProvider.location)
 
