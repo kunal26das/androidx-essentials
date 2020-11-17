@@ -2,7 +2,7 @@ package androidx.essentials.firebase
 
 import android.content.SharedPreferences
 import androidx.essentials.core.Application
-import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.installations.FirebaseInstallations
 
 abstract class FirebaseApplication : Application() {
 
@@ -16,7 +16,7 @@ abstract class FirebaseApplication : Application() {
 
     private fun initFirebase() {
         single { Firebase.getInstance() }
-        single { FirebaseInstanceId.getInstance() }
+        single { FirebaseInstallations.getInstance() }
     }
 
 }
