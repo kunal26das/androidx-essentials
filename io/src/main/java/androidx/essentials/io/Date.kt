@@ -1,6 +1,7 @@
 package androidx.essentials.io
 
 import android.content.Context
+import android.os.Parcel
 import android.text.InputType
 import android.util.AttributeSet
 import androidx.appcompat.app.AppCompatActivity
@@ -39,11 +40,13 @@ class Date @JvmOverloads constructor(
             field = value
             value?.let {
                 editText?.setText(displayDateFormat.format(it))
-                setOpenAt(value)
+                setOpenDate(value)
             }
         }
 
+
     private val locale = Locale.getDefault()
+    private val now get() = Calendar.getInstance().timeInMillis
     private lateinit var materialDatePicker: MaterialDatePicker<Long>
     private val calendarConstraintsBuilder = CalendarConstraints.Builder()
     private val displayDateFormat = SimpleDateFormat(DATE_FORMAT_DISPLAY, locale)
@@ -64,21 +67,60 @@ class Date @JvmOverloads constructor(
                 getResourceId(
                     R.styleable.Date_materialCalendarStyle,
                     R.style.ThemeOverlay_MaterialComponents_MaterialCalendar
-                ).let {
-                    materialDatePickerBuilder.setTheme(it)
-                }
-                setOpenAt(null)
+                ).let { materialDatePickerBuilder.setTheme(it) }
             }
             recycle()
+            build()
         }
     }
 
-    private fun setOpenAt(month: Long?) {
-        month?.let { calendarConstraintsBuilder.setOpenAt(it) }
-        materialDatePickerBuilder.setCalendarConstraints(calendarConstraintsBuilder.build())
-        materialDatePickerBuilder.build()
-        materialDatePicker = materialDatePickerBuilder.build()
-        materialDatePicker.addOnPositiveButtonClickListener { date = it }
+    fun setOpenDate(openDate: Long) {
+        calendarConstraintsBuilder.setOpenAt(openDate)
+        build()
+    }
+
+    fun setStartDate(startDate: Long) {
+        calendarConstraintsBuilder.setStart(startDate)
+        calendarConstraintsBuilder.setValidator(object : CalendarConstraints.DateValidator {
+            override fun writeToParcel(dest: Parcel?, flags: Int) {
+                dest?.writeLong(startDate)
+            }
+
+            override fun isValid(date: Long) = when {
+                future and !past -> date >= now
+                !future and past -> date <= now
+                else -> true
+            } and (startDate <= date)
+
+            override fun describeContents() = 0
+        })
+        build()
+    }
+
+    fun setEndDate(endDate: Long) {
+        calendarConstraintsBuilder.setEnd(endDate)
+        calendarConstraintsBuilder.setValidator(object : CalendarConstraints.DateValidator {
+            override fun writeToParcel(dest: Parcel?, flags: Int) {
+                dest?.writeLong(endDate)
+            }
+
+            override fun isValid(date: Long) = when {
+                future and !past -> date >= now
+                !future and past -> date <= now
+                else -> true
+            } and (endDate >= date)
+
+            override fun describeContents() = 0
+        })
+        build()
+    }
+
+    private fun build() {
+        materialDatePickerBuilder.apply {
+            setCalendarConstraints(calendarConstraintsBuilder.build())
+            materialDatePicker = build()
+            materialDatePicker.addOnPositiveButtonClickListener { date = it }
+        }
     }
 
     override fun onAttachedToWindow() {
@@ -108,6 +150,18 @@ class Date @JvmOverloads constructor(
         const val DEFAULT_FUTURE = false
         const val DATE_FORMAT_DISPLAY = "dd MMM yyyy"
         const val DEFAULT_INPUT_TYPE = InputType.TYPE_DATETIME_VARIATION_DATE
+
+        @JvmStatic
+        @BindingAdapter("startDate")
+        fun Date.setStartDate(date: Long?) {
+            date?.let { setStartDate(it) }
+        }
+
+        @JvmStatic
+        @BindingAdapter("endDate")
+        fun Date.setEndDate(date: Long?) {
+            date?.let { setEndDate(it) }
+        }
 
         @JvmStatic
         @BindingAdapter("date")
