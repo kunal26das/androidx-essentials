@@ -36,7 +36,7 @@ class Date @JvmOverloads constructor(
         }
 
     var date: Long? = null
-        internal set(value) {
+        set(value) {
             field = value
             value?.let {
                 editText?.setText(displayDateFormat.format(it))
@@ -44,9 +44,15 @@ class Date @JvmOverloads constructor(
             }
         }
 
+    private val today
+        get() = Calendar.getInstance().apply {
+            this[Calendar.MILLISECOND] = 0
+            this[Calendar.SECOND] = 0
+            this[Calendar.MINUTE] = 0
+            this[Calendar.HOUR_OF_DAY] = 0
+        }.timeInMillis
 
     private val locale = Locale.getDefault()
-    private val now get() = Calendar.getInstance().timeInMillis
     private lateinit var materialDatePicker: MaterialDatePicker<Long>
     private val calendarConstraintsBuilder = CalendarConstraints.Builder()
     private val displayDateFormat = SimpleDateFormat(DATE_FORMAT_DISPLAY, locale)
@@ -87,8 +93,8 @@ class Date @JvmOverloads constructor(
             }
 
             override fun isValid(date: Long) = when {
-                future and !past -> date >= now
-                !future and past -> date <= now
+                future and !past -> date >= today
+                !future and past -> date <= today
                 else -> true
             } and (startDate <= date)
 
@@ -105,8 +111,8 @@ class Date @JvmOverloads constructor(
             }
 
             override fun isValid(date: Long) = when {
-                future and !past -> date >= now
-                !future and past -> date <= now
+                future and !past -> date >= today
+                !future and past -> date <= today
                 else -> true
             } and (endDate >= date)
 
