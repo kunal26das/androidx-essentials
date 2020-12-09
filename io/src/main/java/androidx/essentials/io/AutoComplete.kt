@@ -33,7 +33,7 @@ class AutoComplete @JvmOverloads constructor(
 
     var array = emptyArray<String>()
         set(value) {
-            if (!field.contentEquals(value)) {
+            if (!field.contentEquals(value) or !filter) {
                 field = value
                 adapter = ArrayAdapter(context, listItem, value)
                 if (isEditable and textChanged) {
@@ -41,6 +41,8 @@ class AutoComplete @JvmOverloads constructor(
                 }
             }
         }
+
+    var filter = DEFAULT_FILTER
 
     override val isValid: Boolean
         get() {
@@ -71,6 +73,7 @@ class AutoComplete @JvmOverloads constructor(
             validate = getBoolean(R.styleable.AutoComplete_validate, DEFAULT_VALIDATE)
             maxLines = getInt(R.styleable.AutoComplete_android_maxLines, DEFAULT_LINES)
             minLines = getInt(R.styleable.AutoComplete_android_minLines, DEFAULT_LINES)
+            filter = getBoolean(R.styleable.AutoComplete_android_filter, DEFAULT_FILTER)
             isEditable = getBoolean(R.styleable.AutoComplete_editable, DEFAULT_IS_EDITABLE)
             isMandatory = getBoolean(R.styleable.AutoComplete_mandatory, DEFAULT_IS_MANDATORY)
             inputType = getInt(R.styleable.AutoComplete_android_inputType, DEFAULT_INPUT_TYPE)
@@ -102,6 +105,7 @@ class AutoComplete @JvmOverloads constructor(
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         autoCompleteTextView.apply {
+            doAfterTextChanged { array = array }
             setOnFocusChangeListener { view, itHasFocus ->
                 if (!isEditable && itHasFocus) {
                     autoCompleteTextView.showDropDown()
@@ -154,6 +158,7 @@ class AutoComplete @JvmOverloads constructor(
 
     companion object {
 
+        const val DEFAULT_FILTER = false
         const val DEFAULT_IS_EDITABLE = false
 
         @JvmStatic
@@ -161,14 +166,14 @@ class AutoComplete @JvmOverloads constructor(
         fun AutoComplete.setText(text: String?) {
             when (fromUser) {
                 true -> fromUser = false
-                false -> text?.let { editText?.setText(it) }
+                false -> text?.let { autoCompleteTextView.setText(it, filter) }
             }
         }
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
-        fun getText(autoComplete: AutoComplete): String? {
-            with(autoComplete.editText?.text) {
+        fun AutoComplete.getText(): String? {
+            with(editText?.text) {
                 return when (this) {
                     null -> null
                     else -> toString()
