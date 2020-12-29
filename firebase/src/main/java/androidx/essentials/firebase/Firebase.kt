@@ -1,7 +1,6 @@
 package androidx.essentials.firebase
 
-import androidx.essentials.core.injector.KoinComponent.inject
-import com.google.firebase.installations.FirebaseInstallations
+import com.google.firebase.messaging.ktx.messaging
 
 class Firebase private constructor() {
 
@@ -36,7 +35,6 @@ class Firebase private constructor() {
     companion object {
 
         private var firebase: Firebase? = null
-        private val firebaseInstallations by inject<FirebaseInstallations>()
 
         fun getInstance(): Firebase {
             if (firebase != null) {
@@ -44,7 +42,7 @@ class Firebase private constructor() {
             }
             synchronized(this) {
                 firebase = Firebase()
-                firebaseInstallations.id.addOnSuccessListener {
+                com.google.firebase.ktx.Firebase.messaging.token.addOnSuccessListener {
                     firebase?.token = it
                 }
                 return firebase!!
