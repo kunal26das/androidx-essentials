@@ -2,6 +2,7 @@ package androidx.essentials.core.lifecycle
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -21,6 +22,9 @@ abstract class Activity<T : ViewDataBinding> : AppCompatActivity() {
     /** Fragment **/
     private val fragmentLifecycleCallbacks = FragmentLifecycleCallbacks()
 
+    /** Toast **/
+    private val toast by lazy { Toast.makeText(this, "", Toast.LENGTH_SHORT) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentLifecycleCallbacks, true)
@@ -29,12 +33,10 @@ abstract class Activity<T : ViewDataBinding> : AppCompatActivity() {
         initObservers()
     }
 
-    open fun initObservers() {}
+    open fun initObservers() = Unit
 
     protected fun <T> LiveData<T>.observe(action: (T) -> Unit) {
-        observe(this@Activity, {
-            action.invoke(it)
-        })
+        observe(this@Activity, { action.invoke(it) })
     }
 
     protected fun resumeApplication(): Boolean {
@@ -52,4 +54,19 @@ abstract class Activity<T : ViewDataBinding> : AppCompatActivity() {
         supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentLifecycleCallbacks)
         super.onDestroy()
     }
+
+    protected fun toast(resId: Int, duration: Int = Toast.LENGTH_SHORT) {
+        toast.apply {
+            setDuration(duration)
+            setText(resId)
+        }.show()
+    }
+
+    protected fun toast(s: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
+        toast.apply {
+            setDuration(duration)
+            setText(s)
+        }.show()
+    }
+
 }
