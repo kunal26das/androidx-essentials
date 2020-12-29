@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.essentials.core.R
@@ -26,6 +27,9 @@ abstract class BottomSheetDialogFragment<T : ViewDataBinding> : BottomSheetDialo
     inline fun <reified T : ViewModel> BottomSheetDialogFragment.sharedViewModel() =
         koinSharedViewModel<T>()
 
+    /** Toast **/
+    private val toast by lazy { Toast.makeText(context, "", Toast.LENGTH_SHORT) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_MaterialComponents_BottomSheetDialog)
@@ -46,11 +50,24 @@ abstract class BottomSheetDialogFragment<T : ViewDataBinding> : BottomSheetDialo
         initObservers()
     }
 
-    open fun initObservers() {}
+    open fun initObservers() = Unit
 
     protected fun <T> LiveData<T>.observe(action: (T) -> Unit) {
-        observe(viewLifecycleOwner, {
-            action.invoke(it)
-        })
+        observe(viewLifecycleOwner, { action.invoke(it) })
     }
+
+    protected fun toast(resId: Int, duration: Int = Toast.LENGTH_SHORT) {
+        toast.apply {
+            setDuration(duration)
+            setText(resId)
+        }.show()
+    }
+
+    protected fun toast(s: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
+        toast.apply {
+            setDuration(duration)
+            setText(s)
+        }.show()
+    }
+
 }
