@@ -1,6 +1,9 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+}
 
 android {
     compileSdkVersion rootProject.ext.sdkVersion
@@ -27,11 +30,11 @@ dependencies {
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     // Kotlin Extensions
-    implementation 'androidx.essentials:kotlin-extensions:1595854347054'
+    implementation 'androidx.essentials:kotlin-extensions:1.0.1'
     // Material Design
     implementation "com.google.android.material:material:$material_version"
     // Paging
-    implementation 'androidx.paging:paging-runtime:2.1.2'
+    implementation 'androidx.paging:paging-runtime-ktx:2.1.2'
     // Recycler View
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 }
