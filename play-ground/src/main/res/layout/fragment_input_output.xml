@@ -157,7 +157,7 @@
                     android:layout_marginVertical="8dp"
                     android:padding="12dp"
                     app:array="@{sharedViewModel.libraryArray}"
-                    app:chip="@layout/layout_chip_filter"
+                    app:chip="@layout/chip_filter"
                     app:selection="@={sharedViewModel.selection}"
                     app:selectionRequired="@{sharedViewModel.isMandatory}"
                     app:singleSelection="@{sharedViewModel.singleSelection}" />
