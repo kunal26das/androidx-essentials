@@ -1,6 +1,7 @@
 package androidx.essentials.io
 
 import android.content.Context
+import android.text.Editable
 import android.text.InputFilter
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -20,9 +21,9 @@ open class TextInput @JvmOverloads constructor(
     var maxLength = DEFAULT_MAX_LENGTH
         set(value) {
             field = value
-            editText?.filters?.toCollection(ArrayList())?.apply {
+            editText.filters?.toCollection(ArrayList())?.apply {
                 add(InputFilter.LengthFilter(value))
-                editText?.filters = toTypedArray()
+                editText.filters = toTypedArray()
             }
         }
 
@@ -36,7 +37,7 @@ open class TextInput @JvmOverloads constructor(
 
     override val isValid: Boolean
         get() {
-            val text = editText?.text?.toString() ?: ""
+            val text = editText.text?.toString() ?: ""
             isErrorEnabled = isEditable and when {
                 isMandatory and text.isBlank() -> {
                     error = mandatoryMessage
@@ -59,7 +60,7 @@ open class TextInput @JvmOverloads constructor(
                 else -> R.layout.layout_text_input_edit_text
             }, this, true
         )
-        mKeyListener = editText?.keyListener!!
+        mKeyListener = editText.keyListener!!
         context.obtainStyledAttributes(attrs, R.styleable.TextInput, defStyleAttr, 0).apply {
             regex = getString(R.styleable.TextInput_regex)?.let { Regex(it) }
             lines = getInt(R.styleable.TextInput_android_lines, DEFAULT_LINES)
@@ -75,7 +76,7 @@ open class TextInput @JvmOverloads constructor(
                 ?: context.getString(R.string.invalid_input)
             mandatoryMessage = getString(R.styleable.TextInput_mandatoryMessage)
                 ?: context.getString(R.string.mandatory_field)
-            editText?.apply {
+            editText.apply {
                 textSize = getDimensionPixelSize(
                     R.styleable.TextInput_android_textSize,
                     textSize.toInt()
@@ -102,10 +103,26 @@ open class TextInput @JvmOverloads constructor(
                 else -> mHint
             }.apply {
                 if (!isHintEnabled) {
-                    editText?.hint = this
+                    editText.hint = this
                 }
             }
         )
+    }
+
+    override fun getEditText(): EditText {
+        return super.getEditText() as EditText
+    }
+
+    fun setOnCutListener(action: (Editable?) -> Unit) {
+        editText.setOnCutListener(action)
+    }
+
+    fun setOnCopyListener(action: (Editable?) -> Unit) {
+        editText.setOnCopyListener(action)
+    }
+
+    fun setOnPasteListener(action: (Editable?) -> Unit) {
+        editText.setOnPasteListener(action)
     }
 
     companion object {
@@ -117,14 +134,14 @@ open class TextInput @JvmOverloads constructor(
         fun TextInput.setText(text: String?) {
             when (fromUser) {
                 true -> fromUser = false
-                false -> text?.let { editText?.setText(it) }
+                false -> text?.let { editText.setText(it) }
             }
         }
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
         fun getText(textInput: TextInput): String? {
-            with(textInput.editText?.text) {
+            with(textInput.editText.text) {
                 return when (this) {
                     null -> null
                     else -> toString()
@@ -137,7 +154,7 @@ open class TextInput @JvmOverloads constructor(
         fun TextInput.setOnTextAttrChangeListener(
             inverseBindingListener: InverseBindingListener
         ) {
-            editText?.doAfterTextChanged {
+            editText.doAfterTextChanged {
                 fromUser = true
                 inverseBindingListener.onChange()
             }

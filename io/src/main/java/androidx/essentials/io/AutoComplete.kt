@@ -145,11 +145,11 @@ class AutoComplete @JvmOverloads constructor(
     }
 
     fun setOnItemClickListener(onItemClickListener: (index: Int, item: String) -> Unit) {
-        this.onItemClickListener = object : OnItemClickListener {
+        setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(index: Int, item: String) {
                 onItemClickListener(index, item)
             }
-        }
+        })
     }
 
     interface OnItemClickListener {

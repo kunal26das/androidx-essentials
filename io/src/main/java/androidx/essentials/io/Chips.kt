@@ -76,7 +76,7 @@ class Chips @JvmOverloads constructor(
     init {
         context.obtainStyledAttributes(attrs, R.styleable.Chips, defStyleAttr, 0).apply {
             isCheckable = getBoolean(R.styleable.Chips_android_checkable, DEFAULT_IS_CHECKABLE)
-            chipLayout = getResourceId(R.styleable.Chips_chip, R.layout.layout_chip_action)
+            chipLayout = getResourceId(R.styleable.Chips_chip, R.layout.chip_action)
             array = try {
                 context.resources.getStringArray(getResourceIdOrThrow(R.styleable.Chips_array))
             } catch (e: IllegalArgumentException) {
