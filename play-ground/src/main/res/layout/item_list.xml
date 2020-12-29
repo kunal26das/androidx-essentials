@@ -5,7 +5,6 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_selectable_item"
         android:clickable="false"
         android:orientation="vertical"
         android:padding="12dp">

@@ -108,13 +108,53 @@
                         app:startIconDrawable="@drawable/ic_event_available_24dp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="8dp">
+
+                    <androidx.essentials.io.Time
+                        android:id="@+id/startTime"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_marginVertical="8dp"
+                        android:layout_weight="1"
+                        android:hint="@string/start_time"
+                        app:editable="@{sharedViewModel.isEditable}"
+                        app:helperText="@{String.valueOf(sharedViewModel.startTime)}"
+                        app:mandatory="@{sharedViewModel.isMandatory}"
+                        app:mandatoryMessage="@string/mandatory_field"
+                        app:regexMessage="@string/invalid_input"
+                        app:startIconDrawable="@drawable/ic_event_available_24dp"
+                        app:time="@={sharedViewModel.startTime}" />
+
+                    <androidx.essentials.io.Time
+                        android:id="@+id/endTime"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_marginVertical="8dp"
+                        android:layout_weight="1"
+                        android:hint="@string/end_time"
+                        app:editable="@{sharedViewModel.isEditable}"
+                        app:helperText="@{String.valueOf(sharedViewModel.endTime)}"
+                        app:mandatory="@{sharedViewModel.isMandatory}"
+                        app:mandatoryMessage="@string/mandatory_field"
+                        app:regexMessage="@string/invalid_input"
+                        app:startIconDrawable="@drawable/ic_event_available_24dp"
+                        app:time="@={sharedViewModel.endTime}" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
                 <androidx.essentials.io.Chips
                     android:id="@+id/chips"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginVertical="8dp"
-                    android:background="@drawable/background_selectable_item"
                     android:padding="12dp"
                     app:array="@{sharedViewModel.libraryArray}"
                     app:chip="@layout/layout_chip_filter"
@@ -127,7 +167,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginVertical="8dp"
-                    android:background="@drawable/background_selectable_item"
                     android:orientation="vertical"
                     android:padding="12dp">
 

@@ -23,25 +23,12 @@ class LibraryView @JvmOverloads constructor(
         LayoutInflater.from(context), this, attachToRoot
     )
 
-    init {
-        radius = 0f
-        elevation = 0f
-    }
-
     override fun bind(item: MenuItem) {
         binding.apply {
             menuItem = item
             executePendingBindings()
             root.setOnClickListener {
                 onItemClickListener?.onClick(item)
-            }
-        }
-    }
-
-    fun setOnItemClickListener(action: (MenuItem) -> Unit) {
-        onItemClickListener = object : OnItemClickListener {
-            override fun onClick(item: MenuItem) {
-                action(item)
             }
         }
     }

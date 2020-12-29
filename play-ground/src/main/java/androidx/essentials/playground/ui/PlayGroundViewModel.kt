@@ -24,7 +24,9 @@ class PlayGroundViewModel : ViewModel(), Listeners {
     private val locationProvider by inject<LocationProvider>()
 
     val endDate = MutableLiveData<Long>()
+    val endTime = MutableLiveData<Long>()
     val startDate = MutableLiveData<Long>()
+    val startTime = MutableLiveData<Long>()
     val textInput = MutableLiveData<String>()
     val autoComplete = MutableLiveData<String>()
     val selection = MutableLiveData(emptyArray<String>())

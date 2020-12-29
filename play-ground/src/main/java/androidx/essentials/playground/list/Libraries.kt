@@ -4,7 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.ViewGroup
+import androidx.core.view.updateMargins
 import androidx.databinding.BindingAdapter
+import androidx.essentials.core.utils.Resources.dp
 import androidx.essentials.list.List
 import androidx.essentials.list.view.ListItemView
 import androidx.essentials.playground.R
@@ -20,8 +22,10 @@ class Libraries @JvmOverloads constructor(
     private var onItemClickListener: LibraryView.OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = LibraryView(
-        context = parent.context, attachToRoot = false
-    ).viewHolder
+        context = context, attachToRoot = false
+    ).apply {
+        (layoutParams as MarginLayoutParams).updateMargins(8.dp, 8.dp, 8.dp, 8.dp)
+    }.viewHolder
 
     override fun onBindViewHolder(
         holder: ListItemView.ViewHolder<MenuItem, ItemLibraryBinding>,

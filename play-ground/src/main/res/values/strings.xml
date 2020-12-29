@@ -1,32 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
     <string name="app_name">Play Ground</string>
-    <string name="backdrop">Backdrop</string>
-    <string name="core">Core</string>
-    <string name="events">Events</string>
-    <string name="firebase">Firebase</string>
-    <string name="io">I/O</string>
-    <string name="extensions">Extensions</string>
-    <string name="list">List</string>
-    <string name="location">Location</string>
-    <string name="network">Network</string>
-    <string name="resources">Resources</string>
-    <string name="online">Online</string>
-    <string name="offline">Offline</string>
-    <string name="token">Token</string>
-    <string name="uuid">UUID</string>
-    <string name="text_input">Text Input</string>
+
     <string name="auto_complete">Auto Complete</string>
-    <string name="editable">Editable</string>
-    <string name="mandatory">Mandatory</string>
-    <string name="validate">Validate</string>
-    <string name="valid">Valid</string>
-    <string name="library">Library</string>
+
+    <string name="backdrop">Backdrop</string>
+
+    <string name="core">Core</string>
+
     <string name="date">Date</string>
-    <string name="single_selection">Single Selection</string>
-    <string name="latitude">Latitude</string>
-    <string name="longitude">Longitude</string>
-    <string name="start_date">Start Date</string>
+
+    <string name="editable">Editable</string>
+
     <string name="end_date">End Date</string>
-    <string name="past">Past</string>
+    <string name="end_time">End Time</string>
+
+    <string name="events">Events</string>
+
+    <string name="extensions">Extensions</string>
+
+    <string name="firebase">Firebase</string>
+
     <string name="future">Future</string>
+
+    <string name="io">I/O</string>
+
+    <string name="latitude">Latitude</string>
+
+    <string name="library">Library</string>
+
+    <string name="list">List</string>
+
+    <string name="location">Location</string>
+
+    <string name="longitude">Longitude</string>
+
+    <string name="mandatory">Mandatory</string>
+
+    <string name="network">Network</string>
+
+    <string name="offline">Offline</string>
+
+    <string name="online">Online</string>
+
+    <string name="past">Past</string>
+
+    <string name="resources">Resources</string>
+
+    <string name="single_selection">Single Selection</string>
+
+    <string name="start_date">Start Date</string>
+    <string name="start_time">Start Time</string>
+
+    <string name="text_input">Text Input</string>
+
+    <string name="token">Token</string>
+
+    <string name="uuid">UUID</string>
+
+    <string name="valid">Valid</string>
+
+    <string name="validate">Validate</string>
 </resources>
