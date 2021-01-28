@@ -4,5 +4,5 @@
     <androidx.essentials.io.EditText
         style="@style/Widget.MaterialComponents.TextInputEditText.FilledBox"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 </merge>
