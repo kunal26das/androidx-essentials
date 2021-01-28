@@ -6,7 +6,7 @@
     <attr name="editable" format="boolean" />
     <attr name="mandatory" format="boolean" />
     <attr name="mandatoryMessage" format="string" />
-    <attr name="materialCalendarStyle" format="reference" />
+    <attr name="calendarStyle" format="reference" />
     <attr name="regex" format="string" />
     <attr name="regexMessage" format="string" />
     <attr name="validate" format="boolean" />
@@ -35,7 +35,7 @@
     </declare-styleable>
 
     <declare-styleable name="Date">
-        <attr name="materialCalendarStyle" />
+        <attr name="calendarStyle" />
         <attr name="future" format="boolean" />
         <attr name="past" format="boolean" />
     </declare-styleable>
@@ -59,7 +59,7 @@
     </declare-styleable>
 
     <declare-styleable name="Time">
-        <attr name="materialCalendarStyle" />
+        <attr name="calendarStyle" />
     </declare-styleable>
 
 </resources>

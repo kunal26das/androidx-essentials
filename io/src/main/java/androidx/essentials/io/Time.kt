@@ -33,7 +33,7 @@ class Time @JvmOverloads constructor(
     var time: Long? = null
         set(value) {
             field = value?.apply {
-                editText?.setText(displayTimeFormat.format(this))
+                editText.setText(displayTimeFormat.format(this))
             }
         }
 
@@ -59,7 +59,7 @@ class Time @JvmOverloads constructor(
         context.obtainStyledAttributes(attrs, R.styleable.Time, defStyleAttr, 0).apply {
             materialTimePickerBuilder.setTitleText(hint)
             getResourceId(
-                R.styleable.Time_materialCalendarStyle,
+                R.styleable.Time_calendarStyle,
                 R.style.Widget_MaterialComponents_TimePicker
             ).let { build().setStyle(DialogFragment.STYLE_NORMAL, it) }
             recycle()
@@ -79,7 +79,7 @@ class Time @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        editText?.apply {
+        editText.apply {
             keyListener = null
             isCursorVisible = false
             setOnFocusChangeListener { view, itHasFocus ->
@@ -127,7 +127,7 @@ class Time @JvmOverloads constructor(
         fun Time.setOnTimeAttrChangeListener(
             inverseBindingListener: InverseBindingListener
         ) {
-            editText?.doAfterTextChanged {
+            editText.doAfterTextChanged {
                 fromUser = true
                 inverseBindingListener.onChange()
             }

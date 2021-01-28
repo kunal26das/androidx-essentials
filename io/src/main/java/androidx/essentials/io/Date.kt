@@ -39,7 +39,7 @@ class Date @JvmOverloads constructor(
         set(value) {
             field = value
             value?.let {
-                editText?.setText(displayDateFormat.format(it))
+                editText.setText(displayDateFormat.format(it))
                 setOpenDate(value)
             }
         }
@@ -71,7 +71,7 @@ class Date @JvmOverloads constructor(
                 }
                 materialDatePickerBuilder.setTitleText(hint)
                 getResourceId(
-                    R.styleable.Date_materialCalendarStyle,
+                    R.styleable.Date_calendarStyle,
                     R.style.ThemeOverlay_MaterialComponents_MaterialCalendar
                 ).let { materialDatePickerBuilder.setTheme(it) }
             }
@@ -131,7 +131,7 @@ class Date @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        editText?.apply {
+        editText.apply {
             keyListener = null
             isCursorVisible = false
             setOnFocusChangeListener { view, itHasFocus ->
@@ -189,7 +189,7 @@ class Date @JvmOverloads constructor(
         fun Date.setOnDateAttrChangeListener(
             inverseBindingListener: InverseBindingListener
         ) {
-            editText?.doAfterTextChanged {
+            editText.doAfterTextChanged {
                 fromUser = true
                 inverseBindingListener.onChange()
             }
