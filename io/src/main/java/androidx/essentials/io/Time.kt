@@ -1,9 +1,8 @@
 package androidx.essentials.io
 
 import android.content.Context
-import android.text.InputType
+import android.text.InputType.TYPE_DATETIME_VARIATION_DATE
 import android.util.AttributeSet
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
@@ -20,11 +19,6 @@ class Time @JvmOverloads constructor(
     defStyleAttr: Int = R.attr.textInputStyle
 ) : TextInput(context, attrs, defStyleAttr) {
 
-    override var inputType = DEFAULT_INPUT_TYPE
-        set(_) {
-            field = DEFAULT_INPUT_TYPE
-        }
-
     override var regex: Regex? = null
         set(_) {
             field = null
@@ -32,35 +26,40 @@ class Time @JvmOverloads constructor(
 
     var time: Long? = null
         set(value) {
-            field = value?.apply {
-                editText.setText(displayTimeFormat.format(this))
+            field = value
+            value?.let {
+                today.timeInMillis = it
+                materialTimePickerBuilder.apply {
+                    setHour(today[Calendar.HOUR])
+                    setMinute(today[Calendar.MINUTE])
+                }
+                editText?.setText(displayTimeFormat.format(it))
             }
         }
 
-    private val today
-        get() = Calendar.getInstance().apply {
-            this[Calendar.MILLISECOND] = 0
-            this[Calendar.SECOND] = 0
-            this[Calendar.MINUTE] = 0
-            this[Calendar.HOUR_OF_DAY] = 0
-        }
-
+    private var endTime: Long? = null
+    private var startTime: Long? = null
     private val locale = Locale.getDefault()
+    private val today = Calendar.getInstance()
+    private val displayTimeFormat: SimpleDateFormat
     private lateinit var materialTimePicker: MaterialTimePicker
-    private val displayTimeFormat = SimpleDateFormat(TIME_FORMAT_DISPLAY, locale)
 
-    private val materialTimePickerBuilder = MaterialTimePicker.Builder()
-        .setTimeFormat(DEFAULT_TIME_FORMAT)
-        .setInputMode(DEFAULT_INPUT_MODE)
-        .setMinute(DEFAULT_MINUTE)
-        .setHour(DEFAULT_HOUR)
+    private val materialTimePickerBuilder = MaterialTimePicker.Builder().apply {
+        setTimeFormat(DEFAULT_TIME_FORMAT)
+        setMinute(today[Calendar.MINUTE])
+        setInputMode(DEFAULT_INPUT_MODE)
+        setHour(today[Calendar.HOUR])
+    }
 
     init {
         context.obtainStyledAttributes(attrs, R.styleable.Time, defStyleAttr, 0).apply {
+            (getString(R.styleable.Time_android_format) ?: DEFAULT_FORMAT_DISPLAY_TIME).let {
+                displayTimeFormat = SimpleDateFormat(it, locale)
+            }
             materialTimePickerBuilder.setTitleText(hint)
             getResourceId(
                 R.styleable.Time_calendarStyle,
-                R.style.Widget_MaterialComponents_TimePicker
+                R.style.ThemeOverlay_MaterialComponents_TimePicker
             ).let { build().setStyle(DialogFragment.STYLE_NORMAL, it) }
             recycle()
         }
@@ -69,30 +68,30 @@ class Time @JvmOverloads constructor(
     private fun build(): MaterialTimePicker {
         materialTimePicker = materialTimePickerBuilder.build()
         materialTimePicker.addOnPositiveButtonClickListener {
-            time = today.apply {
+            val selectedTime = today.apply {
                 this[Calendar.HOUR] = materialTimePicker.hour
                 this[Calendar.MINUTE] = materialTimePicker.minute
             }.timeInMillis
+            time = when {
+                startTime != null && startTime!! > selectedTime -> startTime
+                endTime != null && endTime!! < selectedTime -> endTime
+                else -> selectedTime
+            }
         }
         return materialTimePicker
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        editText.apply {
+        editText?.apply {
             keyListener = null
             isCursorVisible = false
+            inputType = TYPE_DATETIME_VARIATION_DATE
             setOnFocusChangeListener { view, itHasFocus ->
                 if (isEditable and itHasFocus) {
-                    view.clearFocus()
                     hideSoftInput(view)
-                    if ((context is AppCompatActivity)
-                        and !materialTimePicker.isAdded
-                    ) {
-                        with(context as AppCompatActivity) {
-                            build().show(supportFragmentManager, null)
-                        }
-                    }
+                    view.clearFocus()
+                    build().show()
                 }
             }
         }
@@ -100,12 +99,21 @@ class Time @JvmOverloads constructor(
 
     companion object {
 
-        const val DEFAULT_HOUR = 0
-        const val DEFAULT_MINUTE = 0
-        const val TIME_FORMAT_DISPLAY = "h:mm a, d MMM"
+        const val DEFAULT_FORMAT_DISPLAY_TIME = "h:mm a, d MMM" // "h:mm a"
         const val DEFAULT_TIME_FORMAT = TimeFormat.CLOCK_12H
         const val DEFAULT_INPUT_MODE = MaterialTimePicker.INPUT_MODE_CLOCK
-        const val DEFAULT_INPUT_TYPE = InputType.TYPE_DATETIME_VARIATION_DATE
+
+        @JvmStatic
+        @BindingAdapter("startTime")
+        fun Time.setStartTime(time: Long?) {
+            startTime = time
+        }
+
+        @JvmStatic
+        @BindingAdapter("endTime")
+        fun Time.setEndTime(time: Long?) {
+            endTime = time
+        }
 
         @JvmStatic
         @BindingAdapter("time")
@@ -127,7 +135,7 @@ class Time @JvmOverloads constructor(
         fun Time.setOnTimeAttrChangeListener(
             inverseBindingListener: InverseBindingListener
         ) {
-            editText.doAfterTextChanged {
+            editText?.doAfterTextChanged {
                 fromUser = true
                 inverseBindingListener.onChange()
             }

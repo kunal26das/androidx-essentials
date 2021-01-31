@@ -1,16 +1,16 @@
 package androidx.essentials.io
 
 import android.content.Context
-import android.graphics.Typeface
 import android.text.Editable
-import android.text.InputType
 import android.text.method.KeyListener
 import android.util.AttributeSet
 import android.view.View
-import android.view.inputmethod.EditorInfo
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.essentials.io.input.InputMethodManager
+import androidx.fragment.app.DialogFragment
 import com.google.android.material.textfield.TextInputLayout
 
 abstract class Field @JvmOverloads constructor(
@@ -20,24 +20,14 @@ abstract class Field @JvmOverloads constructor(
 ) : TextInputLayout(context, attrs, defStyleAttr) {
 
     abstract val isValid: Boolean
+    val isInvalid get() = !isValid
     protected var fromUser = false
     protected var textChanged = false
     protected lateinit var mHint: String
-    val isInvalid get() = !isValid
-    protected lateinit var mKeyListener: KeyListener
+    protected var mKeyListener: KeyListener? = null
+    private val activity = context as AppCompatActivity
     private val inputMethodManager = InputMethodManager.getInstance(context)
-
-    var imeOptions = DEFAULT_IME_OPTIONS
-        set(value) {
-            field = value
-            editText?.imeOptions = value
-        }
-
-    open var inputType = DEFAULT_INPUT_TYPE
-        set(value) {
-            field = value
-            editText?.inputType = value
-        }
+    private val toast by lazy { Toast.makeText(context, "", Toast.LENGTH_SHORT) }
 
     open var isEditable = DEFAULT_IS_EDITABLE
         set(value) {
@@ -67,40 +57,14 @@ abstract class Field @JvmOverloads constructor(
             }
         }
 
-    var lines = DEFAULT_LINES
+    var mandatoryMessage: String? = context.getString(R.string.mandatory_field)
         set(value) {
-            field = value
-            editText?.setLines(value)
+            if (value != null) field = value
         }
 
-    var mandatoryMessage = context.getString(R.string.mandatory_field)
-
-    var maxLines = DEFAULT_LINES
+    var regexMessage: String? = context.getString(R.string.invalid_input)
         set(value) {
-            field = value
-            editText?.maxLines = value
-        }
-
-    var minLines = DEFAULT_LINES
-        set(value) {
-            field = value
-            editText?.minLines = value
-        }
-
-    var regexMessage = context.getString(R.string.invalid_input)
-
-    var mTypeFace = Typeface.NORMAL
-        set(value) {
-            field = value
-            editText?.setTypeface(
-                editText?.typeface,
-                when (value) {
-                    Typeface.BOLD -> Typeface.BOLD
-                    Typeface.ITALIC -> Typeface.ITALIC
-                    Typeface.BOLD_ITALIC -> Typeface.BOLD_ITALIC
-                    else -> Typeface.NORMAL
-                }
-            )
+            if (value != null) field = value
         }
 
     var validate = DEFAULT_VALIDATE
@@ -133,21 +97,11 @@ abstract class Field @JvmOverloads constructor(
     }
 
     fun doBeforeTextChanged(
-        action: (
-            text: CharSequence?,
-            start: Int,
-            count: Int,
-            after: Int
-        ) -> Unit
+        action: (text: CharSequence?, start: Int, count: Int, after: Int) -> Unit
     ) = editText?.addTextChangedListener(beforeTextChanged = action)
 
     fun doOnTextChanged(
-        action: (
-            text: CharSequence?,
-            start: Int,
-            count: Int,
-            after: Int
-        ) -> Unit
+        action: (text: CharSequence?, start: Int, count: Int, after: Int) -> Unit
     ) = editText?.addTextChangedListener(onTextChanged = action)
 
     fun doAfterTextChanged(
@@ -162,13 +116,20 @@ abstract class Field @JvmOverloads constructor(
         inputMethodManager.showSoftInput(view, 0)
     }
 
+    protected fun toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
+        toast.apply {
+            setDuration(duration)
+            setText(message)
+        }.show()
+    }
+
+    protected fun DialogFragment.show() {
+        if (!isAdded) this@Field.activity.supportFragmentManager.let { show(it, null) }
+    }
+
     companion object {
-        const val DEFAULT_LINES = 1
         const val DEFAULT_VALIDATE = false
         const val DEFAULT_IS_EDITABLE = true
         const val DEFAULT_IS_MANDATORY = false
-        const val DEFAULT_TYPEFACE = Typeface.NORMAL
-        const val DEFAULT_INPUT_TYPE = InputType.TYPE_CLASS_TEXT
-        const val DEFAULT_IME_OPTIONS = EditorInfo.IME_ACTION_NEXT
     }
 }

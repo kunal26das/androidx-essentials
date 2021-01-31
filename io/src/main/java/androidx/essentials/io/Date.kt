@@ -2,9 +2,8 @@ package androidx.essentials.io
 
 import android.content.Context
 import android.os.Parcel
-import android.text.InputType
+import android.text.InputType.TYPE_DATETIME_VARIATION_DATE
 import android.util.AttributeSet
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
@@ -25,11 +24,6 @@ class Date @JvmOverloads constructor(
     private val past: Boolean
     private val future: Boolean
 
-    override var inputType = DEFAULT_INPUT_TYPE
-        set(_) {
-            field = DEFAULT_INPUT_TYPE
-        }
-
     override var regex: Regex? = null
         set(_) {
             field = null
@@ -39,29 +33,31 @@ class Date @JvmOverloads constructor(
         set(value) {
             field = value
             value?.let {
-                editText.setText(displayDateFormat.format(it))
-                setOpenDate(value)
+                setOpenDate(it)
+                editText?.setText(displayDateFormat.format(it))
             }
         }
 
-    private val today
-        get() = Calendar.getInstance().apply {
-            this[Calendar.MILLISECOND] = 0
-            this[Calendar.SECOND] = 0
-            this[Calendar.MINUTE] = 0
-            this[Calendar.HOUR_OF_DAY] = 0
-        }.timeInMillis
+    private val today = Calendar.getInstance().apply {
+        this[Calendar.MILLISECOND] = 0
+        this[Calendar.SECOND] = 0
+        this[Calendar.MINUTE] = 0
+        this[Calendar.HOUR_OF_DAY] = 0
+    }.timeInMillis
 
     private val locale = Locale.getDefault()
+    private val displayDateFormat: SimpleDateFormat
     private lateinit var materialDatePicker: MaterialDatePicker<Long>
     private val calendarConstraintsBuilder = CalendarConstraints.Builder()
-    private val displayDateFormat = SimpleDateFormat(DATE_FORMAT_DISPLAY, locale)
-
-    private val materialDatePickerBuilder = MaterialDatePicker.Builder
-        .datePicker().setInputMode(MaterialDatePicker.INPUT_MODE_CALENDAR)
+    private val materialDatePickerBuilder = MaterialDatePicker.Builder.datePicker().apply {
+        setInputMode(MaterialDatePicker.INPUT_MODE_CALENDAR)
+    }
 
     init {
         context.obtainStyledAttributes(attrs, R.styleable.Date, defStyleAttr, 0).apply {
+            (getString(R.styleable.Date_android_format) ?: DEFAULT_FORMAT_DISPLAY_DATE).let {
+                displayDateFormat = SimpleDateFormat(it, locale)
+            }
             future = getBoolean(R.styleable.Date_future, DEFAULT_FUTURE)
             past = getBoolean(R.styleable.Date_past, DEFAULT_PAST)
             calendarConstraintsBuilder.apply {
@@ -131,20 +127,15 @@ class Date @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        editText.apply {
+        editText?.apply {
             keyListener = null
             isCursorVisible = false
+            inputType = TYPE_DATETIME_VARIATION_DATE
             setOnFocusChangeListener { view, itHasFocus ->
                 if (isEditable and itHasFocus) {
-                    view.clearFocus()
+                    materialDatePicker.show()
                     hideSoftInput(view)
-                    if ((context is AppCompatActivity)
-                        and !materialDatePicker.isAdded
-                    ) {
-                        with(context as AppCompatActivity) {
-                            materialDatePicker.show(supportFragmentManager, null)
-                        }
-                    }
+                    view.clearFocus()
                 }
             }
         }
@@ -154,8 +145,7 @@ class Date @JvmOverloads constructor(
 
         const val DEFAULT_PAST = false
         const val DEFAULT_FUTURE = false
-        const val DATE_FORMAT_DISPLAY = "dd MMM yyyy"
-        const val DEFAULT_INPUT_TYPE = InputType.TYPE_DATETIME_VARIATION_DATE
+        const val DEFAULT_FORMAT_DISPLAY_DATE = "dd MMM yyyy"
 
         @JvmStatic
         @BindingAdapter("startDate")
@@ -189,7 +179,7 @@ class Date @JvmOverloads constructor(
         fun Date.setOnDateAttrChangeListener(
             inverseBindingListener: InverseBindingListener
         ) {
-            editText.doAfterTextChanged {
+            editText?.doAfterTextChanged {
                 fromUser = true
                 inverseBindingListener.onChange()
             }

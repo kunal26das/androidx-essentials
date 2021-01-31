@@ -1,33 +1,30 @@
 package androidx.essentials.io
 
 import android.content.Context
+import android.text.Editable
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.widget.ArrayAdapter
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.res.getResourceIdOrThrow
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
-import com.google.android.material.textfield.MaterialAutoCompleteTextView
 
 class AutoComplete @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet? = null,
+    private val attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.textInputStyle
 ) : Field(context, attrs, defStyleAttr) {
 
     private val listItem = android.R.layout.simple_list_item_1
     private var onItemClickListener: OnItemClickListener? = null
-    private val autoCompleteTextView: MaterialAutoCompleteTextView
 
     private var adapter = ArrayAdapter<String>(context, listItem, emptyList())
         set(value) {
             field = value
-            autoCompleteTextView.setAdapter(value)
+            editText?.setAdapter(value)
             if (textChanged) {
-                autoCompleteTextView.showDropDown()
+                editText?.showDropDown()
             }
         }
 
@@ -59,63 +56,46 @@ class AutoComplete @JvmOverloads constructor(
         }
 
     init {
-        LayoutInflater.from(context).inflate(
-            when (boxBackgroundMode) {
-                BOX_BACKGROUND_FILLED -> R.layout.layout_auto_complete_text_view_filled
-                BOX_BACKGROUND_OUTLINE -> R.layout.layout_auto_complete_text_view_outlined
-                else -> R.layout.layout_auto_complete_text_view
-            }, this, true
-        )
-        mKeyListener = editText?.keyListener!!
-        autoCompleteTextView = findViewById(R.id.autoCompleteTextView)
         context.obtainStyledAttributes(attrs, R.styleable.AutoComplete, defStyleAttr, 0).apply {
-            lines = getInt(R.styleable.AutoComplete_android_lines, DEFAULT_LINES)
-            validate = getBoolean(R.styleable.AutoComplete_validate, DEFAULT_VALIDATE)
-            maxLines = getInt(R.styleable.AutoComplete_android_maxLines, DEFAULT_LINES)
-            minLines = getInt(R.styleable.AutoComplete_android_minLines, DEFAULT_LINES)
-            filter = getBoolean(R.styleable.AutoComplete_android_filter, DEFAULT_FILTER)
-            isEditable = getBoolean(R.styleable.AutoComplete_editable, DEFAULT_IS_EDITABLE)
             isMandatory = getBoolean(R.styleable.AutoComplete_mandatory, DEFAULT_IS_MANDATORY)
-            inputType = getInt(R.styleable.AutoComplete_android_inputType, DEFAULT_INPUT_TYPE)
-            imeOptions = getInt(R.styleable.AutoComplete_android_imeOptions, DEFAULT_IME_OPTIONS)
+            isEditable = getBoolean(R.styleable.AutoComplete_editable, DEFAULT_IS_EDITABLE)
+            filter = getBoolean(R.styleable.AutoComplete_android_filter, DEFAULT_FILTER)
+            validate = getBoolean(R.styleable.AutoComplete_validate, DEFAULT_VALIDATE)
             mandatoryMessage = getString(R.styleable.AutoComplete_mandatoryMessage)
-                ?: context.getString(R.string.mandatory_field)
             array = try {
                 context.resources.getStringArray(getResourceIdOrThrow(R.styleable.AutoComplete_array))
             } catch (e: IllegalArgumentException) {
                 emptyArray()
             }
-            editText?.apply {
-                textSize = getDimensionPixelSize(
-                    R.styleable.AutoComplete_android_textSize,
-                    textSize.toInt()
-                ) / resources.displayMetrics.scaledDensity
-            }
-            try {
-                mTypeFace = getInt(R.styleable.AutoComplete_android_textStyle, DEFAULT_TYPEFACE)
-                getResourceIdOrThrow(R.styleable.AutoComplete_android_fontFamily).let {
-                    typeface = ResourcesCompat.getFont(context, it)
-                }
-            } catch (e: IllegalArgumentException) {
-            }
             recycle()
         }
     }
 
+    override fun getEditText(): AutoCompleteTextView? {
+        return super.getEditText() as AutoCompleteTextView?
+    }
+
     override fun onAttachedToWindow() {
+        with(AutoCompleteTextView(context, attrs)) {
+            hint = ""
+            addView(this)
+            mKeyListener = keyListener
+            super.onAttachedToWindow()
+            endIconMode = END_ICON_DROPDOWN_MENU
+        }
         super.onAttachedToWindow()
-        autoCompleteTextView.apply {
+        editText?.apply {
             doAfterTextChanged { array = array }
             setOnFocusChangeListener { view, itHasFocus ->
                 if (!isEditable && itHasFocus) {
-                    autoCompleteTextView.showDropDown()
+                    editText?.showDropDown()
                 } else if (!itHasFocus) {
-                    autoCompleteTextView.dismissDropDown()
+                    editText?.dismissDropDown()
                     hideSoftInput(view)
                 }
             }
             setOnItemClickListener { _, _, i, _ ->
-                autoCompleteTextView.clearFocus()
+                editText?.clearFocus()
                 this@AutoComplete.onItemClickListener?.onItemClick(i, array[i])
             }
         }
@@ -137,8 +117,20 @@ class AutoComplete @JvmOverloads constructor(
         )
     }
 
-    fun showDropDown() = autoCompleteTextView.showDropDown()
-    fun dismissDropDown() = autoCompleteTextView.dismissDropDown()
+    fun setOnCutListener(action: (Editable?) -> Unit) {
+        editText?.setOnCutListener(action)
+    }
+
+    fun setOnCopyListener(action: (Editable?) -> Unit) {
+        editText?.setOnCopyListener(action)
+    }
+
+    fun setOnPasteListener(action: (Editable?) -> Unit) {
+        editText?.setOnPasteListener(action)
+    }
+
+    fun showDropDown() = editText?.showDropDown()
+    fun dismissDropDown() = editText?.dismissDropDown()
 
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
         this.onItemClickListener = onItemClickListener
@@ -166,7 +158,7 @@ class AutoComplete @JvmOverloads constructor(
         fun AutoComplete.setText(text: String?) {
             when (fromUser) {
                 true -> fromUser = false
-                false -> text?.let { autoCompleteTextView.setText(it, filter) }
+                false -> text?.let { editText?.setText(it, filter) }
             }
         }
 
