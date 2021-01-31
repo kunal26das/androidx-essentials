@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="DayNightStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+    <style name="DayNightStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="isLightTheme">@bool/isLightTheme</item>
 
         <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/isLightTheme</item>

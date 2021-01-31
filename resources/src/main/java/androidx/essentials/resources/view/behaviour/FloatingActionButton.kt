@@ -1,4 +1,4 @@
-package androidx.essentials.resources.behaviour
+package androidx.essentials.resources.view.behaviour
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,16 +6,16 @@ import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class ExtendedFloatingActionButton(
+class FloatingActionButton(
     context: Context,
     attrs: AttributeSet? = null
-) : CoordinatorLayout.Behavior<ExtendedFloatingActionButton>() {
+) : CoordinatorLayout.Behavior<FloatingActionButton>() {
 
     override fun onStartNestedScroll(
         coordinatorLayout: CoordinatorLayout,
-        child: ExtendedFloatingActionButton,
+        child: FloatingActionButton,
         directTargetChild: View,
         target: View,
         axes: Int,
@@ -24,7 +24,7 @@ class ExtendedFloatingActionButton(
 
     override fun layoutDependsOn(
         parent: CoordinatorLayout,
-        child: ExtendedFloatingActionButton,
+        child: FloatingActionButton,
         dependency: View
     ) = when (dependency) {
         is RecyclerView -> true
@@ -34,7 +34,7 @@ class ExtendedFloatingActionButton(
 
     override fun onNestedScroll(
         coordinatorLayout: CoordinatorLayout,
-        child: ExtendedFloatingActionButton,
+        child: FloatingActionButton,
         target: View,
         dxConsumed: Int,
         dyConsumed: Int,
@@ -54,10 +54,10 @@ class ExtendedFloatingActionButton(
             type,
             consumed
         )
-        if (dyConsumed > 0 && child.isExtended) {
-            child.shrink()
-        } else if (dyConsumed < 0 && !child.isExtended) {
-            child.extend()
+        if (dyConsumed > 0 && child.isShown) {
+            child.hide()
+        } else if (dyConsumed < 0 && child.isOrWillBeHidden) {
+            child.show()
         }
     }
 

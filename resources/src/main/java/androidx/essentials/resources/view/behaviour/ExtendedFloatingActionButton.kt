@@ -1,4 +1,4 @@
-package androidx.essentials.resources.behaviour
+package androidx.essentials.resources.view.behaviour
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,16 +6,16 @@ import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
-class FloatingActionButton(
+class ExtendedFloatingActionButton(
     context: Context,
     attrs: AttributeSet? = null
-) : CoordinatorLayout.Behavior<FloatingActionButton>() {
+) : CoordinatorLayout.Behavior<ExtendedFloatingActionButton>() {
 
     override fun onStartNestedScroll(
         coordinatorLayout: CoordinatorLayout,
-        child: FloatingActionButton,
+        child: ExtendedFloatingActionButton,
         directTargetChild: View,
         target: View,
         axes: Int,
@@ -24,7 +24,7 @@ class FloatingActionButton(
 
     override fun layoutDependsOn(
         parent: CoordinatorLayout,
-        child: FloatingActionButton,
+        child: ExtendedFloatingActionButton,
         dependency: View
     ) = when (dependency) {
         is RecyclerView -> true
@@ -34,7 +34,7 @@ class FloatingActionButton(
 
     override fun onNestedScroll(
         coordinatorLayout: CoordinatorLayout,
-        child: FloatingActionButton,
+        child: ExtendedFloatingActionButton,
         target: View,
         dxConsumed: Int,
         dyConsumed: Int,
@@ -54,10 +54,10 @@ class FloatingActionButton(
             type,
             consumed
         )
-        if (dyConsumed > 0 && child.isShown) {
-            child.hide()
-        } else if (dyConsumed < 0 && child.isOrWillBeHidden) {
-            child.show()
+        if (dyConsumed > 0 && child.isExtended) {
+            child.shrink()
+        } else if (dyConsumed < 0 && !child.isExtended) {
+            child.extend()
         }
     }
 
