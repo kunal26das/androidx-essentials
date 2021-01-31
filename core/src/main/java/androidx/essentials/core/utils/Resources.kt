@@ -9,11 +9,17 @@ object Resources {
 
     private val resources: Resources by inject()
 
-    val Int.dp: Int
+    val Int.dp
         get() = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
             toFloat(), resources.displayMetrics
         ).roundToInt()
+
+    val Float.dp
+        get() = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            toFloat(), resources.displayMetrics
+        )
 
     val statusBarHeight = resources.getDimensionPixelSize(
         resources.getIdentifier(

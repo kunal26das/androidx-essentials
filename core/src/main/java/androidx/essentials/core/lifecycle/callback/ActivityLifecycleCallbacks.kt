@@ -1,4 +1,4 @@
-package androidx.essentials.core.lifecycle
+package androidx.essentials.core.lifecycle.callback
 
 import android.app.Activity
 import android.app.Application

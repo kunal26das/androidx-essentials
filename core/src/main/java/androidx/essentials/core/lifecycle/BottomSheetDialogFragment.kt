@@ -9,22 +9,25 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.essentials.core.R
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.viewmodel.ext.android.sharedViewModel as koinSharedViewModel
-import org.koin.android.viewmodel.ext.android.viewModel as koinViewModel
 
-abstract class BottomSheetDialogFragment<T : ViewDataBinding> : BottomSheetDialogFragment() {
+abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     /** View **/
-    protected abstract val layout: Int
-    protected lateinit var binding: T
+    abstract val layout: Int
+    lateinit var container: ViewGroup
+    protected open val binding: ViewDataBinding? = null
+    val inflater: LayoutInflater by lazy { LayoutInflater.from(context) }
+    inline fun <reified T : ViewDataBinding> Fragment.dataBinding() = lazy {
+        DataBindingUtil.inflate(inflater, layout, container, false) as T
+    }
 
     /** ViewModel **/
-    protected open val viewModel = ViewModel()
-    protected open val sharedViewModel = ViewModel()
-    inline fun <reified T : ViewModel> BottomSheetDialogFragment.viewModel() = koinViewModel<T>()
-    inline fun <reified T : ViewModel> BottomSheetDialogFragment.sharedViewModel() =
+    protected abstract val viewModel: ViewModel
+    inline fun <reified T : ViewModel> BottomSheetDialogFragment.viewModel() =
         koinSharedViewModel<T>()
 
     /** Toast **/
@@ -35,14 +38,12 @@ abstract class BottomSheetDialogFragment<T : ViewDataBinding> : BottomSheetDialo
         setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_MaterialComponents_BottomSheetDialog)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(inflater, layout, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
+    final override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        this.container = container!!
+        binding?.lifecycleOwner = viewLifecycleOwner
+        return binding?.root!!
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

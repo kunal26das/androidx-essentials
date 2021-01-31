@@ -107,9 +107,9 @@ open class AppBarLayoutBehaviour : CoordinatorLayout.Behavior<AppBarLayout>() {
     }
 
     companion object {
-        protected const val ENTER_ANIMATION_DURATION = 225
-        protected const val EXIT_ANIMATION_DURATION = 175
-        private const val STATE_SCROLLED_DOWN = 1
         private const val STATE_SCROLLED_UP = 2
+        private const val STATE_SCROLLED_DOWN = 1
+        protected const val EXIT_ANIMATION_DURATION = 175
+        protected const val ENTER_ANIMATION_DURATION = 225
     }
 }

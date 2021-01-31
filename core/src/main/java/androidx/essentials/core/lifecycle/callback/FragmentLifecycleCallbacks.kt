@@ -1,4 +1,4 @@
-package androidx.essentials.core.lifecycle
+package androidx.essentials.core.lifecycle.callback
 
 import android.content.Context
 import android.os.Bundle

@@ -3,8 +3,8 @@ package androidx.essentials.core
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import androidx.essentials.core.lifecycle.ActivityLifecycleCallbacks
 import androidx.essentials.core.lifecycle.ViewModel
+import androidx.essentials.core.lifecycle.callback.ActivityLifecycleCallbacks
 import androidx.lifecycle.Lifecycle
 import androidx.multidex.MultiDex
 import org.koin.android.ext.koin.androidContext

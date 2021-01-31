@@ -2,21 +2,27 @@ package androidx.essentials.core.lifecycle
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.essentials.core.lifecycle.callback.FragmentLifecycleCallbacks
 import androidx.lifecycle.LiveData
 import org.koin.android.viewmodel.ext.android.viewModel as koinViewModel
 
-abstract class Activity<T : ViewDataBinding> : AppCompatActivity() {
+abstract class Activity : AppCompatActivity() {
 
     /** View **/
-    protected abstract val layout: Int
-    protected lateinit var binding: T
+    abstract val layout: Int
+    protected open val binding: ViewDataBinding? = null
+    inline fun <reified T : ViewDataBinding> Activity.dataBinding() = lazy {
+        DataBindingUtil.setContentView(this, layout) as T
+    }
 
     /** ViewModel **/
-    protected open val viewModel = ViewModel()
+    protected abstract val viewModel: ViewModel
     inline fun <reified T : ViewModel> AppCompatActivity.viewModel() = koinViewModel<T>()
 
     /** Fragment **/
@@ -25,14 +31,18 @@ abstract class Activity<T : ViewDataBinding> : AppCompatActivity() {
     /** Toast **/
     private val toast by lazy { Toast.makeText(this, "", Toast.LENGTH_SHORT) }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    final override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentLifecycleCallbacks, true)
-        binding = DataBindingUtil.setContentView(this, layout)
-        binding.lifecycleOwner = this
+        onViewCreated(binding?.root!!, savedInstanceState)
+        binding?.lifecycleOwner = this
         initObservers()
     }
 
+    @CallSuper
+    open fun onViewCreated(view: View, savedInstanceState: Bundle?) = Unit
+
+    @CallSuper
     open fun initObservers() = Unit
 
     protected fun <T> LiveData<T>.observe(action: (T) -> Unit) {
