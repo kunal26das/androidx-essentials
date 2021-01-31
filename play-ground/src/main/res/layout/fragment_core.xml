@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="sharedViewModel"
+            name="viewModel"
             type="androidx.essentials.playground.ui.PlayGroundViewModel" />
     </data>
 
@@ -20,7 +20,7 @@
         android:paddingHorizontal="8dp"
         android:paddingVertical="16dp"
         android:scrollbars="vertical"
-        app:libraries="@{sharedViewModel.libraryList}"
+        app:libraries="@{viewModel.libraryList}"
         app:spanCount="2"
         tools:listitem="@layout/item_library" />
 </layout>

@@ -7,7 +7,7 @@
     <data>
 
         <variable
-            name="sharedViewModel"
+            name="viewModel"
             type="androidx.essentials.playground.ui.PlayGroundViewModel" />
     </data>
 
@@ -17,156 +17,160 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingVertical="?actionBarSize">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginVertical="?actionBarSize"
                 android:orientation="vertical"
+                android:paddingTop="16dp"
+                android:paddingBottom="?actionBarSize"
                 tools:layout_marginVertical="0dp">
 
                 <androidx.essentials.io.TextInput
                     android:id="@+id/textInput"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginBottom="8dp"
                     android:hint="@string/text_input"
-                    android:inputType="textImeMultiLine"
-                    android:maxLines="1"
-                    app:editable="@{sharedViewModel.isEditable}"
-                    app:helperText="@{sharedViewModel.textInput}"
-                    app:mandatory="@{sharedViewModel.isMandatory}"
+                    app:editable="@{viewModel.isEditable}"
+                    app:helperText="@{viewModel.textInput}"
+                    app:hintEnabled="true"
+                    app:mandatory="@{viewModel.isMandatory}"
                     app:mandatoryMessage="@string/mandatory_field"
                     app:regexMessage="@string/invalid_input"
-                    app:text="@={sharedViewModel.textInput}" />
+                    app:text="@={viewModel.textInput}" />
+
+                <include layout="@layout/divider_vertical" />
 
                 <androidx.essentials.io.AutoComplete
                     android:id="@+id/autoComplete"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginVertical="8dp"
+                    android:filter="true"
                     android:hint="@string/auto_complete"
                     android:inputType="textCapWords"
-                    android:maxLines="1"
-                    app:array="@{sharedViewModel.libraryArray}"
-                    app:editable="@{sharedViewModel.isEditable}"
-                    app:helperText="@{sharedViewModel.autoComplete}"
-                    app:mandatory="@{sharedViewModel.isMandatory}"
+                    app:array="@{viewModel.libraryArray}"
+                    app:editable="@{viewModel.isEditable}"
+                    app:helperText="@{viewModel.autoComplete}"
+                    app:mandatory="@{viewModel.isMandatory}"
                     app:mandatoryMessage="@string/mandatory_field"
                     app:regexMessage="@string/invalid_input"
-                    app:text="@={sharedViewModel.autoComplete}" />
+                    app:text="@={viewModel.autoComplete}" />
 
-                <androidx.appcompat.widget.LinearLayoutCompat
+                <include layout="@layout/divider_vertical" />
+
+                <androidx.essentials.io.Date
+                    android:id="@+id/startDate"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="8dp">
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="8dp"
+                    android:layout_weight="1"
+                    android:hint="@string/start_date"
+                    app:date="@={viewModel.startDate}"
+                    app:editable="@{viewModel.isEditable}"
+                    app:endDate="@{viewModel.endDate}"
+                    app:endIconMode="clear_text"
+                    app:future="true"
+                    app:helperText="@{String.valueOf(viewModel.startDate)}"
+                    app:mandatory="@{viewModel.isMandatory}"
+                    app:mandatoryMessage="@string/mandatory_field"
+                    app:past="false"
+                    app:regexMessage="@string/invalid_input"
+                    app:startIconDrawable="@drawable/ic_event_available_24dp" />
 
-                    <androidx.essentials.io.Date
-                        android:id="@+id/startDate"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="8dp"
-                        android:layout_marginVertical="8dp"
-                        android:layout_weight="1"
-                        android:hint="@string/start_date"
-                        app:date="@={sharedViewModel.startDate}"
-                        app:editable="@{sharedViewModel.isEditable}"
-                        app:endDate="@{sharedViewModel.endDate}"
-                        app:future="true"
-                        app:helperText="@{String.valueOf(sharedViewModel.startDate)}"
-                        app:mandatory="@{sharedViewModel.isMandatory}"
-                        app:mandatoryMessage="@string/mandatory_field"
-                        app:past="false"
-                        app:regexMessage="@string/invalid_input"
-                        app:startIconDrawable="@drawable/ic_event_available_24dp" />
-
-                    <androidx.essentials.io.Date
-                        android:id="@+id/endDate"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="8dp"
-                        android:layout_marginVertical="8dp"
-                        android:layout_weight="1"
-                        android:hint="@string/end_date"
-                        app:date="@={sharedViewModel.endDate}"
-                        app:editable="@{sharedViewModel.isEditable}"
-                        app:future="true"
-                        app:helperText="@{String.valueOf(sharedViewModel.endDate)}"
-                        app:mandatory="@{sharedViewModel.isMandatory}"
-                        app:mandatoryMessage="@string/mandatory_field"
-                        app:past="false"
-                        app:regexMessage="@string/invalid_input"
-                        app:startDate="@{sharedViewModel.startDate}"
-                        app:startIconDrawable="@drawable/ic_event_available_24dp" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
+                <androidx.essentials.io.Date
+                    android:id="@+id/endDate"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="8dp">
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="8dp"
+                    android:layout_weight="1"
+                    android:hint="@string/end_date"
+                    app:date="@={viewModel.endDate}"
+                    app:editable="@{viewModel.isEditable}"
+                    app:endIconMode="clear_text"
+                    app:future="true"
+                    app:helperText="@{String.valueOf(viewModel.endDate)}"
+                    app:mandatory="@{viewModel.isMandatory}"
+                    app:mandatoryMessage="@string/mandatory_field"
+                    app:past="false"
+                    app:regexMessage="@string/invalid_input"
+                    app:startDate="@{viewModel.startDate}"
+                    app:startIconDrawable="@drawable/ic_event_available_24dp" />
 
-                    <androidx.essentials.io.Time
-                        android:id="@+id/startTime"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="8dp"
-                        android:layout_marginVertical="8dp"
-                        android:layout_weight="1"
-                        android:hint="@string/start_time"
-                        app:editable="@{sharedViewModel.isEditable}"
-                        app:helperText="@{String.valueOf(sharedViewModel.startTime)}"
-                        app:mandatory="@{sharedViewModel.isMandatory}"
-                        app:mandatoryMessage="@string/mandatory_field"
-                        app:regexMessage="@string/invalid_input"
-                        app:startIconDrawable="@drawable/ic_event_available_24dp"
-                        app:time="@={sharedViewModel.startTime}" />
+                <include layout="@layout/divider_vertical" />
 
-                    <androidx.essentials.io.Time
-                        android:id="@+id/endTime"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="8dp"
-                        android:layout_marginVertical="8dp"
-                        android:layout_weight="1"
-                        android:hint="@string/end_time"
-                        app:editable="@{sharedViewModel.isEditable}"
-                        app:helperText="@{String.valueOf(sharedViewModel.endTime)}"
-                        app:mandatory="@{sharedViewModel.isMandatory}"
-                        app:mandatoryMessage="@string/mandatory_field"
-                        app:regexMessage="@string/invalid_input"
-                        app:startIconDrawable="@drawable/ic_event_available_24dp"
-                        app:time="@={sharedViewModel.endTime}" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.essentials.io.Time
+                    android:id="@+id/startTime"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="8dp"
+                    android:layout_weight="1"
+                    android:hint="@string/start_time"
+                    app:editable="@{viewModel.isEditable}"
+                    app:endIconMode="clear_text"
+                    app:endTime="@{viewModel.endTime}"
+                    app:helperText="@{String.valueOf(viewModel.startTime)}"
+                    app:mandatory="@{viewModel.isMandatory}"
+                    app:mandatoryMessage="@string/mandatory_field"
+                    app:regexMessage="@string/invalid_input"
+                    app:startIconDrawable="@drawable/ic_event_available_24dp"
+                    app:time="@={viewModel.startTime}" />
+
+                <androidx.essentials.io.Time
+                    android:id="@+id/endTime"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="8dp"
+                    android:layout_weight="1"
+                    android:hint="@string/end_time"
+                    app:editable="@{viewModel.isEditable}"
+                    app:endIconMode="clear_text"
+                    app:helperText="@{String.valueOf(viewModel.endTime)}"
+                    app:mandatory="@{viewModel.isMandatory}"
+                    app:mandatoryMessage="@string/mandatory_field"
+                    app:regexMessage="@string/invalid_input"
+                    app:startIconDrawable="@drawable/ic_event_available_24dp"
+                    app:startTime="@{viewModel.startTime}"
+                    app:time="@={viewModel.endTime}" />
+
+                <include layout="@layout/divider_vertical" />
 
                 <androidx.essentials.io.Chips
                     android:id="@+id/chips"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginHorizontal="8dp"
                     android:layout_marginVertical="8dp"
                     android:padding="12dp"
-                    app:array="@{sharedViewModel.libraryArray}"
+                    app:array="@{viewModel.libraryArray}"
                     app:chip="@layout/chip_filter"
-                    app:selection="@={sharedViewModel.selection}"
-                    app:selectionRequired="@{sharedViewModel.isMandatory}"
-                    app:singleSelection="@{sharedViewModel.singleSelection}" />
+                    app:selection="@={viewModel.selection}"
+                    app:selectionRequired="@{viewModel.isMandatory}"
+                    app:singleSelection="@{viewModel.singleSelection}" />
+
+                <include layout="@layout/divider_vertical" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginHorizontal="12dp"
                     android:layout_marginVertical="8dp"
                     android:orientation="vertical"
                     android:padding="12dp">
@@ -174,24 +178,27 @@
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:checked="@={sharedViewModel.isEditable}"
+                        android:checked="@={viewModel.isEditable}"
                         android:layoutDirection="rtl"
                         android:text="@string/editable" />
 
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:checked="@={sharedViewModel.isMandatory}"
+                        android:checked="@={viewModel.isMandatory}"
                         android:layoutDirection="rtl"
                         android:text="@string/mandatory" />
 
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:checked="@={sharedViewModel.singleSelection}"
+                        android:checked="@={viewModel.singleSelection}"
                         android:layoutDirection="rtl"
                         android:text="@string/single_selection" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <include layout="@layout/divider_vertical" />
+
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.core.widget.NestedScrollView>
 
@@ -206,6 +213,6 @@
             app:backgroundTint="@color/colorPrimary"
             app:icon="@drawable/ic_check_24dp"
             app:iconTint="@color/colorBackground"
-            app:layout_behavior="androidx.essentials.resources.behaviour.ExtendedFloatingActionButton" />
+            app:layout_behavior="androidx.essentials.resources.view.behaviour.ExtendedFloatingActionButton" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -7,14 +7,15 @@ import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentFirebaseBinding
 import androidx.essentials.playground.ui.PlayGroundViewModel
 
-class FirebaseFragment : Fragment<FragmentFirebaseBinding>() {
+class FirebaseFragment : Fragment() {
 
     override val layout = R.layout.fragment_firebase
-    override val sharedViewModel by sharedViewModel<PlayGroundViewModel>()
+    override val viewModel by viewModel<PlayGroundViewModel>()
+    override val binding by dataBinding<FragmentFirebaseBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.sharedViewModel = sharedViewModel
+        binding.viewModel = viewModel
     }
 
 }

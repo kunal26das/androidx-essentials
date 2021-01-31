@@ -1,7 +1,9 @@
 package androidx.essentials.playground.ui
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
 import androidx.essentials.core.lifecycle.Activity
 import androidx.essentials.events.Events
 import androidx.essentials.playground.R
@@ -13,16 +15,16 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 
-class PlayGroundActivity : Activity<ActivityPlayGroundBinding>() {
+class PlayGroundActivity : Activity() {
 
     private lateinit var navController: NavController
     override val layout = R.layout.activity_play_ground
-    private lateinit var appBarConfiguration: AppBarConfiguration
-
     override val viewModel by viewModel<PlayGroundViewModel>()
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    override val binding by dataBinding<ActivityPlayGroundBinding>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initAppBarLayout()
         initNavigation()
     }
@@ -31,8 +33,7 @@ class PlayGroundActivity : Activity<ActivityPlayGroundBinding>() {
         binding.apply {
             setSupportActionBar(appBarLayout.toolbar)
             appBarLayout.toolbar.setTitleTextAppearance(
-                baseContext,
-                R.style.ToolbarTitle
+                baseContext, R.style.ToolbarTitle
             )
         }
     }
@@ -47,9 +48,8 @@ class PlayGroundActivity : Activity<ActivityPlayGroundBinding>() {
     }
 
     override fun initObservers() {
-        Events.subscribe(String::class.java) {
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-        }
+        super.initObservers()
+        Events.subscribe(String::class.java) { toast(it) }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -59,6 +59,15 @@ class PlayGroundActivity : Activity<ActivityPlayGroundBinding>() {
     override fun onDestroy() {
         super.onDestroy()
         Events.clear()
+    }
+
+    companion object {
+        fun start(context: Context?, flags: Int = Intent.FLAG_ACTIVITY_NEW_TASK): Activity? {
+            context?.startActivity(Intent(context, PlayGroundActivity::class.java).apply {
+                this.flags = flags
+            })
+            return context as? Activity
+        }
     }
 
 }

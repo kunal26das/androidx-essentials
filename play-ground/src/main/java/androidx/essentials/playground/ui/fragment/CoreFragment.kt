@@ -8,14 +8,15 @@ import androidx.essentials.playground.databinding.FragmentCoreBinding
 import androidx.essentials.playground.ui.PlayGroundViewModel
 import androidx.navigation.fragment.findNavController
 
-class CoreFragment : Fragment<FragmentCoreBinding>() {
+class CoreFragment : Fragment() {
 
     override val layout = R.layout.fragment_core
-    override val sharedViewModel by sharedViewModel<PlayGroundViewModel>()
+    override val binding by dataBinding<FragmentCoreBinding>()
+    override val viewModel by viewModel<PlayGroundViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.sharedViewModel = sharedViewModel
+        binding.viewModel = viewModel
         binding.libraryList.setOnItemClickListener {
             if (it.itemId != R.id.core) try {
                 findNavController().navigate(it.itemId)

@@ -28,30 +28,13 @@
             app:srcCompat="@{menuItem.icon}"
             app:tint="@color/colorText" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:paddingHorizontal="12dp">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="@{menuItem.title}"
-                android:textAlignment="textStart"
-                tools:text="Library" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/version"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:textAlignment="textStart"
-                android:textSize="12sp"
-                android:visible="false"
-                tools:text="Version" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            android:maxLines="1"
+            android:padding="12dp"
+            android:text="@{menuItem.title}"
+            android:textAlignment="textStart"
+            tools:text="Library" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

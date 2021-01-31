@@ -7,14 +7,15 @@ import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentInputOutputBinding
 import androidx.essentials.playground.ui.PlayGroundViewModel
 
-class InputOutputFragment : Fragment<FragmentInputOutputBinding>() {
+class InputOutputFragment : Fragment() {
 
     override val layout = R.layout.fragment_input_output
-    override val sharedViewModel by sharedViewModel<PlayGroundViewModel>()
+    override val viewModel by viewModel<PlayGroundViewModel>()
+    override val binding by dataBinding<FragmentInputOutputBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.sharedViewModel = sharedViewModel
+        binding.viewModel = viewModel
         binding.textInput.setOnCutListener { toast("$it") }
         binding.textInput.setOnCopyListener { toast("$it") }
         binding.textInput.setOnPasteListener { toast("$it") }
@@ -27,6 +28,8 @@ class InputOutputFragment : Fragment<FragmentInputOutputBinding>() {
                             and autoComplete.isValid
                             and startDate.isValid
                             and endDate.isValid
+                            and startTime.isValid
+                            and endTime.isValid
                             and chips.isValid
                     }"
                 )

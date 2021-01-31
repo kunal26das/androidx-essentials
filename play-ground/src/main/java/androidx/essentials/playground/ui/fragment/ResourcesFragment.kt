@@ -5,9 +5,10 @@ import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentResourcesBinding
 import androidx.essentials.playground.ui.PlayGroundViewModel
 
-class ResourcesFragment : Fragment<FragmentResourcesBinding>() {
+class ResourcesFragment : Fragment() {
 
     override val layout = R.layout.fragment_resources
-    override val viewModel by sharedViewModel<PlayGroundViewModel>()
+    override val viewModel by viewModel<PlayGroundViewModel>()
+    override val binding by dataBinding<FragmentResourcesBinding>()
 
 }

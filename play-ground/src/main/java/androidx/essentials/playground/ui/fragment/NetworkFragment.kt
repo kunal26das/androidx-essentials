@@ -6,19 +6,18 @@ import androidx.essentials.core.lifecycle.Fragment
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentNetworkBinding
 import androidx.essentials.playground.ui.PlayGroundViewModel
-import androidx.navigation.fragment.findNavController
 
-class NetworkFragment : Fragment<FragmentNetworkBinding>() {
+class NetworkFragment : Fragment() {
 
     override val layout = R.layout.fragment_network
-    override val sharedViewModel by sharedViewModel<PlayGroundViewModel>()
+    override val viewModel by viewModel<PlayGroundViewModel>()
+    override val binding by dataBinding<FragmentNetworkBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.sharedViewModel = sharedViewModel
+        binding.viewModel = viewModel
         binding.networkStateButton.setOnClickListener {
-            sharedViewModel.refreshNetworkState()
-            findNavController().navigate(R.id.io)
+            viewModel.refreshNetworkState()
         }
     }
 

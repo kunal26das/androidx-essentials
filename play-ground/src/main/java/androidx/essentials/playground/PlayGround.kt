@@ -11,8 +11,8 @@ import androidx.security.crypto.MasterKeys
 
 class PlayGround : FirebaseApplication() {
 
-    override val sharedPreferences
-        get() = when {
+    override val sharedPreferences by lazy {
+        when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
                 EncryptedSharedPreferences.create(
                     packageName,
@@ -24,6 +24,7 @@ class PlayGround : FirebaseApplication() {
             }
             else -> getSharedPreferences(packageName, Context.MODE_PRIVATE)!!
         }
+    }
 
     override fun onCreate() {
         super.onCreate()

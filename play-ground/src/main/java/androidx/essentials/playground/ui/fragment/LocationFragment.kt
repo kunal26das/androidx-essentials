@@ -8,14 +8,15 @@ import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentLocationBinding
 import androidx.essentials.playground.ui.PlayGroundViewModel
 
-class LocationFragment : Fragment<FragmentLocationBinding>() {
+class LocationFragment : Fragment() {
 
     override val layout = R.layout.fragment_location
-    override val sharedViewModel by sharedViewModel<PlayGroundViewModel>()
+    override val viewModel by viewModel<PlayGroundViewModel>()
+    override val binding by dataBinding<FragmentLocationBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.sharedViewModel = sharedViewModel
+        binding.viewModel = viewModel
         requestLocationPermission()
     }
 
