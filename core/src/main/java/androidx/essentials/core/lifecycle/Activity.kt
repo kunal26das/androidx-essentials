@@ -40,10 +40,10 @@ abstract class Activity : AppCompatActivity() {
     }
 
     @CallSuper
-    open fun onViewCreated(view: View, savedInstanceState: Bundle?) = Unit
+    protected open fun onViewCreated(view: View, savedInstanceState: Bundle?) = Unit
 
     @CallSuper
-    open fun initObservers() = Unit
+    protected open fun initObservers() = Unit
 
     protected fun <T> LiveData<T>.observe(action: (T) -> Unit) {
         observe(this@Activity, { action.invoke(it) })
@@ -65,14 +65,14 @@ abstract class Activity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    protected fun toast(resId: Int, duration: Int = Toast.LENGTH_SHORT) {
+    fun toast(resId: Int, duration: Int = Toast.LENGTH_SHORT) {
         toast.apply {
             setDuration(duration)
             setText(resId)
         }.show()
     }
 
-    protected fun toast(s: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
+    fun toast(s: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
         toast.apply {
             setDuration(duration)
             setText(s)

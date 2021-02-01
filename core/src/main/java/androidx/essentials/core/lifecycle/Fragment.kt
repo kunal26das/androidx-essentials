@@ -1,5 +1,6 @@
 package androidx.essentials.core.lifecycle
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,20 +15,28 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel as koinSharedViewM
 abstract class Fragment : Fragment() {
 
     /** View **/
-    abstract val layout: Int
-    lateinit var container: ViewGroup
+    protected abstract val layout: Int
+    protected open lateinit var activity: Activity
     protected open val binding: ViewDataBinding? = null
-    val inflater: LayoutInflater by lazy { LayoutInflater.from(context) }
+    @PublishedApi
+    internal val accessLayout
+        get() = layout
+    @PublishedApi
+    internal lateinit var container: ViewGroup
+    @PublishedApi
+    internal val inflater by lazy { LayoutInflater.from(context) }
     inline fun <reified T : ViewDataBinding> Fragment.dataBinding() = lazy {
-        DataBindingUtil.inflate(inflater, layout, container, false) as T
+        DataBindingUtil.inflate(inflater, accessLayout, container, false) as T
     }
 
     /** ViewModel **/
     protected abstract val viewModel: ViewModel
     inline fun <reified T : ViewModel> Fragment.viewModel() = koinSharedViewModel<T>()
 
-    /** Toast **/
-    private val toast by lazy { Toast.makeText(context, "", Toast.LENGTH_SHORT) }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = context as Activity
+    }
 
     final override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -49,17 +58,11 @@ abstract class Fragment : Fragment() {
     }
 
     protected fun toast(resId: Int, duration: Int = Toast.LENGTH_SHORT) {
-        toast.apply {
-            setDuration(duration)
-            setText(resId)
-        }.show()
+        activity.apply { toast(resId, duration) }
     }
 
     protected fun toast(s: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
-        toast.apply {
-            setDuration(duration)
-            setText(s)
-        }.show()
+        activity.apply { toast(s, duration) }
     }
 
 }

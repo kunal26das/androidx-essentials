@@ -92,7 +92,7 @@ open class FragmentLifecycleCallbacks : FragmentManager.FragmentLifecycleCallbac
         logFragmentLifecycleEvent(fragment, Event.ON_SAVE_INSTANCE_STATE.name)
     }
 
-    private fun logFragmentLifecycleEvent(fragment: Fragment, event: String) {
+    protected open fun logFragmentLifecycleEvent(fragment: Fragment, event: String) {
         Log.d(fragment.javaClass.simpleName, event)
     }
 

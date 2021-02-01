@@ -1,5 +1,6 @@
 package androidx.essentials.core.lifecycle
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.essentials.core.R
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.viewmodel.ext.android.sharedViewModel as koinSharedViewModel
@@ -17,12 +17,18 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel as koinSharedViewM
 abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     /** View **/
-    abstract val layout: Int
-    lateinit var container: ViewGroup
+    protected abstract val layout: Int
+    protected open lateinit var activity: Activity
     protected open val binding: ViewDataBinding? = null
-    val inflater: LayoutInflater by lazy { LayoutInflater.from(context) }
-    inline fun <reified T : ViewDataBinding> Fragment.dataBinding() = lazy {
-        DataBindingUtil.inflate(inflater, layout, container, false) as T
+    @PublishedApi
+    internal val accessLayout
+        get() = layout
+    @PublishedApi
+    internal lateinit var container: ViewGroup
+    @PublishedApi
+    internal val inflater by lazy { LayoutInflater.from(context) }
+    inline fun <reified T : ViewDataBinding> BottomSheetDialogFragment.dataBinding() = lazy {
+        DataBindingUtil.inflate(inflater, accessLayout, container, false) as T
     }
 
     /** ViewModel **/
@@ -30,8 +36,10 @@ abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
     inline fun <reified T : ViewModel> BottomSheetDialogFragment.viewModel() =
         koinSharedViewModel<T>()
 
-    /** Toast **/
-    private val toast by lazy { Toast.makeText(context, "", Toast.LENGTH_SHORT) }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = context as Activity
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,24 +59,18 @@ abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
         initObservers()
     }
 
-    open fun initObservers() = Unit
+    protected open fun initObservers() = Unit
 
     protected fun <T> LiveData<T>.observe(action: (T) -> Unit) {
         observe(viewLifecycleOwner, { action.invoke(it) })
     }
 
     protected fun toast(resId: Int, duration: Int = Toast.LENGTH_SHORT) {
-        toast.apply {
-            setDuration(duration)
-            setText(resId)
-        }.show()
+        activity.apply { toast(resId, duration) }
     }
 
     protected fun toast(s: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
-        toast.apply {
-            setDuration(duration)
-            setText(s)
-        }.show()
+        activity.apply { toast(s, duration) }
     }
 
 }

@@ -21,4 +21,5 @@ object ConnectivityManager {
             return connectivityManager!!
         }
     }
+
 }
