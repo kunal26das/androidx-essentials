@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.core.content.res.getResourceIdOrThrow
 import androidx.core.view.children
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
@@ -37,9 +38,7 @@ class Chips @JvmOverloads constructor(
                                     else -> selection.remove(item)
                                 }
                                 onChipCheckedChangeListener?.onChipCheckedChange(
-                                    index,
-                                    item,
-                                    isChecked
+                                    index, item, isChecked
                                 )
                             }
                         }
@@ -51,7 +50,7 @@ class Chips @JvmOverloads constructor(
         }
 
     var selection = ArrayList<String>()
-        internal set(value) {
+        set(value) {
             field = value
             children.forEach { chip ->
                 (chip as Chip).apply {
@@ -61,7 +60,7 @@ class Chips @JvmOverloads constructor(
         }
 
     val isValid: Boolean
-        get() = when {
+        get() = isVisible and when {
             isSelectionRequired -> when {
                 selection.isEmpty() -> {
                     requestFocus()
@@ -71,6 +70,8 @@ class Chips @JvmOverloads constructor(
             }
             else -> true
         }
+
+    val isInvalid get() = !isValid
 
 
     init {

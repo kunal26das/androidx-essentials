@@ -5,6 +5,7 @@ import android.text.Editable
 import android.util.AttributeSet
 import android.widget.ArrayAdapter
 import androidx.core.content.res.getResourceIdOrThrow
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
@@ -52,7 +53,7 @@ class AutoComplete @JvmOverloads constructor(
                 isMandatory and !isEditable -> array.isNotEmpty() and !array.contains(text)
                 else -> false
             }
-            return !isErrorEnabled
+            return isVisible and !isErrorEnabled
         }
 
     init {
@@ -83,7 +84,6 @@ class AutoComplete @JvmOverloads constructor(
             super.onAttachedToWindow()
             endIconMode = END_ICON_DROPDOWN_MENU
         }
-        super.onAttachedToWindow()
         editText?.apply {
             doAfterTextChanged { array = array }
             setOnFocusChangeListener { view, itHasFocus ->

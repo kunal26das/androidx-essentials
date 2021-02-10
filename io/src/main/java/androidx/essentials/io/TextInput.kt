@@ -3,6 +3,7 @@ package androidx.essentials.io
 import android.content.Context
 import android.text.Editable
 import android.util.AttributeSet
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
@@ -36,7 +37,7 @@ open class TextInput @JvmOverloads constructor(
                 }
                 else -> false
             }
-            return !isErrorEnabled
+            return isVisible and !isErrorEnabled
         }
 
     init {
