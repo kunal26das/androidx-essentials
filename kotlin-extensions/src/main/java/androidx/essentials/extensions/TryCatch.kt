@@ -13,8 +13,8 @@ object TryCatch {
     }
 
     inline fun <reified T : Exception> Catch(
+        Catch: (T?) -> Unit,
         Try: () -> Unit,
-        Catch: (T?) -> Unit
     ) = try {
         Try()
     } catch (exception: Exception) {
