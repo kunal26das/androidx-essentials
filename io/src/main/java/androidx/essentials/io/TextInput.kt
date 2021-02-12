@@ -11,7 +11,7 @@ import androidx.databinding.InverseBindingListener
 
 open class TextInput @JvmOverloads constructor(
     context: Context,
-    private val attrs: AttributeSet? = null,
+    attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.textInputStyle
 ) : Field(context, attrs, defStyleAttr) {
 
@@ -41,6 +41,11 @@ open class TextInput @JvmOverloads constructor(
         }
 
     init {
+        with(EditText(context, attrs)) {
+            mKeyListener = keyListener
+            addView(this)
+            hint = ""
+        }
         context.obtainStyledAttributes(attrs, R.styleable.TextInput, defStyleAttr, 0).apply {
             isMandatory = getBoolean(R.styleable.TextInput_mandatory, DEFAULT_IS_MANDATORY)
             isEditable = getBoolean(R.styleable.TextInput_editable, DEFAULT_IS_EDITABLE)
@@ -49,15 +54,6 @@ open class TextInput @JvmOverloads constructor(
             regex = getString(R.styleable.TextInput_regex)?.let { Regex(it) }
             regexMessage = getString(R.styleable.TextInput_regexMessage)
             recycle()
-        }
-    }
-
-    override fun onAttachedToWindow() {
-        with(EditText(context, attrs)) {
-            hint = ""
-            addView(this)
-            mKeyListener = keyListener
-            super.onAttachedToWindow()
         }
     }
 

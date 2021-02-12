@@ -13,7 +13,7 @@ import androidx.databinding.InverseBindingListener
 
 class AutoComplete @JvmOverloads constructor(
     context: Context,
-    private val attrs: AttributeSet? = null,
+    attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.textInputStyle
 ) : Field(context, attrs, defStyleAttr) {
 
@@ -57,6 +57,12 @@ class AutoComplete @JvmOverloads constructor(
         }
 
     init {
+        with(AutoCompleteTextView(context, attrs)) {
+            endIconMode = END_ICON_DROPDOWN_MENU
+            mKeyListener = keyListener
+            addView(this)
+            hint = ""
+        }
         context.obtainStyledAttributes(attrs, R.styleable.AutoComplete, defStyleAttr, 0).apply {
             isMandatory = getBoolean(R.styleable.AutoComplete_mandatory, DEFAULT_IS_MANDATORY)
             isEditable = getBoolean(R.styleable.AutoComplete_editable, DEFAULT_IS_EDITABLE)
@@ -77,13 +83,7 @@ class AutoComplete @JvmOverloads constructor(
     }
 
     override fun onAttachedToWindow() {
-        with(AutoCompleteTextView(context, attrs)) {
-            hint = ""
-            addView(this)
-            mKeyListener = keyListener
-            super.onAttachedToWindow()
-            endIconMode = END_ICON_DROPDOWN_MENU
-        }
+        super.onAttachedToWindow()
         editText?.apply {
             doAfterTextChanged { array = array }
             setOnFocusChangeListener { view, itHasFocus ->
