@@ -12,10 +12,11 @@
     <attr name="mandatoryMessage" format="string" />
 
     <declare-styleable name="AutoComplete">
-        <attr name="editable" />
+        <attr name="listItem" format="reference" />
         <attr name="mandatoryMessage" />
         <attr name="android:filter" />
         <attr name="mandatory" />
+        <attr name="editable" />
         <attr name="validate" />
         <attr name="array" />
     </declare-styleable>
@@ -34,10 +35,10 @@
     </declare-styleable>
 
     <declare-styleable name="TextInput">
-        <attr name="editable" />
         <attr name="mandatoryMessage" />
         <attr name="regexMessage" />
         <attr name="mandatory" />
+        <attr name="editable" />
         <attr name="validate" />
         <attr name="regex" />
     </declare-styleable>

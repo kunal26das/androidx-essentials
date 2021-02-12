@@ -17,15 +17,15 @@ class AutoComplete @JvmOverloads constructor(
     defStyleAttr: Int = R.attr.textInputStyle
 ) : Field(context, attrs, defStyleAttr) {
 
-    private val listItem = android.R.layout.simple_list_item_1
+    private var listItem = DEFAULT_LIST_ITEM
     private var onItemClickListener: OnItemClickListener? = null
 
     private var adapter = ArrayAdapter<String>(context, listItem, emptyList())
         set(value) {
             field = value
-            editText?.setAdapter(value)
-            if (textChanged) {
-                editText?.showDropDown()
+            editText?.apply {
+                setAdapter(value)
+                if (textChanged) showDropDown()
             }
         }
 
@@ -34,9 +34,7 @@ class AutoComplete @JvmOverloads constructor(
             if (!field.contentEquals(value) or !filter) {
                 field = value
                 adapter = ArrayAdapter(context, listItem, value)
-                if (isEditable and textChanged) {
-                    isValid
-                }
+                if (isEditable and textChanged) isValid
             }
         }
 
@@ -66,6 +64,7 @@ class AutoComplete @JvmOverloads constructor(
         context.obtainStyledAttributes(attrs, R.styleable.AutoComplete, defStyleAttr, 0).apply {
             isMandatory = getBoolean(R.styleable.AutoComplete_mandatory, DEFAULT_IS_MANDATORY)
             isEditable = getBoolean(R.styleable.AutoComplete_editable, DEFAULT_IS_EDITABLE)
+            listItem = getResourceId(R.styleable.AutoComplete_listItem, DEFAULT_LIST_ITEM)
             filter = getBoolean(R.styleable.AutoComplete_android_filter, DEFAULT_FILTER)
             validate = getBoolean(R.styleable.AutoComplete_validate, DEFAULT_VALIDATE)
             mandatoryMessage = getString(R.styleable.AutoComplete_mandatoryMessage)
@@ -152,6 +151,7 @@ class AutoComplete @JvmOverloads constructor(
 
         const val DEFAULT_FILTER = false
         const val DEFAULT_IS_EDITABLE = false
+        const val DEFAULT_LIST_ITEM = android.R.layout.simple_list_item_1
 
         @JvmStatic
         @BindingAdapter("text")
