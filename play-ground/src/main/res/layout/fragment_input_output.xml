@@ -61,6 +61,7 @@
                     app:array="@{viewModel.libraryArray}"
                     app:editable="@{viewModel.isEditable}"
                     app:helperText="@{viewModel.autoComplete}"
+                    app:listItem="@android:layout/simple_list_item_1"
                     app:mandatory="@{viewModel.isMandatory}"
                     app:mandatoryMessage="@string/mandatory_field"
                     app:regexMessage="@string/invalid_input"
