@@ -1,6 +1,5 @@
 package androidx.essentials.core.lifecycle
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,8 +18,9 @@ abstract class DialogFragment : AppCompatDialogFragment() {
 
     protected abstract val layout: Int
     protected abstract val viewModel: ViewModel
-    protected open lateinit var activity: Activity
     protected open val binding: ViewDataBinding? = null
+    protected val activity by lazy { context as Activity }
+
     @PublishedApi
     internal val accessLayout
         get() = layout
@@ -34,11 +34,6 @@ abstract class DialogFragment : AppCompatDialogFragment() {
 
     inline fun <reified T : ViewModel> BottomSheetDialogFragment.viewModel() =
         koinSharedViewModel<T>()
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        activity = context as Activity
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

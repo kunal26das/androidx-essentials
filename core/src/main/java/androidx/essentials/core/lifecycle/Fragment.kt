@@ -1,6 +1,5 @@
 package androidx.essentials.core.lifecycle
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,8 +16,8 @@ abstract class Fragment : Fragment() {
     /** View **/
     protected abstract val layout: Int
     protected abstract val viewModel: ViewModel
-    protected open lateinit var activity: Activity
     protected open val binding: ViewDataBinding? = null
+    protected val activity by lazy { context as Activity }
     @PublishedApi
     internal val accessLayout
         get() = layout
@@ -29,11 +28,6 @@ abstract class Fragment : Fragment() {
     inline fun <reified T : ViewModel> Fragment.viewModel() = koinSharedViewModel<T>()
     inline fun <reified T : ViewDataBinding> Fragment.dataBinding() = lazy {
         DataBindingUtil.inflate(inflater, accessLayout, container, false) as T
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        activity = context as Activity
     }
 
     final override fun onCreateView(
