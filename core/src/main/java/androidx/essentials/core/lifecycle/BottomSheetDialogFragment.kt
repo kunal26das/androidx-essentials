@@ -16,8 +16,8 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel as koinSharedViewM
 
 abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
 
-    /** View **/
     protected abstract val layout: Int
+    protected abstract val viewModel: ViewModel
     protected open lateinit var activity: Activity
     protected open val binding: ViewDataBinding? = null
     @PublishedApi
@@ -31,8 +31,6 @@ abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
         DataBindingUtil.inflate(inflater, accessLayout, container, false) as T
     }
 
-    /** ViewModel **/
-    protected abstract val viewModel: ViewModel
     inline fun <reified T : ViewModel> BottomSheetDialogFragment.viewModel() =
         koinSharedViewModel<T>()
 
@@ -51,7 +49,7 @@ abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
     ): View {
         this.container = container!!
         binding?.lifecycleOwner = viewLifecycleOwner
-        return binding?.root!!
+        return binding?.root ?: container
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,6 +61,10 @@ abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     protected fun <T> LiveData<T>.observe(action: (T) -> Unit) {
         observe(viewLifecycleOwner, { action.invoke(it) })
+    }
+
+    protected fun <T> Class<T>.subscribe(action: (T) -> Unit) {
+        activity.apply { subscribe(action) }
     }
 
     protected fun toast(resId: Int, duration: Int = Toast.LENGTH_SHORT) {

@@ -8,28 +8,26 @@ import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.essentials.core.events.Events
 import androidx.essentials.core.lifecycle.callback.FragmentLifecycleCallbacks
 import androidx.lifecycle.LiveData
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.android.viewmodel.ext.android.viewModel as koinViewModel
 
 abstract class Activity : AppCompatActivity() {
 
-    /** View **/
     abstract val layout: Int
     protected open val binding: ViewDataBinding? = null
+    private val compositeDisposable = CompositeDisposable()
+    private val fragmentLifecycleCallbacks = FragmentLifecycleCallbacks()
     inline fun <reified T : ViewDataBinding> Activity.dataBinding() = lazy {
         DataBindingUtil.setContentView(this, layout) as T
     }
 
-    /** ViewModel **/
     protected abstract val viewModel: ViewModel
     inline fun <reified T : ViewModel> AppCompatActivity.viewModel() = koinViewModel<T>()
-
-    /** Fragment **/
-    private val fragmentLifecycleCallbacks = FragmentLifecycleCallbacks()
-
-    /** Toast **/
     private val toast by lazy { Toast.makeText(this, "", Toast.LENGTH_SHORT) }
+
 
     final override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +47,12 @@ abstract class Activity : AppCompatActivity() {
         observe(this@Activity, { action.invoke(it) })
     }
 
+    fun <T> Class<T>.subscribe(action: (T) -> Unit) {
+        compositeDisposable.add(Events.subscribe(this) {
+            action.invoke(it)
+        })
+    }
+
     protected fun resumeApplication(): Boolean {
         return if (!isTaskRoot
             && intent.action != null
@@ -62,6 +66,7 @@ abstract class Activity : AppCompatActivity() {
 
     override fun onDestroy() {
         supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentLifecycleCallbacks)
+        compositeDisposable.clear()
         super.onDestroy()
     }
 

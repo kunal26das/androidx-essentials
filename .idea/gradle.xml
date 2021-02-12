@@ -13,7 +13,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/backdrop" />
             <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/events" />
             <option value="$PROJECT_DIR$/firebase" />
             <option value="$PROJECT_DIR$/io" />
             <option value="$PROJECT_DIR$/kotlin-extensions" />

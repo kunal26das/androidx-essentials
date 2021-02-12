@@ -73,7 +73,6 @@ class Chips @JvmOverloads constructor(
 
     val isInvalid get() = !isValid
 
-
     init {
         context.obtainStyledAttributes(attrs, R.styleable.Chips, defStyleAttr, 0).apply {
             isCheckable = getBoolean(R.styleable.Chips_android_checkable, DEFAULT_IS_CHECKABLE)
@@ -115,8 +114,8 @@ class Chips @JvmOverloads constructor(
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "selection")
-        fun getSelection(chips: Chips): Array<String> {
-            return chips.selection.toTypedArray()
+        fun Chips.getSelection(): Array<String> {
+            return selection.toTypedArray()
         }
 
         @JvmStatic

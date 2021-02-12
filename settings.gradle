@@ -1,7 +1,6 @@
 include ':io'
 include ':core'
 include ':list'
-include ':events'
 include ':backdrop'
 include ':firebase'
 include ':resources'

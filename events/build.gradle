@@ -28,10 +28,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
-    // ReactiveX
-    implementation "io.reactivex.rxjava3:rxjava:$rxjava_version"
-    implementation "io.reactivex.rxjava3:rxkotlin:$rxjava_version"
-    implementation "io.reactivex.rxjava3:rxandroid:$rxjava_version"
 }
 
 apply from: 'publish.gradle'

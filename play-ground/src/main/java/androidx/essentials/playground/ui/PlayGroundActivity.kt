@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.essentials.core.lifecycle.Activity
-import androidx.essentials.events.Events
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ActivityPlayGroundBinding
 import androidx.navigation.NavController
@@ -49,16 +48,11 @@ class PlayGroundActivity : Activity() {
 
     override fun initObservers() {
         super.initObservers()
-        Events.subscribe(String::class.java) { toast(it) }
+        String::class.java.subscribe { toast(it) }
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Events.clear()
     }
 
     companion object {
