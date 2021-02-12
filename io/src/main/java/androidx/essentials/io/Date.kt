@@ -170,9 +170,7 @@ class Date @JvmOverloads constructor(
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "date")
-        fun getDate(view: Date): Long? {
-            return view.date
-        }
+        fun Date.getDate() = date
 
         @JvmStatic
         @BindingAdapter(value = ["dateAttrChanged"])

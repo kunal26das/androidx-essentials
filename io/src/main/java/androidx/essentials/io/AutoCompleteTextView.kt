@@ -5,7 +5,7 @@ import android.text.Editable
 import android.util.AttributeSet
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 
-class AutoCompleteTextView @JvmOverloads constructor(
+internal class AutoCompleteTextView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleRes: Int = R.attr.editTextStyle

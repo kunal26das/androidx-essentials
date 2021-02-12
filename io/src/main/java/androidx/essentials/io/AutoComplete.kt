@@ -19,11 +19,12 @@ class AutoComplete @JvmOverloads constructor(
 
     private var listItem = DEFAULT_LIST_ITEM
     private var onItemClickListener: OnItemClickListener? = null
+    private val editText by lazy { getEditText() as AutoCompleteTextView }
 
     private var adapter = ArrayAdapter<String>(context, listItem, emptyList())
         set(value) {
             field = value
-            editText?.apply {
+            editText.apply {
                 setAdapter(value)
                 if (textChanged) showDropDown()
             }
@@ -42,7 +43,7 @@ class AutoComplete @JvmOverloads constructor(
 
     override val isValid: Boolean
         get() {
-            val text = editText?.text?.toString() ?: ""
+            val text = editText.text?.toString() ?: ""
             isErrorEnabled = when {
                 isMandatory and isEditable and text.isBlank() -> {
                     error = mandatoryMessage
@@ -77,24 +78,20 @@ class AutoComplete @JvmOverloads constructor(
         }
     }
 
-    override fun getEditText(): AutoCompleteTextView? {
-        return super.getEditText() as AutoCompleteTextView?
-    }
-
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        editText?.apply {
+        editText.apply {
             doAfterTextChanged { array = array }
             setOnFocusChangeListener { view, itHasFocus ->
                 if (!isEditable && itHasFocus) {
-                    editText?.showDropDown()
+                    editText.showDropDown()
                 } else if (!itHasFocus) {
-                    editText?.dismissDropDown()
+                    editText.dismissDropDown()
                     hideSoftInput(view)
                 }
             }
             setOnItemClickListener { _, _, i, _ ->
-                editText?.clearFocus()
+                editText.clearFocus()
                 this@AutoComplete.onItemClickListener?.onItemClick(i, array[i])
             }
         }
@@ -110,26 +107,26 @@ class AutoComplete @JvmOverloads constructor(
                 else -> mHint
             }.apply {
                 if (!isHintEnabled) {
-                    editText?.hint = this
+                    editText.hint = this
                 }
             }
         )
     }
 
     fun setOnCutListener(action: (Editable?) -> Unit) {
-        editText?.setOnCutListener(action)
+        editText.setOnCutListener(action)
     }
 
     fun setOnCopyListener(action: (Editable?) -> Unit) {
-        editText?.setOnCopyListener(action)
+        editText.setOnCopyListener(action)
     }
 
     fun setOnPasteListener(action: (Editable?) -> Unit) {
-        editText?.setOnPasteListener(action)
+        editText.setOnPasteListener(action)
     }
 
-    fun showDropDown() = editText?.showDropDown()
-    fun dismissDropDown() = editText?.dismissDropDown()
+    fun showDropDown() = editText.showDropDown()
+    fun dismissDropDown() = editText.dismissDropDown()
 
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
         this.onItemClickListener = onItemClickListener
@@ -158,14 +155,14 @@ class AutoComplete @JvmOverloads constructor(
         fun AutoComplete.setText(text: String?) {
             when (fromUser) {
                 true -> fromUser = false
-                false -> text?.let { editText?.setText(it, filter) }
+                false -> text?.let { editText.setText(it, filter) }
             }
         }
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
         fun AutoComplete.getText(): String? {
-            with(editText?.text) {
+            with(editText.text) {
                 return when (this) {
                     null -> null
                     else -> toString()
@@ -178,7 +175,7 @@ class AutoComplete @JvmOverloads constructor(
         fun AutoComplete.setOnTextAttrChangeListener(
             inverseBindingListener: InverseBindingListener
         ) {
-            editText?.doAfterTextChanged {
+            editText.doAfterTextChanged {
                 fromUser = true
                 inverseBindingListener.onChange()
             }

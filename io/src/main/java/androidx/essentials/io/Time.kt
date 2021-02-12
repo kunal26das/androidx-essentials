@@ -126,9 +126,7 @@ class Time @JvmOverloads constructor(
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "time")
-        fun Time.getTime(): Long? {
-            return time
-        }
+        fun Time.getTime() = time
 
         @JvmStatic
         @BindingAdapter(value = ["timeAttrChanged"])

@@ -5,7 +5,7 @@ import android.text.Editable
 import android.util.AttributeSet
 import com.google.android.material.textfield.TextInputEditText
 
-class EditText @JvmOverloads constructor(
+internal class EditText @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleRes: Int = R.attr.editTextStyle

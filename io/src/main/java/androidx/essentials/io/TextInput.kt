@@ -15,6 +15,8 @@ open class TextInput @JvmOverloads constructor(
     defStyleAttr: Int = R.attr.textInputStyle
 ) : Field(context, attrs, defStyleAttr) {
 
+    private val editText by lazy { getEditText() as EditText }
+
     open var regex: Regex? = null
         set(value) {
             field = value
@@ -25,7 +27,7 @@ open class TextInput @JvmOverloads constructor(
 
     override val isValid: Boolean
         get() {
-            val text = editText?.text?.toString() ?: ""
+            val text = editText.text?.toString() ?: ""
             isErrorEnabled = isEditable and when {
                 isMandatory and text.isBlank() -> {
                     error = mandatoryMessage
@@ -67,26 +69,22 @@ open class TextInput @JvmOverloads constructor(
                 else -> mHint
             }.apply {
                 if (!isHintEnabled) {
-                    editText?.hint = this
+                    editText.hint = this
                 }
             }
         )
     }
 
-    override fun getEditText(): EditText? {
-        return super.getEditText() as EditText?
-    }
-
     fun setOnCutListener(action: (Editable?) -> Unit) {
-        editText?.setOnCutListener(action)
+        editText.setOnCutListener(action)
     }
 
     fun setOnCopyListener(action: (Editable?) -> Unit) {
-        editText?.setOnCopyListener(action)
+        editText.setOnCopyListener(action)
     }
 
     fun setOnPasteListener(action: (Editable?) -> Unit) {
-        editText?.setOnPasteListener(action)
+        editText.setOnPasteListener(action)
     }
 
     companion object {
@@ -96,14 +94,14 @@ open class TextInput @JvmOverloads constructor(
         fun TextInput.setText(text: String?) {
             when (fromUser) {
                 true -> fromUser = false
-                false -> text?.let { editText?.setText(it) }
+                false -> text?.let { editText.setText(it) }
             }
         }
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
-        fun getText(textInput: TextInput): String? {
-            with(textInput.editText?.text) {
+        fun TextInput.getText(): String? {
+            with(editText.text) {
                 return when (this) {
                     null -> null
                     else -> toString()
@@ -116,7 +114,7 @@ open class TextInput @JvmOverloads constructor(
         fun TextInput.setOnTextAttrChangeListener(
             inverseBindingListener: InverseBindingListener
         ) {
-            editText?.doAfterTextChanged {
+            editText.doAfterTextChanged {
                 fromUser = true
                 inverseBindingListener.onChange()
             }
