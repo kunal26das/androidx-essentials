@@ -61,8 +61,9 @@ abstract class ListItemView<T, V : ViewDataBinding> @JvmOverloads constructor(
     class ViewHolder<T, V : ViewDataBinding>(
         val listItemView: ListItemView<T, V>
     ) : RecyclerView.ViewHolder(listItemView) {
-        fun bind(item: T) {
+        fun bind(item: T): ListItemView<T, V> {
             listItemView.item = item
+            return listItemView
         }
     }
 

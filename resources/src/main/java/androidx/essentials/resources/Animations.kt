@@ -1,3 +1,5 @@
+package androidx.essentials.resources
+
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.view.View

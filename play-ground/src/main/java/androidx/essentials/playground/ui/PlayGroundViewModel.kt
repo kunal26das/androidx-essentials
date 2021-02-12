@@ -57,7 +57,7 @@ class PlayGroundViewModel : ViewModel(), Listeners {
     fun refreshNetworkState() = networkCallback.refreshNetworkState()
 
     override fun onLocationChange(location: Location?) {
-        this.location.postValue(location)
+        location?.let { this.location.postValue(it) }
     }
 
     override fun onNetworkStateChange(isOnline: Boolean) {
@@ -65,7 +65,7 @@ class PlayGroundViewModel : ViewModel(), Listeners {
     }
 
     override fun onNewToken(token: String?) {
-        this.token.value = token
+        token?.let { this.token.value = it }
     }
 
     override fun onCleared() {

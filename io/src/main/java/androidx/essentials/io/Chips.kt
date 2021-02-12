@@ -9,6 +9,8 @@ import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import androidx.essentials.extensions.Coroutines.default
+import androidx.essentials.extensions.Coroutines.main
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
@@ -27,9 +29,9 @@ class Chips @JvmOverloads constructor(
             field = value
             removeAllViews()
             selection.clear()
-            LayoutInflater.from(context).apply {
+            LayoutInflater.from(context).default {
                 value.forEachIndexed { index, item ->
-                    (inflate(chipLayout, this@Chips, false) as Chip).apply {
+                    (inflate(chipLayout, this@Chips, false) as Chip).main {
                         isCheckable = this@Chips.isCheckable
                         if (isCheckable) {
                             setOnCheckedChangeListener { _, isChecked ->
@@ -51,10 +53,11 @@ class Chips @JvmOverloads constructor(
 
     var selection = ArrayList<String>()
         set(value) {
-            field = value
-            children.forEach { chip ->
-                (chip as Chip).apply {
-                    chip.isChecked = chip.text in value
+            field = value.default {
+                children.forEach {
+                    ((it as Chip).text in this).main {
+                        it.isChecked = this
+                    }
                 }
             }
         }

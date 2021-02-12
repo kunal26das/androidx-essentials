@@ -23,10 +23,10 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':core')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     // Core
-    implementation 'androidx.essentials:core:1.0.3'
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     // Firebase

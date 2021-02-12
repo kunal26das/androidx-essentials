@@ -1,18 +1,18 @@
 package androidx.essentials.extensions
 
-object Try {
+object TryCatch {
 
     inline fun <T> T.Try(
-        block: T.() -> Unit
+        Try: T.() -> Unit
     ): T {
         try {
-            block()
+            Try()
         } catch (e: Exception) {
         }
         return this
     }
 
-    inline fun <reified T : Exception> T.Try(
+    inline fun <reified T : Exception> Catch(
         Try: () -> Unit,
         Catch: (T?) -> Unit
     ) = try {
@@ -23,4 +23,5 @@ object Try {
             else -> Catch.invoke(null)
         }
     }
+
 }
