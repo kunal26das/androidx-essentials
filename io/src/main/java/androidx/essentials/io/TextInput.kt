@@ -15,14 +15,12 @@ open class TextInput @JvmOverloads constructor(
     defStyleAttr: Int = R.attr.textInputStyle
 ) : Field(context, attrs, defStyleAttr) {
 
-    private val editText by lazy { getEditText() as EditText }
+    internal val editText by lazy { getEditText() as EditText }
 
     open var regex: Regex? = null
         set(value) {
             field = value
-            if (isEditable and textChanged) {
-                isValid
-            }
+            if (isEditable and textChanged) isValid
         }
 
     override val isValid: Boolean
@@ -75,17 +73,9 @@ open class TextInput @JvmOverloads constructor(
         )
     }
 
-    fun setOnCutListener(action: (Editable?) -> Unit) {
-        editText.setOnCutListener(action)
-    }
-
-    fun setOnCopyListener(action: (Editable?) -> Unit) {
-        editText.setOnCopyListener(action)
-    }
-
-    fun setOnPasteListener(action: (Editable?) -> Unit) {
-        editText.setOnPasteListener(action)
-    }
+    fun setOnCutListener(action: (Editable?) -> Unit) = editText.setOnCutListener(action)
+    fun setOnCopyListener(action: (Editable?) -> Unit) = editText.setOnCopyListener(action)
+    fun setOnPasteListener(action: (Editable?) -> Unit) = editText.setOnPasteListener(action)
 
     companion object {
 
@@ -102,8 +92,8 @@ open class TextInput @JvmOverloads constructor(
         @InverseBindingAdapter(attribute = "text")
         fun TextInput.getText(): String? {
             with(editText.text) {
-                return when (this) {
-                    null -> null
+                return when {
+                    isNullOrBlank() -> null
                     else -> toString()
                 }
             }

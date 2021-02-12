@@ -52,9 +52,7 @@ abstract class Field @JvmOverloads constructor(
         set(value) {
             field = value
             hint = mHint
-            if (isEditable and textChanged) {
-                isValid
-            }
+            if (isEditable and textChanged) isValid
         }
 
     var mandatoryMessage: String? = context.getString(R.string.mandatory_field)
@@ -90,8 +88,8 @@ abstract class Field @JvmOverloads constructor(
         }
         setOnFocusChangeListener { _, itHasFocus ->
             when (isEditable and itHasFocus) {
-                true -> editText?.requestFocus()
                 false -> editText?.clearFocus()
+                true -> editText?.requestFocus()
             }
         }
     }

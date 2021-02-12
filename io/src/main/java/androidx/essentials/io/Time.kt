@@ -33,7 +33,7 @@ class Time @JvmOverloads constructor(
                     setHour(today[Calendar.HOUR])
                     setMinute(today[Calendar.MINUTE])
                 }
-                editText?.setText(displayTimeFormat.format(it))
+                editText.setText(displayTimeFormat.format(it))
             }
         }
 
@@ -83,7 +83,7 @@ class Time @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        editText?.apply {
+        editText.apply {
             keyListener = null
             isCursorVisible = false
             inputType = TYPE_DATETIME_VARIATION_DATE
@@ -133,7 +133,7 @@ class Time @JvmOverloads constructor(
         fun Time.setOnTimeAttrChangeListener(
             inverseBindingListener: InverseBindingListener
         ) {
-            editText?.doAfterTextChanged {
+            editText.doAfterTextChanged {
                 fromUser = true
                 inverseBindingListener.onChange()
             }

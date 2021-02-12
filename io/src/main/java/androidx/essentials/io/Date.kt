@@ -34,7 +34,7 @@ class Date @JvmOverloads constructor(
             field = value
             value?.let {
                 setOpenDate(it)
-                editText?.setText(displayDateFormat.format(it))
+                editText.setText(displayDateFormat.format(it))
             }
         }
 
@@ -127,7 +127,7 @@ class Date @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        editText?.apply {
+        editText.apply {
             keyListener = null
             isCursorVisible = false
             inputType = TYPE_DATETIME_VARIATION_DATE
@@ -177,7 +177,7 @@ class Date @JvmOverloads constructor(
         fun Date.setOnDateAttrChangeListener(
             inverseBindingListener: InverseBindingListener
         ) {
-            editText?.doAfterTextChanged {
+            editText.doAfterTextChanged {
                 fromUser = true
                 inverseBindingListener.onChange()
             }

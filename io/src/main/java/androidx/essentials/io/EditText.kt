@@ -34,15 +34,15 @@ internal class EditText @JvmOverloads constructor(
         }
     }
 
-    fun setOnCutListener(action: (Editable?) -> Unit) {
+    internal fun setOnCutListener(action: (Editable?) -> Unit) {
         onCutAction = action
     }
 
-    fun setOnCopyListener(action: (Editable?) -> Unit) {
+    internal fun setOnCopyListener(action: (Editable?) -> Unit) {
         onCopyAction = action
     }
 
-    fun setOnPasteListener(action: (Editable?) -> Unit) {
+    internal fun setOnPasteListener(action: (Editable?) -> Unit) {
         onPasteAction = action
     }
 
