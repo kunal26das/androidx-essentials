@@ -49,7 +49,10 @@ class AutoComplete @JvmOverloads constructor(
             endIconMode = END_ICON_DROPDOWN_MENU
             mKeyListener = keyListener
             addView(this)
-            hint = ""
+            hint = when {
+                isHintEnabled -> ""
+                else -> mHint
+            }
         }
         context.obtainStyledAttributes(attrs, R.styleable.AutoComplete, defStyleAttr, 0).apply {
             editText.listItem = getResourceId(R.styleable.AutoComplete_listItem, DEFAULT_LIST_ITEM)
@@ -83,22 +86,6 @@ class AutoComplete @JvmOverloads constructor(
                 this@AutoComplete.onItemClickListener?.onItemClick(i, array[i])
             }
         }
-    }
-
-    override fun setHint(hint: CharSequence?) {
-        mHint = hint?.toString() ?: ""
-        super.setHint(
-            when (isEditable and isMandatory) {
-                true -> if (mHint.isNotEmpty()) {
-                    "$mHint*"
-                } else mHint
-                else -> mHint
-            }.apply {
-                if (!isHintEnabled) {
-                    editText.hint = this
-                }
-            }
-        )
     }
 
     fun showDropDown() = editText.showDropDown()

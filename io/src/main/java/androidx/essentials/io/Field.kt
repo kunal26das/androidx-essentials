@@ -94,6 +94,19 @@ abstract class Field @JvmOverloads constructor(
         }
     }
 
+    override fun setHint(hint: CharSequence?) {
+        mHint = hint?.toString() ?: ""
+        super.setHint(
+            when (isEditable and isMandatory) {
+                true -> when {
+                    mHint.isNotEmpty() -> "$mHint*"
+                    else -> mHint
+                }
+                else -> mHint
+            }
+        )
+    }
+
     fun doBeforeTextChanged(
         action: (text: CharSequence?, start: Int, count: Int, after: Int) -> Unit
     ) = editText?.addTextChangedListener(beforeTextChanged = action)

@@ -44,7 +44,10 @@ open class TextInput @JvmOverloads constructor(
         with(EditText(context, attrs)) {
             mKeyListener = keyListener
             addView(this)
-            hint = ""
+            hint = when {
+                isHintEnabled -> ""
+                else -> mHint
+            }
         }
         context.obtainStyledAttributes(attrs, R.styleable.TextInput, defStyleAttr, 0).apply {
             isMandatory = getBoolean(R.styleable.TextInput_mandatory, DEFAULT_IS_MANDATORY)
@@ -55,22 +58,6 @@ open class TextInput @JvmOverloads constructor(
             regexMessage = getString(R.styleable.TextInput_regexMessage)
             recycle()
         }
-    }
-
-    override fun setHint(hint: CharSequence?) {
-        mHint = hint?.toString() ?: ""
-        super.setHint(
-            when (isEditable and isMandatory) {
-                true -> if (mHint.isNotEmpty()) {
-                    "$mHint*"
-                } else mHint
-                else -> mHint
-            }.apply {
-                if (!isHintEnabled) {
-                    editText.hint = this
-                }
-            }
-        )
     }
 
     fun setOnCutListener(action: (Editable?) -> Unit) = editText.setOnCutListener(action)
