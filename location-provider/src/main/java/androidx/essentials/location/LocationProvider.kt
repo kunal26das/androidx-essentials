@@ -49,6 +49,7 @@ class LocationProvider private constructor() {
 
     companion object {
 
+        @SuppressLint("StaticFieldLeak")
         private var fusedLocationProviderClient: FusedLocationProviderClient? = null
 
         fun getInstance(context: Context): LocationProvider {

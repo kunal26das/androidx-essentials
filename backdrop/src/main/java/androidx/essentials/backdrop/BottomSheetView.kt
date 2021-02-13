@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.essentials.extensions.TryCatch.Try
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.google.android.material.card.MaterialCardView
@@ -121,16 +122,6 @@ class BottomSheetView @JvmOverloads constructor(
             isCollapsed -> expand()
             isExpanded -> collapse()
         }
-    }
-
-    inline fun <T> T.Try(
-        block: T.() -> Unit
-    ): T {
-        try {
-            block()
-        } catch (e: Exception) {
-        }
-        return this
     }
 
     companion object {
