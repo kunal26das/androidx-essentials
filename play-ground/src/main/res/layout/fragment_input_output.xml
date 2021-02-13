@@ -31,7 +31,7 @@
 
                 <androidx.essentials.io.TextInput
                     android:id="@+id/textInput"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                    style="@style/Widget.Design.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
@@ -40,7 +40,7 @@
                     android:hint="@string/text_input"
                     app:editable="@{viewModel.isEditable}"
                     app:helperText="@{viewModel.textInput}"
-                    app:hintEnabled="true"
+                    app:hintEnabled="false"
                     app:mandatory="@{viewModel.isMandatory}"
                     app:mandatoryMessage="@string/mandatory_field"
                     app:regexMessage="@string/invalid_input"
@@ -50,7 +50,7 @@
 
                 <androidx.essentials.io.AutoComplete
                     android:id="@+id/autoComplete"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
@@ -71,7 +71,7 @@
 
                 <androidx.essentials.io.Date
                     android:id="@+id/startDate"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
@@ -92,7 +92,7 @@
 
                 <androidx.essentials.io.Date
                     android:id="@+id/endDate"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
@@ -115,7 +115,7 @@
 
                 <androidx.essentials.io.Time
                     android:id="@+id/startTime"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
