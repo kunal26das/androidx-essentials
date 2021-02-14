@@ -77,7 +77,10 @@ abstract class Field @JvmOverloads constructor(
         set(value) = with(value) {
             when {
                 isNullOrBlank() -> Unit
-                else -> editText?.setText(this)
+                else -> editText?.apply {
+                    setText(value)
+                    setSelection(length)
+                }
             }
         }
 

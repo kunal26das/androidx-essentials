@@ -6,7 +6,7 @@ import kotlinx.coroutines.launch
 
 object Coroutines {
     inline fun <T> T.delay(
-        timeMillis: Long,
+        timeMillis: Long = 0,
         crossinline block: T.() -> Unit
     ): T {
         CoroutineScope(Dispatchers.Default).launch {
