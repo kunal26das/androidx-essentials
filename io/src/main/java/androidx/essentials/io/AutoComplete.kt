@@ -124,10 +124,7 @@ class AutoComplete @JvmOverloads constructor(
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
-        fun AutoComplete.getText() = when {
-            text.isNullOrBlank() -> null
-            else -> text
-        }
+        fun AutoComplete.getText() = text
 
         @JvmStatic
         @BindingAdapter(value = ["textAttrChanged"])

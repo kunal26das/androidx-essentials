@@ -77,10 +77,7 @@ open class TextInput @JvmOverloads constructor(
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
-        fun TextInput.getText() = when {
-            text.isNullOrBlank() -> null
-            else -> text
-        }
+        fun TextInput.getText() = text
 
         @JvmStatic
         @BindingAdapter(value = ["textAttrChanged"])

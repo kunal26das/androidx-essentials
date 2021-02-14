@@ -66,14 +66,20 @@ abstract class Field @JvmOverloads constructor(
         }
 
     var text: String?
-        get() = when (editText?.text) {
-            null -> ""
-            else -> "${editText?.text}"
+        get() {
+            with(editText?.text) {
+                return when {
+                    isNullOrBlank() -> ""
+                    else -> toString()
+                }
+            }
         }
-        set(value) = when (value) {
-            null -> Unit
-            else -> editText?.setText(value)
-        } ?: Unit
+        set(value) = with(value) {
+            when {
+                isNullOrBlank() -> Unit
+                else -> editText?.setText(this)
+            }
+        }
 
     var validate = DEFAULT_VALIDATE
 
