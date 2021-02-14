@@ -16,10 +16,10 @@ class InputOutputFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
-        binding.textInput.setOnCutListener { toast("$it") }
-        binding.textInput.setOnCopyListener { toast("$it") }
-        binding.textInput.setOnPasteListener { toast("$it") }
         binding.apply {
+            textInput.setOnCutListener { toast("$it") }
+            textInput.setOnCopyListener { toast("$it") }
+            textInput.setOnPasteListener { toast("$it") }
             validate.setOnClickListener {
                 toast(
                     "${
