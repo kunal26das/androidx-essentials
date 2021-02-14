@@ -26,8 +26,9 @@ internal class EditText @JvmOverloads constructor(
                 super.onTextContextMenuItem(id)
             }
             android.R.id.paste -> {
-                onPasteAction?.invoke(text)
-                super.onTextContextMenuItem(id)
+                super.onTextContextMenuItem(id).apply {
+                    onPasteAction?.invoke(text)
+                }
             }
             else -> true
         }

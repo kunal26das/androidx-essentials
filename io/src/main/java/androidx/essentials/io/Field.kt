@@ -65,6 +65,16 @@ abstract class Field @JvmOverloads constructor(
             if (value != null) field = value
         }
 
+    var text: String?
+        get() = when (editText?.text) {
+            null -> ""
+            else -> "${editText?.text}"
+        }
+        set(value) = when (value) {
+            null -> Unit
+            else -> editText?.setText(value)
+        } ?: Unit
+
     var validate = DEFAULT_VALIDATE
 
     override fun onAttachedToWindow() {

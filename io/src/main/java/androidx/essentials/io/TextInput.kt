@@ -71,19 +71,15 @@ open class TextInput @JvmOverloads constructor(
         fun TextInput.setText(text: String?) {
             when (fromUser) {
                 true -> fromUser = false
-                false -> text?.let { editText.setText(it) }
+                false -> this.text = text
             }
         }
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
-        fun TextInput.getText(): String? {
-            with(editText.text) {
-                return when {
-                    isNullOrBlank() -> null
-                    else -> toString()
-                }
-            }
+        fun TextInput.getText() = when {
+            text.isNullOrBlank() -> null
+            else -> text
         }
 
         @JvmStatic

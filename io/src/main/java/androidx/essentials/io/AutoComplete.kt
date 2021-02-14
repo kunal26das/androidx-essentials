@@ -118,19 +118,15 @@ class AutoComplete @JvmOverloads constructor(
         fun AutoComplete.setText(text: String?) {
             when (fromUser) {
                 true -> fromUser = false
-                false -> text?.let { editText.setText(it) }
+                false -> this.text = text
             }
         }
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
-        fun AutoComplete.getText(): String? {
-            with(editText.text) {
-                return when {
-                    isNullOrBlank() -> null
-                    else -> toString()
-                }
-            }
+        fun AutoComplete.getText() = when {
+            text.isNullOrBlank() -> null
+            else -> text
         }
 
         @JvmStatic
