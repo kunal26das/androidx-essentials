@@ -5,6 +5,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 object Coroutines {
+    inline fun <T> T.delay(
+        timeMillis: Long,
+        crossinline block: T.() -> Unit
+    ): T {
+        CoroutineScope(Dispatchers.Default).launch {
+            kotlinx.coroutines.delay(timeMillis)
+            CoroutineScope(Dispatchers.Main).launch {
+                block()
+            }
+        }
+        return this
+    }
+
     inline fun <T> T.default(crossinline block: T.() -> Unit): T {
         CoroutineScope(Dispatchers.Default).launch {
             block()
