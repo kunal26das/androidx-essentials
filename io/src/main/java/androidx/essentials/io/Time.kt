@@ -1,7 +1,7 @@
 package androidx.essentials.io
 
 import android.content.Context
-import android.text.InputType.TYPE_DATETIME_VARIATION_DATE
+import android.text.InputType.TYPE_DATETIME_VARIATION_TIME
 import android.util.AttributeSet
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.BindingAdapter
@@ -86,7 +86,7 @@ class Time @JvmOverloads constructor(
         editText.apply {
             keyListener = null
             isCursorVisible = false
-            inputType = TYPE_DATETIME_VARIATION_DATE
+            inputType = TYPE_DATETIME_VARIATION_TIME
             setOnFocusChangeListener { view, itHasFocus ->
                 if (isEditable and itHasFocus) {
                     hideSoftInput(view)
@@ -99,8 +99,8 @@ class Time @JvmOverloads constructor(
 
     companion object {
 
-        const val DEFAULT_FORMAT_DISPLAY_TIME = "h:mm a, d MMM" // "h:mm a"
         const val DEFAULT_TIME_FORMAT = TimeFormat.CLOCK_12H
+        const val DEFAULT_FORMAT_DISPLAY_TIME = "h:mm a, d MMM" // "h:mm a"
         const val DEFAULT_INPUT_MODE = MaterialTimePicker.INPUT_MODE_CLOCK
 
         @JvmStatic
@@ -117,11 +117,9 @@ class Time @JvmOverloads constructor(
 
         @JvmStatic
         @BindingAdapter("time")
-        fun Time.setTime(time: Long?) {
-            when (fromUser) {
-                true -> fromUser = false
-                false -> this.time = time
-            }
+        fun Time.setTime(time: Long?) = when (fromUser) {
+            true -> fromUser = false
+            false -> this.time = time
         }
 
         @JvmStatic

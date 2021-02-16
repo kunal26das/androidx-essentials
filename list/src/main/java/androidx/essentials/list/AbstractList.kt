@@ -23,10 +23,9 @@ abstract class AbstractList<T, V : ViewDataBinding> @JvmOverloads constructor(
 
     lateinit var emptyState: ListStateAdapter
     lateinit var loadingState: ListStateAdapter
-    abstract val dataAdapter: Adapter<ListItemView.ViewHolder<T, V>>
-
     internal lateinit var mLayoutManager: LayoutManager
     internal lateinit var linearLayoutManager: LinearLayoutManager
+    abstract val dataAdapter: Adapter<ListItemView.ViewHolder<T, V>>
 
     abstract fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
