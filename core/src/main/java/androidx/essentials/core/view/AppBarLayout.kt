@@ -4,12 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.widget.ContentLoadingProgressBar
 import androidx.databinding.BindingAdapter
 import androidx.essentials.core.R
 import androidx.essentials.core.databinding.LayoutAppbarBinding
-import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.appbar.MaterialToolbar
+import androidx.essentials.core.lifecycle.owner.Activity
 import com.google.android.material.card.MaterialCardView
 
 class AppBarLayout @JvmOverloads constructor(
@@ -18,34 +16,23 @@ class AppBarLayout @JvmOverloads constructor(
     defStyleAttr: Int = R.attr.materialCardViewStyle
 ) : MaterialCardView(context, attrs, defStyleAttr) {
 
-    val toolbar: MaterialToolbar by lazy {
-        findViewById(R.id.toolbar)
-    }
-
-    private val appBarLayout: AppBarLayout by lazy {
-        findViewById(R.id.materialAppBarLayout)
-    }
-
-    private val contentLoadingProgressBar: ContentLoadingProgressBar by lazy {
-        findViewById(R.id.contentLoadingProgressBar)
-    }
-
-    private val binding = LayoutAppbarBinding.inflate(
-        LayoutInflater.from(context), this, true
-    )
+    private val binding = LayoutAppbarBinding.inflate(LayoutInflater.from(context), this, true)
+    private val contentLoadingProgressBar = binding.contentLoadingProgressBar
+    private val appBarLayout = binding.materialAppBarLayout
+    val toolbar = binding.toolbar
 
     var isLoading = DEFAULT_LOADING
         set(value) {
             field = value
-            when (value) {
-                true -> contentLoadingProgressBar.show()
-                false -> contentLoadingProgressBar.hide()
+            with(contentLoadingProgressBar) {
+                if (value) show() else hide()
             }
         }
 
     init {
         contentLoadingProgressBar.hide()
         appBarLayout.backgroundTintList = cardBackgroundColor
+        if (context is Activity) context.setSupportActionBar(toolbar)
     }
 
     override fun onAttachedToWindow() {
@@ -62,7 +49,6 @@ class AppBarLayout @JvmOverloads constructor(
     companion object {
 
         private const val DEFAULT_LOADING = false
-        private const val DEFAULT_DIVIDER_VISIBLE = false
 
         @JvmStatic
         @BindingAdapter("loading")
