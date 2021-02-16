@@ -3,7 +3,7 @@ package androidx.essentials.playground.ui.fragment
 import android.Manifest
 import android.os.Bundle
 import android.view.View
-import androidx.essentials.core.lifecycle.Fragment
+import androidx.essentials.core.lifecycle.owner.Fragment
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentLocationBinding
 import androidx.essentials.playground.ui.PlayGroundViewModel

@@ -6,11 +6,13 @@ import android.view.MenuItem
 import android.view.ViewGroup
 import androidx.core.view.updateMargins
 import androidx.databinding.BindingAdapter
+import androidx.essentials.core.events.Events
 import androidx.essentials.core.utils.Resources.dp
 import androidx.essentials.list.List
 import androidx.essentials.list.view.ListItemView
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ItemLibraryBinding
+import androidx.essentials.playground.ui.PlayGroundActivity
 import androidx.essentials.playground.view.LibraryView
 
 class Libraries @JvmOverloads constructor(
@@ -18,8 +20,6 @@ class Libraries @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.recyclerViewStyle
 ) : List<MenuItem, ItemLibraryBinding>(context, attrs, defStyleAttr) {
-
-    private var onItemClickListener: LibraryView.OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = LibraryView(
         context = context, attachToRoot = false
@@ -32,15 +32,7 @@ class Libraries @JvmOverloads constructor(
         position: Int, item: MenuItem
     ) {
         holder.listItemView.binding.root.setOnClickListener {
-            onItemClickListener?.onClick(item)
-        }
-    }
-
-    fun setOnItemClickListener(onClick: (MenuItem) -> Unit) {
-        onItemClickListener = object : LibraryView.OnItemClickListener {
-            override fun onClick(item: MenuItem) {
-                onClick(item)
-            }
+            Events.publish(PlayGroundActivity.Destination.getById(item.itemId))
         }
     }
 
@@ -48,7 +40,7 @@ class Libraries @JvmOverloads constructor(
 
         @JvmStatic
         @BindingAdapter("libraries")
-        fun Libraries.submitLibraries(libraries: kotlin.collections.List<MenuItem>?) {
+        fun Libraries.submitList(libraries: kotlin.collections.List<MenuItem>?) {
             submitList(libraries)
         }
 

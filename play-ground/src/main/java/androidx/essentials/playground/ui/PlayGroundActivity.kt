@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.essentials.core.lifecycle.Activity
+import androidx.essentials.core.lifecycle.owner.Activity
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ActivityPlayGroundBinding
 import androidx.navigation.NavController
@@ -49,10 +49,31 @@ class PlayGroundActivity : Activity() {
     override fun initObservers() {
         super.initObservers()
         String::class.java.subscribe { toast(it) }
+        Destination::class.java.subscribe {
+            with(navController) {
+                if (currentDestination?.id != it.id) navigate(it.id)
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration)
+    }
+
+    enum class Destination(val id: Int) {
+        Backdrop(R.id.backdrop),
+        Core(R.id.core),
+        Firebase(R.id.firebase),
+        IO(R.id.io),
+        Extensions(0),
+        List(0),
+        Location(R.id.location),
+        Network(R.id.network),
+        Resources(R.id.resources);
+
+        companion object {
+            fun getById(id: Int) = values().firstOrNull { it.id == id }
+        }
     }
 
     companion object {

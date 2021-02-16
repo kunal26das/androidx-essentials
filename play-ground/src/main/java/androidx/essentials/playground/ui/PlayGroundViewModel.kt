@@ -6,7 +6,7 @@ import android.view.MenuInflater
 import android.widget.PopupMenu
 import androidx.core.view.children
 import androidx.essentials.core.injector.KoinComponent.inject
-import androidx.essentials.core.lifecycle.ViewModel
+import androidx.essentials.core.lifecycle.observer.ViewModel
 import androidx.essentials.firebase.Firebase
 import androidx.essentials.firebase.utils.UUID
 import androidx.essentials.location.LocationProvider
