@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Lifecycle
 
-open class ActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
+internal object ActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
 
     override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
         logActivityLifecycleEvent(activity, Lifecycle.Event.ON_CREATE)

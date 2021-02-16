@@ -1,4 +1,4 @@
-package androidx.essentials.core.lifecycle
+package androidx.essentials.core.lifecycle.observer
 
 import android.util.Log
 import androidx.lifecycle.Lifecycle

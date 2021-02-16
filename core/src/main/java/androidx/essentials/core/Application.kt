@@ -3,8 +3,8 @@ package androidx.essentials.core
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import androidx.essentials.core.lifecycle.ViewModel
 import androidx.essentials.core.lifecycle.callback.ActivityLifecycleCallbacks
+import androidx.essentials.core.lifecycle.observer.ViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.multidex.MultiDex
 import org.koin.android.ext.koin.androidContext
@@ -17,7 +17,6 @@ import org.koin.dsl.module
 abstract class Application : Application() {
 
     lateinit var koinApplication: KoinApplication
-    private val activityLifecycleCallbacks = ActivityLifecycleCallbacks()
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
@@ -25,7 +24,7 @@ abstract class Application : Application() {
     }
 
     override fun onCreate() {
-        registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
+        registerActivityLifecycleCallbacks(ActivityLifecycleCallbacks)
         Log.d(javaClass.simpleName, Lifecycle.Event.ON_CREATE.name)
         super.onCreate()
         startKoin {
@@ -44,7 +43,7 @@ abstract class Application : Application() {
     }
 
     override fun onTerminate() {
-        unregisterActivityLifecycleCallbacks(activityLifecycleCallbacks)
+        unregisterActivityLifecycleCallbacks(ActivityLifecycleCallbacks)
         Log.d(javaClass.simpleName, Event.ON_TERMINATE.name)
         super.onTerminate()
         stopKoin()

@@ -1,4 +1,4 @@
-package androidx.essentials.core.lifecycle
+package androidx.essentials.core.lifecycle.owner
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.essentials.core.events.Events
 import androidx.essentials.core.lifecycle.callback.FragmentLifecycleCallbacks
+import androidx.essentials.core.lifecycle.observer.ViewModel
 import androidx.lifecycle.LiveData
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.android.viewmodel.ext.android.viewModel as koinViewModel
@@ -17,21 +18,18 @@ import org.koin.android.viewmodel.ext.android.viewModel as koinViewModel
 abstract class Activity : AppCompatActivity() {
 
     abstract val layout: Int
+    protected abstract val viewModel: ViewModel
     protected open val binding: ViewDataBinding? = null
     private val compositeDisposable = CompositeDisposable()
-    private val fragmentLifecycleCallbacks = FragmentLifecycleCallbacks()
+    private val toast by lazy { Toast.makeText(this, "", Toast.LENGTH_SHORT) }
+    inline fun <reified T : ViewModel> Activity.viewModel() = koinViewModel<T>()
     inline fun <reified T : ViewDataBinding> Activity.dataBinding() = lazy {
         DataBindingUtil.setContentView(this, layout) as T
     }
 
-    protected abstract val viewModel: ViewModel
-    inline fun <reified T : ViewModel> AppCompatActivity.viewModel() = koinViewModel<T>()
-    private val toast by lazy { Toast.makeText(this, "", Toast.LENGTH_SHORT) }
-
-
     final override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentLifecycleCallbacks, true)
+        supportFragmentManager.registerFragmentLifecycleCallbacks(FragmentLifecycleCallbacks, true)
         onViewCreated(binding?.root!!, savedInstanceState)
         binding?.lifecycleOwner = this
         initObservers()
@@ -53,19 +51,18 @@ abstract class Activity : AppCompatActivity() {
         })
     }
 
-    protected fun resumeApplication(): Boolean {
-        return if (!isTaskRoot
-            && intent.action != null
-            && intent.action.equals(Intent.ACTION_MAIN)
-            && intent.hasCategory(Intent.CATEGORY_LAUNCHER)
-        ) {
-            finish()
-            true
-        } else false
-    }
+    protected fun resumeApplication() = if (
+        !isTaskRoot and
+        (intent.action != null) and
+        (intent.action.equals(Intent.ACTION_MAIN)) and
+        (intent.hasCategory(Intent.CATEGORY_LAUNCHER))
+    ) {
+        finish()
+        true
+    } else false
 
     override fun onDestroy() {
-        supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentLifecycleCallbacks)
+        supportFragmentManager.unregisterFragmentLifecycleCallbacks(FragmentLifecycleCallbacks)
         compositeDisposable.clear()
         super.onDestroy()
     }

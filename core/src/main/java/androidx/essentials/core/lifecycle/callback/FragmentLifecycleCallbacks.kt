@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 
-open class FragmentLifecycleCallbacks : FragmentManager.FragmentLifecycleCallbacks() {
+internal object FragmentLifecycleCallbacks : FragmentManager.FragmentLifecycleCallbacks() {
 
     override fun onFragmentAttached(
         fragmentManager: FragmentManager,
@@ -92,18 +92,15 @@ open class FragmentLifecycleCallbacks : FragmentManager.FragmentLifecycleCallbac
         logFragmentLifecycleEvent(fragment, Event.ON_SAVE_INSTANCE_STATE.name)
     }
 
-    protected open fun logFragmentLifecycleEvent(fragment: Fragment, event: String) {
+    private fun logFragmentLifecycleEvent(fragment: Fragment, event: String) {
         Log.d(fragment.javaClass.simpleName, event)
     }
 
-    companion object {
-
-        private enum class Event {
-            ON_ATTACH,
-            ON_DETACH,
-            ON_SAVE_INSTANCE_STATE,
-            ON_VIEW_CREATE,
-            ON_VIEW_DESTROY
-        }
+    private enum class Event {
+        ON_ATTACH,
+        ON_DETACH,
+        ON_SAVE_INSTANCE_STATE,
+        ON_VIEW_CREATE,
+        ON_VIEW_DESTROY
     }
 }

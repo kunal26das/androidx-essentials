@@ -1,4 +1,4 @@
-package androidx.essentials.core.lifecycle
+package androidx.essentials.core.lifecycle.owner
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.essentials.core.R
+import androidx.essentials.core.lifecycle.observer.ViewModel
+import androidx.essentials.extensions.Coroutines.default
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LiveData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -15,16 +17,17 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel as koinSharedViewM
 
 abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
 
+    @PublishedApi
+    internal val accessLayout
+        get() = layout
     protected abstract val layout: Int
+
+    @PublishedApi
+    internal lateinit var container: ViewGroup
     protected abstract val viewModel: ViewModel
     protected open val binding: ViewDataBinding? = null
     protected val activity by lazy { context as Activity }
 
-    @PublishedApi
-    internal val accessLayout
-        get() = layout
-    @PublishedApi
-    internal lateinit var container: ViewGroup
     @PublishedApi
     internal val inflater by lazy { LayoutInflater.from(context) }
     inline fun <reified T : ViewDataBinding> BottomSheetDialogFragment.dataBinding() = lazy {
@@ -42,9 +45,9 @@ abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
     final override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        this.container = container!!
+        this.container = container?.default { binding }!!
         binding?.lifecycleOwner = viewLifecycleOwner
-        return binding?.root ?: container
+        return binding?.root!!
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,16 +61,16 @@ abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
         observe(viewLifecycleOwner, { action.invoke(it) })
     }
 
-    protected fun <T> Class<T>.subscribe(action: (T) -> Unit) {
-        activity.apply { subscribe(action) }
+    protected fun <T> Class<T>.subscribe(action: (T) -> Unit) = activity.apply {
+        subscribe(action)
     }
 
-    protected fun toast(resId: Int, duration: Int = Toast.LENGTH_SHORT) {
-        activity.apply { toast(resId, duration) }
+    protected fun toast(resId: Int, duration: Int = Toast.LENGTH_SHORT) = activity.apply {
+        toast(resId, duration)
     }
 
-    protected fun toast(s: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
-        activity.apply { toast(s, duration) }
+    protected fun toast(s: CharSequence, duration: Int = Toast.LENGTH_SHORT) = activity.apply {
+        toast(s, duration)
     }
 
 }
