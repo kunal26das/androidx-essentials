@@ -11,9 +11,7 @@ object Coroutines {
     ): T {
         CoroutineScope(Dispatchers.Default).launch {
             kotlinx.coroutines.delay(timeMillis)
-            CoroutineScope(Dispatchers.Main).launch {
-                block()
-            }
+            CoroutineScope(Dispatchers.Main).launch { block() }
         }
         return this
     }
