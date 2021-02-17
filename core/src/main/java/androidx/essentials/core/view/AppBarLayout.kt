@@ -52,7 +52,7 @@ class AppBarLayout @JvmOverloads constructor(
 
         @JvmStatic
         @BindingAdapter("loading")
-        fun androidx.essentials.core.view.AppBarLayout.setIsLoading(isLoading: Boolean?) {
+        fun AppBarLayout.setIsLoading(isLoading: Boolean?) {
             this.isLoading = isLoading ?: false
         }
 

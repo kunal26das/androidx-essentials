@@ -93,17 +93,17 @@ open class AppBarLayoutBehaviour : CoordinatorLayout.Behavior<AppBarLayout>() {
     private fun animateChildTo(
         child: AppBarLayout, targetY: Int, duration: Long, interpolator: TimeInterpolator
     ) {
-        currentAnimator = child
-            .animate()
-            .translationY(targetY.toFloat())
-            .setInterpolator(interpolator)
-            .setDuration(duration)
-            .setListener(
+        currentAnimator = child.animate().apply {
+            translationY(targetY.toFloat())
+            setInterpolator(interpolator)
+            setDuration(duration)
+            setListener(
                 object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
                         currentAnimator = null
                     }
                 })
+        }
     }
 
     companion object {
