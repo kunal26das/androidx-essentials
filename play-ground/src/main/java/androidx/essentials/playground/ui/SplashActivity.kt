@@ -1,12 +1,13 @@
 package androidx.essentials.playground.ui
 
-import android.app.Activity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.essentials.core.lifecycle.owner.Activity.Companion.start
 
-class SplashActivity : Activity() {
+class SplashActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        PlayGroundActivity.start(this)?.finish()
+        PlayGroundActivity::class.java.start(this)?.finish()
     }
 
 }

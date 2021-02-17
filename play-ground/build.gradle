@@ -65,7 +65,7 @@ dependencies {
     implementation "com.google.android.material:material:$material_version"
 
     // Leak Canary
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
 
     dependencies {
         // AndroidX Essentials

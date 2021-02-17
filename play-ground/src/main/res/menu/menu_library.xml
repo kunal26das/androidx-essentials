@@ -19,9 +19,11 @@
             android:icon="@drawable/ic_space_bar_24dp"
             android:title="@string/io" />
         <item
+            android:id="@+id/extensions"
             android:icon="@drawable/ic_kotlin_24dp"
             android:title="@string/extensions" />
         <item
+            android:id="@+id/list"
             android:icon="@drawable/ic_list_24dp"
             android:title="@string/list" />
         <item
