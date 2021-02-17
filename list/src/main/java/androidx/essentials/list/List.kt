@@ -41,21 +41,19 @@ abstract class List<T, V : ListItemView<T>> @JvmOverloads constructor(
         adapter = loadingState
     }
 
-    fun submitList(list: kotlin.collections.List<T>?) {
-        when {
-            list == null -> {
-                layoutManager = linearLayoutManager
-                adapter = loadingState
-            }
-            list.isEmpty() -> {
-                layoutManager = linearLayoutManager
-                adapter = emptyState
-            }
-            else -> {
-                layoutManager = mLayoutManager
-                dataAdapter.submitList(list) {
-                    adapter = dataAdapter
-                }
+    fun submitList(list: kotlin.collections.List<T>?) = when {
+        list == null -> {
+            layoutManager = linearLayoutManager
+            adapter = loadingState
+        }
+        list.isEmpty() -> {
+            layoutManager = linearLayoutManager
+            adapter = emptyState
+        }
+        else -> {
+            layoutManager = mLayoutManager
+            dataAdapter.submitList(list) {
+                adapter = dataAdapter
             }
         }
     }
@@ -69,9 +67,7 @@ abstract class List<T, V : ListItemView<T>> @JvmOverloads constructor(
                 this@List.areContentsTheSame(oldItem, newItem)
         }
     ) {
-        override fun onCreateViewHolder(
-            parent: ViewGroup, viewType: Int
-        ) = this@List.onCreateViewHolder(parent, viewType)
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = onCreateViewHolder
 
         override fun onBindViewHolder(
             holder: ViewHolder, position: Int

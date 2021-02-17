@@ -46,16 +46,15 @@ abstract class PagedList<T, V : ListItemView<T>> @JvmOverloads constructor(
         adapter = loadingState
     }
 
-    fun submitList(list: PagedList<T>?) {
-        adapter = when (list) {
-            null -> {
-                layoutManager = linearLayoutManager
-                loadingState
-            }
-            else -> {
-                layoutManager = mLayoutManager
-                dataAdapter.submitList(list)
-                dataAdapter
+    fun submitList(list: PagedList<T>?) = when (list) {
+        null -> {
+            layoutManager = linearLayoutManager
+            adapter = loadingState
+        }
+        else -> {
+            layoutManager = mLayoutManager
+            dataAdapter.submitList(list) {
+                adapter = dataAdapter
             }
         }
     }
@@ -69,9 +68,7 @@ abstract class PagedList<T, V : ListItemView<T>> @JvmOverloads constructor(
                 this@PagedList.areContentsTheSame(oldItem, newItem)
         }
     ) {
-        override fun onCreateViewHolder(
-            parent: ViewGroup, viewType: Int
-        ) = this@PagedList.onCreateViewHolder(parent, viewType)
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = onCreateViewHolder
 
         override fun onBindViewHolder(
             holder: ViewHolder, position: Int

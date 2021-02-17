@@ -2,7 +2,6 @@ package androidx.essentials.list
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.essentials.list.adapter.ListStateAdapter
 import androidx.essentials.list.view.ListItemView
@@ -33,7 +32,7 @@ abstract class AbstractList<T, V : ListItemView<T>> @JvmOverloads constructor(
         layoutManager = LinearLayoutManager(context)
     }
 
-    abstract fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemView.ViewHolder<T>
+    abstract val onCreateViewHolder: ListItemView.ViewHolder<T>
 
     @CallSuper
     open fun onBindViewHolder(
