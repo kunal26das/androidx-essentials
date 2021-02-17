@@ -3,7 +3,7 @@ package androidx.essentials.list
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
+import androidx.annotation.CallSuper
 import androidx.essentials.list.adapter.ListStateAdapter
 import androidx.essentials.list.view.ListItemView
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class AbstractList<T, V : ViewDataBinding> @JvmOverloads constructor(
+abstract class AbstractList<T, V : ListItemView<T>> @JvmOverloads constructor(
     context: Context,
     attributes: AttributeSet? = null,
     defStyleAttr: Int = R.attr.recyclerViewStyle
@@ -23,18 +23,23 @@ abstract class AbstractList<T, V : ViewDataBinding> @JvmOverloads constructor(
 
     lateinit var emptyState: ListStateAdapter
     lateinit var loadingState: ListStateAdapter
+    abstract val dataAdapter: Adapter<ViewHolder>
     internal lateinit var mLayoutManager: LayoutManager
     internal lateinit var linearLayoutManager: LinearLayoutManager
-    abstract val dataAdapter: Adapter<ListItemView.ViewHolder<T, V>>
 
-    abstract fun onCreateViewHolder(
-        parent: ViewGroup, viewType: Int
-    ): ListItemView.ViewHolder<T, V>
+    init {
+        clipToPadding = false
+        overScrollMode = OVER_SCROLL_NEVER
+        layoutManager = LinearLayoutManager(context)
+    }
 
-    abstract fun onBindViewHolder(
-        holder: ListItemView.ViewHolder<T, V>,
-        position: Int, item: T
-    )
+    abstract fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemView.ViewHolder<T>
+
+    @CallSuper
+    open fun onBindViewHolder(
+        position: Int, item: T?,
+        holder: ListItemView.ViewHolder<T>
+    ) = item?.let { holder.bind(it) } as V
 
     open fun areItemsTheSame(oldItem: T, newItem: T) = false
 

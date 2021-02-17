@@ -3,7 +3,6 @@ package androidx.essentials.list
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import androidx.essentials.list.adapter.ListStateAdapter
 import androidx.essentials.list.view.ListItemView
 import androidx.paging.PagedList
@@ -12,14 +11,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 
-abstract class PagedList<T, V : ViewDataBinding> @JvmOverloads constructor(
+abstract class PagedList<T, V : ListItemView<T>> @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.recyclerViewStyle
 ) : AbstractList<T, V>(context, attrs, defStyleAttr) {
 
     init {
-        layoutManager = LinearLayoutManager(context)
         context.obtainStyledAttributes(attrs, R.styleable.PagedList, defStyleAttr, 0).apply {
             val orientation =
                 when (getInteger(R.styleable.List_android_orientation, DEFAULT_ORIENTATION)) {
@@ -46,7 +44,6 @@ abstract class PagedList<T, V : ViewDataBinding> @JvmOverloads constructor(
             recycle()
         }
         adapter = loadingState
-        clipToPadding = false
     }
 
     fun submitList(list: PagedList<T>?) {
@@ -63,7 +60,7 @@ abstract class PagedList<T, V : ViewDataBinding> @JvmOverloads constructor(
         }
     }
 
-    override val dataAdapter = object : PagedListAdapter<T, ListItemView.ViewHolder<T, V>>(
+    override val dataAdapter = object : PagedListAdapter<T, ViewHolder>(
         object : DiffUtil.ItemCallback<T>() {
             override fun areItemsTheSame(oldItem: T, newItem: T) =
                 this@PagedList.areItemsTheSame(oldItem, newItem)
@@ -77,12 +74,12 @@ abstract class PagedList<T, V : ViewDataBinding> @JvmOverloads constructor(
         ) = this@PagedList.onCreateViewHolder(parent, viewType)
 
         override fun onBindViewHolder(
-            holder: ListItemView.ViewHolder<T, V>, position: Int
+            holder: ViewHolder, position: Int
         ) {
-            getItem(position)?.apply {
-                holder.bind(this)
-                this@PagedList.onBindViewHolder(holder, position, this)
-            }
+            this@PagedList.onBindViewHolder(
+                position, getItem(position),
+                holder as ListItemView.ViewHolder<T>
+            )
         }
     }
 }

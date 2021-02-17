@@ -3,7 +3,6 @@ package androidx.essentials.list
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import androidx.essentials.list.adapter.ListStateAdapter
 import androidx.essentials.list.view.ListItemView
 import androidx.recyclerview.widget.DiffUtil
@@ -11,14 +10,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 
-abstract class List<T, V : ViewDataBinding> @JvmOverloads constructor(
+abstract class List<T, V : ListItemView<T>> @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.recyclerViewStyle
 ) : AbstractList<T, V>(context, attrs, defStyleAttr) {
 
     init {
-        layoutManager = LinearLayoutManager(context)
         context.obtainStyledAttributes(attrs, R.styleable.List, defStyleAttr, 0).apply {
             orientation =
                 when (getInteger(R.styleable.List_android_orientation, DEFAULT_ORIENTATION)) {
@@ -28,9 +26,7 @@ abstract class List<T, V : ViewDataBinding> @JvmOverloads constructor(
             linearLayoutManager = LinearLayoutManager(context, orientation, reverseLayout)
             val spanCount = getInteger(R.styleable.List_spanCount, DEFAULT_SPAN_COUNT)
             mLayoutManager = when {
-                spanCount > 1 -> GridLayoutManager(
-                    context, spanCount, orientation, reverseLayout
-                )
+                spanCount > 1 -> GridLayoutManager(context, spanCount, orientation, reverseLayout)
                 else -> linearLayoutManager
             }
             showDivider = getBoolean(R.styleable.List_dividers, DEFAULT_SHOW_DIVIDER)
@@ -43,7 +39,6 @@ abstract class List<T, V : ViewDataBinding> @JvmOverloads constructor(
             recycle()
         }
         adapter = loadingState
-        clipToPadding = false
     }
 
     fun submitList(list: kotlin.collections.List<T>?) {
@@ -65,7 +60,7 @@ abstract class List<T, V : ViewDataBinding> @JvmOverloads constructor(
         }
     }
 
-    override val dataAdapter = object : ListAdapter<T, ListItemView.ViewHolder<T, V>>(
+    override val dataAdapter = object : ListAdapter<T, ViewHolder>(
         object : DiffUtil.ItemCallback<T>() {
             override fun areItemsTheSame(oldItem: T, newItem: T) =
                 this@List.areItemsTheSame(oldItem, newItem)
@@ -79,13 +74,12 @@ abstract class List<T, V : ViewDataBinding> @JvmOverloads constructor(
         ) = this@List.onCreateViewHolder(parent, viewType)
 
         override fun onBindViewHolder(
-            holder: ListItemView.ViewHolder<T, V>, position: Int
+            holder: ViewHolder, position: Int
         ) {
-            getItem(position)?.apply {
-                holder.bind(this)
-                this@List.onBindViewHolder(holder, position, this)
-            }
+            this@List.onBindViewHolder(
+                position, getItem(position),
+                holder as ListItemView.ViewHolder<T>
+            )
         }
-
     }
 }
