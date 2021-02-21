@@ -1,44 +1,36 @@
 package androidx.essentials.playground
 
-import android.content.Context
-import android.os.Build
-import androidx.essentials.firebase.FirebaseApplication
+import androidx.essentials.core.Application
+import androidx.essentials.core.utils.SharedPreferences
 import androidx.essentials.location.LocationProvider
 import androidx.essentials.network.NetworkCallback
-import androidx.essentials.playground.ui.PlayGroundViewModel
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKeys
+import androidx.essentials.playground.ui.firebase.FirebaseViewModel
+import androidx.essentials.playground.ui.home.HomeViewModel
+import androidx.essentials.playground.ui.io.InputOutputViewModel
+import androidx.essentials.playground.ui.network.NetworkViewModel
+import androidx.essentials.playground.ui.shared_preferences.SharedPreferencesViewModel
+import com.facebook.stetho.Stetho
 
-class PlayGround : FirebaseApplication() {
+class PlayGround : Application() {
 
-    override val sharedPreferences by lazy {
-        when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
-                EncryptedSharedPreferences.create(
-                    packageName,
-                    MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
-                    applicationContext,
-                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-                )
-            }
-            else -> getSharedPreferences(packageName, Context.MODE_PRIVATE)!!
-        }
+    private val viewModels by lazy {
+        viewModel { HomeViewModel() }
+        viewModel { NetworkViewModel() }
+        viewModel { FirebaseViewModel() }
+        viewModel { InputOutputViewModel() }
+        viewModel { SharedPreferencesViewModel() }
+    }
+
+    private val modules by lazy {
+        single { SharedPreferences(this) }
+        single { NetworkCallback.getInstance(this) }
+        single { LocationProvider.getInstance(this) }
     }
 
     override fun onCreate() {
         super.onCreate()
-        initViewModels()
-        initComponents()
-    }
-
-    private fun initViewModels() {
-        viewModel { PlayGroundViewModel() }
-    }
-
-    private fun initComponents() {
-        single { LocationProvider.getInstance(applicationContext) }
-        single { NetworkCallback.getInstance(applicationContext) }
+        setOf(viewModels, modules)
+        Stetho.initializeWithDefaults(this)
     }
 
 }

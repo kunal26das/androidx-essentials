@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="androidx.essentials.playground">
 
-    <uses-sdk tools:overrideLibrary="androidx.security" />
-
     <application
         android:name=".PlayGround"
         android:allowBackup="true"
@@ -15,7 +13,7 @@
         android:theme="@style/DayNightStyle"
         tools:ignore="AllowBackup">
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".ui.splash.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.PlayGroundActivity">
+        <activity android:name=".ui.home.HomeActivity">
             <nav-graph android:value="@navigation/navigation_play_ground" />
         </activity>
     </application>

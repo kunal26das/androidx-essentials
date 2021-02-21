@@ -1,4 +1,4 @@
-package androidx.essentials.playground.ui
+package androidx.essentials.playground.ui.home
 
 import android.os.Bundle
 import android.view.View
@@ -6,18 +6,18 @@ import androidx.essentials.core.lifecycle.owner.NavigationActivity
 import androidx.essentials.extensions.Coroutines.default
 import androidx.essentials.extensions.Coroutines.main
 import androidx.essentials.playground.R
-import androidx.essentials.playground.databinding.ActivityPlayGroundBinding
+import androidx.essentials.playground.databinding.ActivityHomeBinding
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 
-class PlayGroundActivity : NavigationActivity() {
+class HomeActivity : NavigationActivity() {
 
-    override val layout = R.layout.activity_play_ground
+    override val layout = R.layout.activity_home
     override val navHostFragment = R.id.playGroundNavigation
 
-    override val viewModel by viewModel<PlayGroundViewModel>()
-    override val binding by dataBinding<ActivityPlayGroundBinding>()
+    override val viewModel by viewModel<HomeViewModel>()
+    override val binding by dataBinding<ActivityHomeBinding>()
 
     override val appBarConfiguration by lazy {
         AppBarConfiguration(navController.graph, binding.drawerLayout)
@@ -51,11 +51,9 @@ class PlayGroundActivity : NavigationActivity() {
         Core(R.id.core),
         Firebase(R.id.firebase),
         IO(R.id.io),
-        Extensions(R.id.extensions),
-        List(R.id.list),
         Location(R.id.location),
         Network(R.id.network),
-        Resources(R.id.resources);
+        SharedPreferences(R.id.sharedPreferences);
 
         companion object {
             fun getById(id: Int) = values().firstOrNull { it.id == id }

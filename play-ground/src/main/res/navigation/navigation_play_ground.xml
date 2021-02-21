@@ -6,37 +6,43 @@
 
     <fragment
         android:id="@+id/backdrop"
-        android:name="androidx.essentials.playground.ui.fragment.BackdropFragment"
+        android:name="androidx.essentials.playground.ui.backdrop.BackdropFragment"
         android:label="@string/backdrop"
         tools:layout="@layout/fragment_backdrop" />
 
     <fragment
         android:id="@+id/core"
-        android:name="androidx.essentials.playground.ui.fragment.CoreFragment"
+        android:name="androidx.essentials.playground.ui.home.HomeFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_core" />
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/firebase"
-        android:name="androidx.essentials.playground.ui.fragment.FirebaseFragment"
+        android:name="androidx.essentials.playground.ui.firebase.FirebaseFragment"
         android:label="@string/firebase"
         tools:layout="@layout/fragment_firebase" />
 
     <fragment
         android:id="@+id/io"
-        android:name="androidx.essentials.playground.ui.fragment.InputOutputFragment"
+        android:name="androidx.essentials.playground.ui.io.InputOutputFragment"
         android:label="@string/io"
         tools:layout="@layout/fragment_input_output" />
 
     <fragment
         android:id="@+id/location"
-        android:name="androidx.essentials.playground.ui.fragment.LocationFragment"
+        android:name="androidx.essentials.playground.ui.location.LocationFragment"
         android:label="@string/network"
         tools:layout="@layout/fragment_location" />
 
     <fragment
         android:id="@+id/network"
-        android:name="androidx.essentials.playground.ui.fragment.NetworkFragment"
+        android:name="androidx.essentials.playground.ui.network.NetworkFragment"
         android:label="@string/network"
         tools:layout="@layout/fragment_network" />
+
+    <fragment
+        android:id="@+id/sharedPreferences"
+        android:name="androidx.essentials.playground.ui.shared_preferences.SharedPreferencesFragment"
+        android:label="@string/shared_preferences"
+        tools:layout="@layout/fragment_shared_preferences" />
 </navigation>

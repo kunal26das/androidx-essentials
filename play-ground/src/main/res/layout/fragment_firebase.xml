@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="androidx.essentials.playground.ui.PlayGroundViewModel" />
+            type="androidx.essentials.playground.ui.firebase.FirebaseViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView

@@ -1,11 +1,10 @@
-package androidx.essentials.playground.list
+package androidx.essentials.playground.ui.home.library
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MenuItem
 import androidx.databinding.BindingAdapter
 import androidx.essentials.playground.R
-import androidx.essentials.playground.view.LibraryView
 
 class Libraries @JvmOverloads constructor(
     context: Context,

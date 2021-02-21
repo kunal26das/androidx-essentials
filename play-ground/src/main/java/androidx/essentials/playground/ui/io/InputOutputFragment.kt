@@ -1,16 +1,15 @@
-package androidx.essentials.playground.ui.fragment
+package androidx.essentials.playground.ui.io
 
 import android.os.Bundle
 import android.view.View
 import androidx.essentials.core.lifecycle.owner.Fragment
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentInputOutputBinding
-import androidx.essentials.playground.ui.PlayGroundViewModel
 
 class InputOutputFragment : Fragment() {
 
     override val layout = R.layout.fragment_input_output
-    override val viewModel by viewModel<PlayGroundViewModel>()
+    override val viewModel by viewModel<InputOutputViewModel>()
     override val binding by dataBinding<FragmentInputOutputBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

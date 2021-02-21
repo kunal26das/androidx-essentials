@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.fragment.InputOutputFragment">
+    tools:context=".ui.io.InputOutputFragment">
 
     <data>
 
         <variable
             name="viewModel"
-            type="androidx.essentials.playground.ui.PlayGroundViewModel" />
+            type="androidx.essentials.playground.ui.io.InputOutputViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -157,8 +157,7 @@
                     android:id="@+id/chips"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
-                    android:layout_marginVertical="8dp"
+                    android:layout_margin="8dp"
                     android:padding="12dp"
                     app:array="@{viewModel.libraryArray}"
                     app:chip="@layout/chip_filter"

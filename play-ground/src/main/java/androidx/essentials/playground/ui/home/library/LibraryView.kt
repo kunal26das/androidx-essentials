@@ -1,16 +1,16 @@
-package androidx.essentials.playground.view
+package androidx.essentials.playground.ui.home.library
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MenuItem
 import androidx.core.view.setMargins
-import androidx.essentials.core.events.Events
+import androidx.essentials.core.utils.Events
 import androidx.essentials.core.utils.Resources.dp
 import androidx.essentials.extensions.Coroutines.default
 import androidx.essentials.list.view.ListItemView
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ItemLibraryBinding
-import androidx.essentials.playground.ui.PlayGroundActivity
+import androidx.essentials.playground.ui.home.HomeActivity
 
 class LibraryView @JvmOverloads constructor(
     context: Context,
@@ -31,7 +31,7 @@ class LibraryView @JvmOverloads constructor(
         menuItem = item
         executePendingBindings()
         root.setOnClickListener {
-            default { Events.publish(PlayGroundActivity.Destination.getById(item.itemId)) }
+            default { Events.publish(HomeActivity.Destination.getById(item.itemId)) }
         }
     }
 

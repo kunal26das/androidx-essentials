@@ -6,11 +6,6 @@
             android:icon="@drawable/ic_rounded_corner_24dp"
             android:title="@string/backdrop" />
         <item
-            android:id="@+id/core"
-            android:checkable="true"
-            android:icon="@drawable/ic_radio_button_unchecked_24dp"
-            android:title="@string/core" />
-        <item
             android:id="@+id/firebase"
             android:icon="@drawable/ic_whatshot_24dp"
             android:title="@string/firebase" />
@@ -18,14 +13,6 @@
             android:id="@+id/io"
             android:icon="@drawable/ic_space_bar_24dp"
             android:title="@string/io" />
-        <item
-            android:id="@+id/extensions"
-            android:icon="@drawable/ic_kotlin_24dp"
-            android:title="@string/extensions" />
-        <item
-            android:id="@+id/list"
-            android:icon="@drawable/ic_list_24dp"
-            android:title="@string/list" />
         <item
             android:id="@+id/location"
             android:icon="@drawable/ic_location_on_24dp"
@@ -35,8 +22,7 @@
             android:icon="@drawable/ic_cloud_24dp"
             android:title="@string/network" />
         <item
-            android:id="@+id/resources"
-            android:icon="@drawable/ic_architecture_24dp"
-            android:title="@string/resources" />
+            android:id="@+id/sharedPreferences"
+            android:title="@string/shared_preferences" />
     </group>
 </menu>

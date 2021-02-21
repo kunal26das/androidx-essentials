@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="androidx.essentials.playground.ui.PlayGroundViewModel" />
+            type="androidx.essentials.playground.ui.location.LocationViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView

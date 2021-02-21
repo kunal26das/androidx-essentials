@@ -7,10 +7,10 @@
 
         <variable
             name="viewModel"
-            type="androidx.essentials.playground.ui.PlayGroundViewModel" />
+            type="androidx.essentials.playground.ui.home.HomeViewModel" />
     </data>
 
-    <androidx.essentials.playground.list.Libraries
+    <androidx.essentials.playground.ui.home.library.Libraries
         android:id="@+id/libraries"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

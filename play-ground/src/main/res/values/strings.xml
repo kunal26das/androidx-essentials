@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
+    <string name="_boolean">Boolean</string>
+
+    <string name="_float">Float</string>
+
+    <string name="_int">Int</string>
+
+    <string name="_long">Long</string>
+
+    <string name="_string">String</string>
+
     <string name="app_name">Play Ground</string>
 
     <string name="auto_complete">Auto Complete</string>
 
     <string name="backdrop">Backdrop</string>
 
-    <string name="core">Core</string>
-
     <string name="editable">Editable</string>
 
     <string name="end_date">End Date</string>
     <string name="end_time">End Time</string>
-
-    <string name="extensions">Extensions</string>
 
     <string name="firebase">Firebase</string>
 
     <string name="io">I/O</string>
 
     <string name="latitude">Latitude</string>
-
-    <string name="list">List</string>
 
     <string name="location">Location</string>
 
@@ -35,7 +39,7 @@
 
     <string name="online">Online</string>
 
-    <string name="resources">Resources</string>
+    <string name="shared_preferences">Shared Preferences</string>
 
     <string name="single_selection">Single Selection</string>
 
