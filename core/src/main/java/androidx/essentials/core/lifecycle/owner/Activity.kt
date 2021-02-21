@@ -10,9 +10,9 @@ import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.essentials.core.events.Events
 import androidx.essentials.core.lifecycle.callback.FragmentLifecycleCallbacks
 import androidx.essentials.core.lifecycle.observer.ViewModel
+import androidx.essentials.core.utils.Events
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LiveData
 import io.reactivex.rxjava3.disposables.CompositeDisposable

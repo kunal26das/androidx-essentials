@@ -1,4 +1,4 @@
-package androidx.essentials.core.events
+package androidx.essentials.core.utils
 
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.PublishSubject

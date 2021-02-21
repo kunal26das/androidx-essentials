@@ -12,6 +12,7 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
+import org.koin.core.module.Module
 import org.koin.dsl.module
 
 abstract class Application : Application() {
@@ -32,6 +33,14 @@ abstract class Application : Application() {
             koinApplication = this
             single { resources }
         }
+    }
+
+    inline fun <reified T> Application.module(modules: Module) {
+        koinApplication.modules(modules)
+    }
+
+    inline fun <reified T> Application.modules(modules: List<Module>) {
+        koinApplication.modules(modules)
     }
 
     inline fun <reified T> Application.single(noinline definition: () -> T) {
