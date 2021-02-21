@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -21,8 +22,8 @@ import org.koin.android.viewmodel.ext.android.viewModel as koinViewModel
 abstract class Activity : AppCompatActivity() {
 
     abstract val layout: Int
-    protected abstract val viewModel: ViewModel
     protected open val binding: ViewDataBinding? = null
+    protected open val viewModel by viewModels<ViewModel>()
     private val compositeDisposable = CompositeDisposable()
     private val toast by lazy { Toast.makeText(this, "", Toast.LENGTH_SHORT) }
     inline fun <reified T : ViewModel> Activity.viewModel() = koinViewModel<T>()

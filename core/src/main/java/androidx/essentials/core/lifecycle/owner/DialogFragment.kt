@@ -12,6 +12,7 @@ import androidx.essentials.core.R
 import androidx.essentials.core.lifecycle.observer.ViewModel
 import androidx.essentials.extensions.Coroutines.default
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.viewmodel.ext.android.sharedViewModel as koinSharedViewModel
@@ -25,9 +26,9 @@ abstract class DialogFragment : AppCompatDialogFragment() {
 
     @PublishedApi
     internal lateinit var container: ViewGroup
-    protected abstract val viewModel: ViewModel
     protected open val binding: ViewDataBinding? = null
     protected val activity by lazy { context as Activity }
+    protected open val viewModel by viewModels<ViewModel>()
 
     @PublishedApi
     internal val inflater by lazy { LayoutInflater.from(context) }
