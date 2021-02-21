@@ -9,7 +9,7 @@ import androidx.essentials.extensions.TryCatch.Try
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKeys
+import androidx.security.crypto.MasterKey
 import java.util.*
 
 @Suppress("UNCHECKED_CAST")
@@ -26,8 +26,10 @@ class SharedPreferences(
         when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !BuildConfig.DEBUG -> {
                 EncryptedSharedPreferences.create(
-                    name.toLowerCase(locale),
-                    MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC), context,
+                    context, name.toLowerCase(locale),
+                    MasterKey.Builder(context).apply {
+                        setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                    }.build(),
                     EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                     EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
                 )
