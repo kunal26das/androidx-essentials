@@ -51,7 +51,7 @@ class Chips @JvmOverloads constructor(
             }
         }
 
-    var selection = ArrayList<String>()
+    var selection = mutableListOf<String>()
         set(value) {
             field = value.default {
                 children.forEach {
@@ -111,15 +111,13 @@ class Chips @JvmOverloads constructor(
 
         @JvmStatic
         @BindingAdapter("selection")
-        fun Chips.setSelection(selection: Array<String>) {
-            this.selection = selection.toCollection(ArrayList())
+        fun Chips.setArray(selection: Array<String>?) {
+            this.selection = selection?.toCollection(ArrayList()) ?: mutableListOf()
         }
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "selection")
-        fun Chips.getSelection(): Array<String> {
-            return selection.toTypedArray()
-        }
+        fun Chips.getArray() = selection.toTypedArray()
 
         @JvmStatic
         @BindingAdapter(value = ["selectionAttrChanged"])

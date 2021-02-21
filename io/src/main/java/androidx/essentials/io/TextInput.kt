@@ -68,16 +68,30 @@ open class TextInput @JvmOverloads constructor(
 
         @JvmStatic
         @BindingAdapter("text")
-        fun TextInput.setText(text: String?) {
+        fun TextInput.setString(text: Any?) {
             when (fromUser) {
                 true -> fromUser = false
-                false -> this.text = text
+                false -> text?.let {
+                    this.text = "$it"
+                }
             }
         }
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
-        fun TextInput.getText() = text
+        fun TextInput.getString() = text
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "text")
+        fun TextInput.getInt() = text?.toIntOrNull()
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "text")
+        fun TextInput.getLong() = text?.toLongOrNull()
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "text")
+        fun TextInput.getFloat() = text?.toFloatOrNull()
 
         @JvmStatic
         @BindingAdapter(value = ["textAttrChanged"])

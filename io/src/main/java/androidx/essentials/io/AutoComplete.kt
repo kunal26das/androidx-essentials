@@ -115,16 +115,18 @@ class AutoComplete @JvmOverloads constructor(
 
         @JvmStatic
         @BindingAdapter("text")
-        fun AutoComplete.setText(text: String?) {
+        fun AutoComplete.setString(text: Any?) {
             when (fromUser) {
                 true -> fromUser = false
-                false -> this.text = text
+                false -> text?.let {
+                    this.text = "$it"
+                }
             }
         }
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
-        fun AutoComplete.getText() = text
+        fun AutoComplete.getString() = text
 
         @JvmStatic
         @BindingAdapter(value = ["textAttrChanged"])
