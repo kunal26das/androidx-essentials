@@ -24,7 +24,7 @@ abstract class FirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         log(Event.ON_NEW_TOKEN)
-        firebase.token = token
+        firebase.TOKEN = token
     }
 
     override fun onSendError(string: String, e: Exception) {

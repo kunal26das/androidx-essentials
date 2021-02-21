@@ -1,52 +1,70 @@
 package androidx.essentials.firebase
 
+import android.content.Context
+import androidx.essentials.core.injector.KoinComponent.inject
+import androidx.essentials.core.utils.SharedPreferences
+import androidx.lifecycle.LiveData
 import com.google.firebase.messaging.ktx.messaging
 
-class Firebase private constructor() {
+object Firebase {
 
-    var token: String? = null
+    var TOKEN: String? = null
         internal set(value) {
-            field = value
-            onTokenChangeListener?.onNewToken(value)
-        }
-
-    private var onTokenChangeListener: OnTokenChangeListener? = null
-
-    fun setOnTokenChangeListener(onTokenChangeListener: OnTokenChangeListener) {
-        this.onTokenChangeListener = onTokenChangeListener
-    }
-
-    fun setOnTokenChangeListener(action: (String?) -> Unit) {
-        setOnTokenChangeListener(object : OnTokenChangeListener {
-            override fun onNewToken(token: String?) {
-                action(token)
-            }
-        })
-    }
-
-    fun removeOnTokenChangeListener() {
-        onTokenChangeListener = null
-    }
-
-    interface OnTokenChangeListener {
-        fun onNewToken(token: String?)
-    }
-
-    companion object {
-
-        private var firebase: Firebase? = null
-
-        fun getInstance(): Firebase {
-            if (firebase != null) {
-                return firebase!!
-            }
-            synchronized(this) {
-                firebase = Firebase()
-                com.google.firebase.ktx.Firebase.messaging.token.addOnSuccessListener {
-                    firebase?.token = it
+            field = value?.apply {
+                onTokenChangeListeners.forEach {
+                    it.invoke(this)
                 }
-                return firebase!!
+            }
+        }
+
+    val token: LiveData<String> by lazy {
+        object : LiveData<String>(TOKEN) {
+
+            val onTokenChangeListener = { token: String -> value = token }
+
+            override fun onActive() {
+                super.onActive()
+                addOnTokenChangeListener(onTokenChangeListener)
+            }
+
+            override fun getValue() = TOKEN
+
+            override fun onInactive() {
+                removeOnTokenChangeListener(onTokenChangeListener)
+                super.onInactive()
             }
         }
     }
+
+    var UUID: String
+        get() {
+            with(sharedPreferences.getString(KEY_UUID)) {
+                return when {
+                    this.isNullOrBlank() -> "${java.util.UUID.randomUUID()}".apply { UUID = this }
+                    else -> this
+                }
+            }
+        }
+        internal set(value) = sharedPreferences.put(Pair(KEY_UUID, value))
+
+    private const val KEY_UUID = "uuid"
+    private val applicationContext by inject<Context>()
+    private val onTokenChangeListeners by lazy { mutableListOf<(String) -> Unit>() }
+
+    private val sharedPreferences by lazy {
+        SharedPreferences(applicationContext, javaClass.simpleName)
+    }
+
+    init {
+        com.google.firebase.ktx.Firebase.messaging.token.addOnSuccessListener { TOKEN = it }
+    }
+
+    fun addOnTokenChangeListener(onTokenChangeListener: (String) -> Unit) {
+        onTokenChangeListeners.add(onTokenChangeListener)
+    }
+
+    fun removeOnTokenChangeListener(onTokenChangeListener: (String) -> Unit) {
+        onTokenChangeListeners.remove(onTokenChangeListener)
+    }
+
 }
