@@ -74,9 +74,7 @@ abstract class ListItemView<I> @JvmOverloads constructor(
 
     override fun getLayoutParams() = super.getLayoutParams() as? MarginLayoutParams
 
-    open fun bind(item: I): ViewDataBinding {
-        return binding
-    }
+    open fun bind(item: I) = binding
 
     class ViewHolder<T>(
         private val listItemView: ListItemView<T>

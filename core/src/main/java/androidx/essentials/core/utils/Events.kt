@@ -19,6 +19,6 @@ object Events {
         it.printStackTrace()
     })
 
-    fun publish(event: Any?) = events.onNext(event)
+    fun Any.publish(event: Any) = events.onNext(event)
 
 }
