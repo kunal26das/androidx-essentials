@@ -2,7 +2,7 @@ package androidx.essentials.firebase
 
 import android.content.Context
 import androidx.essentials.core.injector.KoinComponent.inject
-import androidx.essentials.core.utils.SharedPreferences
+import androidx.essentials.preferences.SharedPreferences
 import androidx.lifecycle.LiveData
 import com.google.firebase.messaging.ktx.messaging
 
