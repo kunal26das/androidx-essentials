@@ -3,23 +3,18 @@
     <group android:id="@+id/libraries">
         <item
             android:id="@+id/backdrop"
-            android:icon="@drawable/ic_rounded_corner_24dp"
             android:title="@string/backdrop" />
         <item
             android:id="@+id/firebase"
-            android:icon="@drawable/ic_whatshot_24dp"
             android:title="@string/firebase" />
         <item
             android:id="@+id/io"
-            android:icon="@drawable/ic_space_bar_24dp"
             android:title="@string/io" />
         <item
             android:id="@+id/location"
-            android:icon="@drawable/ic_location_on_24dp"
             android:title="@string/location" />
         <item
             android:id="@+id/network"
-            android:icon="@drawable/ic_cloud_24dp"
             android:title="@string/network" />
         <item
             android:id="@+id/sharedPreferences"

@@ -87,8 +87,7 @@
                     app:mandatory="@{viewModel.isMandatory}"
                     app:mandatoryMessage="@string/mandatory_field"
                     app:past="false"
-                    app:regexMessage="@string/invalid_input"
-                    app:startIconDrawable="@drawable/ic_event_available_24dp" />
+                    app:regexMessage="@string/invalid_input" />
 
                 <androidx.essentials.io.Date
                     android:id="@+id/endDate"
@@ -108,8 +107,7 @@
                     app:mandatoryMessage="@string/mandatory_field"
                     app:past="false"
                     app:regexMessage="@string/invalid_input"
-                    app:startDate="@{viewModel.startDate}"
-                    app:startIconDrawable="@drawable/ic_event_available_24dp" />
+                    app:startDate="@{viewModel.startDate}" />
 
                 <include layout="@layout/divider_vertical" />
 
@@ -129,7 +127,6 @@
                     app:mandatory="@{viewModel.isMandatory}"
                     app:mandatoryMessage="@string/mandatory_field"
                     app:regexMessage="@string/invalid_input"
-                    app:startIconDrawable="@drawable/ic_event_available_24dp"
                     app:time="@={viewModel.startTime}" />
 
                 <androidx.essentials.io.Time
@@ -147,7 +144,6 @@
                     app:mandatory="@{viewModel.isMandatory}"
                     app:mandatoryMessage="@string/mandatory_field"
                     app:regexMessage="@string/invalid_input"
-                    app:startIconDrawable="@drawable/ic_event_available_24dp"
                     app:startTime="@{viewModel.startTime}"
                     app:time="@={viewModel.endTime}" />
 

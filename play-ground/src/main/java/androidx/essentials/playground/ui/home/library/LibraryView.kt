@@ -31,7 +31,10 @@ class LibraryView @JvmOverloads constructor(
         menuItem = item
         executePendingBindings()
         root.setOnClickListener {
-            default { Events.publish(HomeActivity.Destination.getById(item.itemId)) }
+            HomeActivity.Destination.default {
+//                EventBus.publish("${item.title}")
+                Events.publish(getById(item.itemId))
+            }
         }
     }
 

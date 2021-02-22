@@ -36,8 +36,7 @@ class HomeActivity : NavigationActivity() {
 
     override fun initObservers() {
         super.initObservers()
-        String::class.java.subscribe { toast(it) }
-        Destination::class.java.subscribe {
+        subscribe<Destination> {
             navController.default {
                 if ((it.id in graph.map { it.id }) and
                     (currentDestination?.id != it.id)

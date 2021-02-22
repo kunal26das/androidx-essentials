@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.textview.MaterialTextView
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="@string/app_name"
-        android:textSize="20sp" />
+        android:orientation="vertical">
 
-    <include layout="@layout/divider_vertical" />
-</androidx.appcompat.widget.LinearLayoutCompat>
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="@string/app_name"
+            android:textSize="20sp"
+            app:fontFamily="@font/product_sans_medium" />
+
+        <include layout="@layout/divider_vertical" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

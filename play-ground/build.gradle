@@ -63,7 +63,7 @@ dependencies {
     implementation "com.google.android.material:material:$material_version"
 
     // Leak Canary
-//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
 
     // Stetho
     implementation 'com.facebook.stetho:stetho:1.5.1'
@@ -79,6 +79,7 @@ dependencies {
         implementation project(path: ':network-state')
         implementation project(path: ':kotlin-extensions')
         implementation project(path: ':location-provider')
+        implementation project(path: ':shared-preferences')
     }
 
 }
