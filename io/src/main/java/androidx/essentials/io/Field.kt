@@ -25,7 +25,7 @@ abstract class Field @JvmOverloads constructor(
     protected var textChanged = false
     protected lateinit var mHint: String
     protected var mKeyListener: KeyListener? = null
-    private val activity = context as AppCompatActivity
+    private val activity = context as? AppCompatActivity
     private val inputMethodManager = InputMethodManager.getInstance(context)
     private val toast by lazy { Toast.makeText(context, "", Toast.LENGTH_SHORT) }
 
@@ -154,7 +154,7 @@ abstract class Field @JvmOverloads constructor(
     }
 
     protected fun DialogFragment.show() {
-        if (!isAdded) this@Field.activity.supportFragmentManager.let { show(it, null) }
+        if (!isAdded) this@Field.activity?.supportFragmentManager?.let { show(it, null) }
     }
 
     companion object {
