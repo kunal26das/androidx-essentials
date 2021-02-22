@@ -59,14 +59,22 @@ dependencies {
         implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     }
 
-    // Material Design
-    implementation "com.google.android.material:material:$material_version"
+    // Google
+    dependencies {
+        // Guava
+        implementation "com.google.guava:guava:30.1-android"
+        // Material Design
+        implementation "com.google.android.material:material:$material_version"
+    }
+
+    // Facebook
+    dependencies {
+        // Stetho
+        implementation 'com.facebook.stetho:stetho:1.5.1'
+    }
 
     // Leak Canary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
-
-    // Stetho
-    implementation 'com.facebook.stetho:stetho:1.5.1'
 
     dependencies {
         // AndroidX Essentials

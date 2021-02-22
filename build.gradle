@@ -29,7 +29,7 @@ buildscript {
         classpath 'com.google.gms:google-services:4.3.5'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.4.1'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
     }
@@ -39,9 +39,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven {
-            url "https://dl.bintray.com/kunal26das/androidx.essentials/"
-        }
+        maven { url "https://dl.bintray.com/kunal26das/androidx.essentials/" }
     }
 }
 

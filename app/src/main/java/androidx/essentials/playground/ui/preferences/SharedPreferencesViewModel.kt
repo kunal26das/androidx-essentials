@@ -2,10 +2,12 @@ package androidx.essentials.playground.ui.preferences
 
 import androidx.essentials.core.injector.KoinComponent.inject
 import androidx.essentials.core.lifecycle.observer.ViewModel
+import androidx.essentials.preferences.EncryptedSharedPreferences
 
 class SharedPreferencesViewModel : ViewModel() {
 
-    private val sharedPreferences by inject<androidx.essentials.preferences.SharedPreferences>()
+    private val sharedPreferences by inject<EncryptedSharedPreferences>()
+
     val _int = sharedPreferences.getMutableLiveData<Int>(KEY_INT)
     val _long = sharedPreferences.getMutableLiveData<Long>(KEY_LONG)
     val _float = sharedPreferences.getMutableLiveData<Float>(KEY_FLOAT)
