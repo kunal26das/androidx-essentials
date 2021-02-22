@@ -5,12 +5,12 @@ import androidx.essentials.core.injector.KoinComponent.inject
 import androidx.essentials.core.lifecycle.observer.ViewModel
 import androidx.essentials.core.utils.Resources
 import androidx.essentials.playground.R
-import androidx.essentials.preferences.SharedPreferences
+import androidx.essentials.preferences.EncryptedSharedPreferences
 import androidx.lifecycle.MutableLiveData
 
 class InputOutputViewModel : ViewModel() {
 
-    private val sharedPreferences by inject<SharedPreferences>()
+    private val sharedPreferences by inject<EncryptedSharedPreferences>()
 
     val selection = MutableLiveData(emptyArray<String>())
     val endDate = sharedPreferences.getMutableLiveData<Long>(KEY_END_DATE)
