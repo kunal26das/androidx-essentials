@@ -1,4 +1,4 @@
-package androidx.essentials.playground.ui.shared_preferences
+package androidx.essentials.playground.ui.preferences
 
 import androidx.essentials.core.injector.KoinComponent.inject
 import androidx.essentials.core.lifecycle.observer.ViewModel

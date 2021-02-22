@@ -10,9 +10,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         HomeActivity::class.java.start(
-            this, bundleOf(
-
-            )
+            this, bundleOf()
         )?.finish()
     }
 

@@ -42,7 +42,7 @@
 
     <fragment
         android:id="@+id/sharedPreferences"
-        android:name="androidx.essentials.playground.ui.shared_preferences.SharedPreferencesFragment"
+        android:name="androidx.essentials.playground.ui.preferences.SharedPreferencesFragment"
         android:label="@string/shared_preferences"
         tools:layout="@layout/fragment_shared_preferences" />
 </navigation>

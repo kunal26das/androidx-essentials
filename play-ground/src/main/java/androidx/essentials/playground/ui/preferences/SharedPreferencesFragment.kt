@@ -1,4 +1,4 @@
-package androidx.essentials.playground.ui.shared_preferences
+package androidx.essentials.playground.ui.preferences
 
 import android.os.Bundle
 import android.view.View

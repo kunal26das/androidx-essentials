@@ -32,7 +32,6 @@ class LibraryView @JvmOverloads constructor(
         executePendingBindings()
         root.setOnClickListener {
             HomeActivity.Destination.default {
-//                EventBus.publish("${item.title}")
                 Events.publish(getById(item.itemId))
             }
         }
