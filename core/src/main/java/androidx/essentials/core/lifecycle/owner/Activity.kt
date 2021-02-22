@@ -14,6 +14,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.essentials.core.lifecycle.callback.FragmentLifecycleCallbacks
 import androidx.essentials.core.lifecycle.observer.ViewModel
 import androidx.essentials.core.utils.Events
+import androidx.essentials.extensions.TryCatch.Try
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LiveData
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -22,14 +23,17 @@ import org.koin.android.viewmodel.ext.android.viewModel as koinViewModel
 abstract class Activity : AppCompatActivity() {
 
     abstract val layout: Int
+    val compositeDisposable = CompositeDisposable()
     protected open val binding: ViewDataBinding? = null
     protected open val viewModel by viewModels<ViewModel>()
-    private val compositeDisposable = CompositeDisposable()
     private val toast by lazy { Toast.makeText(this, "", Toast.LENGTH_SHORT) }
     inline fun <reified T : ViewModel> Activity.viewModel() = koinViewModel<T>()
     inline fun <reified T : ViewDataBinding> Activity.dataBinding() = lazy {
         DataBindingUtil.setContentView(this, layout) as T
     }
+
+    inline fun <reified T : Any> Activity.subscribe(crossinline action: (T) -> Unit) =
+        compositeDisposable.add(Events.subscribe<T> { action.invoke(it) })
 
     final override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,15 +59,7 @@ abstract class Activity : AppCompatActivity() {
         observe(this@Activity, { action.invoke(it) })
     }
 
-    fun <T> Class<T>.subscribe(action: (T) -> Unit) {
-        compositeDisposable.add(Events.subscribe(this) {
-            action.invoke(it)
-        })
-    }
-
-    fun DialogFragment.show() {
-        if (!isAdded) show(supportFragmentManager, null)
-    }
+    fun DialogFragment.show() = Try { if (!isAdded) show(supportFragmentManager, null) }
 
     protected fun resumeApplication() = if (
         !isTaskRoot and
@@ -104,10 +100,12 @@ abstract class Activity : AppCompatActivity() {
     companion object {
         fun <T : Activity> Class<T>.start(
             context: Context?,
+            bundle: Bundle = Bundle.EMPTY,
             flags: Int = Intent.FLAG_ACTIVITY_NEW_TASK
         ): Activity? {
             context?.startActivity(Intent(context, this).apply {
                 this.flags = flags
+                putExtras(bundle)
             })
             return context as? Activity
         }
