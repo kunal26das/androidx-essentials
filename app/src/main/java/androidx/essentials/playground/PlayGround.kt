@@ -9,7 +9,6 @@ import androidx.essentials.playground.ui.io.InputOutputViewModel
 import androidx.essentials.playground.ui.location.LocationViewModel
 import androidx.essentials.playground.ui.network.NetworkViewModel
 import androidx.essentials.playground.ui.preferences.SharedPreferencesViewModel
-import androidx.essentials.preferences.EncryptedSharedPreferences
 import com.facebook.stetho.Stetho
 
 class PlayGround : Application() {
@@ -24,7 +23,6 @@ class PlayGround : Application() {
     }
 
     private val modules by lazy {
-        single { EncryptedSharedPreferences(this) }
         single { NetworkCallback.getInstance(this) }
         single { LocationProvider.getInstance(this) }
     }

@@ -1,27 +1,26 @@
 package androidx.essentials.playground.ui.io
 
 import androidx.core.view.children
-import androidx.essentials.core.injector.KoinComponent.inject
 import androidx.essentials.core.lifecycle.observer.ViewModel
+import androidx.essentials.core.preference.SharedPreferences
+import androidx.essentials.core.preference.SharedPreferences.Companion.mutableLiveData
 import androidx.essentials.core.utils.Resources
 import androidx.essentials.playground.R
-import androidx.essentials.preferences.EncryptedSharedPreferences
 import androidx.lifecycle.MutableLiveData
 
-class InputOutputViewModel : ViewModel() {
-
-    private val sharedPreferences by inject<EncryptedSharedPreferences>()
+class InputOutputViewModel : ViewModel(), SharedPreferences {
 
     val selection = MutableLiveData(emptyArray<String>())
-    val endDate = sharedPreferences.getMutableLiveData<Long>(KEY_END_DATE)
-    val endTime = sharedPreferences.getMutableLiveData<Long>(KEY_END_TIME)
-    val startDate = sharedPreferences.getMutableLiveData<Long>(KEY_START_DATE)
-    val startTime = sharedPreferences.getMutableLiveData<Long>(KEY_START_TIME)
-    val textInput = sharedPreferences.getMutableLiveData<String>(KEY_TEXT_INPUT)
-    val isEditable = sharedPreferences.getMutableLiveData<Boolean>(KEY_IS_EDITABLE)
-    val isMandatory = sharedPreferences.getMutableLiveData<Boolean>(KEY_IS_MANDATORY)
-    val autoComplete = sharedPreferences.getMutableLiveData<String>(KEY_AUTO_COMPLETE)
-    val singleSelection = sharedPreferences.getMutableLiveData<Boolean>(KEY_SINGLE_SELECTION)
+
+    val endDate by mutableLiveData<Long>(KEY_END_DATE)
+    val endTime by mutableLiveData<Long>(KEY_END_TIME)
+    val startDate by mutableLiveData<Long>(KEY_START_DATE)
+    val startTime by mutableLiveData<Long>(KEY_START_TIME)
+    val textInput by mutableLiveData<String>(KEY_TEXT_INPUT)
+    val isEditable by mutableLiveData<Boolean>(KEY_IS_EDITABLE)
+    val isMandatory by mutableLiveData<Boolean>(KEY_IS_MANDATORY)
+    val autoComplete by mutableLiveData<String>(KEY_AUTO_COMPLETE)
+    val singleSelection by mutableLiveData<Boolean>(KEY_SINGLE_SELECTION)
 
     val libraryArray = Resources.getMenu(R.menu.menu_library).menu.children
         .toList().map { "${it.title}" }.toTypedArray()

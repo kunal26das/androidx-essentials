@@ -87,7 +87,6 @@ dependencies {
         implementation project(path: ':location')
         implementation project(path: ':resources')
         implementation project(path: ':extensions')
-        implementation project(path: ':preferences')
     }
 
 }
