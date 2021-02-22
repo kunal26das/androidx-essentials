@@ -2,6 +2,7 @@ package androidx.essentials.core.lifecycle.owner
 
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.CallSuper
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,8 +16,14 @@ abstract class NavigationActivity : Activity() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController =
-            (supportFragmentManager.findFragmentById(navHostFragment) as NavHostFragment).navController
+        initNavigation()
+    }
+
+    @CallSuper
+    protected open fun initNavigation() {
+        (supportFragmentManager.findFragmentById(navHostFragment) as NavHostFragment).apply {
+            this@NavigationActivity.navController = navController
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

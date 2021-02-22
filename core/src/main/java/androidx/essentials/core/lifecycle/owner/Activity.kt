@@ -98,16 +98,15 @@ abstract class Activity : AppCompatActivity() {
     }
 
     companion object {
-        fun <T : Activity> Class<T>.start(
-            context: Context?,
+        inline fun <reified T : Activity> Context.start(
             bundle: Bundle = Bundle.EMPTY,
             flags: Int = Intent.FLAG_ACTIVITY_NEW_TASK
         ): Activity? {
-            context?.startActivity(Intent(context, this).apply {
+            startActivity(Intent(this, T::class.java).apply {
                 this.flags = flags
                 putExtras(bundle)
             })
-            return context as? Activity
+            return this as? Activity
         }
     }
 
