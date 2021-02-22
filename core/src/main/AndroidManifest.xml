@@ -1,1 +1,5 @@
-<manifest package="androidx.essentials.core" />
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    package="androidx.essentials.core">
+
+    <uses-sdk tools:overrideLibrary="androidx.security" />
+</manifest>

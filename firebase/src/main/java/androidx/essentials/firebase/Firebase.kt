@@ -1,12 +1,12 @@
 package androidx.essentials.firebase
 
-import android.content.Context
-import androidx.essentials.core.injector.KoinComponent.inject
-import androidx.essentials.preferences.SharedPreferences
+import androidx.essentials.core.preference.SharedPreferences
+import androidx.essentials.core.preference.SharedPreferences.Companion.get
+import androidx.essentials.core.preference.SharedPreferences.Companion.put
 import androidx.lifecycle.LiveData
 import com.google.firebase.messaging.ktx.messaging
 
-object Firebase {
+object Firebase : SharedPreferences {
 
     var TOKEN: String? = null
         internal set(value) {
@@ -38,22 +38,17 @@ object Firebase {
 
     var UUID: String
         get() {
-            with(sharedPreferences.getString(KEY_UUID)) {
+            with(get<String>(KEY_UUID)) {
                 return when {
-                    this.isNullOrBlank() -> "${java.util.UUID.randomUUID()}".apply { UUID = this }
+                    isNullOrBlank() -> "${java.util.UUID.randomUUID()}".apply { UUID = this }
                     else -> this
                 }
             }
         }
-        internal set(value) = sharedPreferences.put(Pair(KEY_UUID, value))
+        internal set(value) = put(Pair(KEY_UUID, value))
 
     private const val KEY_UUID = "uuid"
-    private val applicationContext by inject<Context>()
     private val onTokenChangeListeners by lazy { mutableListOf<(String) -> Unit>() }
-
-    private val sharedPreferences by lazy {
-        SharedPreferences(applicationContext, javaClass.simpleName)
-    }
 
     init {
         com.google.firebase.ktx.Firebase.messaging.token.addOnSuccessListener { TOKEN = it }

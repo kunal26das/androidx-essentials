@@ -24,7 +24,6 @@ android {
 
 dependencies {
     implementation project(path: ':core')
-    implementation project(path: ':preferences')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     // Core

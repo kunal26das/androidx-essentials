@@ -1,4 +1,3 @@
-include ':preferences'
 include ':io'
 include ':core'
 include ':list'

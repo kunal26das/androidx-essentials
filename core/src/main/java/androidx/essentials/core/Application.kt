@@ -2,11 +2,15 @@ package androidx.essentials.core
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
+import android.os.Build
 import android.util.Log
 import androidx.essentials.core.lifecycle.callback.ActivityLifecycleCallbacks
 import androidx.essentials.core.lifecycle.observer.ViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.multidex.MultiDex
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.KoinApplication
@@ -18,6 +22,22 @@ import org.koin.dsl.module
 abstract class Application : Application() {
 
     lateinit var koinApplication: KoinApplication
+
+    private val sharedPreferences: SharedPreferences by lazy {
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !BuildConfig.DEBUG -> {
+                EncryptedSharedPreferences.create(
+                    this, packageName,
+                    MasterKey.Builder(this).apply {
+                        setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                    }.build(),
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+                )
+            }
+            else -> getSharedPreferences(packageName, MODE_PRIVATE)
+        }
+    }
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
@@ -32,6 +52,7 @@ abstract class Application : Application() {
             androidContext(applicationContext)
             koinApplication = this
             single { resources }
+            single { sharedPreferences }
         }
     }
 
