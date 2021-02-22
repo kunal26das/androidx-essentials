@@ -10,10 +10,7 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import java.util.*
 
-class SharedPreferences(
-    context: Context,
-    name: String = context.packageName
-) {
+class SharedPreferences(context: Context, name: String = context.packageName) {
 
     val ALL get() = sharedPreferences.all
     private val locale by lazy { Locale.getDefault() }
