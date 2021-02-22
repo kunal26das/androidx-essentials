@@ -5,7 +5,7 @@ import androidx.essentials.core.injector.KoinComponent.inject
 
 object Preferences : SharedPreferences, SharedPreferences.Editor {
 
-    val sharedPreferences by inject<SharedPreferences>()
+    private val sharedPreferences by inject<SharedPreferences>()
 
     override fun apply() = edit().apply()
     override fun clear() = edit().clear()!!

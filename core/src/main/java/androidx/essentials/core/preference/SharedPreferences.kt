@@ -10,34 +10,37 @@ interface SharedPreferences {
 
         fun Any.put(pair: Pair<String, Any?>) {
             val key = pair.first
+            val value = pair.second
             Preferences.edit().apply {
-                when (pair.second) {
+                when (value) {
                     null -> remove(key)
-                    else -> with(pair.second) {
-                        when (this) {
-                            is Int -> putInt(key, this)
-                            is Long -> putLong(key, this)
-                            is Float -> putFloat(key, this)
-                            is String -> putString(key, this)
-                            is Boolean -> putBoolean(key, this)
-                            else -> Unit
-                        }
+                    else -> when (value) {
+                        is Int -> putInt(key, value)
+                        is Long -> putLong(key, value)
+                        is Float -> putFloat(key, value)
+                        is String -> putString(key, value)
+                        is Boolean -> putBoolean(key, value)
+                        else -> Unit
                     }
                 }
             }.apply()
         }
 
-        inline fun <reified T> Any.get(key: String) = when (Preferences.contains(key)) {
-            false -> null
-            true -> when (T::class) {
-                Int::class -> Preferences.getInt(key)
-                Long::class -> Preferences.getLong(key)
-                Float::class -> Preferences.getFloat(key)
-                String::class -> Preferences.getString(key)
-                Boolean::class -> Preferences.getBoolean(key)
-                else -> null
+        inline fun <reified T> Any.get(key: String): T? {
+            with(Preferences) {
+                return when (contains(key)) {
+                    true -> when (T::class) {
+                        Int::class -> getInt(key)
+                        Long::class -> getLong(key)
+                        Float::class -> getFloat(key)
+                        String::class -> getString(key)
+                        Boolean::class -> getBoolean(key)
+                        else -> null
+                    }
+                    false -> null
+                } as? T
             }
-        } as? T
+        }
 
         inline fun <reified T> Any.liveData(key: String): Lazy<LiveData<T?>> = lazy {
             object : LiveData<T?>(), SharedPreferences.OnSharedPreferenceChangeListener {
