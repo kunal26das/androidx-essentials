@@ -1,18 +1,15 @@
-package androidx.essentials.core.utils
+package androidx.essentials.preferences
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.os.Build
-import androidx.essentials.core.BuildConfig
-import androidx.essentials.extensions.TryCatch.Try
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import java.util.*
 
-@Suppress("UNCHECKED_CAST")
 class SharedPreferences(
     context: Context,
     name: String = context.packageName
@@ -22,7 +19,7 @@ class SharedPreferences(
     private val locale by lazy { Locale.getDefault() }
     private val editor get() = sharedPreferences.edit()
 
-    private val sharedPreferences by lazy {
+    val sharedPreferences by lazy {
         when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !BuildConfig.DEBUG -> {
                 EncryptedSharedPreferences.create(
@@ -63,27 +60,21 @@ class SharedPreferences(
         }
     }
 
-    fun <T> get(key: String): T? {
-        when (contains(key)) {
-            false -> return null
-            true -> {
-                repeat(5) {
-                    Try {
-                        return when (it) {
-                            0 -> getInt(key)
-                            1 -> getLong(key)
-                            2 -> getFloat(key)
-                            3 -> getBoolean(key)
-                            else -> getString(key)
-                        } as? T
-                    }
-                }
-                return null
+    inline fun <reified T> get(key: String): T? {
+        return when (contains(key)) {
+            false -> null
+            true -> when (T::class) {
+                Int::class -> getInt(key)
+                Long::class -> getLong(key)
+                Float::class -> getFloat(key)
+                String::class -> getString(key)
+                Boolean::class -> getBoolean(key)
+                else -> null
             }
-        }
+        } as? T
     }
 
-    fun <T> getLiveData(
+    inline fun <reified T> getLiveData(
         key: String, value: T? = null
     ): LiveData<T> = object : LiveData<T>(value),
         SharedPreferences.OnSharedPreferenceChangeListener {
@@ -91,7 +82,6 @@ class SharedPreferences(
         private val key = key
 
         override fun onActive() {
-            super.onActive()
             sharedPreferences.registerOnSharedPreferenceChangeListener(this)
         }
 
@@ -108,11 +98,10 @@ class SharedPreferences(
 
         override fun onInactive() {
             sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
-            super.onInactive()
         }
     }
 
-    fun <T> getMutableLiveData(
+    inline fun <reified T> getMutableLiveData(
         key: String, value: T? = null
     ): MutableLiveData<T> = object : MutableLiveData<T>(value),
         SharedPreferences.OnSharedPreferenceChangeListener {
@@ -120,7 +109,6 @@ class SharedPreferences(
         private val key = key
 
         override fun onActive() {
-            super.onActive()
             sharedPreferences.registerOnSharedPreferenceChangeListener(this)
         }
 
@@ -144,7 +132,6 @@ class SharedPreferences(
 
         override fun onInactive() {
             sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
-            super.onInactive()
         }
 
     }
@@ -189,8 +176,9 @@ class SharedPreferences(
                         is Int -> putInt(key, this)
                         is Long -> putLong(key, this)
                         is Float -> putFloat(key, this)
+                        is String -> putString(key, this)
                         is Boolean -> putBoolean(key, this)
-                        else -> putString(key, "$this")
+                        else -> Unit
                     }
                 }
             }

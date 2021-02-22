@@ -21,6 +21,7 @@
             <option value="$PROJECT_DIR$/network-state" />
             <option value="$PROJECT_DIR$/play-ground" />
             <option value="$PROJECT_DIR$/resources" />
+            <option value="$PROJECT_DIR$/shared-preferences" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
