@@ -3,33 +3,17 @@ package androidx.essentials.preferences
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import android.os.Build
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKey
 import java.util.*
 
-class SharedPreferences(context: Context, name: String = context.packageName) {
+open class SharedPreferences(context: Context, name: String = context.packageName) {
 
     val ALL get() = sharedPreferences.all
-    private val locale by lazy { Locale.getDefault() }
     private val editor get() = sharedPreferences.edit()
-
-    val sharedPreferences by lazy {
-        when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !BuildConfig.DEBUG -> {
-                EncryptedSharedPreferences.create(
-                    context, name.toLowerCase(locale),
-                    MasterKey.Builder(context).apply {
-                        setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-                    }.build(),
-                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-                )
-            }
-            else -> context.getSharedPreferences(name, MODE_PRIVATE)!!
-        }
+    protected val locale: Locale by lazy { Locale.getDefault() }
+    open val sharedPreferences: SharedPreferences by lazy {
+        context.getSharedPreferences(name.toLowerCase(locale), MODE_PRIVATE)
     }
 
     val all: LiveData<Map<String, Any?>> by lazy {
