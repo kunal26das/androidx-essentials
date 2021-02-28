@@ -18,41 +18,36 @@ class BottomSheetView @JvmOverloads constructor(
 
     private var state = STATE_EXPANDED
         set(value) {
-            field = value
-            Try {
-                bottomSheetBehaviour.state = value
+            field = value.Try {
+                bottomSheetBehaviour.state = this
             }
         }
 
     var peekHeight = DEFAULT_PEEK_HEIGHT
         set(value) {
-            field = value
-            Try {
-                bottomSheetBehaviour.peekHeight = value
+            field = value.Try {
+                bottomSheetBehaviour.peekHeight = this
             }
         }
 
     var isDraggable = DEFAULT_IS_DRAGGABLE
         set(value) {
-            field = value
-            Try {
-                bottomSheetBehaviour.isDraggable = value
+            field = value.Try {
+                bottomSheetBehaviour.isDraggable = this
             }
         }
 
     var skipCollapsed = false
         set(value) {
-            field = value
-            Try {
-                bottomSheetBehaviour.skipCollapsed = value
+            field = value.Try {
+                bottomSheetBehaviour.skipCollapsed = this
             }
         }
 
     var isHideable = false
         set(value) {
-            field = value
-            Try {
-                bottomSheetBehaviour.isHideable = value
+            field = value.Try {
+                bottomSheetBehaviour.isHideable = this
             }
         }
 
@@ -90,14 +85,16 @@ class BottomSheetView @JvmOverloads constructor(
     }
 
     private fun initBottomSheetBehaviour() {
-        (layoutParams as CoordinatorLayout.LayoutParams).apply {
-            bottomSheetBehaviour = BottomSheetBehavior()
-            bottomSheetBehaviour.skipCollapsed = skipCollapsed
-            bottomSheetBehaviour.isDraggable = isDraggable
-            bottomSheetBehaviour.isHideable = isHideable
-            bottomSheetBehaviour.peekHeight = peekHeight
-            bottomSheetBehaviour.state = state
-            behavior = bottomSheetBehaviour
+        if (layoutParams is CoordinatorLayout.LayoutParams) {
+            (layoutParams as CoordinatorLayout.LayoutParams).apply {
+                bottomSheetBehaviour = BottomSheetBehavior()
+                bottomSheetBehaviour.skipCollapsed = skipCollapsed
+                bottomSheetBehaviour.isDraggable = isDraggable
+                bottomSheetBehaviour.isHideable = isHideable
+                bottomSheetBehaviour.peekHeight = peekHeight
+                bottomSheetBehaviour.state = state
+                behavior = bottomSheetBehaviour
+            }
         }
     }
 
