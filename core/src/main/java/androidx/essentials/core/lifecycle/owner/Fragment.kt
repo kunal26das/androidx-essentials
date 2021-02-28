@@ -24,6 +24,13 @@ abstract class Fragment : Fragment() {
         get() = layout
     protected abstract val layout: Int
 
+    protected var hasOptionsMenu: Boolean? = null
+        set(value) {
+            field = value?.apply {
+                setHasOptionsMenu(this)
+            }
+        }
+
     @PublishedApi
     internal lateinit var container: ViewGroup
     val activity by lazy { context as Activity }
@@ -44,7 +51,8 @@ abstract class Fragment : Fragment() {
     final override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        this.container = container?.default { binding }!!
+        this.container = container!!
+        default { binding }
         binding?.lifecycleOwner = viewLifecycleOwner
         return binding?.root!!
     }

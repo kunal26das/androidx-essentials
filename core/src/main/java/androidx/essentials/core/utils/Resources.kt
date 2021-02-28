@@ -23,7 +23,7 @@ object Resources {
     val Float.dp
         get() = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
-            toFloat(), resources.displayMetrics
+            this, resources.displayMetrics
         )
 
     val HEIGHT_STATUS_BAR = resources.getDimensionPixelSize(
@@ -36,6 +36,6 @@ object Resources {
 
     fun getMenu(@MenuRes menuRes: Int) = PopupMenu(applicationContext, null).apply {
         MenuInflater(applicationContext).inflate(menuRes, menu)
-    }
+    }.menu!!
 
 }

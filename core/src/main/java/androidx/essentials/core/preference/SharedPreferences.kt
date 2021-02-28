@@ -28,17 +28,21 @@ interface SharedPreferences {
 
         inline fun <reified T> Any.get(key: String): T? {
             with(Preferences) {
-                return when (contains(key)) {
-                    true -> when (T::class) {
-                        Int::class -> getInt(key)
-                        Long::class -> getLong(key)
-                        Float::class -> getFloat(key)
-                        String::class -> getString(key)
-                        Boolean::class -> getBoolean(key)
-                        else -> null
-                    }
-                    false -> null
-                } as? T
+                return try {
+                    when (contains(key)) {
+                        true -> when (T::class) {
+                            Int::class -> getInt(key)
+                            Long::class -> getLong(key)
+                            Float::class -> getFloat(key)
+                            String::class -> getString(key)
+                            Boolean::class -> getBoolean(key)
+                            else -> null
+                        }
+                        false -> null
+                    } as? T
+                } catch (e: ClassCastException) {
+                    null
+                }
             }
         }
 
