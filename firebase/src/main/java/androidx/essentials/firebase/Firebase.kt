@@ -1,16 +1,16 @@
 package androidx.essentials.firebase
 
-import androidx.essentials.core.preference.SharedPreferences
-import androidx.essentials.core.preference.SharedPreferences.Companion.get
-import androidx.essentials.core.preference.SharedPreferences.Companion.put
+import androidx.essentials.core.preference.SharedPreferences.get
+import androidx.essentials.core.preference.SharedPreferences.put
 import androidx.lifecycle.LiveData
 import com.google.firebase.messaging.ktx.messaging
 
-object Firebase : SharedPreferences {
+object Firebase {
 
-    var TOKEN: String? = null
+    var TOKEN = get<String>(Preference.TOKEN)
         internal set(value) {
             field = value?.apply {
+                put(Pair(Preference.TOKEN, value))
                 onTokenChangeListeners.forEach {
                     it.invoke(this)
                 }
@@ -38,16 +38,15 @@ object Firebase : SharedPreferences {
 
     var UUID: String
         get() {
-            with(get<String>(KEY_UUID)) {
+            with(get<String>(Preference.UUID)) {
                 return when {
                     isNullOrBlank() -> "${java.util.UUID.randomUUID()}".apply { UUID = this }
                     else -> this
                 }
             }
         }
-        internal set(value) = put(Pair(KEY_UUID, value))
+        internal set(value) = put(Pair(Preference.UUID, value))
 
-    private const val KEY_UUID = "uuid"
     private val onTokenChangeListeners by lazy { mutableListOf<(String) -> Unit>() }
 
     init {
@@ -60,6 +59,10 @@ object Firebase : SharedPreferences {
 
     fun removeOnTokenChangeListener(onTokenChangeListener: (String) -> Unit) {
         onTokenChangeListeners.remove(onTokenChangeListener)
+    }
+
+    private enum class Preference {
+        TOKEN, UUID
     }
 
 }
