@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="androidx.essentials.playground.ui.firebase.FirebaseViewModel" />
+            name="firebase"
+            type="androidx.essentials.firebase.Firebase" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -31,7 +31,7 @@
                 android:layout_marginBottom="8dp"
                 android:hint="@string/uuid"
                 app:editable="false"
-                app:text="@{viewModel.uuid}" />
+                app:text="@{firebase.UUID}" />
 
             <androidx.essentials.io.TextInput
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -42,7 +42,7 @@
                 android:layout_marginBottom="24dp"
                 android:hint="@string/token"
                 app:editable="false"
-                app:text="@{viewModel.token}" />
+                app:text="@{firebase.token}" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 </layout>

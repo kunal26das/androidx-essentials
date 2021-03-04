@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.date.DateFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="androidx.essentials.playground.ui.time.TimeViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="?actionBarSize"
+            android:orientation="vertical"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="16dp"
+            tools:layout_marginVertical="0dp">
+
+            <androidx.essentials.io.Time
+                android:id="@+id/startTime"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="@string/start_time"
+                app:editable="@{viewModel.isEditable}"
+                app:endIconMode="clear_text"
+                app:endTime="@{viewModel.endTime}"
+                app:helperText="@{String.valueOf(viewModel.startTime)}"
+                app:hintEnabled="@{viewModel.isHintEnabled}"
+                app:mandatory="@{viewModel.isMandatory}"
+                app:mandatoryMessage="@string/mandatory_field"
+                app:regexMessage="@string/invalid_input"
+                app:time="@={viewModel.startTime}" />
+
+            <androidx.essentials.io.Time
+                android:id="@+id/endTime"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="@string/end_time"
+                app:editable="@{viewModel.isEditable}"
+                app:endIconMode="clear_text"
+                app:helperText="@{String.valueOf(viewModel.endTime)}"
+                app:hintEnabled="@{viewModel.isHintEnabled}"
+                app:mandatory="@{viewModel.isMandatory}"
+                app:mandatoryMessage="@string/mandatory_field"
+                app:regexMessage="@string/invalid_input"
+                app:startTime="@{viewModel.startTime}"
+                app:time="@={viewModel.endTime}" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={viewModel.isEditable}"
+                    android:text="@string/editable" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={viewModel.isHintEnabled}"
+                    android:text="@string/hint" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={viewModel.isMandatory}"
+                    android:text="@string/mandatory" />
+            </com.google.android.material.chip.ChipGroup>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/validate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:text="@string/validate"
+            android:textColor="@color/colorBackground"
+            app:backgroundTint="@color/colorPrimary"
+            app:icon="@drawable/ic_check_24dp"
+            app:iconTint="@color/colorBackground"
+            app:layout_behavior="androidx.essentials.resources.view.behaviour.ExtendedFloatingActionButton" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

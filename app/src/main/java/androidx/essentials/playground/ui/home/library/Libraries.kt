@@ -18,7 +18,7 @@ class Libraries @JvmOverloads constructor(
     companion object {
 
         @JvmStatic
-        @BindingAdapter("libraries")
+        @BindingAdapter("list")
         fun Libraries.submitList(
             libraries: List<MenuItem>?
         ) = submitList(libraries)

@@ -20,7 +20,7 @@ class LibraryView @JvmOverloads constructor(
     override val binding by dataBinding<ItemLibraryBinding>()
 
     init {
-        radius = 8f.dp
+        radius = 4f.dp
         elevation = 4f.dp
         layoutParams?.setMargins(8.dp)
     }

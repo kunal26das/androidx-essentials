@@ -2,7 +2,13 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/core">
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/autoComplete"
+        android:name="androidx.essentials.playground.ui.auto_complete.AutoCompleteFragment"
+        android:label="@string/auto_complete"
+        tools:layout="@layout/fragment_auto_complete" />
 
     <fragment
         android:id="@+id/backdrop"
@@ -11,7 +17,13 @@
         tools:layout="@layout/fragment_backdrop" />
 
     <fragment
-        android:id="@+id/core"
+        android:id="@+id/chips"
+        android:name="androidx.essentials.playground.ui.chips.ChipsFragment"
+        android:label="@string/chips"
+        tools:layout="@layout/fragment_chips" />
+
+    <fragment
+        android:id="@+id/home"
         android:name="androidx.essentials.playground.ui.home.HomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_home" />
@@ -23,15 +35,15 @@
         tools:layout="@layout/fragment_firebase" />
 
     <fragment
-        android:id="@+id/io"
-        android:name="androidx.essentials.playground.ui.io.InputOutputFragment"
-        android:label="@string/io"
-        tools:layout="@layout/fragment_input_output" />
+        android:id="@+id/date"
+        android:name="androidx.essentials.playground.ui.date.DateFragment"
+        android:label="@string/date"
+        tools:layout="@layout/fragment_date" />
 
     <fragment
         android:id="@+id/location"
         android:name="androidx.essentials.playground.ui.location.LocationFragment"
-        android:label="@string/network"
+        android:label="@string/location"
         tools:layout="@layout/fragment_location" />
 
     <fragment
@@ -45,4 +57,16 @@
         android:name="androidx.essentials.playground.ui.preferences.SharedPreferencesFragment"
         android:label="@string/shared_preferences"
         tools:layout="@layout/fragment_shared_preferences" />
+
+    <fragment
+        android:id="@+id/textInput"
+        android:name="androidx.essentials.playground.ui.text_input.TextInputFragment"
+        android:label="@string/text_input"
+        tools:layout="@layout/fragment_text_input" />
+
+    <fragment
+        android:id="@+id/time"
+        android:name="androidx.essentials.playground.ui.time.TimeFragment"
+        android:label="@string/time"
+        tools:layout="@layout/fragment_time" />
 </navigation>

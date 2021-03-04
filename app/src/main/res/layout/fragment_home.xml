@@ -20,7 +20,7 @@
         android:paddingHorizontal="8dp"
         android:paddingVertical="16dp"
         android:scrollbars="vertical"
-        app:libraries="@{viewModel.libraryList}"
+        app:list="@{viewModel.libraries}"
         app:spanCount="2"
         tools:listitem="@layout/item_library" />
 </layout>

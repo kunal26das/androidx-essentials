@@ -2,14 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:id="@+id/libraries">
         <item
+            android:id="@+id/autoComplete"
+            android:title="@string/auto_complete" />
+        <item
             android:id="@+id/backdrop"
             android:title="@string/backdrop" />
+        <item
+            android:id="@+id/chips"
+            android:title="@string/chips" />
         <item
             android:id="@+id/firebase"
             android:title="@string/firebase" />
         <item
-            android:id="@+id/io"
-            android:title="@string/io" />
+            android:id="@+id/date"
+            android:title="@string/date" />
         <item
             android:id="@+id/location"
             android:title="@string/location" />
@@ -19,5 +25,11 @@
         <item
             android:id="@+id/sharedPreferences"
             android:title="@string/shared_preferences" />
+        <item
+            android:id="@+id/textInput"
+            android:title="@string/text_input" />
+        <item
+            android:id="@+id/time"
+            android:title="@string/time" />
     </group>
 </menu>

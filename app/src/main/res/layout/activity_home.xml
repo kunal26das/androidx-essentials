@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_app_bar_horizontal"
                 android:layout_marginVertical="@dimen/margin_app_bar_vertical"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="4dp"
                 app:cardElevation="4dp" />
 
             <androidx.fragment.app.FragmentContainerView

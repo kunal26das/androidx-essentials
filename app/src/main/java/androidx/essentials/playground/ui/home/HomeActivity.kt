@@ -1,15 +1,12 @@
 package androidx.essentials.playground.ui.home
 
-import androidx.annotation.IdRes
 import androidx.essentials.core.lifecycle.owner.NavigationActivity
 import androidx.essentials.core.preference.SharedPreferences
-import androidx.essentials.core.preference.SharedPreferences.Companion.get
-import androidx.essentials.core.preference.SharedPreferences.Companion.put
-import androidx.essentials.extensions.Coroutines.default
-import androidx.essentials.extensions.Coroutines.main
+import androidx.essentials.core.preference.SharedPreferences.get
+import androidx.essentials.core.preference.SharedPreferences.put
+import androidx.essentials.playground.Preference
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ActivityHomeBinding
-import androidx.essentials.playground.ui.home.HomeViewModel.Companion.KEY_DESTINATION
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -31,7 +28,7 @@ class HomeActivity : NavigationActivity() {
         binding.navigationView.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.appBarLayout.toolbar.setTitleTextAppearance(this, R.style.ToolbarTitle)
-        SharedPreferences.get<String>(KEY_DESTINATION)?.let {
+        SharedPreferences.get<String>(Preference.DESTINATION)?.let {
             destination[it]?.let { navigate(it) }
         }
     }
@@ -41,26 +38,20 @@ class HomeActivity : NavigationActivity() {
         subscribe<Int> { navigate(it) }
     }
 
-    private fun navigate(@IdRes resId: Int) {
-        navController.default {
-            if ((resId in graph.map { it.id })) {
-                if ((currentDestination?.id != resId)) main {
-                    SharedPreferences.put(Pair(KEY_DESTINATION, destination.inverse()[resId]))
-                    navigate(resId)
-                }
-            }
-        }
+    override fun navigate(destination: Int) {
+        super.navigate(destination)
+        SharedPreferences.put(Pair(Preference.DESTINATION, destination))
     }
 
     companion object {
         private val destination = HashBiMap.create<String, Int>().apply {
             this["shared_preferences"] = R.id.sharedPreferences
-            this["location"] = R.id.location
-            this["firebase"] = R.id.firebase
             this["backdrop"] = R.id.backdrop
+            this["firebase"] = R.id.firebase
+            this["location"] = R.id.location
             this["network"] = R.id.network
+            this["date"] = R.id.date
             this["home"] = R.id.home
-            this["io"] = R.id.io
         }
     }
 

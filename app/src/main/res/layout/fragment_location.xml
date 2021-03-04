@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -13,25 +14,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/firebaseList"
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginVertical="?actionBarSize"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="16dp"
+            tools:layout_marginVertical="0dp">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginVertical="24dp"
-                android:orientation="horizontal">
+            <TableRow>
 
                 <androidx.essentials.io.TextInput
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
+                    android:layout_margin="8dp"
                     android:layout_weight="1"
                     android:hint="@string/latitude"
                     app:editable="false"
@@ -39,14 +35,12 @@
 
                 <androidx.essentials.io.TextInput
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
+                    android:layout_margin="8dp"
                     android:layout_weight="1"
                     android:hint="@string/longitude"
                     app:editable="false"
                     app:text="@{String.valueOf(viewModel.location.longitude)}" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            </TableRow>
+        </TableLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>
