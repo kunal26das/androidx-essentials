@@ -3,10 +3,12 @@ package androidx.essentials.core.lifecycle.owner
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.CallSuper
+import androidx.annotation.IdRes
+import androidx.essentials.extensions.Coroutines.default
+import androidx.essentials.extensions.Coroutines.main
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
 
 abstract class NavigationActivity : Activity() {
 
@@ -26,8 +28,15 @@ abstract class NavigationActivity : Activity() {
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration)
+    @CallSuper
+    protected open fun navigate(@IdRes destination: Int) {
+        navController.default {
+            if (destination in graph.map { it.id }) {
+                if (currentDestination?.id != destination) main {
+                    navigate(destination)
+                }
+            }
+        }
     }
 
 }
