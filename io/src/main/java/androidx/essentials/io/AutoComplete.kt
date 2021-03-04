@@ -9,8 +9,10 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
-import androidx.essentials.io.AutoCompleteTextView.Companion.DEFAULT_FILTER
-import androidx.essentials.io.AutoCompleteTextView.Companion.DEFAULT_LIST_ITEM
+import androidx.essentials.io.internal.AutoCompleteTextView
+import androidx.essentials.io.internal.AutoCompleteTextView.Companion.DEFAULT_FILTER
+import androidx.essentials.io.internal.AutoCompleteTextView.Companion.DEFAULT_LIST_ITEM
+import androidx.essentials.io.internal.Field
 
 class AutoComplete @JvmOverloads constructor(
     context: Context,
@@ -21,22 +23,21 @@ class AutoComplete @JvmOverloads constructor(
     private var onItemClickListener: OnItemClickListener? = null
     internal val editText by lazy { getEditText() as AutoCompleteTextView }
 
-    var array: Array<String>
+    var array: Array<String>?
         get() = editText.array
         set(value) {
-            editText.array = value
-            if (isEditable and textChanged) isValid
+            if (isEditable and fromUser) isValid
+            editText.array = value ?: emptyArray()
         }
 
     override val isValid: Boolean
         get() {
-            val text = editText.text?.toString() ?: ""
-            isErrorEnabled = when {
-                isMandatory and isEditable and text.isBlank() -> {
+            isErrorEnabled = isEditable and when {
+                isMandatory and text.isNullOrBlank() -> {
                     error = mandatoryMessage
                     true
                 }
-                isMandatory and !isEditable -> {
+                isMandatory and !showSoftInputOnFocus -> {
                     editText.array.isNotEmpty() and !editText.array.contains(text)
                 }
                 else -> false
@@ -47,22 +48,20 @@ class AutoComplete @JvmOverloads constructor(
     init {
         with(AutoCompleteTextView(context, attrs)) {
             endIconMode = END_ICON_DROPDOWN_MENU
-            mKeyListener = keyListener
+            hint = null
             addView(this)
-            hint = when {
-                isHintEnabled -> ""
-                else -> mHint
-            }
         }
         context.obtainStyledAttributes(attrs, R.styleable.AutoComplete, defStyleAttr, 0).apply {
             editText.listItem = getResourceId(R.styleable.AutoComplete_listItem, DEFAULT_LIST_ITEM)
             editText.filter = getBoolean(R.styleable.AutoComplete_android_filter, DEFAULT_FILTER)
             isMandatory = getBoolean(R.styleable.AutoComplete_mandatory, DEFAULT_IS_MANDATORY)
             isEditable = getBoolean(R.styleable.AutoComplete_editable, DEFAULT_IS_EDITABLE)
-            validate = getBoolean(R.styleable.AutoComplete_validate, DEFAULT_VALIDATE)
+            showSoftInputOnFocus =
+                getBoolean(R.styleable.AutoComplete_showSoftInputOnFocus, isEditable)
             mandatoryMessage = getString(R.styleable.AutoComplete_mandatoryMessage)
+                ?: context.getString(R.string.mandatory_field)
             editText.array = try {
-                context.resources.getStringArray(getResourceIdOrThrow(R.styleable.AutoComplete_array))
+                resources.getStringArray(getResourceIdOrThrow(R.styleable.AutoComplete_array))
             } catch (e: IllegalArgumentException) {
                 emptyArray()
             }
@@ -72,24 +71,23 @@ class AutoComplete @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        editText.apply {
-            setOnFocusChangeListener { view, itHasFocus ->
-                if (!isEditable && itHasFocus) {
-                    editText.showDropDown()
-                } else if (!itHasFocus) {
-                    editText.dismissDropDown()
-                    hideSoftInput(view)
-                }
-            }
-            setOnItemClickListener { _, _, i, _ ->
-                editText.clearFocus()
-                this@AutoComplete.onItemClickListener?.onItemClick(i, array[i])
-            }
+        editText.setOnItemClickListener { _, _, i, _ ->
+            editText.clearFocus()
+            this@AutoComplete.onItemClickListener?.onItemClick(i, array?.get(i))
         }
     }
 
-    fun showDropDown() = editText.showDropDown()
-    fun dismissDropDown() = editText.dismissDropDown()
+    override fun show() {
+        if (isEditable) {
+            editText.showDropDown()
+            showSoftInput()
+        } else hide()
+    }
+
+    override fun hide() {
+        editText.dismissDropDown()
+        hideSoftInput()
+    }
 
     fun setOnCutListener(action: (Editable?) -> Unit) = editText.setOnCutListener(action)
     fun setOnCopyListener(action: (Editable?) -> Unit) = editText.setOnCopyListener(action)
@@ -99,16 +97,16 @@ class AutoComplete @JvmOverloads constructor(
         this.onItemClickListener = onItemClickListener
     }
 
-    fun setOnItemClickListener(onItemClickListener: (index: Int, item: String) -> Unit) {
+    fun setOnItemClickListener(onItemClickListener: (index: Int, item: String?) -> Unit) {
         setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(index: Int, item: String) {
+            override fun onItemClick(index: Int, item: String?) {
                 onItemClickListener(index, item)
             }
         })
     }
 
     interface OnItemClickListener {
-        fun onItemClick(index: Int, item: String)
+        fun onItemClick(index: Int, item: String?)
     }
 
     companion object {

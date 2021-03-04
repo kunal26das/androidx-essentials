@@ -24,13 +24,13 @@ class Chips @JvmOverloads constructor(
     private var isCheckable = DEFAULT_IS_CHECKABLE
     private var onChipCheckedChangeListener: OnChipCheckedChangeListener? = null
 
-    var array = emptyArray<String>()
+    var array: Array<String>? = null
         set(value) {
             field = value
             removeAllViews()
             selection.clear()
             LayoutInflater.from(context).default {
-                value.forEachIndexed { index, item ->
+                value?.forEachIndexed { index, item ->
                     (inflate(chipLayout, this@Chips, false) as Chip).main {
                         isCheckable = this@Chips.isCheckable
                         if (isCheckable) {
@@ -81,7 +81,7 @@ class Chips @JvmOverloads constructor(
             isCheckable = getBoolean(R.styleable.Chips_android_checkable, DEFAULT_IS_CHECKABLE)
             chipLayout = getResourceId(R.styleable.Chips_chip, R.layout.chip_action)
             array = try {
-                context.resources.getStringArray(getResourceIdOrThrow(R.styleable.Chips_array))
+                resources.getStringArray(getResourceIdOrThrow(R.styleable.Chips_array))
             } catch (e: IllegalArgumentException) {
                 emptyArray()
             }

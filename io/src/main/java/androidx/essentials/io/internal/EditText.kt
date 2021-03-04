@@ -1,35 +1,20 @@
-package androidx.essentials.io
+package androidx.essentials.io.internal
 
 import android.content.Context
 import android.text.Editable
 import android.util.AttributeSet
-import android.widget.ArrayAdapter
-import com.google.android.material.textfield.MaterialAutoCompleteTextView
+import androidx.essentials.io.R
+import com.google.android.material.textfield.TextInputEditText
 
-internal class AutoCompleteTextView @JvmOverloads constructor(
+internal class EditText @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleRes: Int = R.attr.editTextStyle
-) : MaterialAutoCompleteTextView(context, attrs, defStyleRes) {
-
-    internal var filter = DEFAULT_FILTER
-    internal var listItem = DEFAULT_LIST_ITEM
+) : TextInputEditText(context, attrs, defStyleRes) {
 
     private var onCutAction: ((Editable?) -> Unit)? = null
     private var onCopyAction: ((Editable?) -> Unit)? = null
     private var onPasteAction: ((Editable?) -> Unit)? = null
-
-    internal var array = emptyArray<String>()
-        set(value) {
-            if (!field.contentEquals(value)) {
-                setAdapter(ArrayAdapter(context, listItem, value))
-                field = value
-            }
-        }
-
-    override fun setText(text: CharSequence?, filter: Boolean) {
-        super.setText(text, this.filter)
-    }
 
     override fun onTextContextMenuItem(id: Int) = when (id) {
         android.R.id.cut -> {
@@ -48,14 +33,6 @@ internal class AutoCompleteTextView @JvmOverloads constructor(
         else -> true
     }
 
-    override fun performFiltering(text: CharSequence?, keyCode: Int) {
-        when {
-            filter -> super.performFiltering(text, keyCode)
-            array.contains("$text") -> dismissDropDown()
-            else -> showDropDown()
-        }
-    }
-
     internal fun setOnCutListener(action: (Editable?) -> Unit) {
         onCutAction = action
     }
@@ -66,11 +43,6 @@ internal class AutoCompleteTextView @JvmOverloads constructor(
 
     internal fun setOnPasteListener(action: (Editable?) -> Unit) {
         onPasteAction = action
-    }
-
-    companion object {
-        const val DEFAULT_FILTER = false
-        const val DEFAULT_LIST_ITEM = android.R.layout.simple_list_item_1
     }
 
 }

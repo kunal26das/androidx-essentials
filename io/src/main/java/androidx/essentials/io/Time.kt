@@ -19,11 +19,6 @@ class Time @JvmOverloads constructor(
     defStyleAttr: Int = R.attr.textInputStyle
 ) : TextInput(context, attrs, defStyleAttr) {
 
-    override var regex: Regex? = null
-        set(_) {
-            field = null
-        }
-
     var time: Long? = null
         set(value) {
             field = value
@@ -33,16 +28,15 @@ class Time @JvmOverloads constructor(
                     setHour(today[Calendar.HOUR])
                     setMinute(today[Calendar.MINUTE])
                 }
-                editText.setText(displayTimeFormat.format(it))
+                text = displayTimeFormat.format(it)
             }
         }
 
+    private val style: Int
     private var endTime: Long? = null
     private var startTime: Long? = null
-    private val locale = Locale.getDefault()
     private val today = Calendar.getInstance()
     private val displayTimeFormat: SimpleDateFormat
-    private lateinit var materialTimePicker: MaterialTimePicker
 
     private val materialTimePickerBuilder = MaterialTimePicker.Builder().apply {
         setTimeFormat(DEFAULT_TIME_FORMAT)
@@ -57,44 +51,39 @@ class Time @JvmOverloads constructor(
                 displayTimeFormat = SimpleDateFormat(it, locale)
             }
             materialTimePickerBuilder.setTitleText(hint)
-            getResourceId(
+            inputType = TYPE_DATETIME_VARIATION_TIME
+            style = getResourceId(
                 R.styleable.Time_calendarStyle,
                 R.style.ThemeOverlay_MaterialComponents_TimePicker
-            ).let { build().setStyle(DialogFragment.STYLE_NORMAL, it) }
+            )
             recycle()
         }
-    }
-
-    private fun build(): MaterialTimePicker {
-        materialTimePicker = materialTimePickerBuilder.build()
-        materialTimePicker.addOnPositiveButtonClickListener {
-            val selectedTime = today.apply {
-                this[Calendar.HOUR] = materialTimePicker.hour
-                this[Calendar.MINUTE] = materialTimePicker.minute
-            }.timeInMillis
-            time = when {
-                startTime != null && startTime!! > selectedTime -> startTime
-                endTime != null && endTime!! < selectedTime -> endTime
-                else -> selectedTime
+        showSoftInputOnFocus = false
+        doAfterTextChanged {
+            if (it.isNullOrBlank()) {
+                time = null
             }
         }
-        return materialTimePicker
     }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-        editText.apply {
-            keyListener = null
-            isCursorVisible = false
-            inputType = TYPE_DATETIME_VARIATION_TIME
-            setOnFocusChangeListener { view, itHasFocus ->
-                if (isEditable and itHasFocus) {
-                    hideSoftInput(view)
-                    view.clearFocus()
-                    build().show()
+    override fun show() {
+        if (isEditable) {
+            materialTimePickerBuilder.build().apply {
+                setStyle(DialogFragment.STYLE_NORMAL, style)
+                addOnDismissListener { clearFocus() }
+                addOnPositiveButtonClickListener {
+                    val selectedTime = today.apply {
+                        this[Calendar.HOUR] = hour
+                        this[Calendar.MINUTE] = minute
+                    }.timeInMillis
+                    time = when {
+                        startTime != null && startTime!! > selectedTime -> startTime
+                        endTime != null && endTime!! < selectedTime -> endTime
+                        else -> selectedTime
+                    }
                 }
-            }
-        }
+            }.show()
+        } else hide()
     }
 
     companion object {

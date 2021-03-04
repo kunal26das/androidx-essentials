@@ -8,6 +8,9 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import androidx.essentials.io.internal.EditText
+import androidx.essentials.io.internal.Field
+import java.util.*
 
 open class TextInput @JvmOverloads constructor(
     context: Context,
@@ -15,23 +18,18 @@ open class TextInput @JvmOverloads constructor(
     defStyleAttr: Int = R.attr.textInputStyle
 ) : Field(context, attrs, defStyleAttr) {
 
+    private var regex: Regex? = null
+    protected val locale get() = Locale.getDefault()
     internal val editText by lazy { getEditText() as EditText }
-
-    open var regex: Regex? = null
-        set(value) {
-            field = value
-            if (isEditable and textChanged) isValid
-        }
 
     override val isValid: Boolean
         get() {
-            val text = editText.text?.toString() ?: ""
             isErrorEnabled = isEditable and when {
-                isMandatory and text.isBlank() -> {
+                isMandatory and text.isNullOrBlank() -> {
                     error = mandatoryMessage
                     true
                 }
-                regex != null && !text.matches(regex!!) -> {
+                regex != null && text?.matches(regex!!) == false -> {
                     error = regexMessage
                     true
                 }
@@ -42,23 +40,29 @@ open class TextInput @JvmOverloads constructor(
 
     init {
         with(EditText(context, attrs)) {
-            mKeyListener = keyListener
+            hint = null
             addView(this)
-            hint = when {
-                isHintEnabled -> ""
-                else -> mHint
-            }
         }
         context.obtainStyledAttributes(attrs, R.styleable.TextInput, defStyleAttr, 0).apply {
             isMandatory = getBoolean(R.styleable.TextInput_mandatory, DEFAULT_IS_MANDATORY)
             isEditable = getBoolean(R.styleable.TextInput_editable, DEFAULT_IS_EDITABLE)
-            validate = getBoolean(R.styleable.TextInput_validate, DEFAULT_VALIDATE)
             mandatoryMessage = getString(R.styleable.TextInput_mandatoryMessage)
+                ?: context.getString(R.string.mandatory_field)
             regex = getString(R.styleable.TextInput_regex)?.let { Regex(it) }
             regexMessage = getString(R.styleable.TextInput_regexMessage)
+                ?: context.getString(R.string.invalid_input)
+            showSoftInputOnFocus = isEditable
             recycle()
         }
     }
+
+    override fun show() {
+        if (isEditable) {
+            showSoftInput()
+        } else hide()
+    }
+
+    override fun hide() = hideSoftInput()
 
     fun setOnCutListener(action: (Editable?) -> Unit) = editText.setOnCutListener(action)
     fun setOnCopyListener(action: (Editable?) -> Unit) = editText.setOnCopyListener(action)
