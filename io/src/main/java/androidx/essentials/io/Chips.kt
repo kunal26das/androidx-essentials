@@ -21,6 +21,7 @@ class Chips @JvmOverloads constructor(
 ) : ChipGroup(context, attrs, defStyleAttr) {
 
     private val chipLayout: Int
+    private var fromUser = false
     private var isCheckable = DEFAULT_IS_CHECKABLE
     private var onChipCheckedChangeListener: OnChipCheckedChangeListener? = null
 
@@ -112,7 +113,10 @@ class Chips @JvmOverloads constructor(
         @JvmStatic
         @BindingAdapter("selection")
         fun Chips.setArray(selection: Array<String>?) {
-            this.selection = selection?.toCollection(ArrayList()) ?: mutableListOf()
+            when (fromUser) {
+                true -> fromUser = false
+                false -> this.selection = selection?.toCollection(ArrayList()) ?: mutableListOf()
+            }
         }
 
         @JvmStatic
@@ -125,6 +129,7 @@ class Chips @JvmOverloads constructor(
             inverseBindingListener: InverseBindingListener
         ) {
             setOnChipClickListener { _, _, _ ->
+                fromUser = true
                 inverseBindingListener.onChange()
             }
         }
