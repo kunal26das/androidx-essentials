@@ -73,27 +73,6 @@ abstract class Field @JvmOverloads constructor(
             }
         }
 
-    var text: String?
-        get() {
-            with(editText?.text) {
-                return when {
-                    isNullOrBlank() -> null
-                    else -> toString()
-                }
-            }
-        }
-        set(value) {
-            editText?.apply {
-                when {
-                    value.isNullOrBlank() -> text?.clear()
-                    else -> editText?.post {
-                        setText(value)
-                        setSelection(value.length)
-                    }
-                }
-            }
-        }
-
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         editText?.apply {

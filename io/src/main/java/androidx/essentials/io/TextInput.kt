@@ -25,11 +25,11 @@ open class TextInput @JvmOverloads constructor(
     override val isValid: Boolean
         get() {
             isErrorEnabled = isEditable and when {
-                isMandatory and text.isNullOrBlank() -> {
+                isMandatory and editText.text.isNullOrBlank() -> {
                     error = mandatoryMessage
                     true
                 }
-                regex != null && text?.matches(regex!!) == false -> {
+                regex != null && editText.text?.matches(regex!!) == false -> {
                     error = regexMessage
                     true
                 }
@@ -75,27 +75,39 @@ open class TextInput @JvmOverloads constructor(
         fun TextInput.setString(text: Any?) {
             when (fromUser) {
                 true -> fromUser = false
-                false -> text?.let {
-                    this.text = "$it"
+                false -> editText.setText(
+                    when {
+                        text == null -> null
+                        "$text".isEmpty() -> null
+                        else -> "$text"
+                    }
+                )
+            }
+        }
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "text")
+        fun TextInput.getString(): String? {
+            with(editText.text) {
+                return when {
+                    this == null -> null
+                    isEmpty() -> null
+                    else -> "$this"
                 }
             }
         }
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
-        fun TextInput.getString() = text
+        fun TextInput.getInt() = getString()?.toIntOrNull()
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
-        fun TextInput.getInt() = text?.toIntOrNull()
+        fun TextInput.getLong() = getString()?.toLongOrNull()
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
-        fun TextInput.getLong() = text?.toLongOrNull()
-
-        @JvmStatic
-        @InverseBindingAdapter(attribute = "text")
-        fun TextInput.getFloat() = text?.toFloatOrNull()
+        fun TextInput.getFloat() = getString()?.toFloatOrNull()
 
         @JvmStatic
         @BindingAdapter(value = ["textAttrChanged"])

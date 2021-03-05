@@ -28,7 +28,7 @@ class Time @JvmOverloads constructor(
                     setHour(today[Calendar.HOUR])
                     setMinute(today[Calendar.MINUTE])
                 }
-                text = displayTimeFormat.format(it)
+                editText.setText(displayTimeFormat.format(it))
             }
         }
 

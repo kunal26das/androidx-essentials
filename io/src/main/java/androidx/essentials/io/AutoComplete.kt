@@ -33,12 +33,12 @@ class AutoComplete @JvmOverloads constructor(
     override val isValid: Boolean
         get() {
             isErrorEnabled = isEditable and when {
-                isMandatory and text.isNullOrBlank() -> {
+                isMandatory and editText.text.isNullOrBlank() -> {
                     error = mandatoryMessage
                     true
                 }
                 isMandatory and !showSoftInputOnFocus -> {
-                    editText.array.isNotEmpty() and !editText.array.contains(text)
+                    editText.array.isNotEmpty() and !editText.array.contains("${editText.text}")
                 }
                 else -> false
             }
@@ -113,18 +113,30 @@ class AutoComplete @JvmOverloads constructor(
 
         @JvmStatic
         @BindingAdapter("text")
-        fun AutoComplete.setString(text: Any?) {
+        fun AutoComplete.setString(text: String?) {
             when (fromUser) {
                 true -> fromUser = false
-                false -> text?.let {
-                    this.text = "$it"
-                }
+                false -> editText.setText(
+                    when {
+                        text == null -> null
+                        text.isEmpty() -> null
+                        else -> text
+                    }
+                )
             }
         }
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
-        fun AutoComplete.getString() = text
+        fun AutoComplete.getString(): String? {
+            with(editText.text) {
+                return when {
+                    this == null -> null
+                    isEmpty() -> null
+                    else -> "$this"
+                }
+            }
+        }
 
         @JvmStatic
         @BindingAdapter(value = ["textAttrChanged"])

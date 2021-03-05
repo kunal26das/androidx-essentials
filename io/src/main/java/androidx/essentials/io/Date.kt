@@ -30,7 +30,7 @@ class Date @JvmOverloads constructor(
         set(value) {
             field = value?.apply {
                 setOpenDate(this)
-                text = displayDateFormat.format(this)
+                editText.setText(displayDateFormat.format(this))
             }
             materialDatePickerBuilder.setSelection(value)
         }
