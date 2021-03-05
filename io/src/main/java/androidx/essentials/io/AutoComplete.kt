@@ -48,7 +48,7 @@ class AutoComplete @JvmOverloads constructor(
     init {
         with(AutoCompleteTextView(context, attrs)) {
             endIconMode = END_ICON_DROPDOWN_MENU
-            hint = null
+            if (isHintEnabled) hint = null
             addView(this)
         }
         context.obtainStyledAttributes(attrs, R.styleable.AutoComplete, defStyleAttr, 0).apply {

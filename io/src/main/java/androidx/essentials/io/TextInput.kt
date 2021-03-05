@@ -40,7 +40,7 @@ open class TextInput @JvmOverloads constructor(
 
     init {
         with(EditText(context, attrs)) {
-            hint = null
+            if (isHintEnabled) hint = null
             addView(this)
         }
         context.obtainStyledAttributes(attrs, R.styleable.TextInput, defStyleAttr, 0).apply {
