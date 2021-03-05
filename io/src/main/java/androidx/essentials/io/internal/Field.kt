@@ -130,15 +130,15 @@ abstract class Field @JvmOverloads constructor(
         onFocusChangeListeners += onFocusChange
     }
 
-    fun Field.doBeforeTextChanged(
+    fun doBeforeTextChanged(
         action: (text: CharSequence?, start: Int, count: Int, after: Int) -> Unit
     ) = editText?.addTextChangedListener(beforeTextChanged = action)
 
-    fun Field.doOnTextChanged(
+    fun doOnTextChanged(
         action: (text: CharSequence?, start: Int, count: Int, after: Int) -> Unit
     ) = editText?.addTextChangedListener(onTextChanged = action)
 
-    fun Field.doAfterTextChanged(
+    fun doAfterTextChanged(
         action: (text: Editable?) -> Unit
     ) = editText?.addTextChangedListener(afterTextChanged = action)
 
