@@ -29,16 +29,17 @@ class Chips @JvmOverloads constructor(
         set(value) {
             field = value
             removeAllViews()
-            selection.clear()
+            selection?.clear()
             LayoutInflater.from(context).default {
                 value?.forEachIndexed { index, item ->
                     (inflate(chipLayout, this@Chips, false) as Chip).main {
                         isCheckable = this@Chips.isCheckable
                         if (isCheckable) {
+                            isChecked = selection?.contains(item) ?: false
                             setOnCheckedChangeListener { _, isChecked ->
                                 when {
-                                    isChecked -> selection.add(item)
-                                    else -> selection.remove(item)
+                                    isChecked -> selection?.add(item)
+                                    else -> selection?.remove(item)
                                 }
                                 onChipCheckedChangeListener?.onChipCheckedChange(
                                     index, item, isChecked
@@ -52,9 +53,9 @@ class Chips @JvmOverloads constructor(
             }
         }
 
-    var selection = mutableListOf<String>()
+    var selection: MutableList<String>? = null
         set(value) {
-            field = value.default {
+            field = value?.default {
                 children.forEach {
                     ((it as Chip).text in this).main {
                         it.isChecked = this
@@ -66,7 +67,7 @@ class Chips @JvmOverloads constructor(
     val isValid: Boolean
         get() = isVisible and when {
             isSelectionRequired -> when {
-                selection.isEmpty() -> {
+                selection.isNullOrEmpty() -> {
                     requestFocus()
                     false
                 }
@@ -121,7 +122,7 @@ class Chips @JvmOverloads constructor(
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "selection")
-        fun Chips.getArray() = selection.toTypedArray()
+        fun Chips.getArray() = selection?.toTypedArray()
 
         @JvmStatic
         @BindingAdapter(value = ["selectionAttrChanged"])
