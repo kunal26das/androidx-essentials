@@ -44,8 +44,8 @@ class Chips @JvmOverloads constructor(
                                 )
                             }
                         }
-                        addView(this)
                         text = item
+                        addView(this)
                     }
                 }
             }
@@ -83,7 +83,7 @@ class Chips @JvmOverloads constructor(
             array = try {
                 resources.getStringArray(getResourceIdOrThrow(R.styleable.Chips_array))
             } catch (e: IllegalArgumentException) {
-                emptyArray()
+                null
             }
             recycle()
         }

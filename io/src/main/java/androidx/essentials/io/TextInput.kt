@@ -19,7 +19,7 @@ open class TextInput @JvmOverloads constructor(
 ) : Field(context, attrs, defStyleAttr) {
 
     private var regex: Regex? = null
-    protected val locale get() = Locale.getDefault()
+    protected val locale: Locale get() = Locale.getDefault()
     internal val editText by lazy { getEditText() as EditText }
 
     override val isValid: Boolean
