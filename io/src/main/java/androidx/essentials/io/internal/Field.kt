@@ -3,7 +3,6 @@ package androidx.essentials.io.internal
 import android.content.Context
 import android.text.Editable
 import android.util.AttributeSet
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
@@ -17,7 +16,7 @@ abstract class Field @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.textInputStyle
-) : TextInputLayout(context, attrs, defStyleAttr), View.OnFocusChangeListener {
+) : TextInputLayout(context, attrs, defStyleAttr) {
 
     open val isValid = true
     val isInvalid get() = !isValid
@@ -30,7 +29,9 @@ abstract class Field @JvmOverloads constructor(
     internal var inputType: Int
         get() = editText?.inputType ?: EditorInfo.TYPE_NULL
         set(value) {
-            editText?.inputType = value
+            editText?.post {
+                editText?.inputType = value
+            }
         }
 
     var isEditable = DEFAULT_IS_EDITABLE
@@ -86,23 +87,6 @@ abstract class Field @JvmOverloads constructor(
                 }
             }
         }
-        setOnFocusChangeListener(this)
-        addOnFocusChangeListener {
-            editText?.apply {
-                when (it) {
-                    false -> clearFocus()
-                    true -> requestFocus()
-                }
-            }
-        }
-    }
-
-    override fun onFocusChange(v: View?, hasFocus: Boolean) {
-        onFocusChangeListeners.forEach { it.invoke(hasFocus) }
-    }
-
-    override fun setOnFocusChangeListener(l: OnFocusChangeListener?) {
-        super.setOnFocusChangeListener(this)
     }
 
     fun addOnFocusChangeListener(onFocusChange: (Boolean) -> Unit) {

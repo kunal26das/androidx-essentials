@@ -72,8 +72,8 @@ class AutoComplete @JvmOverloads constructor(
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         editText.setOnItemClickListener { _, _, i, _ ->
-            editText.clearFocus()
-            this@AutoComplete.onItemClickListener?.onItemClick(i, array?.get(i))
+            onItemClickListener?.onItemClick(i, array?.get(i))
+            clearFocus()
         }
     }
 
