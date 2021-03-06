@@ -10,7 +10,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.essentials.core.R
 import androidx.essentials.core.lifecycle.observer.ViewModel
 import androidx.essentials.core.utils.Events
-import androidx.essentials.extensions.Coroutines.default
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
@@ -52,7 +51,7 @@ abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
     final override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        this.container = container?.default { binding }!!
+        this.container = container!!
         binding?.lifecycleOwner = viewLifecycleOwner
         return binding?.root!!
     }

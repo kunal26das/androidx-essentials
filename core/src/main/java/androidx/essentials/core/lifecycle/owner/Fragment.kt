@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.essentials.core.lifecycle.observer.ViewModel
 import androidx.essentials.core.utils.Events
-import androidx.essentials.extensions.Coroutines.default
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -52,7 +51,6 @@ abstract class Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         this.container = container!!
-        default { binding }
         binding?.lifecycleOwner = viewLifecycleOwner
         return binding?.root!!
     }
