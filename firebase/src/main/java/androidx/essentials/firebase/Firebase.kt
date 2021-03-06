@@ -40,7 +40,7 @@ object Firebase {
         get() {
             with(get<String>(Preference.UUID)) {
                 return when {
-                    isNullOrBlank() -> "${java.util.UUID.randomUUID()}".apply { UUID = this }
+                    isNullOrEmpty() -> "${java.util.UUID.randomUUID()}".apply { UUID = this }
                     else -> this
                 }
             }
