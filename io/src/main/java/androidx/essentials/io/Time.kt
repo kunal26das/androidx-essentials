@@ -3,7 +3,6 @@ package androidx.essentials.io
 import android.content.Context
 import android.text.InputType.TYPE_DATETIME_VARIATION_TIME
 import android.util.AttributeSet
-import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
@@ -22,14 +21,18 @@ class Time @JvmOverloads constructor(
     var time: Long? = null
         set(value) {
             field = value
-            value?.let {
-                today.timeInMillis = it
-                materialTimePickerBuilder.apply {
-                    setHour(today[Calendar.HOUR])
-                    setMinute(today[Calendar.MINUTE])
+            when (value) {
+                null -> Unit
+                else -> {
+                    today.timeInMillis = value
+                    materialTimePickerBuilder.apply {
+                        setHour(today[Calendar.HOUR])
+                        setMinute(today[Calendar.MINUTE])
+                    }
+                    setText(displayTimeFormat.format(value))
                 }
-                editText.setText(displayTimeFormat.format(it))
             }
+            onTimeChangeListener?.onTimeChange(value)
         }
 
     private val style: Int
@@ -37,6 +40,7 @@ class Time @JvmOverloads constructor(
     private var startTime: Long? = null
     private val today = Calendar.getInstance()
     private val displayTimeFormat: SimpleDateFormat
+    private var onTimeChangeListener: OnTimeChangeListener? = null
 
     private val materialTimePickerBuilder = MaterialTimePicker.Builder().apply {
         setTimeFormat(DEFAULT_TIME_FORMAT)
@@ -60,7 +64,7 @@ class Time @JvmOverloads constructor(
         }
         showSoftInputOnFocus = false
         doAfterTextChanged {
-            if (it.isNullOrBlank()) {
+            if (it.isNullOrEmpty()) {
                 time = null
             }
         }
@@ -86,6 +90,22 @@ class Time @JvmOverloads constructor(
         } else hide()
     }
 
+    fun setOnTimeChangeListener(onTimeChangeListener: OnTimeChangeListener) {
+        this.onTimeChangeListener = onTimeChangeListener
+    }
+
+    fun setOnTimeChangeListener(onTimeChange: (Long?) -> Unit) {
+        setOnTimeChangeListener(object : OnTimeChangeListener {
+            override fun onTimeChange(time: Long?) {
+                onTimeChange.invoke(time)
+            }
+        })
+    }
+
+    interface OnTimeChangeListener {
+        fun onTimeChange(time: Long?)
+    }
+
     companion object {
 
         const val DEFAULT_TIME_FORMAT = TimeFormat.CLOCK_12H
@@ -106,9 +126,8 @@ class Time @JvmOverloads constructor(
 
         @JvmStatic
         @BindingAdapter("time")
-        fun Time.setTime(time: Long?) = when (fromUser) {
-            true -> fromUser = false
-            false -> this.time = time
+        fun Time.setTime(time: Long?) {
+            this.time = time
         }
 
         @JvmStatic
@@ -120,8 +139,7 @@ class Time @JvmOverloads constructor(
         fun Time.setOnTimeAttrChangeListener(
             inverseBindingListener: InverseBindingListener
         ) {
-            editText.doAfterTextChanged {
-                fromUser = true
+            setOnTimeChangeListener {
                 inverseBindingListener.onChange()
             }
         }

@@ -33,7 +33,7 @@ class AutoComplete @JvmOverloads constructor(
     override val isValid: Boolean
         get() {
             isErrorEnabled = isEditable and when {
-                isMandatory and editText.text.isNullOrBlank() -> {
+                isMandatory and editText.text.isNullOrEmpty() -> {
                     error = mandatoryMessage
                     true
                 }
@@ -113,30 +113,52 @@ class AutoComplete @JvmOverloads constructor(
 
         @JvmStatic
         @BindingAdapter("text")
-        fun AutoComplete.setString(text: String?) {
+        fun AutoComplete.setText(text: String?) {
             when (fromUser) {
                 true -> fromUser = false
-                false -> editText.setText(
-                    when {
-                        text == null -> null
-                        text.isEmpty() -> null
-                        else -> text
-                    }
-                )
+                false -> with(text) {
+                    editText.setText(
+                        when (this) {
+                            is String -> when {
+                                isNullOrEmpty() -> null
+                                else -> "$this"
+                            }
+                            else -> when (this) {
+                                null -> null
+                                else -> "$this"
+                            }
+                        }
+                    )
+                }
             }
         }
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
-        fun AutoComplete.getString(): String? {
+        fun AutoComplete.getText(): String? {
             with(editText.text) {
                 return when {
-                    this == null -> null
-                    isEmpty() -> null
+                    isNullOrEmpty() -> null
                     else -> "$this"
                 }
             }
         }
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "text")
+        fun AutoComplete.getInt() = getText()?.toIntOrNull()
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "text")
+        fun AutoComplete.getLong() = getText()?.toLongOrNull()
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "text")
+        fun AutoComplete.getFloat() = getText()?.toFloatOrNull()
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "text")
+        fun AutoComplete.getDouble() = getText()?.toDoubleOrNull()
 
         @JvmStatic
         @BindingAdapter(value = ["textAttrChanged"])
@@ -144,7 +166,7 @@ class AutoComplete @JvmOverloads constructor(
             inverseBindingListener: InverseBindingListener
         ) {
             editText.doAfterTextChanged {
-                fromUser = true
+                fromUser = !it.isNullOrEmpty()
                 inverseBindingListener.onChange()
             }
         }

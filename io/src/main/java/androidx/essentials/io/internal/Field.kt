@@ -48,7 +48,7 @@ abstract class Field @JvmOverloads constructor(
     var isMandatory = DEFAULT_IS_MANDATORY
         set(value) {
             field = value
-            if (!hint.isNullOrBlank()) {
+            if (!hint.isNullOrEmpty()) {
                 when (value and isEditable) {
                     true -> if (hint?.last() != '*') {
                         hint = "$hint*"

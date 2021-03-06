@@ -4,7 +4,6 @@ import android.content.Context
 import android.text.Editable
 import android.util.AttributeSet
 import androidx.core.view.isVisible
-import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
@@ -72,7 +71,7 @@ open class TextInput @JvmOverloads constructor(
 
         @JvmStatic
         @BindingAdapter("text")
-        fun TextInput.setString(text: Any?) {
+        fun TextInput.setText(text: Any?) {
             when (fromUser) {
                 true -> fromUser = false
                 false -> with(text) {
@@ -94,7 +93,7 @@ open class TextInput @JvmOverloads constructor(
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
-        fun TextInput.getString(): String? {
+        fun TextInput.getText(): String? {
             with(editText.text) {
                 return when {
                     isNullOrEmpty() -> null
@@ -105,22 +104,26 @@ open class TextInput @JvmOverloads constructor(
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
-        fun TextInput.getInt() = getString()?.toIntOrNull()
+        fun TextInput.getInt() = getText()?.toIntOrNull()
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
-        fun TextInput.getLong() = getString()?.toLongOrNull()
+        fun TextInput.getLong() = getText()?.toLongOrNull()
 
         @JvmStatic
         @InverseBindingAdapter(attribute = "text")
-        fun TextInput.getFloat() = getString()?.toFloatOrNull()
+        fun TextInput.getFloat() = getText()?.toFloatOrNull()
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "text")
+        fun TextInput.getDouble() = getText()?.toDoubleOrNull()
 
         @JvmStatic
         @BindingAdapter(value = ["textAttrChanged"])
         fun TextInput.setOnTextAttrChangeListener(
             inverseBindingListener: InverseBindingListener
         ) {
-            editText.doAfterTextChanged {
+            doAfterTextChanged {
                 fromUser = true
                 inverseBindingListener.onChange()
             }

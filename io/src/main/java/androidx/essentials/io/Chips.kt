@@ -3,6 +3,7 @@ package androidx.essentials.io
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.animation.ScaleAnimation
 import android.widget.Checkable
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
@@ -28,17 +29,15 @@ class Chips @JvmOverloads constructor(
     var array: List<Checkable>? = null
         set(value) {
             field = value?.apply {
-                removeAllViews()
-                default {
+                removeAllViews().default {
                     forEachIndexed { index, item ->
                         (layoutInflater.inflate(chipLayout, this@Chips, false) as Chip).main {
                             text = item.toString()
                             isCheckable = this@Chips.isCheckable
+                            startAnimation(ScaleAnimation(0f, 1f, 1f, 1f))
                             isChecked = if (isCheckable) {
                                 setOnCheckedChangeListener { _, _ ->
-                                    onChipCheckedChangeListener?.onChipCheckedChange(
-                                        index, item
-                                    )
+                                    onChipCheckedChangeListener?.onChipCheckedChange(index, item)
                                 }
                                 item.isChecked
                             } else false

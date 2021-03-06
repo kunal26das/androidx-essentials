@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Parcel
 import android.text.InputType.TYPE_DATETIME_VARIATION_DATE
 import android.util.AttributeSet
-import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
@@ -25,13 +24,19 @@ class Date @JvmOverloads constructor(
     private val past: Boolean
     private val future: Boolean
     private var theme = DEFAULT_THEME
+    private var onDateChangeListener: OnDateChangeListener? = null
 
     var date: Long? = null
         set(value) {
-            field = value?.apply {
-                setOpenDate(this)
-                editText.setText(displayDateFormat.format(this))
+            field = value
+            when (value) {
+                null -> Unit
+                else -> {
+                    setOpenDate(value)
+                    setText(displayDateFormat.format(value))
+                }
             }
+            onDateChangeListener?.onDateChange(value)
             materialDatePickerBuilder.setSelection(value)
         }
 
@@ -75,7 +80,7 @@ class Date @JvmOverloads constructor(
         }
         showSoftInputOnFocus = false
         doAfterTextChanged {
-            if (it.isNullOrBlank()) {
+            if (it.isNullOrEmpty()) {
                 date = null
             }
         }
@@ -89,6 +94,22 @@ class Date @JvmOverloads constructor(
                 addOnDismissListener { clearFocus() }
             }.show()
         } else hide()
+    }
+
+    fun setOnDateChangeListener(onDateChangeListener: OnDateChangeListener) {
+        this.onDateChangeListener = onDateChangeListener
+    }
+
+    fun setOnDateChangeListener(onDateChange: (Long?) -> Unit) {
+        setOnDateChangeListener(object : OnDateChangeListener {
+            override fun onDateChange(date: Long?) {
+                onDateChange.invoke(date)
+            }
+        })
+    }
+
+    interface OnDateChangeListener {
+        fun onDateChange(date: Long?)
     }
 
     companion object {
@@ -151,10 +172,7 @@ class Date @JvmOverloads constructor(
         @JvmStatic
         @BindingAdapter("date")
         fun Date.setDate(date: Long?) {
-            when (fromUser) {
-                true -> fromUser = false
-                false -> this.date = date
-            }
+            this.date = date
         }
 
         @JvmStatic
@@ -166,8 +184,7 @@ class Date @JvmOverloads constructor(
         fun Date.setOnDateAttrChangeListener(
             inverseBindingListener: InverseBindingListener
         ) {
-            editText.doAfterTextChanged {
-                fromUser = true
+            setOnDateChangeListener {
                 inverseBindingListener.onChange()
             }
         }
