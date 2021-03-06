@@ -23,7 +23,7 @@ class Chips @JvmOverloads constructor(
     private val chipLayout: Int
     private var fromUser = false
     private val isCheckable: Boolean
-    private val layoutInflater = LayoutInflater.from(context)
+    private val inflater = LayoutInflater.from(context)
     private var onChipCheckedChangeListener: OnChipCheckedChangeListener? = null
 
     var array: List<Checkable>? = null
@@ -31,7 +31,7 @@ class Chips @JvmOverloads constructor(
             field = value?.apply {
                 removeAllViews().default {
                     forEachIndexed { index, item ->
-                        (layoutInflater.inflate(chipLayout, this@Chips, false) as Chip).main {
+                        (inflater.inflate(chipLayout, this@Chips, false) as Chip).main {
                             text = item.toString()
                             isCheckable = this@Chips.isCheckable
                             startAnimation(ScaleAnimation(0f, 1f, 1f, 1f))
