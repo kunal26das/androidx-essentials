@@ -15,7 +15,7 @@ class AutoCompleteViewModel : ViewModel() {
     val autoComplete by mutableLiveData<String>(Preference.AUTO_COMPLETE)
     val isHintEnabled by mutableLiveData<Boolean>(Preference.IS_HINT_ENABLED)
 
-    val libraries = Resources.getMenu(R.menu.menu_library).children
-        .toList().map { "${it.title}" }.toTypedArray()
+    val libraries = Resources.getMenu(R.menu.menu_library)?.children
+        ?.toList()?.map { "${it.title}" }?.toTypedArray()
 
 }

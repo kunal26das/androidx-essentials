@@ -12,7 +12,7 @@ class ChipsViewModel : ViewModel() {
 
     val isMandatory by mutableLiveData<Boolean>(Preference.IS_MANDATORY)
     val singleSelection by mutableLiveData<Boolean>(Preference.SINGLE_SELECTION)
-    val libraries: List<Checkable> = Resources.getMenu(R.menu.menu_library).children.map {
+    val libraries: List<Checkable>? = Resources.getMenu(R.menu.menu_library)?.children?.map {
         object : Checkable {
             override fun setChecked(checked: Boolean) {
                 it.isChecked = checked
@@ -26,6 +26,6 @@ class ChipsViewModel : ViewModel() {
 
             override fun toString() = "${it.title}"
         }
-    }.toList()
+    }?.toList()
 
 }

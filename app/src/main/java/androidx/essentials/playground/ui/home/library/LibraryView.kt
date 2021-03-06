@@ -31,5 +31,4 @@ class LibraryView @JvmOverloads constructor(
         root.setOnClickListener { publish(item.itemId) }
     }
 
-
 }

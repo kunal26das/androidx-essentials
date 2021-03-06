@@ -7,6 +7,6 @@ import androidx.essentials.playground.R
 
 class HomeViewModel : ViewModel() {
 
-    val libraries = Resources.getMenu(R.menu.menu_library).children.toList()
+    val libraries = Resources.getMenu(R.menu.menu_library)?.children?.toList()
 
 }
