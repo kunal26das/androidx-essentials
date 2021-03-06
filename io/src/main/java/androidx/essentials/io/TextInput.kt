@@ -75,13 +75,20 @@ open class TextInput @JvmOverloads constructor(
         fun TextInput.setString(text: Any?) {
             when (fromUser) {
                 true -> fromUser = false
-                false -> editText.setText(
-                    when {
-                        text == null -> null
-                        "$text".isEmpty() -> null
-                        else -> "$text"
-                    }
-                )
+                false -> with(text) {
+                    editText.setText(
+                        when (this) {
+                            is String -> when {
+                                isNullOrEmpty() -> null
+                                else -> "$this"
+                            }
+                            else -> when (this) {
+                                null -> null
+                                else -> "$this"
+                            }
+                        }
+                    )
+                }
             }
         }
 
@@ -90,8 +97,7 @@ open class TextInput @JvmOverloads constructor(
         fun TextInput.getString(): String? {
             with(editText.text) {
                 return when {
-                    this == null -> null
-                    isEmpty() -> null
+                    isNullOrEmpty() -> null
                     else -> "$this"
                 }
             }
