@@ -3,8 +3,7 @@ package androidx.essentials.io
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import androidx.core.content.res.getResourceIdOrThrow
-import androidx.core.view.children
+import android.widget.Checkable
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
@@ -22,47 +21,35 @@ class Chips @JvmOverloads constructor(
 
     private val chipLayout: Int
     private var fromUser = false
-    private var isCheckable = DEFAULT_IS_CHECKABLE
+    private val isCheckable: Boolean
+    private val layoutInflater = LayoutInflater.from(context)
     private var onChipCheckedChangeListener: OnChipCheckedChangeListener? = null
 
-    var array: Array<String>? = null
+    var array: List<Checkable>? = null
         set(value) {
-            field = value
-            removeAllViews()
-            selection?.clear()
-            LayoutInflater.from(context).default {
-                value?.forEachIndexed { index, item ->
-                    (inflate(chipLayout, this@Chips, false) as Chip).main {
-                        isCheckable = this@Chips.isCheckable
-                        if (isCheckable) {
-                            isChecked = selection?.contains(item) ?: false
-                            setOnCheckedChangeListener { _, isChecked ->
-                                when {
-                                    isChecked -> selection?.add(item)
-                                    else -> selection?.remove(item)
+            field = value?.apply {
+                removeAllViews()
+                default {
+                    forEachIndexed { index, item ->
+                        (layoutInflater.inflate(chipLayout, this@Chips, false) as Chip).main {
+                            text = item.toString()
+                            isCheckable = this@Chips.isCheckable
+                            isChecked = if (isCheckable) {
+                                setOnCheckedChangeListener { _, _ ->
+                                    onChipCheckedChangeListener?.onChipCheckedChange(
+                                        index, item
+                                    )
                                 }
-                                onChipCheckedChangeListener?.onChipCheckedChange(
-                                    index, item, isChecked
-                                )
-                            }
+                                item.isChecked
+                            } else false
+                            addView(this)
                         }
-                        text = item
-                        addView(this)
                     }
                 }
             }
         }
 
-    var selection: MutableList<String>? = null
-        set(value) {
-            field = value?.default {
-                children.forEach {
-                    ((it as Chip).text in this).main {
-                        it.isChecked = this
-                    }
-                }
-            }
-        }
+    val selection get() = array?.filter { it.isChecked }
 
     val isValid: Boolean
         get() = isVisible and when {
@@ -82,11 +69,6 @@ class Chips @JvmOverloads constructor(
         context.obtainStyledAttributes(attrs, R.styleable.Chips, defStyleAttr, 0).apply {
             isCheckable = getBoolean(R.styleable.Chips_android_checkable, DEFAULT_IS_CHECKABLE)
             chipLayout = getResourceId(R.styleable.Chips_chip, R.layout.chip_action)
-            array = try {
-                resources.getStringArray(getResourceIdOrThrow(R.styleable.Chips_array))
-            } catch (e: IllegalArgumentException) {
-                null
-            }
             recycle()
         }
     }
@@ -95,16 +77,16 @@ class Chips @JvmOverloads constructor(
         this.onChipCheckedChangeListener = onChipCheckedChangeListener
     }
 
-    fun setOnChipClickListener(onChipClickListener: (index: Int, item: String, isChecked: Boolean) -> Unit) {
+    fun setOnChipClickListener(onChipClickListener: (index: Int, item: Checkable) -> Unit) {
         setOnChipClickListener(object : OnChipCheckedChangeListener {
-            override fun onChipCheckedChange(index: Int, item: String, isChecked: Boolean) {
-                onChipClickListener(index, item, isChecked)
+            override fun onChipCheckedChange(index: Int, item: Checkable) {
+                onChipClickListener(index, item)
             }
         })
     }
 
     interface OnChipCheckedChangeListener {
-        fun onChipCheckedChange(index: Int, item: String, isChecked: Boolean)
+        fun onChipCheckedChange(index: Int, item: Checkable)
     }
 
     companion object {
@@ -112,24 +94,24 @@ class Chips @JvmOverloads constructor(
         const val DEFAULT_IS_CHECKABLE = true
 
         @JvmStatic
-        @BindingAdapter("selection")
-        fun Chips.setArray(selection: Array<String>?) {
+        @BindingAdapter("array")
+        fun Chips.setArray(array: List<Checkable>?) {
             when (fromUser) {
                 true -> fromUser = false
-                false -> this.selection = selection?.toCollection(ArrayList()) ?: mutableListOf()
+                false -> this.array = array
             }
         }
 
         @JvmStatic
-        @InverseBindingAdapter(attribute = "selection")
-        fun Chips.getArray() = selection?.toTypedArray()
+        @InverseBindingAdapter(attribute = "array")
+        fun Chips.getArray() = selection
 
         @JvmStatic
-        @BindingAdapter(value = ["selectionAttrChanged"])
-        fun Chips.setOnSelectionAttrChangeListener(
+        @BindingAdapter(value = ["arrayAttrChanged"])
+        fun Chips.setOnArrayAttrChangeListener(
             inverseBindingListener: InverseBindingListener
         ) {
-            setOnChipClickListener { _, _, _ ->
+            setOnChipClickListener { _, _ ->
                 fromUser = true
                 inverseBindingListener.onChange()
             }
