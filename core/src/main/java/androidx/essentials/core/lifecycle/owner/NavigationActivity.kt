@@ -10,7 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 
-abstract class NavigationActivity : Activity() {
+abstract class NavigationActivity : Activity(), NavController.OnDestinationChangedListener {
 
     abstract val navHostFragment: Int
     protected lateinit var navController: NavController
@@ -23,13 +23,13 @@ abstract class NavigationActivity : Activity() {
 
     @CallSuper
     protected open fun initNavigation() {
-        (supportFragmentManager.findFragmentById(navHostFragment) as NavHostFragment).apply {
-            this@NavigationActivity.navController = navController
+        (supportFragmentManager.findFragmentById(navHostFragment) as NavHostFragment).let {
+            it.navController.addOnDestinationChangedListener(this)
+            navController = it.navController
         }
     }
 
-    @CallSuper
-    protected open fun navigate(@IdRes destination: Int) {
+    protected fun navigate(@IdRes destination: Int) {
         navController.default {
             if (destination in graph.map { it.id }) {
                 if (currentDestination?.id != destination) main {

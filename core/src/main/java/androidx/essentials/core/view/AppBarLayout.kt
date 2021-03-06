@@ -16,23 +16,25 @@ class AppBarLayout @JvmOverloads constructor(
     defStyleAttr: Int = R.attr.materialCardViewStyle
 ) : MaterialCardView(context, attrs, defStyleAttr) {
 
-    private val binding = LayoutAppbarBinding.inflate(LayoutInflater.from(context), this, true)
-    private val contentLoadingProgressBar = binding.contentLoadingProgressBar
-    private val appBarLayout = binding.materialAppBarLayout
+    private val inflater = LayoutInflater.from(context)
+    private val binding = LayoutAppbarBinding.inflate(inflater, this, true)
     val toolbar = binding.toolbar
 
-    var isLoading = DEFAULT_LOADING
+    var isLoading: Boolean? = null
         set(value) {
             field = value
-            with(contentLoadingProgressBar) {
-                if (value) show() else hide()
+            with(binding.contentLoadingProgressBar) {
+                when (value) {
+                    null, false -> hide()
+                    else -> show()
+                }
             }
         }
 
     init {
-        contentLoadingProgressBar.hide()
-        appBarLayout.backgroundTintList = cardBackgroundColor
+        binding.contentLoadingProgressBar.hide()
         if (context is Activity) context.setSupportActionBar(toolbar)
+        binding.materialAppBarLayout.backgroundTintList = cardBackgroundColor
     }
 
     override fun onAttachedToWindow() {
@@ -48,12 +50,22 @@ class AppBarLayout @JvmOverloads constructor(
 
     companion object {
 
-        private const val DEFAULT_LOADING = false
-
         @JvmStatic
         @BindingAdapter("loading")
         fun AppBarLayout.setIsLoading(isLoading: Boolean?) {
-            this.isLoading = isLoading ?: false
+            this.isLoading = isLoading
+        }
+
+        @JvmStatic
+        @BindingAdapter("title")
+        fun AppBarLayout.setTitle(title: String?) {
+            this.toolbar.title = title
+        }
+
+        @JvmStatic
+        @BindingAdapter("subTitle")
+        fun AppBarLayout.setSubTitle(subTitle: String?) {
+            this.toolbar.subtitle = subTitle
         }
 
     }

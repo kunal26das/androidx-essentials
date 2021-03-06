@@ -9,48 +9,73 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.CallSuper
+import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.ContentFrameLayout
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.essentials.core.lifecycle.callback.FragmentLifecycleCallbacks
 import androidx.essentials.core.lifecycle.observer.ViewModel
-import androidx.essentials.core.utils.Events
 import androidx.essentials.extensions.Context.getActivity
 import androidx.essentials.extensions.TryCatch.Try
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LiveData
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import java.io.Serializable
 import org.koin.android.viewmodel.ext.android.viewModel as koinViewModel
 
 abstract class Activity : AppCompatActivity() {
 
-    abstract val layout: Int
-    val compositeDisposable = CompositeDisposable()
+    @PublishedApi
+    internal val accessLayout: Int?
+        get() = layout
+    protected open val layout: Int? = null
     protected open val binding: ViewDataBinding? = null
     protected open val viewModel by viewModels<ViewModel>()
     private val toast by lazy { Toast.makeText(this, "", Toast.LENGTH_SHORT) }
     inline fun <reified T : ViewModel> Activity.viewModel() = koinViewModel<T>()
     inline fun <reified T : ViewDataBinding> Activity.dataBinding() = lazy {
-        DataBindingUtil.setContentView(this, layout) as T
+        DataBindingUtil.setContentView(this, accessLayout!!) as T
     }
 
-    inline fun <reified T : Any> Activity.subscribe(crossinline action: (T) -> Unit) =
-        compositeDisposable.add(Events.subscribe<T> { action.invoke(it) })
+    protected val contentFrameLayout: ContentFrameLayout by lazy {
+        findViewById(android.R.id.content)
+    }
 
     final override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportFragmentManager.registerFragmentLifecycleCallbacks(FragmentLifecycleCallbacks, true)
-        onViewCreated(binding?.root!!, savedInstanceState)
-        binding?.lifecycleOwner = this
+        when (binding) {
+            null -> {
+                layout?.let { setContentView(it) }
+                onViewCreated(contentFrameLayout, savedInstanceState)
+            }
+            else -> binding?.apply {
+                lifecycleOwner = this@Activity
+                onViewCreated(root, savedInstanceState)
+            }
+        }
         initObservers()
     }
 
     @CallSuper
+    @MainThread
     protected open fun onViewCreated(view: View, savedInstanceState: Bundle?) = Unit
 
     @CallSuper
+    @MainThread
     protected open fun initObservers() = Unit
+
+    @CallSuper
+    @MainThread
+    open fun onDestroyView() {
+        binding?.unbind()
+    }
+
+    override fun onDestroy() {
+        supportFragmentManager.unregisterFragmentLifecycleCallbacks(FragmentLifecycleCallbacks)
+        super.onDestroy()
+        toast.cancel()
+    }
 
     @CallSuper
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -73,12 +98,6 @@ abstract class Activity : AppCompatActivity() {
         finish()
         true
     } else false
-
-    override fun onDestroy() {
-        supportFragmentManager.unregisterFragmentLifecycleCallbacks(FragmentLifecycleCallbacks)
-        compositeDisposable.clear()
-        super.onDestroy()
-    }
 
     fun toast(resId: Int, duration: Int = Toast.LENGTH_SHORT) {
         toast.apply {

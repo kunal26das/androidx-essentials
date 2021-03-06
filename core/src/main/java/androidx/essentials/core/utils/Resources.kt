@@ -3,6 +3,7 @@ package androidx.essentials.core.utils
 import android.content.Context
 import android.content.res.Resources
 import android.util.TypedValue
+import android.view.Menu
 import android.view.MenuInflater
 import android.widget.PopupMenu
 import androidx.annotation.MenuRes
@@ -34,8 +35,8 @@ object Resources {
         )
     )
 
-    fun getMenu(@MenuRes menuRes: Int) = PopupMenu(applicationContext, null).apply {
+    fun getMenu(@MenuRes menuRes: Int): Menu? = PopupMenu(applicationContext, null).apply {
         MenuInflater(applicationContext).inflate(menuRes, menu)
-    }.menu!!
+    }.menu
 
 }

@@ -1,14 +1,10 @@
 package androidx.essentials.core.lifecycle.observer
 
-import android.content.Context
 import android.util.Log
-import androidx.essentials.core.injector.KoinComponent.inject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 
 abstract class ViewModel : ViewModel() {
-
-    protected val applicationContext by inject<Context>()
 
     init {
         logViewModelLifecycleEvent(Lifecycle.Event.ON_CREATE.name)

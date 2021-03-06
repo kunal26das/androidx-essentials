@@ -9,12 +9,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.essentials.core.R
 import androidx.essentials.core.lifecycle.observer.ViewModel
-import androidx.essentials.core.utils.Events
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.android.viewmodel.ext.android.sharedViewModel as koinSharedViewModel
 
 abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
@@ -22,12 +20,11 @@ abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
     @PublishedApi
     internal val accessLayout
         get() = layout
-    protected abstract val layout: Int
+    protected open val layout: Int? = null
 
     @PublishedApi
     internal lateinit var container: ViewGroup
     val activity by lazy { context as Activity }
-    val compositeDisposable = CompositeDisposable()
     protected open val binding: ViewDataBinding? = null
     protected open val viewModel by viewModels<ViewModel>()
 
@@ -37,11 +34,8 @@ abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
         koinSharedViewModel<T>()
 
     inline fun <reified T : ViewDataBinding> BottomSheetDialogFragment.dataBinding() = lazy {
-        DataBindingUtil.inflate(inflater, accessLayout, container, false) as T
+        DataBindingUtil.inflate(inflater, accessLayout!!, container, false) as T
     }
-
-    inline fun <reified T : Any> BottomSheetDialogFragment.subscribe(crossinline action: (T) -> Unit) =
-        compositeDisposable.add(Events.subscribe<T> { action.invoke(it) })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,10 +44,17 @@ abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     final override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         this.container = container!!
-        binding?.lifecycleOwner = viewLifecycleOwner
-        return binding?.root!!
+        return when (binding) {
+            null -> layout?.let {
+                inflater.inflate(it, container, false)
+            }
+            else -> {
+                binding?.lifecycleOwner = viewLifecycleOwner
+                binding?.root
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,9 +64,9 @@ abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     protected open fun initObservers() = Unit
 
-    override fun onDestroy() {
-        compositeDisposable.clear()
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding?.unbind()
     }
 
     protected fun <T> LiveData<T>.observe(action: (T) -> Unit) =
