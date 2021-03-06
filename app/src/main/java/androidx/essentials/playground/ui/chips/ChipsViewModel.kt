@@ -10,8 +10,8 @@ import androidx.essentials.playground.R
 
 class ChipsViewModel : ViewModel() {
 
+    val isMandatory by mutableLiveData<Boolean>(Preference.IS_MANDATORY)
     val singleSelection by mutableLiveData<Boolean>(Preference.SINGLE_SELECTION)
-    val selectionRequired by mutableLiveData<Boolean>(Preference.IS_SELECTION_REQUIRED)
     val libraries: List<Checkable> = Resources.getMenu(R.menu.menu_library).children.map {
         object : Checkable {
             override fun setChecked(checked: Boolean) {

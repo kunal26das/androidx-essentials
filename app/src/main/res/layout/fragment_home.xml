@@ -14,13 +14,12 @@
         android:id="@+id/libraries"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?actionBarSize"
-        android:layout_marginBottom="16dp"
-        android:fadeScrollbars="false"
+        android:layout_marginVertical="?actionBarSize"
+        android:orientation="vertical"
         android:paddingHorizontal="8dp"
         android:paddingVertical="16dp"
-        android:scrollbars="vertical"
         app:list="@{viewModel.libraries}"
         app:spanCount="2"
+        tools:layout_marginVertical="0dp"
         tools:listitem="@layout/item_library" />
 </layout>
