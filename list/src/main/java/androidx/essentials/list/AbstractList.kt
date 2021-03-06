@@ -35,7 +35,7 @@ abstract class AbstractList<T, V : ListItemView<T>> @JvmOverloads constructor(
     abstract val onCreateViewHolder: ListItemView.ViewHolder<T>
 
     @CallSuper
-    open fun onBindViewHolder(
+    fun onBindViewHolder(
         position: Int, item: T?,
         holder: ListItemView.ViewHolder<T>
     ) = item?.let { holder.bind(it) } as V

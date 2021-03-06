@@ -7,7 +7,6 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.essentials.extensions.Coroutines.default
 import androidx.essentials.list.AbstractList
 import androidx.essentials.list.R
 import androidx.recyclerview.widget.RecyclerView
@@ -59,7 +58,6 @@ abstract class ListItemView<I> @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        default { binding }
         if (!attachToRoot) {
             addView(binding.root)
         }
