@@ -52,7 +52,9 @@ abstract class AbstractList<T, V : ListItemView<T>> @JvmOverloads constructor(
                     addItemDecoration(DividerItemDecoration(context, VERTICAL))
                     addItemDecoration(DividerItemDecoration(context, HORIZONTAL))
                 }
-                else -> addItemDecoration(DividerItemDecoration(context, orientation))
+                is LinearLayoutManager -> {
+                    addItemDecoration(DividerItemDecoration(context, orientation))
+                }
             }
         }
     }
