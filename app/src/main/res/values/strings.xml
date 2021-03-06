@@ -37,6 +37,8 @@
 
     <string name="io">I/O</string>
 
+    <string name="keyboard">Keyboard</string>
+
     <string name="latitude">Latitude</string>
 
     <string name="location">Location</string>
@@ -52,6 +54,8 @@
     <string name="online">Online</string>
 
     <string name="past">Past</string>
+
+    <string name="selection_required">Selection Required</string>
 
     <string name="settings">Settings</string>
 
@@ -71,5 +75,4 @@
     <string name="uuid">UUID</string>
 
     <string name="validate">Validate</string>
-    <string name="keyboard">Keyboard</string>
 </resources>
