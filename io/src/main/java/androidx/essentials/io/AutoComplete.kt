@@ -26,7 +26,6 @@ class AutoComplete @JvmOverloads constructor(
     var array: Array<String>?
         get() = editText.array
         set(value) {
-            if (isEditable and fromUser) isValid
             editText.array = value ?: emptyArray()
         }
 
