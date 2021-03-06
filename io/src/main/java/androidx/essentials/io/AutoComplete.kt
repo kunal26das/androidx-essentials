@@ -166,7 +166,7 @@ class AutoComplete @JvmOverloads constructor(
             inverseBindingListener: InverseBindingListener
         ) {
             editText.doAfterTextChanged {
-                fromUser = !it.isNullOrEmpty()
+                fromUser = true
                 inverseBindingListener.onChange()
             }
         }
