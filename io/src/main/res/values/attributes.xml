@@ -20,10 +20,9 @@
         <attr name="array" />
     </declare-styleable>
 
-    <declare-styleable name="Chips">
+    <declare-styleable name="ChipGroup">
         <attr name="android:checkable" format="boolean" />
         <attr name="chip" format="reference" />
-        <attr name="array" />
     </declare-styleable>
 
     <declare-styleable name="Date">
