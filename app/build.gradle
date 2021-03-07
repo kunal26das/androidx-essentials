@@ -81,6 +81,7 @@ dependencies {
         implementation project(path: ':io')
         implementation project(path: ':core')
         implementation project(path: ':list')
+        implementation project(path: ':events')
         implementation project(path: ':network')
         implementation project(path: ':backdrop')
         implementation project(path: ':firebase')

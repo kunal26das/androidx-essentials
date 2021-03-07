@@ -32,16 +32,16 @@ class Chips @JvmOverloads constructor(
                 removeAllViews().default {
                     forEachIndexed { index, item ->
                         (inflater.inflate(chipLayout, this@Chips, false) as Chip).main {
-                            text = item.toString()
-                            isCheckable = this@Chips.isCheckable
                             startAnimation(ScaleAnimation(0f, 1f, 1f, 1f))
-                            isChecked = if (isCheckable) {
+                            isCheckable = this@Chips.isCheckable
+                            isChecked = item.isChecked
+                            text = item.toString()
+                            addView(this)
+                            if (isCheckable) {
                                 setOnCheckedChangeListener { _, _ ->
                                     onChipCheckedChangeListener?.onChipCheckedChange(index, item)
                                 }
-                                item.isChecked
-                            } else false
-                            addView(this)
+                            }
                         }
                     }
                 }

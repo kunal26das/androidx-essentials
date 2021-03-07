@@ -73,13 +73,6 @@ dependencies {
         implementation "org.koin:koin-android-scope:$koin_version"
         implementation "org.koin:koin-android-viewmodel:$koin_version"
     }
-
-    // ReactiveX
-    dependencies {
-        implementation "io.reactivex.rxjava3:rxjava:$rxjava_version"
-        implementation "io.reactivex.rxjava3:rxkotlin:$rxjava_version"
-        implementation "io.reactivex.rxjava3:rxandroid:$rxjava_version"
-    }
 }
 
 apply from: 'publish.gradle'

@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 
 object SharedPreferences {
 
-    fun Any.put(pair: Pair<Enum<*>, Any?>) {
+    fun put(pair: Pair<Enum<*>, Any?>) {
         val key = pair.first
         val value = pair.second
         Preferences.edit().apply {
@@ -24,7 +24,7 @@ object SharedPreferences {
         }.apply()
     }
 
-    inline fun <reified T> Any.get(key: Enum<*>): T? {
+    inline fun <reified T> get(key: Enum<*>): T? {
         with(Preferences) {
             return try {
                 when (contains(key.name)) {

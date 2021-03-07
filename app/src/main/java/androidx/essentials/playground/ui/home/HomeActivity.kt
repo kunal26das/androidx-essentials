@@ -3,9 +3,7 @@ package androidx.essentials.playground.ui.home
 import android.os.Bundle
 import androidx.essentials.core.lifecycle.owner.NavigationActivity
 import androidx.essentials.core.preference.SharedPreferences
-import androidx.essentials.core.preference.SharedPreferences.get
-import androidx.essentials.core.preference.SharedPreferences.put
-import androidx.essentials.core.utils.Events.subscribe
+import androidx.essentials.events.Events.subscribe
 import androidx.essentials.playground.Preference
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ActivityHomeBinding

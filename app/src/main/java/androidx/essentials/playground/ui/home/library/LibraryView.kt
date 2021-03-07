@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MenuItem
 import androidx.core.view.setMargins
-import androidx.essentials.core.utils.Events.publish
 import androidx.essentials.core.utils.Resources.dp
+import androidx.essentials.events.Events.publish
 import androidx.essentials.list.view.ListItemView
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ItemLibraryBinding
