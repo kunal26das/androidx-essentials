@@ -28,12 +28,12 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <androidx.essentials.io.Chips
+                <androidx.essentials.playground.view.Chips
                     android:id="@+id/chips"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    app:array="@{viewModel.libraries}"
+                    app:array="@={viewModel.libraries}"
                     app:chip="@layout/chip_filter"
                     app:selectionRequired="@{viewModel.isMandatory}"
                     app:singleSelection="@{viewModel.singleSelection}" />
