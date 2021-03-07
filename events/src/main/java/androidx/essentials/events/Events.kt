@@ -1,7 +1,9 @@
-package androidx.essentials.core.utils
+package androidx.essentials.events
 
-import androidx.essentials.core.lifecycle.observer.LifecycleObserver
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.OnLifecycleEvent
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.ofType
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -17,7 +19,7 @@ object Events : LifecycleObserver {
     ) {
         if (!compositeDisposable.containsKey(this)) {
             compositeDisposable[this] = CompositeDisposable()
-            this.addObserver()
+            lifecycle.addObserver(this@Events)
         }
         compositeDisposable[this]?.add(
             events.ofType<T>().apply {
@@ -34,11 +36,11 @@ object Events : LifecycleObserver {
 
     fun Any.publish(event: Any) = events.onNext(event)
 
-    override fun onDestroy(lifecycleOwner: LifecycleOwner) {
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDestroy(lifecycleOwner: LifecycleOwner) {
+        lifecycleOwner.lifecycle.removeObserver(this)
         compositeDisposable[lifecycleOwner]?.clear()
         compositeDisposable.remove(lifecycleOwner)
-        super.onDestroy(lifecycleOwner)
-        lifecycleOwner.removeObserver()
     }
 
 }
