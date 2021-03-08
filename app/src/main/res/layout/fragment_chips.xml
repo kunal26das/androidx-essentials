@@ -32,21 +32,48 @@
                     android:id="@+id/chips"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:checkable="@{viewModel.isCheckable}"
                     android:padding="8dp"
-                    app:array="@={viewModel.libraries}"
-                    app:chip="@layout/chip_filter"
+                    app:chips="@={viewModel.libraries}"
                     app:selectionRequired="@{viewModel.isMandatory}"
                     app:singleSelection="@{viewModel.singleSelection}" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?dividerVertical"
+                    app:visible="@{viewModel.libraries.size() > 0}" />
+
+                <androidx.essentials.playground.view.Chips
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checkable="false"
+                    android:padding="8dp"
+                    app:chips="@{viewModel.selection}"
+                    app:visible="@{viewModel.selection.size() > 0}" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?dividerVertical"
+                    app:visible="@{viewModel.selection.size() > 0}" />
+
                 <com.google.android.material.chip.ChipGroup
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp">
 
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MaterialComponents.Chip.Filter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:checked="@={viewModel.isCheckable}"
+                        android:text="@string/checkable" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:checked="@={viewModel.isMandatory}"
                         android:text="@string/mandatory" />
 

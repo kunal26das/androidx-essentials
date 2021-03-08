@@ -17,9 +17,7 @@ class ChipsFragment : Fragment() {
         binding.viewModel = viewModel
         binding.apply {
             validate.setOnClickListener {
-                if (chips.isInvalid) {
-                    chips.requestFocus()
-                } else toast(R.string._true)
+                toast("${chips.isValid}")
             }
         }
     }
