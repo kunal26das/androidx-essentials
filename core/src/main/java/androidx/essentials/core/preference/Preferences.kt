@@ -33,14 +33,14 @@ object Preferences : SharedPreferences, SharedPreferences.Editor {
      * String Set
      */
 
-    fun getStringSet(key: String) = if (contains(key)) getStringSet(key, mutableSetOf()) else null
+    fun getStringSet(key: String) = if (contains(key)) getStringSet(key, emptySet()) else null
 
     override fun getStringSet(
-        key: String?, defValues: MutableSet<String>?
-    ): MutableSet<String> = sharedPreferences.getStringSet(key, defValues) ?: mutableSetOf()
+        key: String?, defValues: Set<String>?
+    ): Set<String> = sharedPreferences.getStringSet(key, defValues) ?: emptySet()
 
     override fun putStringSet(
-        key: String?, values: MutableSet<String>?
+        key: String?, values: Set<String>?
     ): SharedPreferences.Editor = edit().putStringSet(key, values)
 
     /**

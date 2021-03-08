@@ -3,6 +3,7 @@ package androidx.essentials.firebase
 import androidx.essentials.core.preference.SharedPreferences.get
 import androidx.essentials.core.preference.SharedPreferences.put
 import androidx.lifecycle.LiveData
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 
 object Firebase {
@@ -50,7 +51,7 @@ object Firebase {
     private val onTokenChangeListeners by lazy { mutableListOf<(String) -> Unit>() }
 
     init {
-        com.google.firebase.ktx.Firebase.messaging.token.addOnSuccessListener { TOKEN = it }
+        Firebase.messaging.token.addOnSuccessListener { TOKEN = it }
     }
 
     fun addOnTokenChangeListener(onTokenChangeListener: (String) -> Unit) {
