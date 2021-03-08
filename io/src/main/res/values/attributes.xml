@@ -18,9 +18,17 @@
         <attr name="editable" />
     </declare-styleable>
 
+    <declare-styleable name="AutoComplete">
+        <attr name="array" format="reference" />
+    </declare-styleable>
+
     <declare-styleable name="GenericChipGroup">
         <attr name="android:checkable" format="boolean" />
         <attr name="chip" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="Chips">
+        <attr name="chips" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="Date">
