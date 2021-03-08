@@ -34,7 +34,7 @@ abstract class Field @JvmOverloads constructor(
             }
         }
 
-    var isEditable = DEFAULT_IS_EDITABLE
+    open var isEditable = DEFAULT_IS_EDITABLE
         set(value) {
             field = value
             isFocusable = value
@@ -76,15 +76,10 @@ abstract class Field @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        editText?.apply {
-            setOnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) post {
-                    setSelection(length())
-                }
-                when (isEditable and hasFocus) {
-                    true -> show()
-                    false -> hide()
-                }
+        editText?.setOnFocusChangeListener { _, hasFocus ->
+            when (isEditable and hasFocus) {
+                true -> show()
+                false -> hide()
             }
         }
     }
@@ -113,7 +108,10 @@ abstract class Field @JvmOverloads constructor(
     }
 
     internal fun showSoftInput() {
-        if (showSoftInputOnFocus) inputMethodManager.showSoftInput(editText, 0)
+        if (showSoftInputOnFocus) post {
+            editText?.apply { setSelection(length()) }
+            inputMethodManager.showSoftInput(editText, 0)
+        }
     }
 
     protected fun DialogFragment.show() {

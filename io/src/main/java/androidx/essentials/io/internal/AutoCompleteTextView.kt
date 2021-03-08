@@ -5,9 +5,10 @@ import android.text.Editable
 import android.util.AttributeSet
 import android.widget.ArrayAdapter
 import androidx.essentials.io.R
+import androidx.essentials.io.internal.Field.Companion.DEFAULT_IS_EDITABLE
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 
-internal class AutoCompleteTextView @JvmOverloads constructor(
+internal class AutoCompleteTextView<T> @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleRes: Int = R.attr.editTextStyle
@@ -15,21 +16,35 @@ internal class AutoCompleteTextView @JvmOverloads constructor(
 
     internal var filter = DEFAULT_FILTER
     internal var listItem = DEFAULT_LIST_ITEM
+    internal var isEditable = DEFAULT_IS_EDITABLE
 
     private var onCutAction: ((Editable?) -> Unit)? = null
     private var onCopyAction: ((Editable?) -> Unit)? = null
     private var onPasteAction: ((Editable?) -> Unit)? = null
 
-    internal var array = emptyArray<String>()
+    private var onFilterAction: ((CharSequence?) -> Unit)? = null
+
+    internal var array: Array<T>? = null
         set(value) {
-            if (!field.contentEquals(value)) {
-                setAdapter(ArrayAdapter(context, listItem, value))
-                field = value
+            field = value?.apply {
+                setAdapter(ArrayAdapter(context, listItem, this))
             }
         }
 
     override fun setText(text: CharSequence?, filter: Boolean) {
         super.setText(text, this.filter)
+    }
+
+    override fun performFiltering(text: CharSequence?, keyCode: Int) {
+        when (filter) {
+            true -> super.performFiltering(text, keyCode)
+            false -> showDropDown()
+        }
+        onFilterAction?.invoke(text)
+    }
+
+    override fun showDropDown() {
+        if (isEditable) super.showDropDown()
     }
 
     override fun onTextContextMenuItem(id: Int) = when (id) {
@@ -49,14 +64,6 @@ internal class AutoCompleteTextView @JvmOverloads constructor(
         else -> true
     }
 
-    override fun performFiltering(text: CharSequence?, keyCode: Int) {
-        when {
-            filter -> super.performFiltering(text, keyCode)
-            array.contains("$text") -> dismissDropDown()
-            else -> showDropDown()
-        }
-    }
-
     internal fun setOnCutListener(action: (Editable?) -> Unit) {
         onCutAction = action
     }
@@ -67,6 +74,10 @@ internal class AutoCompleteTextView @JvmOverloads constructor(
 
     internal fun setOnPasteListener(action: (Editable?) -> Unit) {
         onPasteAction = action
+    }
+
+    internal fun setOnFilterListener(action: (CharSequence?) -> Unit) {
+        onFilterAction = action
     }
 
     companion object {

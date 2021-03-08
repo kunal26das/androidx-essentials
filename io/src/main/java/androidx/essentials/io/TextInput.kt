@@ -17,9 +17,9 @@ open class TextInput @JvmOverloads constructor(
     defStyleAttr: Int = R.attr.textInputStyle
 ) : Field(context, attrs, defStyleAttr) {
 
+    internal val editText: EditText
     private var regex: Regex? = null
     protected val locale: Locale get() = Locale.getDefault()
-    internal val editText by lazy { getEditText() as EditText }
 
     override val isValid: Boolean
         get() {
@@ -40,6 +40,7 @@ open class TextInput @JvmOverloads constructor(
     init {
         with(EditText(context, attrs)) {
             if (isHintEnabled) hint = null
+            editText = this
             addView(this)
         }
         context.obtainStyledAttributes(attrs, R.styleable.TextInput, defStyleAttr, 0).apply {

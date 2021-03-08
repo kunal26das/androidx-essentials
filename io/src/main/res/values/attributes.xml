@@ -3,24 +3,22 @@
 <resources>
 
     <attr name="regex" format="string" />
-    <attr name="array" format="reference" />
     <attr name="editable" format="boolean" />
     <attr name="mandatory" format="boolean" />
     <attr name="regexMessage" format="string" />
     <attr name="calendarStyle" format="reference" />
     <attr name="mandatoryMessage" format="string" />
 
-    <declare-styleable name="AutoComplete">
+    <declare-styleable name="GenericAutoComplete">
         <attr name="showSoftInputOnFocus" format="boolean" />
         <attr name="listItem" format="reference" />
         <attr name="mandatoryMessage" />
         <attr name="android:filter" />
         <attr name="mandatory" />
         <attr name="editable" />
-        <attr name="array" />
     </declare-styleable>
 
-    <declare-styleable name="ChipGroup">
+    <declare-styleable name="GenericChipGroup">
         <attr name="android:checkable" format="boolean" />
         <attr name="chip" format="reference" />
     </declare-styleable>
