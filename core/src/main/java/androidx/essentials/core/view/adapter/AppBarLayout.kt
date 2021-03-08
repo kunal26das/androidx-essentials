@@ -3,12 +3,12 @@ package androidx.essentials.core.view.adapter
 import androidx.databinding.BindingAdapter
 import androidx.essentials.core.view.AppBarLayout
 
-object AppBarLayoutBindingAdapter {
+object AppBarLayout {
 
     @JvmStatic
     @BindingAdapter("loading")
-    fun setLoading(appBarLayout: AppBarLayout, isLoading: Boolean) {
-        appBarLayout.isLoading = isLoading
+    fun AppBarLayout.setLoading(isLoading: Boolean?) {
+        this.isLoading = isLoading ?: false
     }
 
 }
