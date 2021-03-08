@@ -97,7 +97,7 @@ abstract class GenericAutoComplete<T> @JvmOverloads constructor(
                 recycle()
             }
         editText.setOnItemClickListener { _, _, position, _ ->
-            selection = editText.array?.get(position)
+            selection = editText.adapter?.getItem(position)
         }
         editText.setOnFilterListener {
             if ("$it" != selection?.toString()) {

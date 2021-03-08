@@ -24,10 +24,17 @@ internal class AutoCompleteTextView<T> @JvmOverloads constructor(
 
     private var onFilterAction: ((CharSequence?) -> Unit)? = null
 
+    internal var adapter: ArrayAdapter<T>? = null
+        set(value) {
+            field = value?.apply {
+                setAdapter(this)
+            }
+        }
+
     internal var array: Array<T>? = null
         set(value) {
             field = value?.apply {
-                setAdapter(ArrayAdapter(context, listItem, this))
+                adapter = ArrayAdapter(context, listItem, this)
             }
         }
 
