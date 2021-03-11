@@ -30,7 +30,7 @@ abstract class GenericChipGroup<T> @JvmOverloads constructor(
         set(value) {
             field = value.default {
                 repeat(childCount) {
-                    getChildAt(it).main {
+                    getChildAt(it)?.main {
                         isChecked = isChecked and value
                         isCheckable = value
                     }
@@ -59,6 +59,7 @@ abstract class GenericChipGroup<T> @JvmOverloads constructor(
                             startAnimation(ScaleAnimation(0f, 1f, 1f, 1f))
                             isCheckable = this@GenericChipGroup.isCheckable
                             isChecked = when (it) {
+                                is String -> selection?.contains(it) ?: false
                                 is Checkable -> it.isChecked
                                 is MenuItem -> it.isChecked
                                 else -> false
@@ -80,12 +81,12 @@ abstract class GenericChipGroup<T> @JvmOverloads constructor(
             }
         }
 
-    val selection: Set<T>?
+    open val selection: Set<T>?
         get() = chips?.filterIndexed { index, it ->
             when (it) {
                 is MenuItem -> it.isChecked
                 is Checkable -> it.isChecked
-                else -> getChildAt(index).isChecked
+                else -> getChildAt(index)?.isChecked ?: false
             }
         }?.toSet()
 
@@ -98,8 +99,8 @@ abstract class GenericChipGroup<T> @JvmOverloads constructor(
         }
     }
 
-    override fun getChildAt(index: Int): Chip {
-        return super.getChildAt(index) as Chip
+    override fun getChildAt(index: Int): Chip? {
+        return super.getChildAt(index) as? Chip
     }
 
     fun setOnChipClickListener(onChipCheckedChangeListener: OnChipCheckedChangeListener<T>) {
