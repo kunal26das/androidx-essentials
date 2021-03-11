@@ -86,7 +86,16 @@ abstract class GenericChipGroup<T> @JvmOverloads constructor(
             when (it) {
                 is MenuItem -> it.isChecked
                 is Checkable -> it.isChecked
-                else -> getChildAt(index)?.isChecked ?: false
+                else -> getChildAt(index)?.isChecked == true
+            }
+        }?.toSet()
+
+    open val inverseSelection: Set<T>?
+        get() = chips?.filterIndexed { index, it ->
+            when (it) {
+                is MenuItem -> !it.isChecked
+                is Checkable -> !it.isChecked
+                else -> getChildAt(index)?.isChecked == false
             }
         }?.toSet()
 

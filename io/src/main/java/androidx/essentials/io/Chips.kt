@@ -21,7 +21,19 @@ class Chips @JvmOverloads constructor(
             value.default {
                 children.forEach {
                     (it as Chip).main {
-                        it.isChecked = value?.contains(text) ?: false
+                        it.isChecked = value?.contains(text) == true
+                    }
+                }
+            }
+        }
+
+    override var inverseSelection: Set<String>?
+        get() = super.inverseSelection
+        set(value) {
+            value.default {
+                children.forEach {
+                    (it as Chip).main {
+                        it.isChecked = value?.contains(text) == false
                     }
                 }
             }
