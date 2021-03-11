@@ -15,7 +15,7 @@ enum class Preference {
     IS_HINT_ENABLED,
     KEYBOARD,
     LONG,
-    SINGLE_SELECTION,
+    IS_SINGLE_SELECTION,
     START_DATE,
     START_TIME,
     STRING,
