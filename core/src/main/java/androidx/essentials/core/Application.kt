@@ -2,15 +2,12 @@ package androidx.essentials.core
 
 import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
-import android.os.Build
 import android.util.Log
 import androidx.essentials.core.lifecycle.callback.ActivityLifecycleCallbacks
 import androidx.essentials.core.lifecycle.observer.ViewModel
+import androidx.essentials.preferences.SharedPreferences
 import androidx.lifecycle.Lifecycle
 import androidx.multidex.MultiDex
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKey
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.KoinApplication
@@ -23,22 +20,6 @@ abstract class Application : Application() {
 
     lateinit var koinApplication: KoinApplication
 
-    private val sharedPreferences: SharedPreferences by lazy {
-        when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !BuildConfig.DEBUG -> {
-                EncryptedSharedPreferences.create(
-                    this, packageName,
-                    MasterKey.Builder(this).apply {
-                        setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-                    }.build(),
-                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-                )
-            }
-            else -> getSharedPreferences(packageName, MODE_PRIVATE)
-        }
-    }
-
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         MultiDex.install(this)
@@ -46,13 +27,13 @@ abstract class Application : Application() {
 
     override fun onCreate() {
         registerActivityLifecycleCallbacks(ActivityLifecycleCallbacks)
-        Log.d(javaClass.simpleName, Lifecycle.Event.ON_CREATE.name)
+        logApplicationLifecycleEvent(Lifecycle.Event.ON_CREATE)
         super.onCreate()
         startKoin {
             androidContext(applicationContext)
             koinApplication = this
             single { resources }
-            single { sharedPreferences }
+            SharedPreferences.init(applicationContext)
         }
     }
 
@@ -74,17 +55,16 @@ abstract class Application : Application() {
 
     override fun onTerminate() {
         unregisterActivityLifecycleCallbacks(ActivityLifecycleCallbacks)
-        Log.d(javaClass.simpleName, Event.ON_TERMINATE.name)
+        logApplicationLifecycleEvent(Event.ON_TERMINATE)
         super.onTerminate()
         stopKoin()
     }
 
-    private fun logApplicationLifecycleEvent(event: String) {
-        Log.d(javaClass.simpleName, event)
+    private fun logApplicationLifecycleEvent(event: Enum<*>) {
+        Log.d(javaClass.simpleName, event.name)
     }
 
     companion object {
-
         private enum class Event {
             ON_TERMINATE
         }

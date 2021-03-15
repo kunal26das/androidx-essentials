@@ -1,24 +1,23 @@
 package androidx.essentials.core.lifecycle.observer
 
 import android.util.Log
+import androidx.essentials.preferences.SharedPreferences
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 
-abstract class ViewModel : ViewModel() {
+abstract class ViewModel : ViewModel(), SharedPreferences {
 
     init {
-        logViewModelLifecycleEvent(Lifecycle.Event.ON_CREATE.name)
+        logViewModelLifecycleEvent(Lifecycle.Event.ON_CREATE)
     }
 
     override fun onCleared() {
-        logViewModelLifecycleEvent(Event.ON_CLEARED.name)
+        logViewModelLifecycleEvent(Event.ON_CLEARED)
         super.onCleared()
     }
 
-    private fun logViewModelLifecycleEvent(event: String) {
-        if (javaClass.simpleName != ViewModel::class.java.simpleName) {
-            Log.d(javaClass.simpleName, event)
-        }
+    private fun logViewModelLifecycleEvent(event: Enum<*>) {
+        Log.d(javaClass.simpleName, event.name)
     }
 
     companion object {
