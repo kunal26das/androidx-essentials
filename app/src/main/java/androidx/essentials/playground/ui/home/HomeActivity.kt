@@ -2,18 +2,20 @@ package androidx.essentials.playground.ui.home
 
 import android.os.Bundle
 import androidx.essentials.core.lifecycle.owner.NavigationActivity
-import androidx.essentials.core.preference.SharedPreferences
 import androidx.essentials.events.Events.subscribe
 import androidx.essentials.playground.Preference
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ActivityHomeBinding
+import androidx.essentials.preferences.SharedPreferences
+import androidx.essentials.preferences.SharedPreferences.Companion.get
+import androidx.essentials.preferences.SharedPreferences.Companion.put
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 
-class HomeActivity : NavigationActivity() {
+class HomeActivity : NavigationActivity(), SharedPreferences {
 
     override val layout = R.layout.activity_home
     override val navHostFragment = R.id.playGroundNavigation
@@ -29,7 +31,7 @@ class HomeActivity : NavigationActivity() {
         binding.navigationView.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.appBarLayout.toolbar.setTitleTextAppearance(this, R.style.ToolbarTitle)
-        SharedPreferences.get<Int>(Preference.DESTINATION)?.let { navigate(it) }
+        get<Int>(Preference.DESTINATION)?.let { navigate(it) }
     }
 
     override fun initObservers() {
@@ -40,7 +42,7 @@ class HomeActivity : NavigationActivity() {
     override fun onDestinationChanged(
         controller: NavController, destination: NavDestination, arguments: Bundle?
     ) {
-        SharedPreferences.put(Pair(Preference.DESTINATION, destination.id))
+        put(Pair(Preference.DESTINATION, destination.id))
     }
 
 }

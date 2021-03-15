@@ -62,7 +62,7 @@ dependencies {
     // Google
     dependencies {
         // Guava
-        implementation "com.google.guava:guava:30.1-android"
+//        implementation "com.google.guava:guava:30.1-android"
         // Material Design
         implementation "com.google.android.material:material:$material_version"
     }
@@ -88,6 +88,7 @@ dependencies {
         implementation project(path: ':location')
         implementation project(path: ':resources')
         implementation project(path: ':extensions')
+        implementation project(path: ':preferences')
     }
 
 }

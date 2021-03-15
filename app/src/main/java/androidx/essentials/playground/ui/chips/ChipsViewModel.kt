@@ -2,10 +2,10 @@ package androidx.essentials.playground.ui.chips
 
 import androidx.core.view.children
 import androidx.essentials.core.lifecycle.observer.ViewModel
-import androidx.essentials.core.preference.SharedPreferences.mutableLiveData
 import androidx.essentials.core.utils.Resources
 import androidx.essentials.playground.Preference
 import androidx.essentials.playground.R
+import androidx.essentials.preferences.SharedPreferences.Companion.mutableLiveData
 import androidx.lifecycle.MutableLiveData
 
 class ChipsViewModel : ViewModel() {

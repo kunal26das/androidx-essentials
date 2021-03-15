@@ -1,8 +1,8 @@
 package androidx.essentials.playground.ui.time
 
 import androidx.essentials.core.lifecycle.observer.ViewModel
-import androidx.essentials.core.preference.SharedPreferences.mutableLiveData
 import androidx.essentials.playground.Preference
+import androidx.essentials.preferences.SharedPreferences.Companion.mutableLiveData
 
 class TimeViewModel : ViewModel() {
 
