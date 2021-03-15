@@ -1,12 +1,17 @@
 package androidx.essentials.firebase
 
-import androidx.essentials.core.preference.SharedPreferences.get
-import androidx.essentials.core.preference.SharedPreferences.put
+import android.content.Context
+import androidx.essentials.core.injector.KoinComponent.inject
+import androidx.essentials.preferences.SharedPreferences
+import androidx.essentials.preferences.SharedPreferences.Companion.get
+import androidx.essentials.preferences.SharedPreferences.Companion.put
 import androidx.lifecycle.LiveData
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 
-object Firebase {
+object Firebase : SharedPreferences {
+
+    private val context by inject<Context>()
 
     var TOKEN = get<String>(Preference.TOKEN)
         internal set(value) {
