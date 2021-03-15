@@ -8,7 +8,7 @@ object AppCompatImageView {
 
     @JvmStatic
     @BindingAdapter("srcCompat")
-    fun AppCompatImageView.setImageDrawable(drawable: Drawable?) {
+    fun AppCompatImageView.setDrawable(drawable: Drawable?) {
         this.setImageDrawable(drawable)
     }
 

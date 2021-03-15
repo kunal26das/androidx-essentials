@@ -1,16 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="BasilStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="isLightTheme">true</item>
-
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
         <item name="android:navigationBarDividerColor" tools:targetApi="o_mr1">#ECE9D5</item>
-
         <item name="android:statusBarColor">#FFFBE6</item>
         <item name="android:navigationBarColor">#FFFBE6</item>
         <item name="android:windowBackground">#FFFBE6</item>
-
         <item name="colorPrimary">#356859</item>
         <item name="colorOnPrimary">#FD5523</item>
         <item name="colorPrimaryVariant">#37966F</item>
@@ -23,9 +21,7 @@
         <item name="colorOnError">#356859</item>
         <item name="android:colorBackground">#FFFBE6</item>
         <item name="colorOnBackground">#B9E4C9</item>
-
         <item name="android:textColor">#356859</item>
-
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowActivityTransitions">true</item>
     </style>
