@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
 import androidx.essentials.list.adapter.ListStateAdapter
+import androidx.essentials.list.internal.AbstractList
 import androidx.essentials.list.view.ListItemView
 import androidx.paging.PagedList
 import androidx.paging.PagedListAdapter

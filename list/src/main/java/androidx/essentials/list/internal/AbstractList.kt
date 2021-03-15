@@ -1,8 +1,9 @@
-package androidx.essentials.list
+package androidx.essentials.list.internal
 
 import android.content.Context
 import android.util.AttributeSet
 import androidx.annotation.CallSuper
+import androidx.essentials.list.R
 import androidx.essentials.list.adapter.ListStateAdapter
 import androidx.essentials.list.view.ListItemView
 import androidx.recyclerview.widget.DividerItemDecoration
