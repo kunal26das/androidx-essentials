@@ -1,0 +1,29 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdkVersion rootProject.ext.sdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.sdkVersion
+        def vName = getVersionName(this.name)
+        def vCode = getVersionCode(this.name)
+        versionName vName
+        versionCode vCode
+        version vName
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "androidx.core:core-ktx:$core_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    // Security
+    implementation "androidx.security:security-crypto:1.1.0-alpha03"
+}
+
+apply from: 'publish.gradle'
