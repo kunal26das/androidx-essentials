@@ -1,30 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-
-    <attr name="regex" format="string" />
-    <attr name="editable" format="boolean" />
-    <attr name="mandatory" format="boolean" />
-    <attr name="regexMessage" format="string" />
-    <attr name="calendarStyle" format="reference" />
-    <attr name="mandatoryMessage" format="string" />
-
-    <declare-styleable name="GenericAutoComplete">
-        <attr name="showSoftInputOnFocus" format="boolean" />
-        <attr name="listItem" format="reference" />
-        <attr name="mandatoryMessage" />
-        <attr name="android:filter" />
-        <attr name="mandatory" />
-        <attr name="editable" />
-    </declare-styleable>
-
     <declare-styleable name="AutoComplete">
         <attr name="array" format="reference" />
-    </declare-styleable>
-
-    <declare-styleable name="GenericChipGroup">
-        <attr name="android:checkable" format="boolean" />
-        <attr name="chip" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="Chips">
@@ -38,12 +15,26 @@
         <attr name="calendarStyle" />
     </declare-styleable>
 
-    <declare-styleable name="TextInput">
+    <declare-styleable name="GenericAutoComplete">
+        <attr name="showSoftInputOnFocus" format="boolean" />
+        <attr name="listItem" format="reference" />
         <attr name="mandatoryMessage" />
-        <attr name="regexMessage" />
+        <attr name="android:filter" />
         <attr name="mandatory" />
         <attr name="editable" />
-        <attr name="regex" />
+    </declare-styleable>
+
+    <declare-styleable name="GenericChipGroup">
+        <attr name="android:checkable" format="boolean" />
+        <attr name="chip" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="TextInput">
+        <attr name="regexMessage" format="string" />
+        <attr name="regex" format="string" />
+        <attr name="mandatoryMessage" />
+        <attr name="mandatory" />
+        <attr name="editable" />
     </declare-styleable>
 
     <declare-styleable name="Time">
@@ -51,4 +42,11 @@
         <attr name="calendarStyle" />
     </declare-styleable>
 
+    <attr name="calendarStyle" format="reference" />
+
+    <attr name="editable" format="boolean" />
+
+    <attr name="mandatory" format="boolean" />
+
+    <attr name="mandatoryMessage" format="string" />
 </resources>
