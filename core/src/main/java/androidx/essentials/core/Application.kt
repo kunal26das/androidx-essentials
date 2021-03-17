@@ -30,7 +30,7 @@ abstract class Application : Application() {
         logApplicationLifecycleEvent(Lifecycle.Event.ON_CREATE)
         super.onCreate()
         startKoin {
-            SharedPreferences.init(applicationContext)
+            SharedPreferences.init(applicationContext, SharedPreferences.Mode.ENCRYPTED)
             androidContext(applicationContext)
             koinApplication = this
             single { resources }
