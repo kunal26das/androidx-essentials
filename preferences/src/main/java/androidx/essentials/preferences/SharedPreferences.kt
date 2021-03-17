@@ -10,13 +10,13 @@ import android.content.SharedPreferences as AndroidSharedPreferences
 
 interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences.Editor {
 
-    override fun clear() = edit()?.clear()
-    override fun apply() = edit()?.apply() ?: Unit
-    override fun commit() = edit()?.commit() ?: false
-    override fun remove(key: String) = edit()?.remove(key)
+    override fun apply() = edit().apply()
+    override fun clear() = edit().clear()!!
+    override fun commit() = edit().commit()
+    override fun remove(key: String) = edit().remove(key)!!
     override fun getAll() = sharedPreferences.all ?: emptyMap()
     override fun contains(key: String) = sharedPreferences.contains(key)
-    override fun edit(): AndroidSharedPreferences.Editor? = sharedPreferences.edit()
+    override fun edit(): AndroidSharedPreferences.Editor = sharedPreferences.edit()!!
 
     /**
      * String
@@ -30,7 +30,7 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
 
     override fun putString(
         key: String?, value: String?
-    ) = edit()?.putString(key, value)
+    ) = edit().putString(key, value)!!
 
     /**
      * String Set
@@ -44,7 +44,7 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
 
     override fun putStringSet(
         key: String?, values: Set<String>?
-    ) = edit()?.putStringSet(key, values)
+    ) = edit().putStringSet(key, values)!!
 
     /**
      * Int
@@ -58,7 +58,7 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
 
     override fun putInt(
         key: String?, value: Int
-    ) = edit()?.putInt(key, value)
+    ) = edit().putInt(key, value)!!
 
     /**
      * Long
@@ -72,7 +72,7 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
 
     override fun putLong(
         key: String?, value: Long
-    ) = edit()?.putLong(key, value)
+    ) = edit().putLong(key, value)!!
 
     /**
      * Float
@@ -86,7 +86,7 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
 
     override fun putFloat(
         key: String?, value: Float
-    ) = edit()?.putFloat(key, value)
+    ) = edit().putFloat(key, value)!!
 
     /**
      * Boolean
@@ -100,7 +100,7 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
 
     override fun putBoolean(
         key: String?, value: Boolean
-    ) = edit()?.putBoolean(key, value)
+    ) = edit().putBoolean(key, value)!!
 
     /**
      * Listener
@@ -119,7 +119,9 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
         private lateinit var sharedPreferences: AndroidSharedPreferences
 
         fun init(context: Context) {
-            sharedPreferences = context.getSharedPreferences()
+            synchronized(this) {
+                sharedPreferences = context.encryptedSharedPreferences
+            }
         }
 
         inline fun <reified T> SharedPreferences.get(key: Enum<*>): T? {
@@ -155,7 +157,7 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
                         else -> Unit
                     }
                 }
-            }?.apply()
+            }.apply()
         }
 
         inline fun <reified T> SharedPreferences.liveData(key: Enum<*>): Lazy<LiveData<T?>> = lazy {
@@ -220,12 +222,11 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
                 }
             }
 
-        fun Context.getSharedPreferences(): AndroidSharedPreferences {
-            return getSharedPreferences(packageName, MODE_PRIVATE)
-        }
+        val Context.sharedPreferences: AndroidSharedPreferences
+            get() = getSharedPreferences(packageName, MODE_PRIVATE)
 
-        fun Context.getEncryptedSharedPreferences(): AndroidSharedPreferences {
-            return EncryptedSharedPreferences.create(
+        val Context.encryptedSharedPreferences: AndroidSharedPreferences
+            get() = EncryptedSharedPreferences.create(
                 this, packageName,
                 MasterKey.Builder(this).apply {
                     setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
@@ -233,7 +234,6 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
                 EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                 EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
             )
-        }
 
     }
 
