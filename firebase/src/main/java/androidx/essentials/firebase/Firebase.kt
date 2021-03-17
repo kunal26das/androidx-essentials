@@ -1,7 +1,5 @@
 package androidx.essentials.firebase
 
-import android.content.Context
-import androidx.essentials.core.injector.KoinComponent.inject
 import androidx.essentials.preferences.SharedPreferences
 import androidx.essentials.preferences.SharedPreferences.Companion.get
 import androidx.essentials.preferences.SharedPreferences.Companion.put
@@ -10,8 +8,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 
 object Firebase : SharedPreferences {
-
-    private val context by inject<Context>()
 
     var TOKEN = get<String>(Preference.TOKEN)
         internal set(value) {
@@ -24,9 +20,13 @@ object Firebase : SharedPreferences {
         }
 
     val token: LiveData<String> by lazy {
-        object : LiveData<String>(TOKEN) {
+        object : LiveData<String>() {
 
             val onTokenChangeListener = { token: String -> value = token }
+
+            init {
+                value = TOKEN
+            }
 
             override fun onActive() {
                 super.onActive()
