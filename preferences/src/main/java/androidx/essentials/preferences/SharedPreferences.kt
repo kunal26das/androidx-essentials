@@ -114,13 +114,22 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
         listener: AndroidSharedPreferences.OnSharedPreferenceChangeListener?
     ) = sharedPreferences.unregisterOnSharedPreferenceChangeListener(listener)
 
+    enum class Mode {
+        ENCRYPTED, PLAINTEXT
+    }
+
     companion object {
 
         private lateinit var sharedPreferences: AndroidSharedPreferences
 
-        fun init(context: Context) {
-            synchronized(this) {
-                sharedPreferences = context.encryptedSharedPreferences
+        fun init(context: Context, mode: Mode) {
+            with(context) {
+                synchronized(applicationContext) {
+                    this@Companion.sharedPreferences = when (mode) {
+                        Mode.ENCRYPTED -> encryptedSharedPreferences
+                        Mode.PLAINTEXT -> sharedPreferences
+                    }
+                }
             }
         }
 
@@ -227,7 +236,7 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
 
         val Context.encryptedSharedPreferences: AndroidSharedPreferences
             get() = EncryptedSharedPreferences.create(
-                this, packageName,
+                applicationContext, packageName,
                 MasterKey.Builder(this).apply {
                     setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
                 }.build(),
