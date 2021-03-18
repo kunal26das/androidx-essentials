@@ -51,10 +51,9 @@ abstract class DialogFragment : AppCompatDialogFragment() {
             null -> layout?.let {
                 inflater.inflate(it, container, false)
             }
-            else -> {
-                binding?.lifecycleOwner = viewLifecycleOwner
-                binding?.root
-            }
+            else -> binding?.apply {
+                lifecycleOwner = viewLifecycleOwner
+            }?.root
         }
     }
 

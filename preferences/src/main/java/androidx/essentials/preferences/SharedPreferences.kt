@@ -115,7 +115,8 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
     ) = sharedPreferences.unregisterOnSharedPreferenceChangeListener(listener)
 
     enum class Mode {
-        ENCRYPTED, PLAINTEXT
+        ENCRYPTED,
+        PLAINTEXT
     }
 
     companion object {
@@ -231,10 +232,10 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
                 }
             }
 
-        val Context.sharedPreferences: AndroidSharedPreferences
+        private val Context.sharedPreferences: AndroidSharedPreferences
             get() = getSharedPreferences(packageName, MODE_PRIVATE)
 
-        val Context.encryptedSharedPreferences: AndroidSharedPreferences
+        private val Context.encryptedSharedPreferences: AndroidSharedPreferences
             get() = EncryptedSharedPreferences.create(
                 applicationContext, packageName,
                 MasterKey.Builder(this).apply {

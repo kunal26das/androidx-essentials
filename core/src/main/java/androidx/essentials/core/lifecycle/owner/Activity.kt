@@ -45,8 +45,8 @@ abstract class Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportFragmentManager.registerFragmentLifecycleCallbacks(FragmentLifecycleCallbacks, true)
         when (binding) {
-            null -> {
-                layout?.let { setContentView(it) }
+            null -> layout?.let {
+                setContentView(it)
                 onViewCreated(contentFrameLayout, savedInstanceState)
             }
             else -> binding?.apply {
