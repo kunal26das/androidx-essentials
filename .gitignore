@@ -1,10 +1,12 @@
-*.iml
-*.properties
-
+# File extensions
 .cxx
 .DS_Store
 .externalNativeBuild
-
+.iml
+# Files
+bintray.properties
+local.properties
+# Folders
 /.gradle
 /.idea
 /build
