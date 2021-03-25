@@ -23,7 +23,6 @@ abstract class Field @JvmOverloads constructor(
     protected var fromUser = false
 
     private val activity get() = context.getActivity<AppCompatActivity>()
-    private val onFocusChangeListeners = mutableListOf<(Boolean) -> Unit>()
     private val inputMethodManager = InputMethodManager.getInstance(context)
 
     internal var inputType: Int
@@ -82,10 +81,6 @@ abstract class Field @JvmOverloads constructor(
                 false -> hide()
             }
         }
-    }
-
-    fun addOnFocusChangeListener(onFocusChange: (Boolean) -> Unit) {
-        onFocusChangeListeners += onFocusChange
     }
 
     fun doBeforeTextChanged(
