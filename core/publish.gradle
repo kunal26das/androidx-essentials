@@ -1,0 +1,48 @@
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+publishing {
+    publications {
+        Production(MavenPublication) {
+            artifact("$buildDir/outputs/aar/${this.name}-debug.aar")
+            artifactId this.name
+            version this.version
+            groupId rootProject.name
+
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                configurations.implementation.allDependencies.each {
+                    if (it.name != 'unspecified') {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                    }
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    def bintrayFile = rootProject.file('bintray.properties')
+    def properties = new Properties()
+    properties.load(new FileInputStream(bintrayFile))
+    user = properties["bintray.user"]
+    key = properties["bintray.key"]
+    publications = ['Production']
+    configurations = ['archives']
+    dryRun = false
+    override = false
+
+    publish = true
+    pkg {
+        repo = rootProject.name
+        name = this.name
+        version {
+            name = this.version
+            vcsTag = this.version
+            released = new Date()
+        }
+    }
+}
