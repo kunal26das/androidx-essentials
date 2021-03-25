@@ -10,4 +10,4 @@ include ':app'
 include ':network'
 include ':extensions'
 include ':location'
-rootProject.name = "androidx.essentials"
+rootProject.name = 'androidx.essentials'
