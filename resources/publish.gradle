@@ -25,24 +25,27 @@ publishing {
 }
 
 bintray {
-    def bintrayFile = rootProject.file('bintray.properties')
-    def properties = new Properties()
-    properties.load(new FileInputStream(bintrayFile))
-    user = properties["bintray.user"]
-    key = properties["bintray.key"]
-    publications = ['Production']
-    configurations = ['archives']
-    dryRun = false
-    override = false
-
-    publish = true
-    pkg {
-        repo = rootProject.name
-        name = this.name
-        version {
-            name = this.version
-            vcsTag = this.version
-            released = new Date()
+    try {
+        def bintrayFile = rootProject.file('bintray.properties')
+        def properties = new Properties()
+        properties.load(new FileInputStream(bintrayFile))
+        user = properties["bintray.user"]
+        key = properties["bintray.key"]
+        configurations = ['archives']
+        publications = ['Production']
+        override = false
+        dryRun = false
+        publish = true
+        pkg {
+            repo = rootProject.name
+            name = this.name
+            version {
+                name = this.version
+                vcsTag = this.version
+                released = new Date()
+            }
         }
+    } catch (Exception e) {
+        e.printStackTrace()
     }
 }
