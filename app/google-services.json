@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "125790274953",
+    "firebase_url": "https://play-ground-4b041.firebaseio.com",
+    "project_id": "play-ground-4b041",
+    "storage_bucket": "play-ground-4b041.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:125790274953:android:8304a60fc83732a2380d58",
+        "android_client_info": {
+          "package_name": "androidx.essentials.playground"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "125790274953-28rfms4q9budoqup166jmid1rae0ragj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "androidx.essentials.playground",
+            "certificate_hash": "0098c070dc2b8c040c1cd0ff2e6e4900896782ef"
+          }
+        },
+        {
+          "client_id": "125790274953-09t58hhkglobror6ksiednblvn06aive.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfUNoYZ8qPvFn0zvx217Q0nSi108lYA2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "125790274953-09t58hhkglobror6ksiednblvn06aive.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
