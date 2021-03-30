@@ -1,78 +1,89 @@
 <svg
     style="font:bold  12pt Helvetica, Helvetica, sans-serif;;stroke-linejoin:round;stroke-linecap:round"
-    baseProfile="full" height="316" version="1.1" viewbox="0 0 1065 316" width="1065"
+    baseProfile="full" height="245" version="1.1" viewbox="0 0 841 245" width="841"
     xmlns="http://www.w3.org/2000/svg">
     <desc>[AndroidX-Essentials|
-        [Extensions]-[Backdrop]
-        [Extensions]-[Core]
-        [Extensions]-[I/O]
-        [Extensions]-[List]
+        [Extensions]-:&gt;[Backdrop]
+        [Extensions]-:&gt;[Core]
+        [Extensions]-:&gt;[I/O]
+        [Extensions]-:&gt;[List]
 
-        [Preferences]-[Core]
-        [Preferences]-[Firebase]
-        [Preferences]-[Location]
+        [Preferences]-:&gt;[Core]
+        [Preferences]-:&gt;[Firebase]
+        [Preferences]-:&gt;[Location]
 
-        [Core]-[App]
-        [Events]-[App]
-        [Network]-[App]
-        [Resources]-[App]
+        [Core]
+        [Events]
+        [Network]
+        [Resources]
         ]
     </desc>
-    <rect style="stroke:none; fill:transparent;" height="316" width="1065" x="0" y="0"></rect>
+    <rect style="stroke:none; fill:transparent;" height="245" width="841" x="0" y="0"></rect>
     <rect style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;stroke-width:3;"
-        data-name="AndroidX-Essentials" height="260" width="1009" x="28.5" y="28.5"></rect>
+        data-name="AndroidX-Essentials" height="189" width="785" x="28.5" y="28.5"></rect>
     <path style="stroke:#33322E;fill:none;stroke-dasharray:none;stroke-width:3;"
-        d="M28.5 59.5 L1037.5 59.5" data-name="AndroidX-Essentials"></path>
-    <text
+        d="M28.5 59.5 L813.5 59.5" data-name="AndroidX-Essentials"></path>
+    <text data-name="AndroidX-Essentials" x="421"
         style="fill: #33322E;font:bold  12pt Helvetica, Helvetica, sans-serif;text-anchor: middle;"
-        data-name="AndroidX-Essentials" x="533" y="50">AndroidX-Essentials
+        y="50">AndroidX-Essentials
     </text>
     <path style="stroke:#33322E;fill:none;stroke-dasharray:none;stroke-width:3;"
-        d="M204.3 114.7 L101.5 138.5 L101.5 158.5 L101.5 158.5 "
+        d="M156.6 118.5 L101.5 138.5 L101.5 145.2 L101.5 145.2 "
+        data-name="AndroidX-Essentials"></path>
+    <path style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;stroke-width:3;"
+        d="M96.2 145.2 L101.5 145.2 L106.8 145.2 L101.5 158.5 Z"
         data-name="AndroidX-Essentials"></path>
     <path style="stroke:#33322E;fill:none;stroke-dasharray:none;stroke-width:3;"
-        d="M220.8 118.5 L177 138.5 L197 158.5 L197 158.5 " data-name="AndroidX-Essentials"></path>
-    <path style="stroke:#33322E;fill:none;stroke-dasharray:none;stroke-width:3;"
-        d="M273.2 118.5 L297 138.5 L297 158.5 L297 158.5 " data-name="AndroidX-Essentials"></path>
-    <path style="stroke:#33322E;fill:none;stroke-dasharray:none;stroke-width:3;"
-        d="M305.3 117.6 L377.5 138.5 L377.5 158.5 L377.5 158.5 "
+        d="M189.5 118.5 L177 138.5 L187.6 149.1 L187.6 149.1 "
+        data-name="AndroidX-Essentials"></path>
+    <path style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;stroke-width:3;"
+        d="M183.8 152.8 L187.6 149.1 L191.3 145.3 L197 158.5 Z"
         data-name="AndroidX-Essentials"></path>
     <path style="stroke:#33322E;fill:none;stroke-dasharray:none;stroke-width:3;"
-        d="M426.5 110.8 L234.8 138.5 L222.2 158.5 L222.2 158.5 "
+        d="M241.9 118.5 L297 138.5 L297 145.2 L297 145.2 " data-name="AndroidX-Essentials"></path>
+    <path style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;stroke-width:3;"
+        d="M291.7 145.2 L297 145.2 L302.3 145.2 L297 158.5 Z"
         data-name="AndroidX-Essentials"></path>
     <path style="stroke:#33322E;fill:none;stroke-dasharray:none;stroke-width:3;"
-        d="M480.5 118.5 L480.5 138.5 L480.5 158.5 L480.5 158.5 "
+        d="M249.8 113.1 L377.5 138.5 L377.5 145.2 L377.5 145.2 "
+        data-name="AndroidX-Essentials"></path>
+    <path style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;stroke-width:3;"
+        d="M372.2 145.2 L377.5 145.2 L382.8 145.2 L377.5 158.5 Z"
         data-name="AndroidX-Essentials"></path>
     <path style="stroke:#33322E;fill:none;stroke-dasharray:none;stroke-width:3;"
-        d="M534 118.5 L603 138.5 L603 158.5 L603 158.5 " data-name="AndroidX-Essentials"></path>
-    <path style="stroke:#33322E;fill:none;stroke-dasharray:none;stroke-width:3;"
-        d="M212.5 189.5 L212.5 209.5 L751.8 243.5 L751.8 243.5 "
+        d="M312.5 117.3 L232.5 138.5 L227.8 146.9 L227.8 146.9 "
+        data-name="AndroidX-Essentials"></path>
+    <path style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;stroke-width:3;"
+        d="M223.1 144.3 L227.8 146.9 L232.4 149.5 L221.2 158.5 Z"
         data-name="AndroidX-Essentials"></path>
     <path style="stroke:#33322E;fill:none;stroke-dasharray:none;stroke-width:3;"
-        d="M718.5 189.5 L718.5 209.5 L751.8 230.3 L751.8 230.3 "
+        d="M416.3 118.5 L480.5 138.5 L480.5 145.2 L480.5 145.2 "
+        data-name="AndroidX-Essentials"></path>
+    <path style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;stroke-width:3;"
+        d="M475.2 145.2 L480.5 145.2 L485.8 145.2 L480.5 158.5 Z"
         data-name="AndroidX-Essentials"></path>
     <path style="stroke:#33322E;fill:none;stroke-dasharray:none;stroke-width:3;"
-        d="M832 189.5 L832 209.5 L798.8 230.3 L798.8 230.3 " data-name="AndroidX-Essentials"></path>
-    <path style="stroke:#33322E;fill:none;stroke-dasharray:none;stroke-width:3;"
-        d="M960.5 189.5 L960.5 209.5 L798.8 240.5 L798.8 240.5 "
+        d="M420.5 111.1 L603 138.5 L603 145.2 L603 145.2 " data-name="AndroidX-Essentials"></path>
+    <path style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;stroke-width:3;"
+        d="M597.7 145.2 L603 145.2 L608.3 145.2 L603 158.5 Z"
         data-name="AndroidX-Essentials"></path>
     <rect style="stroke:#33322E;fill:#fdf6e3;stroke-dasharray:none;stroke-width:3;"
-        data-name="Extensions" height="31" width="101" x="204.5" y="87.5"></rect>
-    <text
+        data-name="Extensions" height="31" width="101" x="148.5" y="87.5"></rect>
+    <text data-name="Extensions" x="199"
         style="fill: #33322E;font:bold  12pt Helvetica, Helvetica, sans-serif;text-anchor: middle;"
-        data-name="Extensions" x="255" y="109">Extensions
+        y="109">Extensions
     </text>
     <rect style="stroke:#33322E;fill:#fdf6e3;stroke-dasharray:none;stroke-width:3;"
         data-name="Backdrop" height="31" width="90" x="56.5" y="158.5"></rect>
-    <text
+    <text data-name="Backdrop" x="101.5"
         style="fill: #33322E;font:bold  12pt Helvetica, Helvetica, sans-serif;text-anchor: middle;"
-        data-name="Backdrop" x="101.5" y="180">Backdrop
+        y="180">Backdrop
     </text>
     <rect style="stroke:#33322E;fill:#fdf6e3;stroke-dasharray:none;stroke-width:3;" data-name="Core"
         height="31" width="52" x="186.5" y="158.5"></rect>
-    <text
+    <text data-name="Core" x="212.5"
         style="fill: #33322E;font:bold  12pt Helvetica, Helvetica, sans-serif;text-anchor: middle;"
-        data-name="Core" x="212.5" y="180">Core
+        y="180">Core
     </text>
     <rect style="stroke:#33322E;fill:#fdf6e3;stroke-dasharray:none;stroke-width:3;" data-name="I/O"
         height="31" width="37" x="278.5" y="158.5"></rect>
@@ -87,8 +98,8 @@
         y="180">List
     </text>
     <rect style="stroke:#33322E;fill:#fdf6e3;stroke-dasharray:none;stroke-width:3;"
-        data-name="Preferences" height="31" width="108" x="426.5" y="87.5"></rect>
-    <text data-name="Preferences" x="480.5"
+        data-name="Preferences" height="31" width="108" x="312.5" y="87.5"></rect>
+    <text data-name="Preferences" x="366.5"
         style="fill: #33322E;font:bold  12pt Helvetica, Helvetica, sans-serif;text-anchor: middle;"
         y="109">Preferences
     </text>
@@ -104,28 +115,22 @@
         style="fill: #33322E;font:bold  12pt Helvetica, Helvetica, sans-serif;text-anchor: middle;"
         y="180">Location
     </text>
-    <rect style="stroke:#33322E;fill:#fdf6e3;stroke-dasharray:none;stroke-width:3;" data-name="App"
-        height="31" width="47" x="751.5" y="229.5"></rect>
-    <text data-name="App" x="775"
+    <rect style="stroke:#33322E;fill:#fdf6e3;stroke-dasharray:none;stroke-width:3;"
+        data-name="Events" height="31" width="68" x="460.5" y="87.5"></rect>
+    <text data-name="Events" x="494.5"
         style="fill: #33322E;font:bold  12pt Helvetica, Helvetica, sans-serif;text-anchor: middle;"
-        y="251">App
+        y="109">Events
     </text>
     <rect style="stroke:#33322E;fill:#fdf6e3;stroke-dasharray:none;stroke-width:3;"
-        data-name="Events" height="31" width="68" x="684.5" y="158.5"></rect>
-    <text data-name="Events" x="718.5"
+        data-name="Network" height="31" width="79" x="568.5" y="87.5"></rect>
+    <text data-name="Network" x="608"
         style="fill: #33322E;font:bold  12pt Helvetica, Helvetica, sans-serif;text-anchor: middle;"
-        y="180">Events
+        y="109">Network
     </text>
     <rect style="stroke:#33322E;fill:#fdf6e3;stroke-dasharray:none;stroke-width:3;"
-        data-name="Network" height="31" width="79" x="792.5" y="158.5"></rect>
-    <text data-name="Network" x="832"
+        data-name="Resources" height="31" width="98" x="687.5" y="87.5"></rect>
+    <text data-name="Resources" x="736.5"
         style="fill: #33322E;font:bold  12pt Helvetica, Helvetica, sans-serif;text-anchor: middle;"
-        y="180">Network
-    </text>
-    <rect style="stroke:#33322E;fill:#fdf6e3;stroke-dasharray:none;stroke-width:3;"
-        data-name="Resources" height="31" width="98" x="911.5" y="158.5"></rect>
-    <text data-name="Resources" x="960.5"
-        style="fill: #33322E;font:bold  12pt Helvetica, Helvetica, sans-serif;text-anchor: middle;"
-        y="180">Resources
+        y="109">Resources
     </text>
 </svg>
