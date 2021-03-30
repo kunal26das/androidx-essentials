@@ -9,4 +9,4 @@ minSdkVersion 21
 ## Dependencies
 ![Dependencies](/io/io.svg)
 ## Usage
-Check the [Play Ground](/app) app.
+Check the [Play Ground](/app/src/main/java/androidx/essentials/playground) app.
