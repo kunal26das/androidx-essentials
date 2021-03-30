@@ -1,5 +1,4 @@
 # Core
-[ ![Download](https://api.bintray.com/packages/kunal26das/androidx.essentials/core/images/download.svg) ](https://bintray.com/kunal26das/androidx.essentials/core/_latestVersion)
 ```
 implementation 'androidx.essentials:core:latest_version'
 ```
