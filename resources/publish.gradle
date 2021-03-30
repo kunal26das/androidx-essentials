@@ -1,50 +1,41 @@
 apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
+
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier "sources"
+}
 
 publishing {
-    publications {
-        Production(MavenPublication) {
-            artifact("$buildDir/outputs/aar/${this.name}-debug.aar")
-            artifactId this.name
-            version this.version
-            groupId rootProject.name
-
-            pom.withXml {
-                def dependenciesNode = asNode().appendNode('dependencies')
-                configurations.implementation.allDependencies.each {
-                    if (it.name != 'unspecified') {
-                        def dependencyNode = dependenciesNode.appendNode('dependency')
-                        dependencyNode.appendNode('groupId', it.group)
-                        dependencyNode.appendNode('artifactId', it.name)
-                        dependencyNode.appendNode('version', it.version)
-                    }
-                }
+    repositories {
+        maven {
+            name = "GithubPackages"
+            url = uri(rootProject.ext.mavenUrl)
+            credentials {
+                def github = rootProject.file(rootProject.ext.githubProperties)
+                def properties = new Properties()
+                properties.load(new FileInputStream(github))
+                username = properties['github.user']
+                password = properties['github.token']
             }
         }
     }
-}
+    publications {
+        library(MavenPublication) {
+            groupId rootProject.ext.libraryGroupId
+            artifactId this.name
+            version this.version
+            artifact("$buildDir/outputs/aar/${this.name}-release.aar")
+            artifact(sourceJar)
 
-bintray {
-    try {
-        def bintrayFile = rootProject.file('bintray.properties')
-        def properties = new Properties()
-        properties.load(new FileInputStream(bintrayFile))
-        user = properties["bintray.user"]
-        key = properties["bintray.key"]
-        configurations = ['archives']
-        publications = ['Production']
-        override = false
-        dryRun = false
-        publish = true
-        pkg {
-            repo = rootProject.name
-            name = this.name
-            version {
-                name = this.version
-                vcsTag = this.version
-                released = new Date()
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                configurations.api.allDependencies.each {
+                    def dependencyNode = dependenciesNode.appendNode('dependency')
+                    dependencyNode.appendNode('groupId', it.group)
+                    dependencyNode.appendNode('artifactId', it.name)
+                    dependencyNode.appendNode('version', it.version)
+                }
             }
         }
-    } catch (Exception ignored) {
     }
 }

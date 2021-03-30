@@ -1,7 +1,10 @@
 ext {
     sdkVersion = 30
     minSdkVersion = 21
-    versionFile = 'version.properties'
+    versionProperties = 'version.properties'
+    githubProperties = 'github.properties'
+    libraryGroupId = 'androidx.essentials'
+    mavenUrl = 'https://maven.pkg.github.com/kunal26das/androidx-essentials'
 }
 
 buildscript {
@@ -27,7 +30,6 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.3'
         classpath 'com.google.gms:google-services:4.3.5'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -39,7 +41,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url "https://dl.bintray.com/kunal26das/androidx.essentials/" }
     }
 }
 
@@ -48,12 +49,12 @@ task clean(type: Delete) {
 }
 
 def getVersionCode(name) {
-    def versionFile = file(this.ext.versionFile)
-    def version = new Properties()
-    version.load(new FileInputStream(versionFile))
-    def versionMajor = Integer.valueOf(version["${name}.version.major"])
-    def versionMinor = Integer.valueOf(version["${name}.version.minor"])
-    def versionPatch = Integer.valueOf(version["${name}.version.patch"])
+    def version = file(this.ext.versionProperties)
+    def properties = new Properties()
+    properties.load(new FileInputStream(version))
+    def versionMajor = Integer.valueOf(properties["${name}.version.major"])
+    def versionMinor = Integer.valueOf(properties["${name}.version.minor"])
+    def versionPatch = Integer.valueOf(properties["${name}.version.patch"])
     return ((Integer.valueOf(this.ext.minSdkVersion) * 10000000) +
             (Integer.valueOf(versionMajor) * 10000) +
             (Integer.valueOf(versionMinor) * 100) +
@@ -61,11 +62,11 @@ def getVersionCode(name) {
 }
 
 def getVersionName(name) {
-    def versionFile = file(this.ext.versionFile)
-    def version = new Properties()
-    version.load(new FileInputStream(versionFile))
-    def versionMajor = Integer.valueOf(version["${name}.version.major"])
-    def versionMinor = Integer.valueOf(version["${name}.version.minor"])
-    def versionPatch = Integer.valueOf(version["${name}.version.patch"])
+    def version = file(this.ext.versionProperties)
+    def properties = new Properties()
+    properties.load(new FileInputStream(version))
+    def versionMajor = Integer.valueOf(properties["${name}.version.major"])
+    def versionMinor = Integer.valueOf(properties["${name}.version.minor"])
+    def versionPatch = Integer.valueOf(properties["${name}.version.patch"])
     return "${versionMajor}.${versionMinor}.${versionPatch}"
 }

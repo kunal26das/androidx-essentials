@@ -1,3 +1,4 @@
+rootProject.name = "androidx.essentials"
 include ':app'
 include ':backdrop'
 include ':core'

@@ -4,7 +4,7 @@
 .externalNativeBuild
 .iml
 # Files
-bintray.properties
+github.properties
 local.properties
 # Folders
 /.gradle
