@@ -1,9 +1,9 @@
 ext {
     sdkVersion = 30
     minSdkVersion = 21
-    versionProperties = 'version.properties'
-    githubProperties = 'github.properties'
     libraryGroupId = 'androidx.essentials'
+    githubProperties = 'github.properties'
+    versionProperties = 'version.properties'
     mavenUrl = 'https://maven.pkg.github.com/kunal26das/androidx-essentials'
 }
 
