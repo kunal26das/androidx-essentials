@@ -1,66 +1,91 @@
 package androidx.essentials.location
 
-import android.annotation.SuppressLint
+import android.Manifest
 import android.content.Context
-import android.location.Location
-import com.google.android.gms.location.FusedLocationProviderClient
+import androidx.annotation.RequiresPermission
+import androidx.essentials.preferences.SharedPreferences
+import androidx.essentials.preferences.SharedPreferences.Companion.get
+import androidx.essentials.preferences.SharedPreferences.Companion.put
+import androidx.lifecycle.LiveData
 import com.google.android.gms.location.LocationServices
 
-class LocationProvider private constructor() {
+object LocationProvider : SharedPreferences {
 
-    var location: Location? = null
-        private set(value) {
-            field = value
-            onLocationChangeListener?.onLocationChange(value)
+    var LOCATION: Pair<Float, Float>? = null
+        get() {
+            get<Float>(Preference.LATITUDE)?.let { latitude ->
+                get<Float>(Preference.LONGITUDE)?.let { longitude ->
+                    return Pair(latitude, longitude)
+                }
+            }
+            return null
+        }
+        internal set(value) {
+            field = value?.apply {
+                put(Pair(Preference.LATITUDE, first))
+                put(Pair(Preference.LONGITUDE, second))
+                onLocationChangeListeners.forEach {
+                    it.invoke(this)
+                }
+            }
         }
 
-    private var onLocationChangeListener: OnLocationChangeListener? = null
+    val location: LiveData<Pair<Float, Float>> by lazy {
+        object : LiveData<Pair<Float, Float>>() {
 
-    init {
-        initOnLocationChangeListener()
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun initOnLocationChangeListener() {
-        fusedLocationProviderClient?.lastLocation?.addOnSuccessListener {
-            location = it
-        }
-    }
-
-    fun setOnLocationChangeListener(onLocationChangeListener: OnLocationChangeListener) {
-        this.onLocationChangeListener = onLocationChangeListener
-    }
-
-    fun setOnLocationChangeListener(action: (Location?) -> Unit) {
-        setOnLocationChangeListener(object : OnLocationChangeListener {
-            override fun onLocationChange(location: Location?) {
-                action(location)
+            val onLocationChangeListener = { location: Pair<Float, Float> ->
+                value = location
             }
-        })
-    }
 
-    fun removeOnLocationChangeListener() {
-        onLocationChangeListener = null
-    }
-
-    interface OnLocationChangeListener {
-        fun onLocationChange(location: Location?)
-    }
-
-    companion object {
-
-        @SuppressLint("StaticFieldLeak")
-        private var fusedLocationProviderClient: FusedLocationProviderClient? = null
-
-        fun getInstance(context: Context): LocationProvider {
-            if (fusedLocationProviderClient != null) {
-                return LocationProvider()
+            init {
+                value = LOCATION
             }
-            synchronized(this) {
-                fusedLocationProviderClient =
-                    LocationServices.getFusedLocationProviderClient(context)
-                return LocationProvider()
+
+            override fun onActive() {
+                super.onActive()
+                addOnLocationChangeListener(onLocationChangeListener)
+            }
+
+            override fun getValue() = LOCATION
+
+            override fun onInactive() {
+                removeOnLocationChangeListener(onLocationChangeListener)
+                super.onInactive()
             }
         }
     }
+
+    private val onLocationChangeListeners by lazy {
+        mutableListOf<(Pair<Float, Float>) -> Unit>()
+    }
+
+    @Synchronized
+    @RequiresPermission(
+        anyOf = [
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ]
+    )
+    fun init(context: Context) {
+        synchronized(this) {
+            LocationServices.getFusedLocationProviderClient(context).apply {
+                lastLocation.addOnSuccessListener {
+                    LOCATION = Pair(it.latitude.toFloat(), it.longitude.toFloat())
+                }
+            }
+        }
+    }
+
+    fun addOnLocationChangeListener(onLocationChangeListener: (Pair<Float, Float>) -> Unit) {
+        onLocationChangeListeners.add(onLocationChangeListener)
+    }
+
+    fun removeOnLocationChangeListener(onLocationChangeListener: (Pair<Float, Float>) -> Unit) {
+        onLocationChangeListeners.remove(onLocationChangeListener)
+    }
+
+    private enum class Preference {
+        LATITUDE, LONGITUDE
+    }
+
 }
