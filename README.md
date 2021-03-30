@@ -11,9 +11,7 @@ buildscript {
 ```
 allprojects {
   repositories {
-    maven {
-      url "https://dl.bintray.com/kunal26das/androidx.essentials/"
-    }
+    maven { url 'https://maven.pkg.github.com/kunal26das/androidx-essentials' }
   }
 }
 ```
