@@ -14,3 +14,5 @@ maven {
 classpath 'com.google.gms:google-services:latest_version'
 classpath 'com.google.firebase:firebase-crashlytics-gradle:latest_version'
 ```
+## Dependencies
+![Dependencies](/androidx-essentials.svg)
