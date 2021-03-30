@@ -1,5 +1,4 @@
 # Network State
-[ ![Download](https://api.bintray.com/packages/kunal26das/androidx.essentials/network-state/images/download.svg) ](https://bintray.com/kunal26das/androidx.essentials/network-state/_latestVersion)
 ```
 implementation 'androidx.essentials:network-state:latest_version'
 ```
