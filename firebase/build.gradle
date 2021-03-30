@@ -26,14 +26,10 @@ dependencies {
     implementation project(path: ':preferences')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    // Core
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     // Firebase
-    implementation platform('com.google.firebase:firebase-bom:26.1.0')
-    implementation 'com.google.firebase:firebase-core'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx'
-    implementation 'com.google.firebase:firebase-database-ktx'
+    implementation platform('com.google.firebase:firebase-bom:26.8.0')
     implementation 'com.google.firebase:firebase-messaging-ktx'
 }
 

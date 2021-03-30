@@ -22,7 +22,9 @@ object Firebase : SharedPreferences {
     val token: LiveData<String> by lazy {
         object : LiveData<String>() {
 
-            val onTokenChangeListener = { token: String -> value = token }
+            val onTokenChangeListener = { token: String ->
+                value = token
+            }
 
             init {
                 value = TOKEN
@@ -53,7 +55,9 @@ object Firebase : SharedPreferences {
         }
         internal set(value) = put(Pair(Preference.UUID, value))
 
-    private val onTokenChangeListeners by lazy { mutableListOf<(String) -> Unit>() }
+    private val onTokenChangeListeners by lazy {
+        mutableListOf<(String) -> Unit>()
+    }
 
     init {
         Firebase.messaging.token.addOnSuccessListener { TOKEN = it }
