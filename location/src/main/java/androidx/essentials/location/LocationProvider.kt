@@ -70,7 +70,7 @@ object LocationProvider : SharedPreferences {
         synchronized(this) {
             LocationServices.getFusedLocationProviderClient(context).apply {
                 lastLocation.addOnSuccessListener {
-                    LOCATION = Pair(it.latitude.toFloat(), it.longitude.toFloat())
+                    it?.apply { LOCATION = Pair(latitude.toFloat(), longitude.toFloat()) }
                 }
             }
         }
