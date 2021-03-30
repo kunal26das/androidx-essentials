@@ -1,5 +1,4 @@
 # Firebase
-[ ![Download](https://api.bintray.com/packages/kunal26das/androidx.essentials/firebase/images/download.svg) ](https://bintray.com/kunal26das/androidx.essentials/firebase/_latestVersion)
 ```
 implementation 'androidx.essentials:firebase:latest_version'
 ```
