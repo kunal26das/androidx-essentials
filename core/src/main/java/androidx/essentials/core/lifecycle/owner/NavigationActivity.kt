@@ -10,11 +10,12 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 
-abstract class NavigationActivity : Activity(), NavController.OnDestinationChangedListener {
+abstract class NavigationActivity : Activity() {
 
-    abstract val navHostFragment: Int
+    abstract val navHostFragmentId: Int
     protected lateinit var navController: NavController
     abstract val appBarConfiguration: AppBarConfiguration
+    protected lateinit var navHostFragment: NavHostFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -23,10 +24,9 @@ abstract class NavigationActivity : Activity(), NavController.OnDestinationChang
 
     @CallSuper
     protected open fun initNavigation() {
-        (supportFragmentManager.findFragmentById(navHostFragment) as NavHostFragment).let {
-            it.navController.addOnDestinationChangedListener(this)
-            navController = it.navController
-        }
+        navHostFragment =
+            supportFragmentManager.findFragmentById(navHostFragmentId) as NavHostFragment
+        navController = navHostFragment.navController
     }
 
     protected fun navigate(@IdRes destination: Int) {

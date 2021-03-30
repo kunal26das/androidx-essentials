@@ -16,7 +16,7 @@ import org.koin.core.context.stopKoin
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-abstract class Application : Application() {
+open class Application : Application() {
 
     lateinit var koinApplication: KoinApplication
 
