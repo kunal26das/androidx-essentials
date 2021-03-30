@@ -1,5 +1,4 @@
 # Location Provider
-[ ![Download](https://api.bintray.com/packages/kunal26das/androidx.essentials/location-provider/images/download.svg) ](https://bintray.com/kunal26das/androidx.essentials/location-provider/_latestVersion)
 ```
 implementation 'androidx.essentials:location-provider:latest_version'
 ```
