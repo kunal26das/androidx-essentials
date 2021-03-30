@@ -170,7 +170,9 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
             }.apply()
         }
 
-        inline fun <reified T> SharedPreferences.liveData(key: Enum<*>): Lazy<LiveData<T?>> = lazy {
+        inline fun <reified T> SharedPreferences.liveData(
+            key: Enum<*>
+        ): Lazy<LiveData<T?>> = lazy {
             object : LiveData<T?>(), AndroidSharedPreferences.OnSharedPreferenceChangeListener {
 
                 private val key = key
@@ -196,41 +198,42 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
             }
         }
 
-        inline fun <reified T> SharedPreferences.mutableLiveData(key: Enum<*>): Lazy<MutableLiveData<T?>> =
-            lazy {
-                object : MutableLiveData<T?>(),
-                    AndroidSharedPreferences.OnSharedPreferenceChangeListener {
+        inline fun <reified T> SharedPreferences.mutableLiveData(
+            key: Enum<*>
+        ): Lazy<MutableLiveData<T?>> = lazy {
+            object : MutableLiveData<T?>(),
+                AndroidSharedPreferences.OnSharedPreferenceChangeListener {
 
-                    private val key = key
+                private val key = key
 
-                    override fun onActive() {
-                        registerOnSharedPreferenceChangeListener(this)
-                    }
-
-                    override fun getValue() = get<T>(key)
-
-                    override fun setValue(value: T?) {
-                        if (value != getValue()) {
-                            super.setValue(value)
-                            put(Pair(key, value))
-                        }
-                    }
-
-                    override fun onSharedPreferenceChanged(
-                        sharedPreferences: AndroidSharedPreferences?,
-                        key: String?
-                    ) {
-                        if (this.key.name == key) {
-                            value = get<T>(this.key)
-                        }
-                    }
-
-                    override fun onInactive() {
-                        unregisterOnSharedPreferenceChangeListener(this)
-                    }
-
+                override fun onActive() {
+                    registerOnSharedPreferenceChangeListener(this)
                 }
+
+                override fun getValue() = get<T>(key)
+
+                override fun setValue(value: T?) {
+                    if (value != getValue()) {
+                        super.setValue(value)
+                        put(Pair(key, value))
+                    }
+                }
+
+                override fun onSharedPreferenceChanged(
+                    sharedPreferences: AndroidSharedPreferences?,
+                    key: String?
+                ) {
+                    if (this.key.name == key) {
+                        value = get<T>(this.key)
+                    }
+                }
+
+                override fun onInactive() {
+                    unregisterOnSharedPreferenceChangeListener(this)
+                }
+
             }
+        }
 
         private val Context.sharedPreferences: AndroidSharedPreferences
             get() = getSharedPreferences(packageName, MODE_PRIVATE)
