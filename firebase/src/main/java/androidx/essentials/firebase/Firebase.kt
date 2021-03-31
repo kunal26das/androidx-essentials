@@ -20,11 +20,11 @@ object Firebase : SharedPreferences {
                 }
             }
         }
-        internal set(value) = put(Pair(Preference.UUID, value))
+        internal set(value) = put(Preference.UUID, value)
 
     init {
         Firebase.messaging.token.addOnSuccessListener {
-            put(Pair(Preference.TOKEN, it))
+            put(Preference.TOKEN, it)
         }
     }
 

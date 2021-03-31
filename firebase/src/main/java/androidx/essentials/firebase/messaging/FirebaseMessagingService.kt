@@ -22,7 +22,7 @@ open class FirebaseMessagingService : FirebaseMessagingService(), SharedPreferen
     }
 
     override fun onNewToken(token: String) {
-        put(Pair(Firebase.Preference.TOKEN, token))
+        put(Firebase.Preference.TOKEN, token)
         log(Event.ON_NEW_TOKEN)
     }
 
