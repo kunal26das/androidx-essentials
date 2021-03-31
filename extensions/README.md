@@ -1,6 +1,6 @@
 # Kotlin Extensions
 ```
-implementation 'androidx.essentials:kotlin-extensions:latest_version'
+implementation 'androidx.essentials:extensions:latest_version'
 ```
 ## Requirements
 ```
@@ -14,6 +14,9 @@ Try {}
 ### Coroutines
 ```
 default {}
+```
+```
+delay {}
 ```
 ```
 io {}
