@@ -13,7 +13,7 @@ class ListStateAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private lateinit var viewDataBinding: ViewDataBinding
-    fun <T : ViewDataBinding> binding(): T = viewDataBinding as T
+    fun <T : ViewDataBinding> dataBinding(): T = viewDataBinding as T
     private val viewHolder = object : RecyclerView.ViewHolder(
         try {
             viewDataBinding = DataBindingUtil.inflate(
