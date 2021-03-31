@@ -94,15 +94,7 @@ class Time @JvmOverloads constructor(
         this.onTimeChangeListener = onTimeChangeListener
     }
 
-    fun setOnTimeChangeListener(onTimeChange: (Long?) -> Unit) {
-        setOnTimeChangeListener(object : OnTimeChangeListener {
-            override fun onTimeChange(time: Long?) {
-                onTimeChange.invoke(time)
-            }
-        })
-    }
-
-    interface OnTimeChangeListener {
+    fun interface OnTimeChangeListener {
         fun onTimeChange(time: Long?)
     }
 

@@ -116,15 +116,7 @@ abstract class GenericChipGroup<T> @JvmOverloads constructor(
         this.onChipCheckedChangeListener = onChipCheckedChangeListener
     }
 
-    fun setOnChipClickListener(onChipClickListener: (index: Int, item: T?) -> Unit) {
-        setOnChipClickListener(object : OnChipCheckedChangeListener<T> {
-            override fun onChipCheckedChange(index: Int, item: T?) {
-                onChipClickListener(index, item)
-            }
-        })
-    }
-
-    interface OnChipCheckedChangeListener<T> {
+    fun interface OnChipCheckedChangeListener<T> {
         fun onChipCheckedChange(index: Int, item: T?)
     }
 

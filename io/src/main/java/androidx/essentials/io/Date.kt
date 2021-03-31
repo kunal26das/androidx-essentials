@@ -100,15 +100,7 @@ class Date @JvmOverloads constructor(
         this.onDateChangeListener = onDateChangeListener
     }
 
-    fun setOnDateChangeListener(onDateChange: (Long?) -> Unit) {
-        setOnDateChangeListener(object : OnDateChangeListener {
-            override fun onDateChange(date: Long?) {
-                onDateChange.invoke(date)
-            }
-        })
-    }
-
-    interface OnDateChangeListener {
+    fun interface OnDateChangeListener {
         fun onDateChange(date: Long?)
     }
 

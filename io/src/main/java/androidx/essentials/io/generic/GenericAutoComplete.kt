@@ -126,15 +126,7 @@ abstract class GenericAutoComplete<T> @JvmOverloads constructor(
         this.onItemSelectedListener = onItemClickListener
     }
 
-    fun setOnItemSelectedListener(onItemSelectedListener: (item: T?) -> Unit) {
-        setOnItemSelectedListener(object : OnItemSelectedListener<T> {
-            override fun onItemSelected(item: T?) {
-                onItemSelectedListener(item)
-            }
-        })
-    }
-
-    interface OnItemSelectedListener<T> {
+    fun interface OnItemSelectedListener<T> {
         fun onItemSelected(item: T?)
     }
 
