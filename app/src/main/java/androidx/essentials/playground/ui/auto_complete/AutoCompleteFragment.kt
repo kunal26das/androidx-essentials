@@ -5,11 +5,12 @@ import android.view.View
 import androidx.essentials.core.lifecycle.owner.Fragment
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentAutoCompleteBinding
+import androidx.fragment.app.viewModels
 
 class AutoCompleteFragment : Fragment() {
 
     override val layout = R.layout.fragment_auto_complete
-    override val viewModel by viewModel<AutoCompleteViewModel>()
+    override val viewModel by viewModels<AutoCompleteViewModel>()
     override val binding by dataBinding<FragmentAutoCompleteBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

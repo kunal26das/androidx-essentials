@@ -5,11 +5,12 @@ import android.view.View
 import androidx.essentials.core.lifecycle.owner.Fragment
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentTimeBinding
+import androidx.fragment.app.viewModels
 
 class TimeFragment : Fragment() {
 
     override val layout = R.layout.fragment_time
-    override val viewModel by viewModel<TimeViewModel>()
+    override val viewModel by viewModels<TimeViewModel>()
     override val binding by dataBinding<FragmentTimeBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

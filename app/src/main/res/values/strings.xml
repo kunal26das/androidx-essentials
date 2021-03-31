@@ -88,4 +88,7 @@
     <string name="uuid">UUID</string>
 
     <string name="validate">Validate</string>
+    <string name="hideable">Hideable</string>
+    <string name="draggable">Draggable</string>
+    <string name="skip_collapsed">Skip Collapsed</string>
 </resources>
