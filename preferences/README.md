@@ -1,8 +1,8 @@
 # Preferences
+Now get `LiveData` (or `MutableLiveData`) of your preference, and observe it.
 ```
 implementation 'androidx.essentials:preferences:latest_version'
 ```
-Now get `LiveData` (or `MutableLiveData`) of your preference, and observe it.
 ## Requirements
 ```
 minSdkVersion 21
