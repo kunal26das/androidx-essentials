@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="firebase"
+            name="Firebase"
             type="androidx.essentials.firebase.Firebase" />
     </data>
 
@@ -31,7 +31,7 @@
                 android:layout_marginBottom="8dp"
                 android:hint="@string/uuid"
                 app:editable="false"
-                app:text="@{firebase.UUID}" />
+                app:text="@{Firebase.UUID}" />
 
             <androidx.essentials.io.TextInput
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -42,7 +42,7 @@
                 android:layout_marginBottom="24dp"
                 android:hint="@string/token"
                 app:editable="false"
-                app:text="@{firebase.token}" />
+                app:text="@{Firebase.TOKEN}" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 </layout>
