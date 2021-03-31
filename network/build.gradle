@@ -1,14 +1,13 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-parcelize'
 }
 
 android {
     compileSdkVersion rootProject.ext.sdkVersion
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.sdkVersion
         def vName = getVersionName(this.name)
         def vCode = getVersionCode(this.name)
