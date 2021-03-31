@@ -18,7 +18,13 @@
 
     <string name="auto_complete">Auto Complete</string>
 
+    <string name="available">Available</string>
+
     <string name="backdrop">Backdrop</string>
+
+    <string name="blocked">Blocked</string>
+
+    <string name="capabilities">Capabilities</string>
 
     <string name="checkable">Checkable</string>
 
@@ -44,6 +50,8 @@
     <string name="keyboard">Keyboard</string>
 
     <string name="latitude">Latitude</string>
+
+    <string name="link_properties">Link Properties</string>
 
     <string name="location">Location</string>
 
@@ -73,6 +81,7 @@
     <string name="text_input">Text Input</string>
 
     <string name="time">Time</string>
+    <string name="time_to_live">Time to Live</string>
 
     <string name="token">Token</string>
 

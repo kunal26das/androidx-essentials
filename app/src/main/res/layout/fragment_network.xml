@@ -1,23 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="viewModel"
-            type="androidx.essentials.playground.ui.network.NetworkViewModel" />
+            name="Network"
+            type="androidx.essentials.network.Network" />
     </data>
 
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingVertical="?actionBarSize"
+        tools:paddingVertical="0dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/networkStateButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            tools:text="@{viewModel.isOnline ? @string/online : @string/offline}" />
-    </RelativeLayout>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="16dp"
+            tools:layout_marginVertical="0dp">
+
+            <androidx.essentials.io.TextInput
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="@string/available"
+                android:inputType="textCapSentences"
+                app:editable="false"
+                app:text="@{Network.IS_AVAILABLE}"
+                app:visible="@{Network.IS_AVAILABLE != null}" />
+
+            <androidx.essentials.io.TextInput
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="@string/blocked"
+                app:editable="false"
+                app:text="@{Network.IS_BLOCKED}"
+                app:visible="@{Network.IS_BLOCKED != null}" />
+
+            <androidx.essentials.io.TextInput
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="@string/capabilities"
+                app:editable="false"
+                app:text="@{Network.CAPABILITIES}"
+                app:visible="@{Network.CAPABILITIES != null}" />
+
+            <androidx.essentials.io.TextInput
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="@string/link_properties"
+                app:editable="false"
+                app:text="@{Network.LINK_PROPERTIES}"
+                app:visible="@{Network.LINK_PROPERTIES != null}" />
+
+            <androidx.essentials.io.TextInput
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="@string/time_to_live"
+                app:editable="false"
+                app:text="@{Network.MAX_TIME_TO_LIVE}"
+                app:visible="@{Network.MAX_TIME_TO_LIVE != null}" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
 </layout>
