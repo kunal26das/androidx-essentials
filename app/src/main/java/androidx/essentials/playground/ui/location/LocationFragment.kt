@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.essentials.core.lifecycle.owner.Fragment
-import androidx.essentials.location.LocationProvider
+import androidx.essentials.location.Location
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentLocationBinding
 
@@ -16,7 +16,7 @@ class LocationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.locationProvider = LocationProvider
+        binding.location = Location
         requestLocationPermission()
     }
 
@@ -25,7 +25,7 @@ class LocationFragment : Fragment() {
             ActivityResultContracts.RequestMultiplePermissions()
         ) {
             if (it.containsValue(true)) try {
-                LocationProvider.init(requireContext())
+                Location.init(requireContext())
             } catch (ignored: SecurityException) {
             }
         }.launch(

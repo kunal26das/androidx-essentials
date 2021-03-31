@@ -33,7 +33,7 @@ class HomeActivity : NavigationActivity(), SharedPreferences {
         super.initObservers()
         subscribe<Int> {
             navigate(it)
-            put(Pair(Preference.DESTINATION, it))
+            put(Preference.DESTINATION, it)
         }
     }
 
