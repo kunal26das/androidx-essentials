@@ -21,7 +21,6 @@ import androidx.essentials.extensions.TryCatch.Try
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LiveData
 import java.io.Serializable
-import org.koin.android.viewmodel.ext.android.viewModel as koinViewModel
 
 abstract class Activity : AppCompatActivity() {
 
@@ -32,7 +31,6 @@ abstract class Activity : AppCompatActivity() {
     protected open val binding: ViewDataBinding? = null
     protected open val viewModel by viewModels<ViewModel>()
     private val toast by lazy { Toast.makeText(this, "", Toast.LENGTH_SHORT) }
-    inline fun <reified T : ViewModel> Activity.viewModel() = koinViewModel<T>()
     inline fun <reified T : ViewDataBinding> Activity.dataBinding() = lazy {
         DataBindingUtil.setContentView(this, accessLayout!!) as T
     }

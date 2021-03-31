@@ -13,7 +13,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import org.koin.android.viewmodel.ext.android.sharedViewModel as koinSharedViewModel
 
 abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
 
@@ -30,8 +29,6 @@ abstract class BottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     @PublishedApi
     internal val inflater by lazy { LayoutInflater.from(context) }
-    inline fun <reified T : ViewModel> BottomSheetDialogFragment.viewModel() =
-        koinSharedViewModel<T>()
 
     inline fun <reified T : ViewDataBinding> BottomSheetDialogFragment.dataBinding() = lazy {
         DataBindingUtil.inflate(inflater, accessLayout!!, container, false) as T

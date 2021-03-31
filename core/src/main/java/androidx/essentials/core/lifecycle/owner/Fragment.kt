@@ -14,7 +14,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
-import org.koin.android.viewmodel.ext.android.sharedViewModel as koinSharedViewModel
 
 abstract class Fragment : Fragment() {
 
@@ -34,8 +33,6 @@ abstract class Fragment : Fragment() {
     inline fun <reified T : ViewDataBinding> Fragment.dataBinding() = lazy {
         DataBindingUtil.inflate(inflater, accessLayout!!, container, false) as T
     }
-
-    inline fun <reified T : ViewModel> Fragment.viewModel() = koinSharedViewModel<T>()
 
     final override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
