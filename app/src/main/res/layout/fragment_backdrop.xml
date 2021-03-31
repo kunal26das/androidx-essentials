@@ -51,6 +51,6 @@
             app:draggable="@{viewModel.isDraggable}"
             app:hideable="@{viewModel.isHideable}"
             app:skipCollapsed="@{viewModel.skipCollapsed}"
-            app:state="expanded" />
+            app:state="collapsed" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
