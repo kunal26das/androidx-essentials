@@ -152,9 +152,7 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
             }
         }
 
-        fun SharedPreferences.put(pair: Pair<Enum<*>, Any?>) {
-            val key = pair.first
-            val value = pair.second
+        fun SharedPreferences.put(key: Enum<*>, value: Any?) {
             edit().apply {
                 when (value) {
                     null -> remove(key.name)
@@ -215,7 +213,7 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
                 override fun setValue(value: T?) {
                     if (value != getValue()) {
                         super.setValue(value)
-                        put(Pair(key, value))
+                        put(key, value)
                     }
                 }
 
