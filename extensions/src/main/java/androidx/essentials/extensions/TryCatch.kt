@@ -17,9 +17,9 @@ object TryCatch {
         Try: () -> Unit,
     ) = try {
         Try()
-    } catch (exception: Exception) {
-        when (exception) {
-            is T -> Catch.invoke(exception)
+    } catch (throwable: Throwable) {
+        when (throwable) {
+            is T -> Catch.invoke(throwable)
             else -> Catch.invoke(null)
         }
     }
