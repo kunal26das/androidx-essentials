@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.essentials.core.lifecycle.callback.ActivityLifecycleCallbacks
-import androidx.essentials.preferences.SharedPreferences
 import androidx.lifecycle.Lifecycle
 import androidx.multidex.MultiDex
 import org.koin.android.ext.koin.androidContext
@@ -28,7 +27,6 @@ open class Application : Application() {
         logApplicationLifecycleEvent(Lifecycle.Event.ON_CREATE)
         super.onCreate()
         startKoin {
-            SharedPreferences.init(applicationContext, SharedPreferences.Mode.ENCRYPTED)
             androidContext(applicationContext)
             koinApplication = this
             single { resources }

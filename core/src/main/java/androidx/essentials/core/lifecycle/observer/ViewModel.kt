@@ -1,11 +1,10 @@
 package androidx.essentials.core.lifecycle.observer
 
 import android.util.Log
-import androidx.essentials.preferences.SharedPreferences
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 
-abstract class ViewModel : ViewModel(), SharedPreferences {
+abstract class ViewModel : ViewModel() {
 
     init {
         logViewModelLifecycleEvent(Lifecycle.Event.ON_CREATE)
