@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
     <declare-styleable name="BottomSheetView">
-        <attr name="hideable" format="boolean" />
         <attr name="draggable" format="boolean" />
+        <attr name="expandedOffset" format="integer" />
+        <attr name="fitToContents" format="boolean" />
+        <attr name="gestureInsetBottomIgnored" format="boolean" />
+        <attr name="halfExpandedRatio" format="float" />
+        <attr name="hideable" format="boolean" />
         <attr name="peekHeight" format="dimension" />
         <attr name="skipCollapsed" format="boolean" />
         <attr name="state" format="enum">
@@ -13,5 +17,6 @@
             <enum name="hidden" value="5" />
             <enum name="halfExpanded" value="6" />
         </attr>
+        <attr name="updateImportantForAccessibilityOnSiblings" format="boolean" />
     </declare-styleable>
 </resources>
