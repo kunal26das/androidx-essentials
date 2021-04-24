@@ -6,10 +6,11 @@ import androidx.essentials.core.lifecycle.observer.ViewModel
 import androidx.essentials.core.utils.Resources
 import androidx.essentials.playground.Preference
 import androidx.essentials.playground.R
+import androidx.essentials.preferences.SharedPreferences
 import androidx.essentials.preferences.SharedPreferences.Companion.mutableLiveData
 import androidx.lifecycle.MutableLiveData
 
-class AutoCompleteViewModel : ViewModel() {
+class AutoCompleteViewModel : ViewModel(), SharedPreferences {
 
     val autoComplete = MutableLiveData<MenuItem>()
     val filter by mutableLiveData<Boolean>(Preference.FILTER)

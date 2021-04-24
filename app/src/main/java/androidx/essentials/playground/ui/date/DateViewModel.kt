@@ -2,9 +2,10 @@ package androidx.essentials.playground.ui.date
 
 import androidx.essentials.core.lifecycle.observer.ViewModel
 import androidx.essentials.playground.Preference
+import androidx.essentials.preferences.SharedPreferences
 import androidx.essentials.preferences.SharedPreferences.Companion.mutableLiveData
 
-class DateViewModel : ViewModel() {
+class DateViewModel : ViewModel(), SharedPreferences {
 
     val endDate by mutableLiveData<Long>(Preference.END_DATE)
     val startDate by mutableLiveData<Long>(Preference.START_DATE)

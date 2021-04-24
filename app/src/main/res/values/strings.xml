@@ -14,7 +14,7 @@
 
     <string name="_true">True</string>
 
-    <string name="app_name">Play Ground</string>
+    <string name="app_name">Essentials</string>
 
     <string name="auto_complete">Auto Complete</string>
 
@@ -32,6 +32,8 @@
 
     <string name="date">Date</string>
 
+    <string name="draggable">Draggable</string>
+
     <string name="editable">Editable</string>
 
     <string name="end_date">End Date</string>
@@ -42,6 +44,8 @@
     <string name="firebase">Firebase</string>
 
     <string name="future">Future</string>
+
+    <string name="hideable">Hideable</string>
 
     <string name="hint">Hint</string>
 
@@ -75,6 +79,8 @@
 
     <string name="single_selection">Single Selection</string>
 
+    <string name="skip_collapsed">Skip Collapsed</string>
+
     <string name="start_date">Start Date</string>
     <string name="start_time">Start Time</string>
 
@@ -88,7 +94,4 @@
     <string name="uuid">UUID</string>
 
     <string name="validate">Validate</string>
-    <string name="hideable">Hideable</string>
-    <string name="draggable">Draggable</string>
-    <string name="skip_collapsed">Skip Collapsed</string>
 </resources>

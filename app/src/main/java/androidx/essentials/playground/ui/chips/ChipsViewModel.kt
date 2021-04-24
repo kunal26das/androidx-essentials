@@ -5,10 +5,11 @@ import androidx.essentials.core.lifecycle.observer.ViewModel
 import androidx.essentials.core.utils.Resources
 import androidx.essentials.playground.Preference
 import androidx.essentials.playground.R
+import androidx.essentials.preferences.SharedPreferences
 import androidx.essentials.preferences.SharedPreferences.Companion.mutableLiveData
 import androidx.lifecycle.MutableLiveData
 
-class ChipsViewModel : ViewModel() {
+class ChipsViewModel : ViewModel(), SharedPreferences {
 
     val isCheckable by mutableLiveData<Boolean>(Preference.IS_CHECKABLE)
     val isMandatory by mutableLiveData<Boolean>(Preference.IS_MANDATORY)
