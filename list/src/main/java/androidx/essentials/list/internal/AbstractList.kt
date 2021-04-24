@@ -2,21 +2,20 @@ package androidx.essentials.list.internal
 
 import android.content.Context
 import android.util.AttributeSet
-import androidx.annotation.CallSuper
 import androidx.essentials.list.R
 import androidx.essentials.list.adapter.ListStateAdapter
-import androidx.essentials.list.view.ListItemView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class AbstractList<T, V : ListItemView<T>> @JvmOverloads constructor(
+abstract class AbstractList<T> @JvmOverloads constructor(
     context: Context,
     attributes: AttributeSet? = null,
     defStyleAttr: Int = R.attr.recyclerViewStyle
 ) : RecyclerView(context, attributes, defStyleAttr) {
 
+    abstract val viewHolder: ViewHolder
     internal var showDivider = DEFAULT_SHOW_DIVIDER
     protected var orientation = DEFAULT_ORIENTATION
     protected val reverseLayout = DEFAULT_REVERSE_LAYOUT
@@ -33,13 +32,7 @@ abstract class AbstractList<T, V : ListItemView<T>> @JvmOverloads constructor(
         layoutManager = LinearLayoutManager(context)
     }
 
-    abstract val onCreateViewHolder: ListItemView.ViewHolder<T>
-
-    @CallSuper
-    fun onBindViewHolder(
-        position: Int, item: T?,
-        holder: ListItemView.ViewHolder<T>
-    ) = item?.let { holder.bind(it) } as V
+    abstract fun onBindViewHolder(position: Int, item: T?, holder: ViewHolder)
 
     open fun areItemsTheSame(oldItem: T, newItem: T) = false
 

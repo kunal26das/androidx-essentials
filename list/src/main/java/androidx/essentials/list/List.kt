@@ -5,17 +5,16 @@ import android.util.AttributeSet
 import android.view.ViewGroup
 import androidx.essentials.list.adapter.ListStateAdapter
 import androidx.essentials.list.internal.AbstractList
-import androidx.essentials.list.view.ListItemView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 
-abstract class List<T, V : ListItemView<T>> @JvmOverloads constructor(
+abstract class List<T> @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.recyclerViewStyle
-) : AbstractList<T, V>(context, attrs, defStyleAttr) {
+) : AbstractList<T>(context, attrs, defStyleAttr) {
 
     init {
         context.obtainStyledAttributes(attrs, R.styleable.List, defStyleAttr, 0).apply {
@@ -68,15 +67,12 @@ abstract class List<T, V : ListItemView<T>> @JvmOverloads constructor(
                 this@List.areContentsTheSame(oldItem, newItem)
         }
     ) {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = onCreateViewHolder
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = viewHolder
 
         override fun onBindViewHolder(
             holder: ViewHolder, position: Int
-        ) {
-            this@List.onBindViewHolder(
-                position, getItem(position),
-                holder as ListItemView.ViewHolder<T>
-            )
-        }
+        ) = this@List.onBindViewHolder(
+            position, getItem(position), holder
+        )
     }
 }

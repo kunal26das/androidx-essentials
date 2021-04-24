@@ -14,19 +14,12 @@ import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.google.android.material.card.MaterialCardView
 
-abstract class ListItemView<I> @JvmOverloads constructor(
+abstract class ListItemView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.materialCardViewStyle,
     listOrientation: Int = AbstractList.DEFAULT_ORIENTATION
 ) : MaterialCardView(context, attrs, defStyleAttr) {
-
-    var item: I? = null
-        set(value) {
-            field = value?.apply {
-                bind(value)
-            }
-        }
 
     @PublishedApi
     internal val accessLayout
@@ -40,7 +33,7 @@ abstract class ListItemView<I> @JvmOverloads constructor(
 
     @PublishedApi
     internal val inflater by lazy { LayoutInflater.from(context) }
-    inline fun <reified T : ViewDataBinding> ListItemView<I>.dataBinding() = lazy {
+    inline fun <reified T : ViewDataBinding> ListItemView.dataBinding() = lazy {
         DataBindingUtil.inflate(inflater, accessLayout, this, attachToRoot) as T
     }
 
@@ -72,14 +65,15 @@ abstract class ListItemView<I> @JvmOverloads constructor(
 
     override fun getLayoutParams() = super.getLayoutParams() as? MarginLayoutParams
 
-    open fun bind(item: I) = binding
+    open fun bind(item: Any?) = binding
 
-    class ViewHolder<T>(
-        private val listItemView: ListItemView<T>
+    class ViewHolder(
+        private val listItemView: ListItemView
     ) : RecyclerView.ViewHolder(listItemView) {
-        fun bind(item: T): ListItemView<T> {
-            listItemView.item = item
-            return listItemView
+        fun bind(item: Any?): ListItemView {
+            return listItemView.apply {
+                bind(item)
+            }
         }
     }
 

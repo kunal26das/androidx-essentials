@@ -5,18 +5,17 @@ import android.util.AttributeSet
 import android.view.ViewGroup
 import androidx.essentials.list.adapter.ListStateAdapter
 import androidx.essentials.list.internal.AbstractList
-import androidx.essentials.list.view.ListItemView
 import androidx.paging.PagedList
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 
-abstract class PagedList<T, V : ListItemView<T>> @JvmOverloads constructor(
+abstract class PagedList<T> @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.recyclerViewStyle
-) : AbstractList<T, V>(context, attrs, defStyleAttr) {
+) : AbstractList<T>(context, attrs, defStyleAttr) {
 
     init {
         context.obtainStyledAttributes(attrs, R.styleable.PagedList, defStyleAttr, 0).apply {
@@ -69,14 +68,13 @@ abstract class PagedList<T, V : ListItemView<T>> @JvmOverloads constructor(
                 this@PagedList.areContentsTheSame(oldItem, newItem)
         }
     ) {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = onCreateViewHolder
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = viewHolder
 
         override fun onBindViewHolder(
             holder: ViewHolder, position: Int
         ) {
             this@PagedList.onBindViewHolder(
-                position, getItem(position),
-                holder as ListItemView.ViewHolder<T>
+                position, getItem(position), holder
             )
         }
     }
