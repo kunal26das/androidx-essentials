@@ -1,0 +1,34 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdkVersion rootProject.ext.sdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.sdkVersion
+        def vName = getVersionName(this.name)
+        def vCode = getVersionCode(this.name)
+        versionName vName
+        versionCode vCode
+        version vName
+    }
+}
+
+dependencies {
+    implementation project(path: ':preferences')
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "androidx.core:core-ktx:$core_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    // Room
+    implementation "androidx.room:room-runtime:$room_version"
+    // Paging
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+}
+
+apply from: 'publish.gradle'
