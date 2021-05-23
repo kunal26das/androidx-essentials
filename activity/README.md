@@ -1,6 +1,6 @@
-# Core
+# Activity
 ```
-implementation 'androidx.essentials:core:latest_version'
+implementation 'androidx.essentials:activity:latest_version'
 ```
 ## Requirements
 ```

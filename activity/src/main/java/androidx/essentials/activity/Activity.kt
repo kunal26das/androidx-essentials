@@ -1,4 +1,4 @@
-package androidx.essentials.core.lifecycle.owner
+package androidx.essentials.activity
 
 import android.content.Context
 import android.content.Intent
@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.CallSuper
 import androidx.annotation.MainThread
@@ -14,12 +13,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.ContentFrameLayout
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.essentials.core.lifecycle.callback.FragmentLifecycleCallbacks
-import androidx.essentials.core.lifecycle.observer.ViewModel
 import androidx.essentials.extensions.Context.getActivity
-import androidx.essentials.extensions.TryCatch.Try
+import androidx.essentials.extensions.TryCatchFinally.Try
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import java.io.Serializable
 
 abstract class Activity : AppCompatActivity() {
@@ -30,7 +28,6 @@ abstract class Activity : AppCompatActivity() {
     protected open val layout: Int? = null
     protected open val binding: ViewDataBinding? = null
     protected open val viewModel by viewModels<ViewModel>()
-    private val toast by lazy { Toast.makeText(this, "", Toast.LENGTH_SHORT) }
     inline fun <reified T : ViewDataBinding> Activity.dataBinding() = lazy {
         DataBindingUtil.setContentView(this, accessLayout!!) as T
     }
@@ -39,9 +36,18 @@ abstract class Activity : AppCompatActivity() {
         findViewById(android.R.id.content)
     }
 
+    @CallSuper
+    @MainThread
+    protected open fun onAttach(context: Context) {
+        supportFragmentManager.registerFragmentLifecycleCallbacks(
+            FragmentLifecycleCallbackLogs,
+            true
+        )
+    }
+
     final override fun onCreate(savedInstanceState: Bundle?) {
+        onAttach(applicationContext)
         super.onCreate(savedInstanceState)
-        supportFragmentManager.registerFragmentLifecycleCallbacks(FragmentLifecycleCallbacks, true)
         when (binding) {
             null -> layout?.let {
                 setContentView(it)
@@ -70,9 +76,15 @@ abstract class Activity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        supportFragmentManager.unregisterFragmentLifecycleCallbacks(FragmentLifecycleCallbacks)
+        onDestroyView()
         super.onDestroy()
-        toast.cancel()
+        onDetach()
+    }
+
+    @CallSuper
+    @MainThread
+    protected open fun onDetach() {
+        supportFragmentManager.unregisterFragmentLifecycleCallbacks(FragmentLifecycleCallbackLogs)
     }
 
     @CallSuper
@@ -85,31 +97,8 @@ abstract class Activity : AppCompatActivity() {
         observe(this@Activity, { action.invoke(it) })
     }
 
+    @Synchronized
     fun DialogFragment.show() = Try { if (!isAdded) show(supportFragmentManager, null) }
-
-    protected fun resumeApplication() = if (
-        !isTaskRoot and
-        (intent.action != null) and
-        (intent.action.equals(Intent.ACTION_MAIN)) and
-        (intent.hasCategory(Intent.CATEGORY_LAUNCHER))
-    ) {
-        finish()
-        true
-    } else false
-
-    fun toast(resId: Int, duration: Int = Toast.LENGTH_SHORT) {
-        toast.apply {
-            setDuration(duration)
-            setText(resId)
-        }.show()
-    }
-
-    fun toast(s: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
-        toast.apply {
-            setDuration(duration)
-            setText(s)
-        }.show()
-    }
 
     companion object {
         inline fun <reified T : android.app.Activity> Context.start(

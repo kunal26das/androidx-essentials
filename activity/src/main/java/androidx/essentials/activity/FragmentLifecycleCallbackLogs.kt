@@ -1,4 +1,4 @@
-package androidx.essentials.core.lifecycle.callback
+package androidx.essentials.activity
 
 import android.content.Context
 import android.os.Bundle
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 
-internal object FragmentLifecycleCallbacks : FragmentManager.FragmentLifecycleCallbacks() {
+internal object FragmentLifecycleCallbackLogs : FragmentManager.FragmentLifecycleCallbacks() {
 
     override fun onFragmentAttached(
         fragmentManager: FragmentManager,
