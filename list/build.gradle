@@ -22,6 +22,12 @@ android {
         dataBinding = true
         viewBinding = true
     }
+
+    kotlinOptions {
+        useIR = true
+        languageVersion = "1.5"
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -33,9 +39,9 @@ dependencies {
     // Material Design
     implementation "com.google.android.material:material:$material_version"
     // Paging
-    implementation 'androidx.paging:paging-runtime-ktx:2.1.2'
+    implementation 'androidx.paging:paging-runtime-ktx:3.0.0'
     // Recycler View
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0'
 }
 
 apply from: 'publish.gradle'

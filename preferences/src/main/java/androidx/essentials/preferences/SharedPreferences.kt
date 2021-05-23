@@ -124,12 +124,10 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
         private lateinit var sharedPreferences: AndroidSharedPreferences
 
         fun init(context: Context, mode: Mode) {
-            with(context) {
-                synchronized(applicationContext) {
-                    this@Companion.sharedPreferences = when (mode) {
-                        Mode.ENCRYPTED -> encryptedSharedPreferences
-                        Mode.PLAINTEXT -> sharedPreferences
-                    }
+            synchronized(context.applicationContext) {
+                this@Companion.sharedPreferences = when (mode) {
+                    Mode.ENCRYPTED -> context.encryptedSharedPreferences
+                    Mode.PLAINTEXT -> context.sharedPreferences
                 }
             }
         }

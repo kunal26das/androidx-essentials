@@ -109,6 +109,7 @@ abstract class Field @JvmOverloads constructor(
         }
     }
 
+    @Synchronized
     protected fun DialogFragment.show() {
         if (!isAdded) this@Field.activity?.supportFragmentManager?.let { show(it, null) }
     }

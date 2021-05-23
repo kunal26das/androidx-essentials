@@ -22,7 +22,7 @@ open class Repository @JvmOverloads constructor(
         context?.let { Room.databaseBuilder(it, T::class.java, name).build() }
     }
 
-    inline fun <reified Key, Value> Repository.pageKeyedDataSource(
+    inline fun <reified Key : Any, Value : Any> Repository.pageKeyedDataSource(
         crossinline loadInitial: (
             PageKeyedDataSource.LoadInitialParams<Key>,
             PageKeyedDataSource.LoadInitialCallback<Key, Value>
@@ -54,7 +54,7 @@ open class Repository @JvmOverloads constructor(
         }
     }
 
-    inline fun <reified Key, Value> Repository.itemKeyedDataSource(
+    inline fun <reified Key : Any, Value : Any> Repository.itemKeyedDataSource(
         crossinline getKey: (Value) -> Key,
         crossinline loadInitial: (
             ItemKeyedDataSource.LoadInitialParams<Key>,
@@ -73,23 +73,23 @@ open class Repository @JvmOverloads constructor(
             override fun getKey(item: Value) = getKey(item)
 
             override fun loadInitial(
-                params: ItemKeyedDataSource.LoadInitialParams<Key>,
-                callback: ItemKeyedDataSource.LoadInitialCallback<Value>
+                params: LoadInitialParams<Key>,
+                callback: LoadInitialCallback<Value>
             ) = loadInitial(params, callback)
 
             override fun loadBefore(
-                params: ItemKeyedDataSource.LoadParams<Key>,
-                callback: ItemKeyedDataSource.LoadCallback<Value>
+                params: LoadParams<Key>,
+                callback: LoadCallback<Value>
             ) = loadBefore(params, callback)
 
             override fun loadAfter(
-                params: ItemKeyedDataSource.LoadParams<Key>,
-                callback: ItemKeyedDataSource.LoadCallback<Value>
+                params: LoadParams<Key>,
+                callback: LoadCallback<Value>
             ) = loadAfter(params, callback)
         }
     }
 
-    inline fun <reified Value> Repository.positionalDataSource(
+    inline fun <reified Value : Any> Repository.positionalDataSource(
         crossinline loadInitial: (
             PositionalDataSource.LoadInitialParams,
             PositionalDataSource.LoadInitialCallback<Value>

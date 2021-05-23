@@ -1,6 +1,7 @@
 package androidx.essentials.location
 
-import android.Manifest
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Context
 import androidx.annotation.RequiresPermission
 import androidx.essentials.preferences.SharedPreferences
@@ -14,12 +15,7 @@ object Location : SharedPreferences {
     val LONGITUDE by liveData<Float>(Preference.LONGITUDE)
 
     @Synchronized
-    @RequiresPermission(
-        anyOf = [
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        ]
-    )
+    @RequiresPermission(anyOf = [ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION])
     fun init(context: Context) {
         synchronized(this) {
             LocationServices.getFusedLocationProviderClient(context).apply {
