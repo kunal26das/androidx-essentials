@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="androidx.essentials.playground.chips.ChipsViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?actionBarSize"
+            android:clipToPadding="false"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="16dp"
+            tools:layout_marginVertical="0dp">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.essentials.io.Chips
+                    android:id="@+id/chips"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checkable="@{viewModel.isCheckable}"
+                    android:padding="8dp"
+                    app:chips="@{viewModel.libraries}"
+                    app:selectionRequired="@{viewModel.isMandatory}"
+                    app:singleSelection="@{viewModel.isSingleSelection}" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?dividerVertical"
+                    app:visible="@{viewModel.libraries.size() > 0}" />
+
+                <androidx.essentials.io.Chips
+                    android:id="@+id/selection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checkable="false"
+                    android:padding="8dp"
+                    app:chips="@{viewModel.selection}"
+                    app:visible="@{viewModel.selection.size() > 0}" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?dividerVertical"
+                    app:visible="@{viewModel.selection.size() > 0}" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp">
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@={viewModel.isCheckable}"
+                        android:text="@string/checkable" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@={viewModel.isMandatory}"
+                        android:text="@string/mandatory" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@={viewModel.isSingleSelection}"
+                        android:text="@string/single_selection" />
+                </com.google.android.material.chip.ChipGroup>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/validate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:text="@string/validate"
+            android:textColor="@color/colorBackground"
+            app:backgroundTint="@color/colorPrimary"
+            app:icon="@drawable/ic_check_24dp"
+            app:iconTint="@color/colorBackground"
+            app:layout_behavior="androidx.essentials.resources.view.behaviour.ExtendedFloatingActionButton" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
