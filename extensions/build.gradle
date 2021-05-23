@@ -16,6 +16,13 @@ android {
         versionCode vCode
         version vName
     }
+
+    kotlinOptions {
+        useIR = true
+        languageVersion = "1.5"
+        jvmTarget = JavaVersion.VERSION_1_8
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+    }
 }
 
 dependencies {
