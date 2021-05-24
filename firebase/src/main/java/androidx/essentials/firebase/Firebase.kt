@@ -1,15 +1,14 @@
 package androidx.essentials.firebase
 
-import androidx.essentials.preferences.SharedPreferences
-import androidx.essentials.preferences.SharedPreferences.Companion.get
-import androidx.essentials.preferences.SharedPreferences.Companion.liveData
-import androidx.essentials.preferences.SharedPreferences.Companion.put
+import androidx.essentials.preferences.SharedPreferences.get
+import androidx.essentials.preferences.SharedPreferences.liveData
+import androidx.essentials.preferences.SharedPreferences.put
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 
-object Firebase : SharedPreferences {
+object Firebase {
 
-    val TOKEN by liveData<String>(Preference.TOKEN)
+    val TOKEN by liveData<String>(Preference.FCM_TOKEN)
 
     var UUID: String
         @Synchronized get() {
@@ -24,12 +23,12 @@ object Firebase : SharedPreferences {
 
     init {
         Firebase.messaging.token.addOnSuccessListener {
-            put(Preference.TOKEN, it)
+            put(Preference.FCM_TOKEN, it)
         }
     }
 
     internal enum class Preference {
-        TOKEN, UUID
+        FCM_TOKEN, UUID
     }
 
 }

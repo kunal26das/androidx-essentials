@@ -7,15 +7,17 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.essentials.network.connectivity.ConnectivityManager
+import androidx.essentials.preferences.SharedPreferences.mutableLiveData
 import androidx.lifecycle.MutableLiveData
 
 object Network {
 
-    val IS_BLOCKED = MutableLiveData<Boolean>()
-    val IS_AVAILABLE = MutableLiveData<Boolean>()
-    val MAX_TIME_TO_LIVE = MutableLiveData<Int>()
     val LINK_PROPERTIES = MutableLiveData<LinkProperties>()
     val CAPABILITIES = MutableLiveData<NetworkCapabilities>()
+
+    val IS_BLOCKED by mutableLiveData<Boolean>(Preference.IS_NETWORK_BLOCKED)
+    val MAX_TIME_TO_LIVE by mutableLiveData<Int>(Preference.MAX_TIME_TO_LIVE)
+    val IS_AVAILABLE by mutableLiveData<Boolean>(Preference.IS_NETWORK_AVAILABLE)
 
     private val mNetworkCallback = object : NetworkCallback() {
         override fun onAvailable(network: Network) {
@@ -62,6 +64,12 @@ object Network {
             ConnectivityManager.getInstance(context)
                 .registerNetworkCallback(networkRequest, mNetworkCallback)
         }
+    }
+
+    enum class Preference {
+        IS_NETWORK_AVAILABLE,
+        IS_NETWORK_BLOCKED,
+        MAX_TIME_TO_LIVE,
     }
 
 }

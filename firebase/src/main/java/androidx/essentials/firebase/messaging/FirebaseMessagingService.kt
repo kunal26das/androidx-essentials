@@ -2,12 +2,11 @@ package androidx.essentials.firebase.messaging
 
 import android.util.Log
 import androidx.essentials.firebase.Firebase
-import androidx.essentials.preferences.SharedPreferences
-import androidx.essentials.preferences.SharedPreferences.Companion.put
+import androidx.essentials.preferences.SharedPreferences.put
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
-open class FirebaseMessagingService : FirebaseMessagingService(), SharedPreferences {
+open class FirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onDeletedMessages() {
         log(Event.ON_DELETED_MESSAGES)
@@ -22,7 +21,7 @@ open class FirebaseMessagingService : FirebaseMessagingService(), SharedPreferen
     }
 
     override fun onNewToken(token: String) {
-        put(Firebase.Preference.TOKEN, token)
+        put(Firebase.Preference.FCM_TOKEN, token)
         log(Event.ON_NEW_TOKEN)
     }
 

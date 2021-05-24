@@ -4,12 +4,11 @@ import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Context
 import androidx.annotation.RequiresPermission
-import androidx.essentials.preferences.SharedPreferences
-import androidx.essentials.preferences.SharedPreferences.Companion.liveData
-import androidx.essentials.preferences.SharedPreferences.Companion.put
+import androidx.essentials.preferences.SharedPreferences.liveData
+import androidx.essentials.preferences.SharedPreferences.put
 import com.google.android.gms.location.LocationServices
 
-object Location : SharedPreferences {
+object Location {
 
     val LATITUDE by liveData<Float>(Preference.LATITUDE)
     val LONGITUDE by liveData<Float>(Preference.LONGITUDE)
