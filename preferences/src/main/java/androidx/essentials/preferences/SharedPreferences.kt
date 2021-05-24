@@ -8,7 +8,7 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import android.content.SharedPreferences as AndroidSharedPreferences
 
-interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences.Editor {
+object SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences.Editor {
 
     override fun apply() = edit().apply()
     override fun clear() = edit().clear()!!
@@ -17,6 +17,30 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
     override fun getAll() = sharedPreferences.all ?: emptyMap()
     override fun contains(key: String) = sharedPreferences.contains(key)
     override fun edit(): AndroidSharedPreferences.Editor = sharedPreferences.edit()!!
+
+    private lateinit var sharedPreferences: AndroidSharedPreferences
+
+    private val Context.sharedPreferences: AndroidSharedPreferences
+        get() = getSharedPreferences(packageName, MODE_PRIVATE)
+
+    private val Context.encryptedSharedPreferences: AndroidSharedPreferences
+        get() = EncryptedSharedPreferences.create(
+            applicationContext, packageName,
+            MasterKey.Builder(this).apply {
+                setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            }.build(),
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+
+    fun init(context: Context, mode: Mode) {
+        synchronized(context.applicationContext) {
+            this.sharedPreferences = when (mode) {
+                Mode.ENCRYPTED -> context.encryptedSharedPreferences
+                Mode.PLAINTEXT -> context.sharedPreferences
+            }
+        }
+    }
 
     /**
      * String
@@ -114,136 +138,108 @@ interface SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences
         listener: AndroidSharedPreferences.OnSharedPreferenceChangeListener?
     ) = sharedPreferences.unregisterOnSharedPreferenceChangeListener(listener)
 
+    inline fun <reified T> Any.get(key: Enum<*>): T? {
+        return try {
+            when (contains(key.name)) {
+                true -> when (T::class) {
+                    Int::class -> getInt(key.name)
+                    Long::class -> getLong(key.name)
+                    Float::class -> getFloat(key.name)
+                    String::class -> getString(key.name)
+                    Boolean::class -> getBoolean(key.name)
+                    else -> null
+                }
+                false -> null
+            } as? T
+        } catch (e: ClassCastException) {
+            null
+        }
+    }
+
+    fun Any.put(key: Enum<*>, value: Any?) {
+        edit().apply {
+            when (value) {
+                null -> remove(key.name)
+                else -> when (value) {
+                    is Int -> putInt(key.name, value)
+                    is Long -> putLong(key.name, value)
+                    is Float -> putFloat(key.name, value)
+                    is String -> putString(key.name, value)
+                    is Boolean -> putBoolean(key.name, value)
+                    else -> Unit
+                }
+            }
+        }.apply()
+    }
+
+    inline fun <reified T> Any.liveData(
+        key: Enum<*>
+    ): Lazy<LiveData<T?>> = lazy {
+        object : LiveData<T?>(), AndroidSharedPreferences.OnSharedPreferenceChangeListener {
+
+            private val key = key
+
+            override fun onActive() {
+                registerOnSharedPreferenceChangeListener(this)
+            }
+
+            override fun getValue() = get<T>(key)
+
+            override fun onSharedPreferenceChanged(
+                sharedPreferences: AndroidSharedPreferences?,
+                key: String?
+            ) {
+                if (this.key.name == key) {
+                    setValue(get<T>(this.key))
+                }
+            }
+
+            override fun onInactive() {
+                unregisterOnSharedPreferenceChangeListener(this)
+            }
+        }
+    }
+
+    inline fun <reified T> Any.mutableLiveData(
+        key: Enum<*>
+    ): Lazy<MutableLiveData<T?>> = lazy {
+        object : MutableLiveData<T?>(),
+            AndroidSharedPreferences.OnSharedPreferenceChangeListener {
+
+            private val key = key
+
+            override fun onActive() {
+                registerOnSharedPreferenceChangeListener(this)
+            }
+
+            override fun getValue() = get<T>(key)
+
+            override fun setValue(value: T?) {
+                if (value != getValue()) {
+                    super.setValue(value)
+                    put(key, value)
+                }
+            }
+
+            override fun onSharedPreferenceChanged(
+                sharedPreferences: AndroidSharedPreferences?,
+                key: String?
+            ) {
+                if (this.key.name == key) {
+                    value = get<T>(this.key)
+                }
+            }
+
+            override fun onInactive() {
+                unregisterOnSharedPreferenceChangeListener(this)
+            }
+
+        }
+    }
+
     enum class Mode {
         ENCRYPTED,
         PLAINTEXT
-    }
-
-    companion object {
-
-        private lateinit var sharedPreferences: AndroidSharedPreferences
-
-        fun init(context: Context, mode: Mode) {
-            synchronized(context.applicationContext) {
-                this@Companion.sharedPreferences = when (mode) {
-                    Mode.ENCRYPTED -> context.encryptedSharedPreferences
-                    Mode.PLAINTEXT -> context.sharedPreferences
-                }
-            }
-        }
-
-        inline fun <reified T> SharedPreferences.get(key: Enum<*>): T? {
-            return try {
-                when (contains(key.name)) {
-                    true -> when (T::class) {
-                        Int::class -> getInt(key.name)
-                        Long::class -> getLong(key.name)
-                        Float::class -> getFloat(key.name)
-                        String::class -> getString(key.name)
-                        Boolean::class -> getBoolean(key.name)
-                        else -> null
-                    }
-                    false -> null
-                } as? T
-            } catch (e: ClassCastException) {
-                null
-            }
-        }
-
-        fun SharedPreferences.put(key: Enum<*>, value: Any?) {
-            edit().apply {
-                when (value) {
-                    null -> remove(key.name)
-                    else -> when (value) {
-                        is Int -> putInt(key.name, value)
-                        is Long -> putLong(key.name, value)
-                        is Float -> putFloat(key.name, value)
-                        is String -> putString(key.name, value)
-                        is Boolean -> putBoolean(key.name, value)
-                        else -> Unit
-                    }
-                }
-            }.apply()
-        }
-
-        inline fun <reified T> SharedPreferences.liveData(
-            key: Enum<*>
-        ): Lazy<LiveData<T?>> = lazy {
-            object : LiveData<T?>(), AndroidSharedPreferences.OnSharedPreferenceChangeListener {
-
-                private val key = key
-
-                override fun onActive() {
-                    registerOnSharedPreferenceChangeListener(this)
-                }
-
-                override fun getValue() = get<T>(key)
-
-                override fun onSharedPreferenceChanged(
-                    sharedPreferences: AndroidSharedPreferences?,
-                    key: String?
-                ) {
-                    if (this.key.name == key) {
-                        setValue(get<T>(this.key))
-                    }
-                }
-
-                override fun onInactive() {
-                    unregisterOnSharedPreferenceChangeListener(this)
-                }
-            }
-        }
-
-        inline fun <reified T> SharedPreferences.mutableLiveData(
-            key: Enum<*>
-        ): Lazy<MutableLiveData<T?>> = lazy {
-            object : MutableLiveData<T?>(),
-                AndroidSharedPreferences.OnSharedPreferenceChangeListener {
-
-                private val key = key
-
-                override fun onActive() {
-                    registerOnSharedPreferenceChangeListener(this)
-                }
-
-                override fun getValue() = get<T>(key)
-
-                override fun setValue(value: T?) {
-                    if (value != getValue()) {
-                        super.setValue(value)
-                        put(key, value)
-                    }
-                }
-
-                override fun onSharedPreferenceChanged(
-                    sharedPreferences: AndroidSharedPreferences?,
-                    key: String?
-                ) {
-                    if (this.key.name == key) {
-                        value = get<T>(this.key)
-                    }
-                }
-
-                override fun onInactive() {
-                    unregisterOnSharedPreferenceChangeListener(this)
-                }
-
-            }
-        }
-
-        private val Context.sharedPreferences: AndroidSharedPreferences
-            get() = getSharedPreferences(packageName, MODE_PRIVATE)
-
-        private val Context.encryptedSharedPreferences: AndroidSharedPreferences
-            get() = EncryptedSharedPreferences.create(
-                applicationContext, packageName,
-                MasterKey.Builder(this).apply {
-                    setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-                }.build(),
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-            )
-
     }
 
 }
