@@ -5,7 +5,7 @@ maven {
   url = "https://maven.pkg.github.com/kunal26das/androidx-essentials"
   credentials {
     username = "kunal26das"
-    password = "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"
+    password = "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"
   }
 }
 ```
