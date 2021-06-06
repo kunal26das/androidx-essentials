@@ -5,10 +5,18 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import androidx.annotation.MainThread
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.essentials.extensions.Context.getActivity
 import androidx.essentials.list.R
 import androidx.essentials.list.internal.AbstractList
+import androidx.essentials.resources.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelLazy
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
@@ -19,7 +27,7 @@ abstract class ListItemView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.materialCardViewStyle,
     listOrientation: Int = AbstractList.DEFAULT_ORIENTATION
-) : MaterialCardView(context, attrs, defStyleAttr) {
+) : MaterialCardView(context, attrs, defStyleAttr), LifecycleOwner {
 
     @PublishedApi
     internal val accessLayout
@@ -30,11 +38,24 @@ abstract class ListItemView @JvmOverloads constructor(
 
     @PublishedApi
     internal val attachToRoot by lazy { parent is RecyclerView }
+    override val lifecycleRegistry by lazy { LifecycleRegistry(this) }
+    protected open val activity by lazy { context.getActivity<AppCompatActivity>() }
 
     @PublishedApi
     internal val inflater by lazy { LayoutInflater.from(context) }
     inline fun <reified T : ViewDataBinding> ListItemView.dataBinding() = lazy {
         DataBindingUtil.inflate(inflater, accessLayout, this, attachToRoot) as T
+    }
+
+    @MainThread
+    protected inline fun <reified VM : ViewModel> ListItemView.viewModels(
+        noinline factoryProducer: (() -> ViewModelProvider.Factory)? = null
+    ): Lazy<VM> {
+        return ViewModelLazy(VM::class, {
+            activity?.viewModelStore!!
+        }, factoryProducer ?: {
+            activity?.defaultViewModelProviderFactory!!
+        })
     }
 
     init {
@@ -54,9 +75,11 @@ abstract class ListItemView @JvmOverloads constructor(
         if (!attachToRoot) {
             addView(binding.root)
         }
+        onCreate()
     }
 
     override fun onDetachedFromWindow() {
+        onDestroy()
         if (!attachToRoot) {
             removeView(binding.root)
         }

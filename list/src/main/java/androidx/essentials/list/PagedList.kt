@@ -5,8 +5,8 @@ import android.util.AttributeSet
 import android.view.ViewGroup
 import androidx.essentials.list.adapter.ListStateAdapter
 import androidx.essentials.list.internal.AbstractList
-import androidx.paging.PagedList
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingData
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,20 +46,18 @@ abstract class PagedList<T : Any> @JvmOverloads constructor(
         adapter = loadingState
     }
 
-    fun submitList(list: PagedList<T>?) = when (list) {
+    suspend fun submitList(list: PagingData<T>?) = when (list) {
         null -> {
             layoutManager = linearLayoutManager
             adapter = loadingState
         }
         else -> {
             layoutManager = mLayoutManager
-            dataAdapter.submitList(list) {
-                adapter = dataAdapter
-            }
+            dataAdapter.submitData(list)
         }
     }
 
-    override val dataAdapter = object : PagedListAdapter<T, ViewHolder>(
+    override val dataAdapter = object : PagingDataAdapter<T, ViewHolder>(
         object : DiffUtil.ItemCallback<T>() {
             override fun areItemsTheSame(oldItem: T, newItem: T) =
                 this@PagedList.areItemsTheSame(oldItem, newItem)
