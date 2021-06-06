@@ -1,4 +1,4 @@
-package androidx.essentials.resources
+package androidx.essentials.resources.lifecycle
 
 import android.util.Log
 import androidx.lifecycle.Lifecycle
@@ -6,7 +6,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 
-interface LifecycleObserver : LifecycleObserver {
+sealed interface LifecycleObserver : LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate(lifecycleOwner: LifecycleOwner) {
