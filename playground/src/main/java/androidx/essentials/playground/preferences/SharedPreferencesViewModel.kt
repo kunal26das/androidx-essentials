@@ -1,11 +1,10 @@
 package androidx.essentials.playground.preferences
 
 import androidx.essentials.playground.Preference
-import androidx.essentials.preferences.SharedPreferences
-import androidx.essentials.preferences.SharedPreferences.Companion.mutableLiveData
+import androidx.essentials.preferences.SharedPreferences.mutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SharedPreferencesViewModel : ViewModel(), SharedPreferences {
+class SharedPreferencesViewModel : ViewModel() {
 
     val _int by mutableLiveData<Int>(Preference.INT)
     val _long by mutableLiveData<Long>(Preference.LONG)

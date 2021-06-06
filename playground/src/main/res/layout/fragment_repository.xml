@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="androidx.essentials.playground.repository.RepositoryViewModel" />
+    </data>
+
+    <androidx.essentials.playground.repository.PagedLibraries
+        android:id="@+id/pagedLibraries"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="?actionBarSize"
+        android:orientation="vertical"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="16dp"
+        tools:layout_marginVertical="0dp"
+        tools:listitem="@layout/item_library" />
+</layout>

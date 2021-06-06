@@ -53,6 +53,12 @@
         tools:layout="@layout/fragment_network" />
 
     <fragment
+        android:id="@+id/repository"
+        android:name="androidx.essentials.playground.repository.RepositoryFragment"
+        android:label="@string/repository"
+        tools:layout="@layout/fragment_repository" />
+
+    <fragment
         android:id="@+id/sharedPreferences"
         android:name="androidx.essentials.playground.preferences.SharedPreferencesFragment"
         android:label="@string/shared_preferences"

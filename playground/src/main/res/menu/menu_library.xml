@@ -23,6 +23,9 @@
             android:id="@+id/network"
             android:title="@string/network" />
         <item
+            android:id="@+id/repository"
+            android:title="@string/repository" />
+        <item
             android:id="@+id/sharedPreferences"
             android:title="@string/shared_preferences" />
         <item

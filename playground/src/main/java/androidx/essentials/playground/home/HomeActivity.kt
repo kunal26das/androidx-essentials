@@ -4,13 +4,12 @@ import androidx.essentials.events.Events.subscribe
 import androidx.essentials.playground.Preference
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ActivityHomeBinding
-import androidx.essentials.preferences.SharedPreferences
-import androidx.essentials.preferences.SharedPreferences.Companion.put
+import androidx.essentials.preferences.SharedPreferences.put
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 
-class HomeActivity : androidx.essentials.activity.NavigationActivity(), SharedPreferences {
+class HomeActivity : androidx.essentials.activity.NavigationActivity() {
 
     override val layout = R.layout.activity_home
     override val navHostFragmentId = R.id.playGroundNavigation

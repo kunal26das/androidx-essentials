@@ -59,41 +59,73 @@ dependencies {
         // Navigation
         implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
         implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+        // Paging
+        implementation "androidx.paging:paging-runtime-ktx:$paging_version"
     }
 
-    // Google
+    // Square
     dependencies {
-        // Guava
-//        implementation "com.google.guava:guava:30.1-android"
-        // Material Design
-        implementation "com.google.android.material:material:$material_version"
+        // Leak Canary
+        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
+        // Retrofit
+        implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+        implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+        implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version"
     }
 
-    // Facebook
-    dependencies {
-        // Stetho
-        implementation 'com.facebook.stetho:stetho:1.5.1'
-    }
+    // Koin
+    implementation "io.insert-koin:koin-android:$koin_version"
 
-    // Leak Canary
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
+    // Material Design
+    implementation "com.google.android.material:material:$material_version"
+
+    // Stetho
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
 
     dependencies {
-        // AndroidX Essentials
-        implementation project(path: ':io')
-        implementation project(path: ':list')
-        implementation project(path: ':events')
-        implementation project(path: ':network')
+        // Activity
         implementation project(path: ':activity')
-        implementation project(path: ':backdrop')
-        implementation project(path: ':firebase')
-        implementation project(path: ':fragment')
-        implementation project(path: ':location')
-        implementation project(path: ':resources')
-        implementation project(path: ':extensions')
-        implementation project(path: ':repository')
+//        implementation "androidx.essentials:activity:1.0.0"
+        // Application
         implementation project(path: ':application')
+//        implementation "androidx.essentials:application:1.0.0"
+        // Backdrop
+        implementation project(path: ':backdrop')
+//        implementation "androidx.essentials:backdrop:1.0.0"
+        // Events
+        implementation project(path: ':events')
+//        implementation "androidx.essentials:events:1.0.0"
+        // Extensions
+//        implementation project(path: ':extensions')
+//        implementation "androidx.essentials:extensions:1.0.0@aar"
+        // Firebase
+        implementation project(path: ':firebase')
+//        implementation "androidx.essentials:firebase:1.0.0"
+        // Fragment
+        implementation project(path: ':fragment')
+//        implementation "androidx.essentials:fragment:1.0.0"
+        // I/O
+//        implementation project(path: ':io')
+        implementation "androidx.essentials:io:1.0.0@aar"
+        // List
+        implementation project(path: ':list')
+//        implementation "androidx.essentials:list:1.0.0"
+        // Location
+        implementation project(path: ':location')
+//        implementation "androidx.essentials:location:1.0.0"
+        // Network
+        implementation project(path: ':network')
+//        implementation "androidx.essentials:network:1.0.0"
+        // Preferences
         implementation project(path: ':preferences')
+//        implementation "androidx.essentials:preferences:1.0.0"
+        // Repository
+        implementation project(path: ':repository')
+//        implementation "androidx.essentials:repository:1.0.0"
+        // Resources
+        implementation project(path: ':resources')
+//        implementation "androidx.essentials:resources:1.0.0"
     }
 
 }

@@ -1,11 +1,10 @@
 package androidx.essentials.playground.text_input
 
 import androidx.essentials.playground.Preference
-import androidx.essentials.preferences.SharedPreferences
-import androidx.essentials.preferences.SharedPreferences.Companion.mutableLiveData
+import androidx.essentials.preferences.SharedPreferences.mutableLiveData
 import androidx.lifecycle.ViewModel
 
-class TextInputViewModel : ViewModel(), SharedPreferences {
+class TextInputViewModel : ViewModel() {
 
     val textInput by mutableLiveData<String>(Preference.TEXT_INPUT)
     val isEditable by mutableLiveData<Boolean>(Preference.IS_EDITABLE)

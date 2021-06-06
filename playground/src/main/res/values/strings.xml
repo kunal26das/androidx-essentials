@@ -71,6 +71,8 @@
 
     <string name="past">Past</string>
 
+    <string name="repository">Repository</string>
+
     <string name="selection_required">Selection Required</string>
 
     <string name="settings">Settings</string>

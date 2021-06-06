@@ -1,11 +1,10 @@
 package androidx.essentials.playground.backdrop
 
 import androidx.essentials.playground.Preference
-import androidx.essentials.preferences.SharedPreferences
-import androidx.essentials.preferences.SharedPreferences.Companion.mutableLiveData
+import androidx.essentials.preferences.SharedPreferences.mutableLiveData
 import androidx.lifecycle.ViewModel
 
-class BackdropViewModel : ViewModel(), SharedPreferences {
+class BackdropViewModel : ViewModel() {
 
     val isHideable by mutableLiveData<Boolean>(Preference.IS_HIDEABLE)
     val isDraggable by mutableLiveData<Boolean>(Preference.IS_DRAGGABLE)

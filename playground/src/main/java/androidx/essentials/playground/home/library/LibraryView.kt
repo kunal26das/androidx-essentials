@@ -21,7 +21,7 @@ class LibraryView @JvmOverloads constructor(
 
     init {
         radius = 4f.dp
-        elevation = 4f.dp
+        elevation = radius
         layoutParams?.setMargins(8.dp)
     }
 

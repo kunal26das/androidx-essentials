@@ -1,11 +1,10 @@
 package androidx.essentials.playground.time
 
 import androidx.essentials.playground.Preference
-import androidx.essentials.preferences.SharedPreferences
-import androidx.essentials.preferences.SharedPreferences.Companion.mutableLiveData
+import androidx.essentials.preferences.SharedPreferences.mutableLiveData
 import androidx.lifecycle.ViewModel
 
-class TimeViewModel : ViewModel(), SharedPreferences {
+class TimeViewModel : ViewModel() {
 
     val endTime by mutableLiveData<Long>(Preference.END_TIME)
     val startTime by mutableLiveData<Long>(Preference.START_TIME)

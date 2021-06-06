@@ -29,7 +29,7 @@ class ChipsFragment : Fragment() {
                 }
 
             })
-            chips.setOnChipClickListener { _, _ ->
+            chips.setOnChipClickListener { _, _, _ ->
                 viewModel?.selection?.value = chips.selection
             }
             validate.setOnClickListener {}

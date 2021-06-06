@@ -4,10 +4,43 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.essentials.application.Application
 import androidx.essentials.network.Network
+import androidx.essentials.playground.repository.LibraryRepository
 import androidx.essentials.preferences.SharedPreferences
 import com.facebook.stetho.Stetho
+import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.google.gson.GsonBuilder
+import okhttp3.OkHttpClient
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
+import org.koin.dsl.module
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 class PlayGround : Application() {
+
+    private val gson by lazy {
+        GsonBuilder().create()
+    }
+
+    private val okHttpClient by lazy {
+        OkHttpClient.Builder().apply {
+            if (BuildConfig.DEBUG) {
+                addNetworkInterceptor(StethoInterceptor())
+            }
+            retryOnConnectionFailure(true)
+        }.build()
+    }
+
+    private val retrofit by lazy {
+        Retrofit.Builder().apply {
+            baseUrl(BASE_URL)
+            client(okHttpClient)
+            addConverterFactory(GsonConverterFactory.create(gson))
+            addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+        }.build()
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -20,6 +53,28 @@ class PlayGround : Application() {
             addTransportType(NetworkCapabilities.TRANSPORT_ETHERNET)
             addTransportType(NetworkCapabilities.TRANSPORT_BLUETOOTH)
         }.build())
+        startKoin()
+    }
+
+    private fun startKoin() {
+        startKoin {
+            androidContext(applicationContext)
+            modules(module {
+                single { gson }
+                single { retrofit }
+                single { okHttpClient }
+                single { LibraryRepository(get(), get()) }
+            })
+        }
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+        stopKoin()
+    }
+
+    companion object {
+        private const val BASE_URL = "https://play-ground-4b041.firebaseio.com"
     }
 
 }
