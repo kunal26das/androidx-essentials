@@ -1,5 +1,4 @@
 rootProject.name = "androidx.essentials"
-include ':playground'
 include ':activity'
 include ':application'
 include ':backdrop'
@@ -11,6 +10,7 @@ include ':io'
 include ':list'
 include ':location'
 include ':network'
+include ':playground'
 include ':preferences'
 include ':repository'
 include ':resources'

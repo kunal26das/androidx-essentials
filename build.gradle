@@ -17,7 +17,8 @@ buildscript {
         room_version = '2.3.0'
         paging_version = '3.0.0'
         rxjava_version = '3.0.0'
-        kotlin_version = '1.4.32'
+        fluent_version = '0.0.11'
+        kotlin_version = '1.5.10'
         activity_version = '1.2.3'
         fragment_version = '1.3.4'
         material_version = '1.3.0'
@@ -29,7 +30,7 @@ buildscript {
 
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
@@ -45,7 +46,14 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+        maven {
+            url = this.ext.mavenUrl
+            credentials {
+                username = "kunal26das"
+                password = "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"
+            }
+        }
     }
 }
 
