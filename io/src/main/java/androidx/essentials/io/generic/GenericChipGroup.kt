@@ -24,7 +24,7 @@ abstract class GenericChipGroup<T> @JvmOverloads constructor(
     internal var fromUser = false
     val isInvalid get() = !isValid
     private val inflater = LayoutInflater.from(context)
-    private var onChipCheckedChangeListener: OnChipCheckedChangeListener<T>? = null
+    private var onChipClickListener: OnChipClickListener<T>? = null
 
     var isCheckable = DEFAULT_IS_CHECKABLE
         set(value) {
@@ -72,7 +72,7 @@ abstract class GenericChipGroup<T> @JvmOverloads constructor(
                                         is Checkable -> it.isChecked = isChecked
                                         is MenuItem -> it.isChecked = isChecked
                                     }
-                                    onChipCheckedChangeListener?.onChipCheckedChange(index, it)
+                                    onChipClickListener?.onChipClick(index, it, isChecked)
                                 }
                             }
                         }
@@ -112,12 +112,12 @@ abstract class GenericChipGroup<T> @JvmOverloads constructor(
         return super.getChildAt(index) as? Chip
     }
 
-    fun setOnChipClickListener(onChipCheckedChangeListener: OnChipCheckedChangeListener<T>) {
-        this.onChipCheckedChangeListener = onChipCheckedChangeListener
+    fun setOnChipClickListener(onChipClickListener: OnChipClickListener<T>) {
+        this.onChipClickListener = onChipClickListener
     }
 
-    fun interface OnChipCheckedChangeListener<T> {
-        fun onChipCheckedChange(index: Int, item: T?)
+    fun interface OnChipClickListener<T> {
+        fun onChipClick(index: Int, item: T, isChecked: Boolean)
     }
 
     companion object {
@@ -142,7 +142,7 @@ abstract class GenericChipGroup<T> @JvmOverloads constructor(
         @BindingAdapter(value = ["chipsAttrChanged"])
         fun <T> GenericChipGroup<T>.setOnChipsAttrChangeListener(
             inverseBindingListener: InverseBindingListener
-        ) = setOnChipClickListener { _, _ ->
+        ) = setOnChipClickListener { _, _, _ ->
             fromUser = true
             inverseBindingListener.onChange()
         }

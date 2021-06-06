@@ -4,9 +4,6 @@ import android.content.Context
 import android.text.Editable
 import android.util.AttributeSet
 import androidx.core.view.isVisible
-import androidx.databinding.BindingAdapter
-import androidx.databinding.InverseBindingAdapter
-import androidx.databinding.InverseBindingListener
 import androidx.essentials.io.internal.EditText
 import androidx.essentials.io.internal.Field
 import java.util.*
@@ -67,69 +64,5 @@ open class TextInput @JvmOverloads constructor(
     fun setOnCutListener(action: (Editable?) -> Unit) = editText.setOnCutListener(action)
     fun setOnCopyListener(action: (Editable?) -> Unit) = editText.setOnCopyListener(action)
     fun setOnPasteListener(action: (Editable?) -> Unit) = editText.setOnPasteListener(action)
-
-    companion object {
-
-        @JvmStatic
-        @BindingAdapter("text")
-        fun TextInput.setText(text: Any?) {
-            when (fromUser) {
-                true -> fromUser = false
-                false -> with(text) {
-                    editText.setText(
-                        when (this) {
-                            is String -> when {
-                                isNullOrEmpty() -> null
-                                else -> "$this"
-                            }
-                            else -> when (this) {
-                                null -> null
-                                else -> "$this"
-                            }
-                        }
-                    )
-                }
-            }
-        }
-
-        @JvmStatic
-        @InverseBindingAdapter(attribute = "text")
-        fun TextInput.getText(): String? {
-            with(editText.text) {
-                return when {
-                    isNullOrEmpty() -> null
-                    else -> "$this"
-                }
-            }
-        }
-
-        @JvmStatic
-        @InverseBindingAdapter(attribute = "text")
-        fun TextInput.getInt() = getText()?.toIntOrNull()
-
-        @JvmStatic
-        @InverseBindingAdapter(attribute = "text")
-        fun TextInput.getLong() = getText()?.toLongOrNull()
-
-        @JvmStatic
-        @InverseBindingAdapter(attribute = "text")
-        fun TextInput.getFloat() = getText()?.toFloatOrNull()
-
-        @JvmStatic
-        @InverseBindingAdapter(attribute = "text")
-        fun TextInput.getDouble() = getText()?.toDoubleOrNull()
-
-        @JvmStatic
-        @BindingAdapter(value = ["textAttrChanged"])
-        fun TextInput.setOnTextAttrChangeListener(
-            inverseBindingListener: InverseBindingListener
-        ) {
-            doAfterTextChanged {
-                fromUser = true
-                inverseBindingListener.onChange()
-            }
-        }
-
-    }
 
 }

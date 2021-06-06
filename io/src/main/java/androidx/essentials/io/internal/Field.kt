@@ -6,8 +6,11 @@ import android.util.AttributeSet
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import androidx.essentials.extensions.Context.getActivity
-import androidx.essentials.io.*
+import androidx.essentials.io.R
 import androidx.essentials.io.input.InputMethodManager
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.textfield.TextInputLayout
@@ -22,7 +25,7 @@ abstract class Field @JvmOverloads constructor(
     val isInvalid get() = !isValid
     protected var fromUser = false
 
-    private val activity get() = context.getActivity<AppCompatActivity>()
+    private val mActivity get() = context.getActivity<AppCompatActivity>()
     private val inputMethodManager = InputMethodManager.getInstance(context)
 
     internal var inputType: Int
@@ -111,11 +114,73 @@ abstract class Field @JvmOverloads constructor(
 
     @Synchronized
     protected fun DialogFragment.show() {
-        if (!isAdded) this@Field.activity?.supportFragmentManager?.let { show(it, null) }
+        if (!isAdded) mActivity?.supportFragmentManager?.let { show(it, null) }
     }
 
     companion object {
+
         const val DEFAULT_IS_EDITABLE = true
         const val DEFAULT_IS_MANDATORY = false
+
+        @JvmStatic
+        @BindingAdapter("text")
+        fun Field.setText(text: Any?) {
+            when (fromUser) {
+                true -> fromUser = false
+                false -> with(text) {
+                    editText?.setText(
+                        when (this) {
+                            is String -> when {
+                                isNullOrEmpty() -> null
+                                else -> "$this"
+                            }
+                            else -> when (this) {
+                                null -> null
+                                else -> "$this"
+                            }
+                        }
+                    )
+                }
+            }
+        }
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "text")
+        fun Field.getText(): String? {
+            with(editText?.text) {
+                return when {
+                    isNullOrEmpty() -> null
+                    else -> "$this"
+                }
+            }
+        }
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "text")
+        fun Field.getInt() = getText()?.toIntOrNull()
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "text")
+        fun Field.getLong() = getText()?.toLongOrNull()
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "text")
+        fun Field.getFloat() = getText()?.toFloatOrNull()
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "text")
+        fun Field.getDouble() = getText()?.toDoubleOrNull()
+
+        @JvmStatic
+        @BindingAdapter(value = ["textAttrChanged"])
+        fun Field.setOnTextAttrChangeListener(
+            inverseBindingListener: InverseBindingListener
+        ) {
+            doAfterTextChanged {
+                fromUser = true
+                inverseBindingListener.onChange()
+            }
+        }
+
     }
 }
