@@ -29,12 +29,16 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
+    // Gson
+    implementation "com.google.code.gson:gson:$gson_version"
     // Room
     implementation "androidx.room:room-runtime:$room_version"
     // Paging
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version"
 }
 
 apply from: 'publish.gradle'
