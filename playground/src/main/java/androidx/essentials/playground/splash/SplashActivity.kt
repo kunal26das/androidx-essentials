@@ -5,9 +5,12 @@ import androidx.essentials.playground.home.HomeActivity
 
 class SplashActivity : Activity() {
 
+    private val homeActivity = registerForActivityResult(HomeActivity) {}
+
     override fun onResume() {
         super.onResume()
-        start<HomeActivity>()?.finish()
+        homeActivity.launch(null)
+        finish()
     }
 
 }

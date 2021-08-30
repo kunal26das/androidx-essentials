@@ -27,7 +27,7 @@ android {
     kotlinOptions {
         useIR = true
         languageVersion = "1.5"
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget = JavaVersion.VERSION_11
     }
 }
 
