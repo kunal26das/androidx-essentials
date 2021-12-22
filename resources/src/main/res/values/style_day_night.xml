@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="DayNightStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="DayNightStyle" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="isLightTheme">@bool/isLightTheme</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/isLightTheme</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">@bool/isLightTheme

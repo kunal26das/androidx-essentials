@@ -20,7 +20,8 @@
             style="@style/Widget.MaterialComponents.LinearProgressIndicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:indeterminate="true" />
+            android:indeterminate="true"
+            android:visibility="gone" />
 
     </com.google.android.material.appbar.AppBarLayout>
 </layout>

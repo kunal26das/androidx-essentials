@@ -3,11 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/kunal/Documents/GitHub/androidx-essentials/io/src/main/res/layout/chip_action.xml" value="0.15462962962962962" />
+        <entry key="..\:/Users/kunal/Documents/GitHub/androidx-essentials/io/src/main/res/layout/chip_choice.xml" value="0.14635416666666667" />
+        <entry key="..\:/Users/kunal/Documents/GitHub/androidx-essentials/io/src/main/res/layout/chip_entry.xml" value="0.14635416666666667" />
+        <entry key="..\:/Users/kunal/Documents/GitHub/androidx-essentials/io/src/main/res/layout/chip_filter.xml" value="0.13229166666666667" />
         <entry key="..\:/Users/kunal/Documents/GitHub/androidx-essentials/playground/src/main/res/layout/activity_home.xml" value="0.1640625" />
+        <entry key="..\:/Users/kunal/Documents/GitHub/androidx-essentials/resources/src/main/res/layout/layout_appbar.xml" value="0.16041666666666668" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

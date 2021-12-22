@@ -1,6 +1,6 @@
 ext {
-    sdkVersion = 30
-    minSdkVersion = 21
+    sdkVersion = 31
+    minSdkVersion = 23
     libraryGroupId = 'androidx.essentials'
     githubProperties = 'github.properties'
     versionProperties = 'version.properties'
@@ -8,25 +8,6 @@ ext {
 }
 
 buildscript {
-
-    ext {
-        nav_version = '2.3.5'
-        core_version = '1.7.0'
-        koin_version = '3.1.4'
-        gson_version = '2.8.9'
-        room_version = '2.3.0'
-        paging_version = '3.1.0'
-        rxjava_version = '3.0.0'
-        fluent_version = '0.0.11'
-        kotlin_version = '1.6.0'
-        activity_version = '1.4.0'
-        fragment_version = '1.4.0'
-        material_version = '1.4.0'
-        retrofit_version = '2.9.0'
-        appcompat_version = '1.4.0'
-        lifecycle_version = '2.3.1'
-        coroutines_version = '1.5.2-native-mt'
-    }
 
     repositories {
         google()
@@ -36,10 +17,10 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.4'
         classpath 'com.google.gms:google-services:4.3.10'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
     }
 }
 

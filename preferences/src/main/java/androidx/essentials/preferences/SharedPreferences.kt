@@ -5,7 +5,7 @@ import android.content.Context.MODE_PRIVATE
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKey
+import androidx.security.crypto.MasterKeys
 import android.content.SharedPreferences as AndroidSharedPreferences
 
 object SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences.Editor {
@@ -25,10 +25,8 @@ object SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences.Ed
 
     private val Context.encryptedSharedPreferences: AndroidSharedPreferences
         get() = EncryptedSharedPreferences.create(
-            applicationContext, packageName,
-            MasterKey.Builder(this).apply {
-                setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-            }.build(),
+            packageName, MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
+            applicationContext,
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
