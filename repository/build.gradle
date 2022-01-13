@@ -32,7 +32,7 @@ dependencies {
     // Gson
     implementation "com.google.code.gson:gson:2.8.9"
     // Room
-    implementation 'androidx.room:room-runtime:2.4.0'
+    implementation 'androidx.room:room-runtime:2.4.1'
     // Paging
     implementation "androidx.paging:paging-runtime-ktx:3.1.0"
     // Retrofit
