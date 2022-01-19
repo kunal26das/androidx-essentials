@@ -38,7 +38,7 @@ dependencies {
     implementation "androidx.core:core-ktx:1.7.0"
     implementation "androidx.appcompat:appcompat:1.4.1"
     // Material Design
-    implementation 'com.google.android.material:material:1.6.0-alpha01'
+    implementation 'com.google.android.material:material:1.6.0-alpha02'
     // Paging
     implementation 'androidx.paging:paging-runtime-ktx:3.1.0'
     // Recycler View
