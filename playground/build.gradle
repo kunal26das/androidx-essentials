@@ -77,7 +77,7 @@ dependencies {
     implementation "io.insert-koin:koin-android:3.1.5"
 
     // Material Design
-    implementation 'com.google.android.material:material:1.6.0-alpha02'
+    implementation 'com.google.android.material:material:1.6.0-alpha03'
 
     // Stetho
     implementation 'com.facebook.stetho:stetho:1.6.0'
