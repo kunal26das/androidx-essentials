@@ -74,7 +74,7 @@ dependencies {
     }
 
     // Koin
-    implementation "io.insert-koin:koin-android:3.1.5"
+    implementation "io.insert-koin:koin-android:3.1.6"
 
     // Material Design
     implementation 'com.google.android.material:material:1.6.0-beta01'
