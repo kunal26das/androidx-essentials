@@ -31,7 +31,7 @@ dependencies {
     implementation "androidx.core:core-ktx:1.8.0"
     implementation "androidx.appcompat:appcompat:1.4.2"
     // Play Services Location
-    implementation 'com.google.android.gms:play-services-location:19.0.1'
+    implementation 'com.google.android.gms:play-services-location:20.0.0'
 }
 
 apply from: 'publish.gradle'
