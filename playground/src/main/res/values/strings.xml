@@ -2,8 +2,6 @@
 <resources>
     <string name="_boolean">Boolean</string>
 
-    <string name="_false">False</string>
-
     <string name="_float">Float</string>
 
     <string name="_int">Int</string>
@@ -11,8 +9,6 @@
     <string name="_long">Long</string>
 
     <string name="_string">String</string>
-
-    <string name="_true">True</string>
 
     <string name="app_name">Essentials</string>
 
@@ -43,13 +39,9 @@
 
     <string name="firebase">Firebase</string>
 
-    <string name="future">Future</string>
-
     <string name="hideable">Hideable</string>
 
     <string name="hint">Hint</string>
-
-    <string name="io">I/O</string>
 
     <string name="keyboard">Keyboard</string>
 
@@ -65,17 +57,7 @@
 
     <string name="network">Network</string>
 
-    <string name="offline">Offline</string>
-
-    <string name="online">Online</string>
-
-    <string name="past">Past</string>
-
     <string name="repository">Repository</string>
-
-    <string name="selection_required">Selection Required</string>
-
-    <string name="settings">Settings</string>
 
     <string name="shared_preferences">Shared Preferences</string>
 

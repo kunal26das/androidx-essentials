@@ -12,19 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.DayNight.NoActionBar"
         tools:ignore="AllowBackup">
+
         <activity
-            android:name="androidx.essentials.playground.splash.SplashActivity"
+            android:name="androidx.essentials.playground.home.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <activity
-            android:name="androidx.essentials.playground.home.HomeActivity"
-            android:exported="false">
             <nav-graph android:value="@navigation/navigation_play_ground" />
         </activity>
     </application>
