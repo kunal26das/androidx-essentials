@@ -1,4 +1,4 @@
-package androidx.essentials.ui
+package androidx.essentials.view
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentBackdropBinding
-import androidx.essentials.ui.Fragment
+import androidx.essentials.view.Fragment
 import androidx.fragment.app.viewModels
 
 class BackdropFragment : Fragment() {

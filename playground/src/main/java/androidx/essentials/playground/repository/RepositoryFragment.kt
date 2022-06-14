@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentRepositoryBinding
-import androidx.essentials.ui.Fragment
+import androidx.essentials.view.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch

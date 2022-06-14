@@ -4,12 +4,11 @@ import android.content.Context
 import android.text.Editable
 import android.util.AttributeSet
 import android.view.inputmethod.EditorInfo
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
-import androidx.essentials.extensions.Context.getActivity
+import androidx.essentials.extensions.Context.Companion.appCompatActivity
 import androidx.essentials.io.R
 import androidx.essentials.io.input.InputMethodManager
 import androidx.fragment.app.DialogFragment
@@ -25,7 +24,7 @@ abstract class Field @JvmOverloads constructor(
     val isInvalid get() = !isValid
     protected var fromUser = false
 
-    private val mActivity get() = context.getActivity<AppCompatActivity>()
+    private val mActivity get() = context.appCompatActivity
     private val inputMethodManager = InputMethodManager.getInstance(context)
 
     internal var inputType: Int

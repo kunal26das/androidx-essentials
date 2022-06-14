@@ -7,7 +7,7 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ActivityHomeBinding
-import androidx.essentials.ui.Activity
+import androidx.essentials.view.Activity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController

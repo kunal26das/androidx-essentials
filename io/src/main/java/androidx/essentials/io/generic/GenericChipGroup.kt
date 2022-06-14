@@ -7,9 +7,9 @@ import android.view.MenuItem
 import android.view.animation.ScaleAnimation
 import android.widget.Checkable
 import androidx.core.view.isVisible
-import androidx.databinding.*
-import androidx.essentials.extensions.Coroutines.default
-import androidx.essentials.extensions.Coroutines.main
+import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import androidx.essentials.io.R
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -28,12 +28,11 @@ abstract class GenericChipGroup<T> @JvmOverloads constructor(
 
     var isCheckable = DEFAULT_IS_CHECKABLE
         set(value) {
-            field = value.default {
-                repeat(childCount) {
-                    getChildAt(it)?.main {
-                        isChecked = isChecked and value
-                        isCheckable = value
-                    }
+            field = value
+            repeat(childCount) {
+                getChildAt(it)?.apply {
+                    isChecked = isChecked and value
+                    isCheckable = value
                 }
             }
         }
@@ -53,9 +52,9 @@ abstract class GenericChipGroup<T> @JvmOverloads constructor(
     var chips: Set<T>? = null
         set(value) {
             field = value?.apply {
-                removeAllViews().default {
+                removeAllViews().apply {
                     forEachIndexed { index, it ->
-                        (inflater.inflate(chipLayout, this@GenericChipGroup, false) as Chip).main {
+                        (inflater.inflate(chipLayout, this@GenericChipGroup, false) as Chip).apply {
                             startAnimation(ScaleAnimation(0f, 1f, 1f, 1f))
                             isCheckable = this@GenericChipGroup.isCheckable
                             isChecked = when (it) {

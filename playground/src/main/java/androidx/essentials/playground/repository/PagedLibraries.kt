@@ -5,8 +5,8 @@ import android.util.AttributeSet
 import android.view.MenuItem
 import androidx.essentials.playground.R
 import androidx.essentials.playground.home.library.LibraryView
-import androidx.essentials.ui.ListItemView
-import androidx.essentials.ui.PagedList
+import androidx.essentials.view.ListItemView
+import androidx.essentials.view.PagedList
 
 class PagedLibraries @JvmOverloads constructor(
     context: Context,

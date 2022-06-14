@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentChipsBinding
-import androidx.essentials.ui.Fragment
+import androidx.essentials.view.Fragment
 import androidx.fragment.app.viewModels
 
 class ChipsFragment : Fragment() {
