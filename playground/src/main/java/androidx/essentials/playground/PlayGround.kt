@@ -1,8 +1,8 @@
 package androidx.essentials.playground
 
+import android.app.Application
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
-import androidx.essentials.application.Application
 import androidx.essentials.network.Network
 import androidx.essentials.playground.repository.LibraryRepository
 import androidx.essentials.preferences.SharedPreferences
@@ -44,6 +44,7 @@ class PlayGround : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        Resources.init(this)
         Stetho.initializeWithDefaults(this)
         SharedPreferences.init(this, SharedPreferences.Mode.PLAINTEXT)
         Network.init(this, NetworkRequest.Builder().apply {

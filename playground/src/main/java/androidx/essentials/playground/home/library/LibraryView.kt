@@ -4,10 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MenuItem
 import androidx.core.view.setMargins
-import androidx.essentials.application.Resources.dp
-import androidx.essentials.events.Events.publish
 import androidx.essentials.list.view.ListItemView
 import androidx.essentials.playground.R
+import androidx.essentials.playground.Resources.dp
 import androidx.essentials.playground.databinding.ItemLibraryBinding
 
 class LibraryView @JvmOverloads constructor(
@@ -27,12 +26,8 @@ class LibraryView @JvmOverloads constructor(
 
     override fun bind(item: Any?): ItemLibraryBinding {
         binding.menuItem = item as? MenuItem
-        return binding.apply {
-            binding.executePendingBindings()
-            binding.root.setOnClickListener {
-                publish(menuItem?.itemId!!)
-            }
-        }
+        binding.executePendingBindings()
+        return binding
     }
 
 }

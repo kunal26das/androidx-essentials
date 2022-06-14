@@ -1,4 +1,4 @@
-package androidx.essentials.resources.view
+package androidx.essentials.resources
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.essentials.extensions.Context.getActivity
-import androidx.essentials.resources.R
 import androidx.essentials.resources.databinding.LayoutAppbarBinding
-import androidx.essentials.resources.view.behaviour.AppBarLayoutBehaviour
 import com.google.android.material.card.MaterialCardView
 
 class AppBarLayout @JvmOverloads constructor(

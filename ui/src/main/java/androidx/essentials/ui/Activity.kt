@@ -1,4 +1,4 @@
-package androidx.essentials.activity
+package androidx.essentials.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.ContentFrameLayout
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.essentials.extensions.TryCatch.Try
+import androidx.essentials.extensions.Try
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -31,11 +31,7 @@ abstract class Activity : AppCompatActivity() {
 
     @CallSuper
     @MainThread
-    protected open fun onAttach(context: Context) {
-        supportFragmentManager.registerFragmentLifecycleCallbacks(
-            FragmentLifecycleCallbackLogs, true
-        )
-    }
+    protected open fun onAttach(context: Context) = Unit
 
     final override fun onCreate(savedInstanceState: Bundle?) {
         onAttach(applicationContext)
@@ -75,9 +71,7 @@ abstract class Activity : AppCompatActivity() {
 
     @CallSuper
     @MainThread
-    protected open fun onDetach() {
-        supportFragmentManager.unregisterFragmentLifecycleCallbacks(FragmentLifecycleCallbackLogs)
-    }
+    protected open fun onDetach() = Unit
 
     @CallSuper
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -86,10 +80,12 @@ abstract class Activity : AppCompatActivity() {
     }
 
     protected fun <T> LiveData<T>.observe(action: (T) -> Unit) {
-        observe(this@Activity, { action.invoke(it) })
+        observe(this@Activity) { action.invoke(it) }
     }
 
     @Synchronized
-    fun DialogFragment.show() = Try { if (!isAdded) show(supportFragmentManager, null) }
+    fun DialogFragment.show() {
+        Try { if (!isAdded) showNow(supportFragmentManager, null) }
+    }
 
 }

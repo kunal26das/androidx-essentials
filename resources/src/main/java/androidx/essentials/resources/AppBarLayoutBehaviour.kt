@@ -1,4 +1,4 @@
-package androidx.essentials.resources.view.behaviour
+package androidx.essentials.resources
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -8,7 +8,6 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.view.ViewPropertyAnimator
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
-import androidx.essentials.resources.view.AppBarLayout
 import com.google.android.material.animation.AnimationUtils
 
 open class AppBarLayoutBehaviour : CoordinatorLayout.Behavior<AppBarLayout>() {

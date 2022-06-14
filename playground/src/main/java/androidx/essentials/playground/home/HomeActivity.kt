@@ -5,12 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.essentials.activity.NavigationActivity
-import androidx.essentials.events.Events.subscribe
-import androidx.essentials.playground.Preference
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ActivityHomeBinding
-import androidx.essentials.preferences.SharedPreferences.put
+import androidx.essentials.ui.NavigationActivity
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -28,16 +25,6 @@ class HomeActivity : NavigationActivity() {
         super.onViewCreated(view, savedInstanceState)
         binding.navigationView.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
-//        get<Int>(Preference.DESTINATION)?.let { navigate(it) }
-    }
-
-    override fun initObservers() {
-        super.initObservers()
-        subscribe<Int> {
-            if (navigate(it)) {
-                put(Preference.DESTINATION, it)
-            }
-        }
     }
 
     companion object : ActivityResultContract<Any?, Boolean>() {

@@ -1,19 +1,18 @@
-package androidx.essentials.fragment
+package androidx.essentials.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.CallSuper
-import androidx.annotation.MainThread
+import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 
-abstract class Fragment : Fragment() {
+abstract class DialogFragment : AppCompatDialogFragment() {
 
     @PublishedApi
     internal val accessLayout
@@ -27,8 +26,14 @@ abstract class Fragment : Fragment() {
 
     @PublishedApi
     internal val inflater by lazy { LayoutInflater.from(context) }
-    inline fun <reified T : ViewDataBinding> Fragment.dataBinding() = lazy {
+
+    inline fun <reified T : ViewDataBinding> DialogFragment.dataBinding() = lazy {
         DataBindingUtil.inflate(inflater, accessLayout!!, container, false) as T
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_MaterialComponents_BottomSheetDialog)
     }
 
     final override fun onCreateView(
@@ -50,17 +55,14 @@ abstract class Fragment : Fragment() {
         initObservers()
     }
 
-    @CallSuper
-    @MainThread
-    open fun initObservers() = Unit
+    protected open fun initObservers() = Unit
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding?.unbind()
     }
 
-    protected fun <T> LiveData<T>.observe(action: (T) -> Unit) {
+    protected fun <T> LiveData<T>.observe(action: (T) -> Unit) =
         observe(viewLifecycleOwner, { action.invoke(it) })
-    }
 
 }

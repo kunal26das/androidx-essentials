@@ -35,6 +35,8 @@ dependencies {
     implementation "androidx.appcompat:appcompat:1.4.2"
     // Activity
     implementation "androidx.activity:activity-ktx:1.4.0"
+    // Fragment
+    implementation "androidx.fragment:fragment-ktx:1.4.1"
     // Navigation
     implementation "androidx.navigation:navigation-ui-ktx:2.4.2"
     implementation "androidx.navigation:navigation-fragment-ktx:2.4.2"

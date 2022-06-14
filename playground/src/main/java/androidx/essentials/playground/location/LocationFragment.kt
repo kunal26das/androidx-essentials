@@ -5,10 +5,10 @@ import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.essentials.fragment.Fragment
 import androidx.essentials.location.Location
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentLocationBinding
+import androidx.essentials.ui.Fragment
 
 class LocationFragment : Fragment() {
 

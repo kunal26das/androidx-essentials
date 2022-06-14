@@ -1,8 +1,8 @@
 package androidx.essentials.playground.home
 
 import androidx.core.view.children
-import androidx.essentials.application.Resources
 import androidx.essentials.playground.R
+import androidx.essentials.playground.Resources
 import androidx.lifecycle.ViewModel
 
 class HomeViewModel : ViewModel() {

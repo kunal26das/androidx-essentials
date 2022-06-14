@@ -1,9 +1,9 @@
 package androidx.essentials.playground.chips
 
 import androidx.core.view.children
-import androidx.essentials.application.Resources
 import androidx.essentials.playground.Preference
 import androidx.essentials.playground.R
+import androidx.essentials.playground.Resources
 import androidx.essentials.preferences.SharedPreferences.mutableLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

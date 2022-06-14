@@ -1,8 +1,8 @@
 package androidx.essentials.playground.repository
 
-import androidx.essentials.fragment.Fragment
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentRepositoryBinding
+import androidx.essentials.ui.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch

@@ -2,10 +2,10 @@ package androidx.essentials.playground.network
 
 import android.os.Bundle
 import android.view.View
-import androidx.essentials.fragment.Fragment
 import androidx.essentials.network.Network
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentNetworkBinding
+import androidx.essentials.ui.Fragment
 
 class NetworkFragment : Fragment() {
 

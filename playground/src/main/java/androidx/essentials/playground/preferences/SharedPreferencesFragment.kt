@@ -2,9 +2,9 @@ package androidx.essentials.playground.preferences
 
 import android.os.Bundle
 import android.view.View
-import androidx.essentials.fragment.Fragment
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentSharedPreferencesBinding
+import androidx.essentials.ui.Fragment
 import androidx.fragment.app.viewModels
 
 class SharedPreferencesFragment : Fragment() {

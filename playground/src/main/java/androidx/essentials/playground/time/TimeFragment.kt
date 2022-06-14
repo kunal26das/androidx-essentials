@@ -2,9 +2,9 @@ package androidx.essentials.playground.time
 
 import android.os.Bundle
 import android.view.View
-import androidx.essentials.fragment.Fragment
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentTimeBinding
+import androidx.essentials.ui.Fragment
 import androidx.fragment.app.viewModels
 
 class TimeFragment : Fragment() {

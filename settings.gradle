@@ -1,9 +1,6 @@
 rootProject.name = "androidx.essentials"
-include ':activity'
-include ':application'
+include ':ui'
 include ':backdrop'
-include ':fragment'
-include ':events'
 include ':extensions'
 include ':firebase'
 include ':io'

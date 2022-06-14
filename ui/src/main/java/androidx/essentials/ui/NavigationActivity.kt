@@ -1,4 +1,4 @@
-package androidx.essentials.activity
+package androidx.essentials.ui
 
 import android.os.Bundle
 import android.view.View

@@ -1,4 +1,4 @@
-package androidx.essentials.application
+package androidx.essentials.playground
 
 import android.content.Context
 import android.content.res.Resources

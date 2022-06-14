@@ -2,7 +2,6 @@ package androidx.essentials.network.connectivity
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.os.Build
 
 object ConnectivityManager {
 
@@ -13,11 +12,7 @@ object ConnectivityManager {
             return connectivityManager!!
         }
         synchronized(this) {
-            connectivityManager = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                context.getSystemService(ConnectivityManager::class.java)
-            } else {
-                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            }
+            connectivityManager = context.getSystemService(ConnectivityManager::class.java)
             return connectivityManager!!
         }
     }

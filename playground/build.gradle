@@ -45,8 +45,11 @@ dependencies {
 
     // Jetpack
     dependencies {
+        // Core
         implementation "androidx.core:core-ktx:1.8.0"
         implementation "androidx.appcompat:appcompat:1.4.2"
+        // Activity
+        implementation "androidx.activity:activity-ktx:1.4.0"
         // Layouts
         implementation "androidx.drawerlayout:drawerlayout:1.1.1"
         implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
@@ -78,27 +81,15 @@ dependencies {
     implementation 'com.facebook.stetho:stetho-okhttp3:1.6.0'
 
     dependencies {
-        // Activity
-        implementation project(path: ':activity')
-//        implementation "androidx.essentials:activity:1.0.0"
-        // Application
-        implementation project(path: ':application')
-//        implementation "androidx.essentials:application:1.0.0"
         // Backdrop
         implementation project(path: ':backdrop')
 //        implementation "androidx.essentials:backdrop:1.0.0"
-        // Events
-        implementation project(path: ':events')
-//        implementation "androidx.essentials:events:1.0.0"
         // Extensions
 //        implementation project(path: ':extensions')
 //        implementation "androidx.essentials:extensions:1.0.0@aar"
         // Firebase
         implementation project(path: ':firebase')
 //        implementation "androidx.essentials:firebase:1.0.0"
-        // Fragment
-        implementation project(path: ':fragment')
-//        implementation "androidx.essentials:fragment:1.0.0"
         // I/O
 //        implementation project(path: ':io')
         implementation "androidx.essentials:io:1.0.0@aar"
@@ -120,6 +111,9 @@ dependencies {
         // Resources
         implementation project(path: ':resources')
 //        implementation "androidx.essentials:resources:1.0.0"
+        // UI
+        implementation project(path: ':ui')
+//        implementation "androidx.essentials:ui:1.0.0"
     }
 
 }

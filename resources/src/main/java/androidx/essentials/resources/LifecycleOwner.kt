@@ -1,4 +1,4 @@
-package androidx.essentials.resources.lifecycle
+package androidx.essentials.resources
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner

@@ -2,9 +2,9 @@ package androidx.essentials.playground.text_input
 
 import android.os.Bundle
 import android.view.View
-import androidx.essentials.fragment.Fragment
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentTextInputBinding
+import androidx.essentials.ui.Fragment
 import androidx.fragment.app.viewModels
 
 class TextInputFragment : Fragment() {
