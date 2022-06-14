@@ -4,15 +4,17 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 
-object Context {
+class Context {
+    companion object {
 
-    inline fun <reified T : Activity> Context.getActivity(): T? {
-        var context = this
-        while (context is ContextWrapper) {
-            if (context is T) return context
-            context = context.baseContext
+        inline fun <reified T : Activity> Context.getActivity(): T? {
+            var context = this
+            while (context is ContextWrapper) {
+                if (context is T) return context
+                context = context.baseContext
+            }
+            return null
         }
-        return null
-    }
 
+    }
 }

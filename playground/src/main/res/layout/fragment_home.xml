@@ -13,7 +13,6 @@
     <androidx.essentials.playground.home.library.Libraries
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginVertical="?actionBarSize"
         android:orientation="vertical"
         android:paddingHorizontal="8dp"
         android:paddingVertical="16dp"

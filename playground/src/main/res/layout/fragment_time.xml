@@ -93,10 +93,6 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:text="@string/validate"
-            android:textColor="@color/colorBackground"
-            app:backgroundTint="@color/colorPrimary"
-            app:icon="@drawable/ic_check_24dp"
-            app:iconTint="@color/colorBackground"
-            app:layout_behavior="androidx.essentials.resources.ExtendedFloatingActionButton" />
+            app:icon="@drawable/ic_check_24dp" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

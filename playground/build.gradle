@@ -85,7 +85,7 @@ dependencies {
         implementation project(path: ':backdrop')
 //        implementation "androidx.essentials:backdrop:1.0.0"
         // Extensions
-//        implementation project(path: ':extensions')
+        implementation project(path: ':extensions')
 //        implementation "androidx.essentials:extensions:1.0.0@aar"
         // Firebase
         implementation project(path: ':firebase')
@@ -108,9 +108,6 @@ dependencies {
         // Repository
         implementation project(path: ':repository')
 //        implementation "androidx.essentials:repository:1.0.0"
-        // Resources
-        implementation project(path: ':resources')
-//        implementation "androidx.essentials:resources:1.0.0"
         // UI
         implementation project(path: ':ui')
 //        implementation "androidx.essentials:ui:1.0.0"

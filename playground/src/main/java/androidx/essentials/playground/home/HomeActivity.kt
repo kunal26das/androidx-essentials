@@ -23,6 +23,7 @@ class HomeActivity : NavigationActivity() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setSupportActionBar(binding.toolbar)
         binding.navigationView.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
     }

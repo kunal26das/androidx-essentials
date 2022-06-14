@@ -25,7 +25,6 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':resources')
     implementation project(path: ':extensions')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.0"

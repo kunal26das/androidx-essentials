@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.ContentFrameLayout
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.essentials.extensions.Try
+import androidx.essentials.extensions.Try.Companion._try
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -85,7 +85,7 @@ abstract class Activity : AppCompatActivity() {
 
     @Synchronized
     fun DialogFragment.show() {
-        Try { if (!isAdded) showNow(supportFragmentManager, null) }
+        _try { if (!isAdded) showNow(supportFragmentManager, null) }
     }
 
 }

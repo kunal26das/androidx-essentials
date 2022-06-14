@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<resources>
-
-    <style name="SplashTheme" parent="DayNightStyle">
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:background">@drawable/activity_splash</item>
-        <item name="android:windowBackground">@color/colorBackground</item>
-    </style>
-</resources>

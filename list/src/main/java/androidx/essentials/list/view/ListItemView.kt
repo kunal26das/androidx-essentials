@@ -9,10 +9,9 @@ import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.essentials.extensions.Context.getActivity
+import androidx.essentials.extensions.Context.Companion.getActivity
 import androidx.essentials.list.R
 import androidx.essentials.list.internal.AbstractList
-import androidx.essentials.resources.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelLazy
