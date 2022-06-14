@@ -9,7 +9,5 @@ maven {
   }
 }
 ```
-## Dependencies
-![Dependencies](/androidx-essentials.svg)
 ## Demo
 Check the [Play Ground](/app/src/main/java/androidx/essentials/playground) app.
