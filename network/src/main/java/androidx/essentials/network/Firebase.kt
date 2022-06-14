@@ -1,8 +1,8 @@
 package androidx.essentials.network
 
-import androidx.essentials.network.SharedPreferences.get
-import androidx.essentials.network.SharedPreferences.liveData
-import androidx.essentials.network.SharedPreferences.put
+import androidx.essentials.network.local.SharedPreferences.get
+import androidx.essentials.network.local.SharedPreferences.liveData
+import androidx.essentials.network.local.SharedPreferences.put
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 

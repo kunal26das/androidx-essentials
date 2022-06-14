@@ -1,7 +1,7 @@
 package androidx.essentials.playground.chips
 
 import androidx.core.view.children
-import androidx.essentials.network.SharedPreferences.mutableLiveData
+import androidx.essentials.network.local.SharedPreferences.mutableLiveData
 import androidx.essentials.playground.Preference
 import androidx.essentials.playground.R
 import androidx.essentials.playground.Resources

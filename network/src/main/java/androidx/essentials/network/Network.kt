@@ -1,12 +1,10 @@
 package androidx.essentials.network
 
 import android.content.Context
+import android.net.*
 import android.net.ConnectivityManager.NetworkCallback
-import android.net.LinkProperties
 import android.net.Network
-import android.net.NetworkCapabilities
-import android.net.NetworkRequest
-import androidx.essentials.network.SharedPreferences.mutableLiveData
+import androidx.essentials.network.local.SharedPreferences.mutableLiveData
 import androidx.lifecycle.MutableLiveData
 
 object Network {
@@ -60,7 +58,7 @@ object Network {
 
     fun init(context: Context, networkRequest: NetworkRequest) {
         synchronized(this) {
-            ConnectivityManager.getInstance(context)
+            context.getSystemService(ConnectivityManager::class.java)
                 .registerNetworkCallback(networkRequest, mNetworkCallback)
         }
     }

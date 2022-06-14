@@ -1,6 +1,6 @@
 package androidx.essentials.playground.time
 
-import androidx.essentials.network.SharedPreferences.mutableLiveData
+import androidx.essentials.network.local.SharedPreferences.mutableLiveData
 import androidx.essentials.playground.Preference
 import androidx.lifecycle.ViewModel
 

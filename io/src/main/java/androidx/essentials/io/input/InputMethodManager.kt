@@ -1,7 +1,6 @@
 package androidx.essentials.io.input
 
 import android.content.Context
-import android.os.Build
 import android.view.inputmethod.InputMethodManager
 
 object InputMethodManager {
@@ -13,11 +12,7 @@ object InputMethodManager {
             return inputMethodManager!!
         }
         synchronized(this) {
-            inputMethodManager = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                context.getSystemService(InputMethodManager::class.java)
-            } else {
-                context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            }
+            inputMethodManager = context.getSystemService(InputMethodManager::class.java)
             return inputMethodManager!!
         }
     }

@@ -1,4 +1,4 @@
-package androidx.essentials.network
+package androidx.essentials.network.local
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE

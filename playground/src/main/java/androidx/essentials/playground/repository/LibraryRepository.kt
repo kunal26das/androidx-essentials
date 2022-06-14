@@ -15,7 +15,7 @@ class LibraryRepository(context: Context, retrofit: Retrofit) : Repository(conte
         }
     }, {
         try {
-            val list = api?.getPage(it.key ?: 0)?.blockingGet()
+            val list = api?.getPage(it.key ?: 0)
             PagingSource.LoadResult.Page(emptyList(), it.key?.minus(1), it.key?.plus(1))
         } catch (e: Throwable) {
             PagingSource.LoadResult.Error(e)

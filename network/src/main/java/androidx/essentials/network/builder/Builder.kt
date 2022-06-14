@@ -1,8 +1,6 @@
-package androidx.essentials.network
+package androidx.essentials.network.builder
 
-abstract class Builder<T>(
-    private val builder: () -> T
-) {
+abstract class Builder<T> {
 
     @Volatile
     private var instance: T? = null
@@ -10,9 +8,11 @@ abstract class Builder<T>(
     @Synchronized
     fun getInstance(): T {
         if (instance != null) return instance!!
-        return builder.invoke().also {
+        return initialize().also {
             instance = it
         }
     }
+
+    protected abstract fun initialize(): T
 
 }
