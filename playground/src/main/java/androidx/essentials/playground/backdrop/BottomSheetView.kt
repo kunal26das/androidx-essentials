@@ -1,10 +1,11 @@
-package androidx.essentials.backdrop
+package androidx.essentials.playground.backdrop
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.FloatRange
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.essentials.playground.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.google.android.material.card.MaterialCardView

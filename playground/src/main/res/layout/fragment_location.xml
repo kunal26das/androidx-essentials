@@ -7,7 +7,7 @@
 
         <variable
             name="Location"
-            type="androidx.essentials.location.Location" />
+            type="androidx.essentials.playground.location.Location" />
     </data>
 
     <androidx.core.widget.NestedScrollView

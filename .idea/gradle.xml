@@ -11,12 +11,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/backdrop" />
             <option value="$PROJECT_DIR$/extensions" />
-            <option value="$PROJECT_DIR$/firebase" />
             <option value="$PROJECT_DIR$/io" />
             <option value="$PROJECT_DIR$/list" />
-            <option value="$PROJECT_DIR$/location" />
             <option value="$PROJECT_DIR$/network" />
             <option value="$PROJECT_DIR$/playground" />
             <option value="$PROJECT_DIR$/preferences" />

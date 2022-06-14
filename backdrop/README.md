@@ -12,13 +12,13 @@ minSdkVersion 21
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.essentials.backdrop.BottomSheetView
+    <androidx.essentials.playground.backdrop.BottomSheetView
         android:id="@+id/bottomSheetView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp">
         
-    </androidx.essentials.backdrop.BottomSheetView>
+    </androidx.essentials.playground.backdrop.BottomSheetView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 ```

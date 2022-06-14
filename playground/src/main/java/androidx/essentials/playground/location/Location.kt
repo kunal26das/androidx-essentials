@@ -1,4 +1,4 @@
-package androidx.essentials.location
+package androidx.essentials.playground.location
 
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION

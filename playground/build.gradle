@@ -60,6 +60,20 @@ dependencies {
         implementation "androidx.paging:paging-runtime-ktx:3.1.1"
     }
 
+    // Firebase
+    dependencies {
+        implementation platform('com.google.firebase:firebase-bom:30.1.0')
+        implementation 'com.google.firebase:firebase-messaging-ktx'
+    }
+
+    // Google
+    dependencies {
+        // Material Design
+        implementation 'com.google.android.material:material:1.6.1'
+        // Play Services Location
+        implementation 'com.google.android.gms:play-services-location:20.0.0'
+    }
+
     // Square
     dependencies {
         // Leak Canary
@@ -73,32 +87,20 @@ dependencies {
     // Koin
     implementation "io.insert-koin:koin-android:3.2.0"
 
-    // Material Design
-    implementation 'com.google.android.material:material:1.7.0-alpha02'
-
     // Stetho
     implementation 'com.facebook.stetho:stetho:1.6.0'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.6.0'
 
     dependencies {
-        // Backdrop
-        implementation project(path: ':backdrop')
-//        implementation "androidx.essentials:backdrop:1.0.0"
         // Extensions
         implementation project(path: ':extensions')
 //        implementation "androidx.essentials:extensions:1.0.0@aar"
-        // Firebase
-        implementation project(path: ':firebase')
-//        implementation "androidx.essentials:firebase:1.0.0"
         // I/O
 //        implementation project(path: ':io')
         implementation "androidx.essentials:io:1.0.0@aar"
         // List
         implementation project(path: ':list')
 //        implementation "androidx.essentials:list:1.0.0"
-        // Location
-        implementation project(path: ':location')
-//        implementation "androidx.essentials:location:1.0.0"
         // Network
         implementation project(path: ':network')
 //        implementation "androidx.essentials:network:1.0.0"

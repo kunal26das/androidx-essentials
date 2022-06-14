@@ -2,7 +2,6 @@ package androidx.essentials.playground.firebase
 
 import android.os.Bundle
 import android.view.View
-import androidx.essentials.firebase.Firebase
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentFirebaseBinding
 import androidx.essentials.ui.Fragment
