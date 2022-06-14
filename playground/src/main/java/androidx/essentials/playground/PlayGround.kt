@@ -7,6 +7,7 @@ import androidx.essentials.playground.network.NetworkRequest
 import androidx.essentials.playground.network.Retrofit
 import androidx.essentials.playground.repository.LibraryRepository
 import com.facebook.stetho.Stetho
+import com.google.android.material.color.DynamicColors
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
@@ -20,6 +21,7 @@ class PlayGround : Application() {
         SharedPreferences.init(this)
         Stetho.initializeWithDefaults(this)
         Network.init(this, NetworkRequest.getInstance())
+        DynamicColors.applyToActivitiesIfAvailable(this)
         startKoin()
     }
 
