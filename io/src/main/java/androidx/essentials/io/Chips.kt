@@ -4,8 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.core.content.res.getResourceIdOrThrow
 import androidx.core.view.children
-import androidx.essentials.extensions.Coroutines.default
-import androidx.essentials.extensions.Coroutines.main
 import androidx.essentials.io.generic.GenericChipGroup
 import com.google.android.material.chip.Chip
 
@@ -18,11 +16,9 @@ class Chips @JvmOverloads constructor(
     override var selection: Set<String>?
         get() = super.selection
         set(value) {
-            value.default {
-                children.forEach {
-                    (it as Chip).main {
-                        it.isChecked = value?.contains(text) == true
-                    }
+            children.forEach {
+                (it as Chip).apply {
+                    it.isChecked = value?.contains(text) == true
                 }
             }
         }
@@ -30,11 +26,9 @@ class Chips @JvmOverloads constructor(
     override var inverseSelection: Set<String>?
         get() = super.inverseSelection
         set(value) {
-            value.default {
-                children.forEach {
-                    (it as Chip).main {
-                        it.isChecked = value?.contains(text) == false
-                    }
+            children.forEach {
+                (it as Chip).apply {
+                    it.isChecked = value?.contains(text) == false
                 }
             }
         }
