@@ -1,4 +1,4 @@
-package androidx.essentials.ui.list.view
+package androidx.essentials.ui
 
 import android.content.Context
 import android.util.AttributeSet
@@ -9,8 +9,6 @@ import androidx.annotation.MainThread
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.essentials.extensions.Context.Companion.appCompatActivity
-import androidx.essentials.ui.R
-import androidx.essentials.ui.list.internal.AbstractList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelLazy
 import androidx.lifecycle.ViewModelProvider

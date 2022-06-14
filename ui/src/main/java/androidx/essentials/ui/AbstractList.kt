@@ -1,9 +1,7 @@
-package androidx.essentials.ui.list.internal
+package androidx.essentials.ui
 
 import android.content.Context
 import android.util.AttributeSet
-import androidx.essentials.ui.R
-import androidx.essentials.ui.list.adapter.ListStateAdapter
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,8 +18,6 @@ abstract class AbstractList<T> @JvmOverloads constructor(
     protected var orientation = DEFAULT_ORIENTATION
     protected val reverseLayout = DEFAULT_REVERSE_LAYOUT
 
-    lateinit var emptyState: ListStateAdapter
-    lateinit var loadingState: ListStateAdapter
     abstract val dataAdapter: Adapter<ViewHolder>
     internal lateinit var mLayoutManager: LayoutManager
     internal lateinit var linearLayoutManager: LinearLayoutManager

@@ -1,17 +1,14 @@
-package androidx.essentials.ui.list
+package androidx.essentials.ui
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
-import androidx.essentials.ui.R
-import androidx.essentials.ui.list.adapter.ListStateAdapter
-import androidx.essentials.ui.list.internal.AbstractList
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 
-abstract class List<T> @JvmOverloads constructor(
+abstract class List<T : Any> @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.recyclerViewStyle
@@ -31,25 +28,16 @@ abstract class List<T> @JvmOverloads constructor(
                 else -> linearLayoutManager
             }
             showDivider = getBoolean(R.styleable.List_dividers, DEFAULT_SHOW_DIVIDER)
-            loadingState = ListStateAdapter(
-                getResourceId(R.styleable.List_loadingState, R.layout.layout_loading), this@List
-            )
-            emptyState = ListStateAdapter(
-                getResourceId(R.styleable.List_emptyState, R.layout.layout_empty), this@List
-            )
             recycle()
         }
-        adapter = loadingState
     }
 
     fun submitList(list: kotlin.collections.List<T>?) = when {
         list == null -> {
             layoutManager = linearLayoutManager
-            adapter = loadingState
         }
         list.isEmpty() -> {
             layoutManager = linearLayoutManager
-            adapter = emptyState
         }
         else -> {
             layoutManager = mLayoutManager

@@ -7,7 +7,7 @@ import androidx.core.view.setMargins
 import androidx.essentials.playground.R
 import androidx.essentials.playground.Resources.dp
 import androidx.essentials.playground.databinding.ItemLibraryBinding
-import androidx.essentials.ui.list.view.ListItemView
+import androidx.essentials.ui.ListItemView
 
 class LibraryView @JvmOverloads constructor(
     context: Context,

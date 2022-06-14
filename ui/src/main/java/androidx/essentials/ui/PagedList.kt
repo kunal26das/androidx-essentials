@@ -1,11 +1,8 @@
-package androidx.essentials.ui.list
+package androidx.essentials.ui
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
-import androidx.essentials.ui.R
-import androidx.essentials.ui.list.adapter.ListStateAdapter
-import androidx.essentials.ui.list.internal.AbstractList
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -34,23 +31,13 @@ abstract class PagedList<T : Any> @JvmOverloads constructor(
                 else -> linearLayoutManager
             }
             showDivider = getBoolean(R.styleable.PagedList_dividers, DEFAULT_SHOW_DIVIDER)
-            loadingState = ListStateAdapter(
-                getResourceId(R.styleable.PagedList_loadingState, R.layout.layout_loading),
-                this@PagedList
-            )
-            emptyState = ListStateAdapter(
-                getResourceId(R.styleable.PagedList_emptyState, R.layout.layout_empty),
-                this@PagedList
-            )
             recycle()
         }
-        adapter = loadingState
     }
 
     suspend fun submitList(list: PagingData<T>?) = when (list) {
         null -> {
             layoutManager = linearLayoutManager
-            adapter = loadingState
         }
         else -> {
             layoutManager = mLayoutManager

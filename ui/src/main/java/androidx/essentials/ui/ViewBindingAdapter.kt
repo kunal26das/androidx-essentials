@@ -1,4 +1,4 @@
-package androidx.essentials.extensions
+package androidx.essentials.ui
 
 import android.view.View
 import androidx.core.view.isVisible
