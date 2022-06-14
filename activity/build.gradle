@@ -23,12 +23,7 @@ android {
         dataBinding = true
         viewBinding = true
     }
-
-    kotlinOptions {
-        useIR = true
-        languageVersion = "1.5"
-        jvmTarget = JavaVersion.VERSION_11
-    }
+    
 }
 
 dependencies {
