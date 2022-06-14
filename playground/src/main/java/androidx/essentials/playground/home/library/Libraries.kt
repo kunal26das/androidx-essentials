@@ -6,7 +6,6 @@ import android.view.MenuItem
 import androidx.databinding.BindingAdapter
 import androidx.essentials.playground.R
 import androidx.essentials.view.List
-import androidx.essentials.view.ListItemView
 
 class Libraries @JvmOverloads constructor(
     context: Context,
@@ -17,7 +16,7 @@ class Libraries @JvmOverloads constructor(
     override val viewHolder get() = LibraryView(context).viewHolder
 
     override fun onBindViewHolder(position: Int, item: MenuItem?, holder: ViewHolder) {
-        if (holder is ListItemView.ViewHolder) holder.bind(item)
+        if (holder is androidx.essentials.view.ViewHolder) holder.bind(item)
     }
 
     companion object {

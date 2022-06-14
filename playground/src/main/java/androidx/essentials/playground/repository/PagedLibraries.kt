@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.MenuItem
 import androidx.essentials.playground.R
 import androidx.essentials.playground.home.library.LibraryView
-import androidx.essentials.view.ListItemView
 import androidx.essentials.view.PagedList
 
 class PagedLibraries @JvmOverloads constructor(
@@ -17,7 +16,7 @@ class PagedLibraries @JvmOverloads constructor(
     override val viewHolder get() = LibraryView(context).viewHolder
 
     override fun onBindViewHolder(position: Int, item: MenuItem?, holder: ViewHolder) {
-        if (holder is ListItemView.ViewHolder) holder.bind(item)
+        if (holder is androidx.essentials.view.ViewHolder) holder.bind(item)
     }
 
 }

@@ -82,14 +82,4 @@ abstract class ListItemView @JvmOverloads constructor(
 
     open fun bind(item: Any?) = binding
 
-    class ViewHolder(
-        private val listItemView: ListItemView
-    ) : RecyclerView.ViewHolder(listItemView) {
-        fun bind(item: Any?): ListItemView {
-            return listItemView.apply {
-                bind(item)
-            }
-        }
-    }
-
 }

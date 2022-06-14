@@ -4,6 +4,7 @@ abstract class Builder<T>(
     private val builder: () -> T
 ) {
 
+    @Volatile
     private var instance: T? = null
 
     @Synchronized
