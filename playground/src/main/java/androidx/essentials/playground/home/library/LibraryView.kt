@@ -4,10 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MenuItem
 import androidx.core.view.setMargins
-import androidx.essentials.list.view.ListItemView
 import androidx.essentials.playground.R
 import androidx.essentials.playground.Resources.dp
 import androidx.essentials.playground.databinding.ItemLibraryBinding
+import androidx.essentials.ui.list.view.ListItemView
 
 class LibraryView @JvmOverloads constructor(
     context: Context,

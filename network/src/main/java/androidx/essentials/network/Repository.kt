@@ -1,4 +1,4 @@
-package androidx.essentials.repository
+package androidx.essentials.network
 
 import android.content.Context
 import androidx.paging.PagingSource

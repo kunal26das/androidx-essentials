@@ -13,11 +13,9 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/extensions" />
             <option value="$PROJECT_DIR$/io" />
-            <option value="$PROJECT_DIR$/list" />
             <option value="$PROJECT_DIR$/network" />
             <option value="$PROJECT_DIR$/playground" />
             <option value="$PROJECT_DIR$/preferences" />
-            <option value="$PROJECT_DIR$/repository" />
             <option value="$PROJECT_DIR$/ui" />
           </set>
         </option>

@@ -4,9 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MenuItem
 import androidx.databinding.BindingAdapter
-import androidx.essentials.list.List
-import androidx.essentials.list.view.ListItemView
 import androidx.essentials.playground.R
+import androidx.essentials.ui.list.List
+import androidx.essentials.ui.list.view.ListItemView
 
 class Libraries @JvmOverloads constructor(
     context: Context,

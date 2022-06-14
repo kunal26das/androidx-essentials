@@ -98,18 +98,12 @@ dependencies {
         // I/O
 //        implementation project(path: ':io')
         implementation "androidx.essentials:io:1.0.0@aar"
-        // List
-        implementation project(path: ':list')
-//        implementation "androidx.essentials:list:1.0.0"
         // Network
         implementation project(path: ':network')
 //        implementation "androidx.essentials:network:1.0.0"
         // Preferences
         implementation project(path: ':preferences')
 //        implementation "androidx.essentials:preferences:1.0.0"
-        // Repository
-        implementation project(path: ':repository')
-//        implementation "androidx.essentials:repository:1.0.0"
         // UI
         implementation project(path: ':ui')
 //        implementation "androidx.essentials:ui:1.0.0"

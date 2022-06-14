@@ -2,7 +2,7 @@ package androidx.essentials.playground.repository
 
 import android.content.Context
 import android.view.MenuItem
-import androidx.essentials.repository.Repository
+import androidx.essentials.network.Repository
 import androidx.paging.PagingSource
 import retrofit2.Retrofit
 

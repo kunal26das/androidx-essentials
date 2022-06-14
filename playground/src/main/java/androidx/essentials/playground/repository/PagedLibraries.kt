@@ -3,10 +3,10 @@ package androidx.essentials.playground.repository
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MenuItem
-import androidx.essentials.list.PagedList
-import androidx.essentials.list.view.ListItemView
 import androidx.essentials.playground.R
 import androidx.essentials.playground.home.library.LibraryView
+import androidx.essentials.ui.list.PagedList
+import androidx.essentials.ui.list.view.ListItemView
 
 class PagedLibraries @JvmOverloads constructor(
     context: Context,

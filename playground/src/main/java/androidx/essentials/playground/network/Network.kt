@@ -1,4 +1,4 @@
-package androidx.essentials.network
+package androidx.essentials.playground.network
 
 import android.content.Context
 import android.net.ConnectivityManager.NetworkCallback
@@ -6,7 +6,6 @@ import android.net.LinkProperties
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
-import androidx.essentials.network.connectivity.ConnectivityManager
 import androidx.essentials.preferences.SharedPreferences.mutableLiveData
 import androidx.lifecycle.MutableLiveData
 
