@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="androidx.essentials.playground.auto_complete.AutoCompleteViewModel" />
+            type="androidx.essentials.playground.autocomplete.AutoCompleteViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

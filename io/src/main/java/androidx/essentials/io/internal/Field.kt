@@ -8,9 +8,9 @@ import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
-import androidx.essentials.extensions.Context.Companion.appCompatActivity
 import androidx.essentials.io.R
 import androidx.essentials.io.input.InputMethodManager
+import androidx.essentials.io.internal.Context.Companion.appCompatActivity
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.textfield.TextInputLayout
 

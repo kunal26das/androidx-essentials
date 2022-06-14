@@ -1,4 +1,4 @@
-package androidx.essentials.playground.auto_complete
+package androidx.essentials.playground.autocomplete
 
 import android.os.Bundle
 import android.view.View

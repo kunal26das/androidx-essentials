@@ -1,4 +1,4 @@
-package androidx.essentials.extensions
+package androidx.essentials.io.internal
 
 import android.app.Activity
 import android.content.Context

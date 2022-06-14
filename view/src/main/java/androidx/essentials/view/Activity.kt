@@ -7,7 +7,6 @@ import android.view.View
 import androidx.annotation.CallSuper
 import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
-import androidx.essentials.extensions.Try.Companion._try
 import androidx.fragment.app.DialogFragment
 
 abstract class Activity : AppCompatActivity(), ViewController {
@@ -49,8 +48,13 @@ abstract class Activity : AppCompatActivity(), ViewController {
         return super.onOptionsItemSelected(item)
     }
 
-    fun DialogFragment.show() {
-        _try { if (!isAdded) showNow(supportFragmentManager, null) }
+    fun DialogFragment.show(
+        tag: String? = null
+    ) = try {
+        if (!isAdded) showNow(supportFragmentManager, tag)
+        null
+    } catch (e: Throwable) {
+        e
     }
 
 }

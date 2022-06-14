@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/autoComplete"
-        android:name="androidx.essentials.playground.auto_complete.AutoCompleteFragment"
+        android:name="androidx.essentials.playground.autocomplete.AutoCompleteFragment"
         android:label="@string/auto_complete"
         tools:layout="@layout/fragment_auto_complete" />
 
