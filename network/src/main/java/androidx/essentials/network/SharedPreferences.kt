@@ -1,11 +1,9 @@
-package androidx.essentials.preferences
+package androidx.essentials.network
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKeys
 import android.content.SharedPreferences as AndroidSharedPreferences
 
 object SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences.Editor {
@@ -23,20 +21,9 @@ object SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences.Ed
     private val Context.sharedPreferences: AndroidSharedPreferences
         get() = getSharedPreferences(packageName, MODE_PRIVATE)
 
-    private val Context.encryptedSharedPreferences: AndroidSharedPreferences
-        get() = EncryptedSharedPreferences.create(
-            packageName, MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
-            applicationContext,
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        )
-
-    fun init(context: Context, mode: Mode) {
+    fun init(context: Context) {
         synchronized(context.applicationContext) {
-            this.sharedPreferences = when (mode) {
-                Mode.ENCRYPTED -> context.encryptedSharedPreferences
-                Mode.PLAINTEXT -> context.sharedPreferences
-            }
+            sharedPreferences = context.sharedPreferences
         }
     }
 
@@ -233,11 +220,6 @@ object SharedPreferences : AndroidSharedPreferences, AndroidSharedPreferences.Ed
             }
 
         }
-    }
-
-    enum class Mode {
-        ENCRYPTED,
-        PLAINTEXT
     }
 
 }

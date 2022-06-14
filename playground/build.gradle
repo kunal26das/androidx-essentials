@@ -92,16 +92,10 @@ dependencies {
     implementation 'com.facebook.stetho:stetho-okhttp3:1.6.0'
 
     dependencies {
-        // I/O
 //        implementation project(path: ':io')
         implementation "androidx.essentials:io:1.0.0@aar"
-        // Network
         implementation project(path: ':network')
 //        implementation "androidx.essentials:network:1.0.0"
-        // Preferences
-        implementation project(path: ':preferences')
-//        implementation "androidx.essentials:preferences:1.0.0"
-        // View
         implementation project(path: ':view')
 //        implementation "androidx.essentials:view:1.0.0"
     }

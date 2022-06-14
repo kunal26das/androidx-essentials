@@ -1,7 +1,7 @@
 package androidx.essentials.playground.preferences
 
+import androidx.essentials.network.SharedPreferences.mutableLiveData
 import androidx.essentials.playground.Preference
-import androidx.essentials.preferences.SharedPreferences.mutableLiveData
 import androidx.lifecycle.ViewModel
 
 class SharedPreferencesViewModel : ViewModel() {

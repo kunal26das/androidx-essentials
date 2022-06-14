@@ -1,7 +1,7 @@
 package androidx.essentials.playground.text_input
 
+import androidx.essentials.network.SharedPreferences.mutableLiveData
 import androidx.essentials.playground.Preference
-import androidx.essentials.preferences.SharedPreferences.mutableLiveData
 import androidx.lifecycle.ViewModel
 
 class TextInputViewModel : ViewModel() {

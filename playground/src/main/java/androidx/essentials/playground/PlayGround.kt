@@ -3,9 +3,9 @@ package androidx.essentials.playground
 import android.app.Application
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
+import androidx.essentials.network.SharedPreferences
 import androidx.essentials.playground.network.Network
 import androidx.essentials.playground.repository.LibraryRepository
-import androidx.essentials.preferences.SharedPreferences
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.GsonBuilder
@@ -45,8 +45,8 @@ class PlayGround : Application() {
     override fun onCreate() {
         super.onCreate()
         Resources.init(this)
+        SharedPreferences.init(this)
         Stetho.initializeWithDefaults(this)
-        SharedPreferences.init(this, SharedPreferences.Mode.PLAINTEXT)
         Network.init(this, NetworkRequest.Builder().apply {
             addTransportType(NetworkCapabilities.TRANSPORT_VPN)
             addTransportType(NetworkCapabilities.TRANSPORT_WIFI)

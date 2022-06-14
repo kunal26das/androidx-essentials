@@ -6,7 +6,7 @@ import android.net.LinkProperties
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
-import androidx.essentials.preferences.SharedPreferences.mutableLiveData
+import androidx.essentials.network.SharedPreferences.mutableLiveData
 import androidx.lifecycle.MutableLiveData
 
 object Network {

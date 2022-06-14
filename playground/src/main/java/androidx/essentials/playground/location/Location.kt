@@ -4,8 +4,8 @@ import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Context
 import androidx.annotation.RequiresPermission
-import androidx.essentials.preferences.SharedPreferences.liveData
-import androidx.essentials.preferences.SharedPreferences.put
+import androidx.essentials.network.SharedPreferences.liveData
+import androidx.essentials.network.SharedPreferences.put
 import com.google.android.gms.location.LocationServices
 
 object Location {
