@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 class SharedPreferencesFragment : Fragment() {
 
     override val layout = R.layout.fragment_shared_preferences
-    override val viewModel by viewModels<SharedPreferencesViewModel>()
+    private val viewModel by viewModels<SharedPreferencesViewModel>()
     override val binding by dataBinding<FragmentSharedPreferencesBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -3,6 +3,7 @@ package androidx.essentials.extensions
 class Try {
     companion object {
 
+        @Suppress("FunctionName")
         fun _try(onTry: () -> Unit): Throwable? {
             try {
                 onTry.invoke()

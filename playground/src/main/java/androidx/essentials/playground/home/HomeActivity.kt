@@ -7,22 +7,29 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ActivityHomeBinding
-import androidx.essentials.ui.NavigationActivity
+import androidx.essentials.ui.Activity
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 
-class HomeActivity : NavigationActivity() {
+class HomeActivity : Activity() {
 
     override val layout = R.layout.activity_home
-    override val navHostFragmentId = R.id.playGroundNavigation
-    override val appBarConfiguration by lazy {
+    override val binding by dataBinding<ActivityHomeBinding>()
+
+    private val navHostFragmentId = R.id.playGroundNavigation
+    private val appBarConfiguration by lazy {
         AppBarConfiguration(navController.graph, binding.drawerLayout)
     }
-    override val binding by dataBinding<ActivityHomeBinding>()
+    private val navHostFragment by lazy {
+        supportFragmentManager.findFragmentById(navHostFragmentId) as NavHostFragment
+    }
+    private val navController get() = navHostFragment.navController
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navHostFragment
         setSupportActionBar(binding.toolbar)
         binding.navigationView.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -36,7 +43,6 @@ class HomeActivity : NavigationActivity() {
         override fun parseResult(resultCode: Int, intent: Intent?): Boolean {
             return resultCode == RESULT_OK
         }
-
     }
 
 }

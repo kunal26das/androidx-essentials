@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 class BackdropFragment : Fragment() {
 
     override val layout = R.layout.fragment_backdrop
-    override val viewModel by viewModels<BackdropViewModel>()
+    private val viewModel by viewModels<BackdropViewModel>()
     override val binding by dataBinding<FragmentBackdropBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

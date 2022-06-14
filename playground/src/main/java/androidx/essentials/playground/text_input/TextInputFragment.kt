@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 class TextInputFragment : Fragment() {
 
     override val layout = R.layout.fragment_text_input
-    override val viewModel by viewModels<TextInputViewModel>()
+    private val viewModel by viewModels<TextInputViewModel>()
     override val binding by dataBinding<FragmentTextInputBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 class DateFragment : Fragment() {
 
     override val layout = R.layout.fragment_date
-    override val viewModel by viewModels<DateViewModel>()
+    private val viewModel by viewModels<DateViewModel>()
     override val binding by dataBinding<FragmentDateBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

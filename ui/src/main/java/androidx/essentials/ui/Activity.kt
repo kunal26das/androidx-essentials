@@ -4,30 +4,13 @@ import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.viewModels
 import androidx.annotation.CallSuper
 import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.ContentFrameLayout
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.essentials.extensions.Try.Companion._try
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 
-abstract class Activity : AppCompatActivity() {
-
-    open val layout: Int? = null
-    protected open val binding: ViewDataBinding? = null
-    protected open val viewModel by viewModels<ViewModel>()
-    inline fun <reified T : ViewDataBinding> Activity.dataBinding() = lazy {
-        DataBindingUtil.setContentView(this, layout!!) as T
-    }
-
-    protected val contentFrameLayout by lazy {
-        findViewById<ContentFrameLayout>(android.R.id.content)
-    }
+abstract class Activity : AppCompatActivity(), ViewController {
 
     @CallSuper
     @MainThread
@@ -36,17 +19,8 @@ abstract class Activity : AppCompatActivity() {
     final override fun onCreate(savedInstanceState: Bundle?) {
         onAttach(applicationContext)
         super.onCreate(savedInstanceState)
-        when (binding) {
-            null -> layout?.let {
-                setContentView(it)
-                onViewCreated(contentFrameLayout, savedInstanceState)
-            }
-            else -> binding?.let {
-                it.lifecycleOwner = this
-                onViewCreated(it.root, savedInstanceState)
-            }
-        }
-        initObservers()
+        binding.lifecycleOwner = this
+        onViewCreated(binding.root, savedInstanceState)
     }
 
     @CallSuper
@@ -55,12 +29,8 @@ abstract class Activity : AppCompatActivity() {
 
     @CallSuper
     @MainThread
-    protected open fun initObservers() = Unit
-
-    @CallSuper
-    @MainThread
     open fun onDestroyView() {
-        binding?.unbind()
+        binding.unbind()
     }
 
     override fun onDestroy() {
@@ -79,11 +49,6 @@ abstract class Activity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    protected fun <T> LiveData<T>.observe(action: (T) -> Unit) {
-        observe(this@Activity) { action.invoke(it) }
-    }
-
-    @Synchronized
     fun DialogFragment.show() {
         _try { if (!isAdded) showNow(supportFragmentManager, null) }
     }

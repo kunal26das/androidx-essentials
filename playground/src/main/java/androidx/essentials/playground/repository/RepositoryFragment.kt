@@ -1,5 +1,7 @@
 package androidx.essentials.playground.repository
 
+import android.os.Bundle
+import android.view.View
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.FragmentRepositoryBinding
 import androidx.essentials.ui.Fragment
@@ -10,11 +12,11 @@ import kotlinx.coroutines.launch
 class RepositoryFragment : Fragment() {
 
     override val layout = R.layout.fragment_repository
-    override val viewModel by viewModels<RepositoryViewModel>()
+    private val viewModel by viewModels<RepositoryViewModel>()
     override val binding by dataBinding<FragmentRepositoryBinding>()
 
-    override fun initObservers() {
-        super.initObservers()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel.pager.observe {
             lifecycleScope.launch {
                 binding.pagedLibraries.submitList(it)

@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 class ChipsFragment : Fragment() {
 
     override val layout = R.layout.fragment_chips
-    override val viewModel by viewModels<ChipsViewModel>()
+    private val viewModel by viewModels<ChipsViewModel>()
     override val binding by dataBinding<FragmentChipsBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
