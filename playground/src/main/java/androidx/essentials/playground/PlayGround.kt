@@ -3,8 +3,8 @@ package androidx.essentials.playground
 import android.app.Application
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
+import androidx.essentials.network.Network
 import androidx.essentials.network.SharedPreferences
-import androidx.essentials.playground.network.Network
 import androidx.essentials.playground.repository.LibraryRepository
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor

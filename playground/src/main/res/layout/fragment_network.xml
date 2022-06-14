@@ -7,7 +7,7 @@
 
         <variable
             name="Network"
-            type="androidx.essentials.playground.network.Network" />
+            type="androidx.essentials.network.Network" />
     </data>
 
     <androidx.core.widget.NestedScrollView

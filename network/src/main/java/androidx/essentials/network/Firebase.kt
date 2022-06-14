@@ -1,4 +1,4 @@
-package androidx.essentials.playground.firebase
+package androidx.essentials.network
 
 import androidx.essentials.network.SharedPreferences.get
 import androidx.essentials.network.SharedPreferences.liveData
