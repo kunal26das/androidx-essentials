@@ -8,7 +8,9 @@ import androidx.annotation.CallSuper
 import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 abstract class Activity : AppCompatActivity(), ViewController {
 
     @CallSuper

@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs.kotlin'
 }
 
@@ -30,12 +31,12 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.0"
+    // Activity
+    implementation "androidx.activity:activity-ktx:1.4.0"
     // Appcompat
     implementation "androidx.appcompat:appcompat:1.4.2"
     // Core
     implementation "androidx.core:core-ktx:1.8.0"
-    // Activity
-    implementation "androidx.activity:activity-ktx:1.4.0"
     // Fragment
     implementation "androidx.fragment:fragment-ktx:1.4.1"
     // Navigation
@@ -45,6 +46,9 @@ dependencies {
     implementation 'androidx.paging:paging-runtime-ktx:3.1.1'
     // Recycler View
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    // Hilt
+    kapt "com.google.dagger:hilt-android-compiler:2.42"
+    implementation "com.google.dagger:hilt-android:2.42"
     // Material Design
     implementation 'com.google.android.material:material:1.6.1'
 }

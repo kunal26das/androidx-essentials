@@ -6,15 +6,17 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class RepositoryViewModel : ViewModel(), KoinComponent {
+@HiltViewModel
+class RepositoryViewModel @Inject constructor(
+    private val libraryRepository: LibraryRepository
+) : ViewModel() {
 
-    private val repository by inject<LibraryRepository>()
     val pager
         get() = Pager(PagingConfig(PAGE_SIZE)) {
-            repository.libraries
+            libraryRepository.libraries
         }.flow.asLiveData(
             viewModelScope.coroutineContext
         )

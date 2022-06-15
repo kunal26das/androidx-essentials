@@ -1,4 +1,4 @@
-package androidx.essentials.playground.text_input
+package androidx.essentials.playground.textinput
 
 import androidx.essentials.network.local.SharedPreferences.mutableLiveData
 import androidx.essentials.playground.Preference

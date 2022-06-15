@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="androidx.essentials.playground.text_input.TextInputViewModel" />
+            type="androidx.essentials.playground.textinput.TextInputViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

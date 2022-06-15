@@ -1,4 +1,4 @@
-package androidx.essentials.playground.text_input
+package androidx.essentials.playground.textinput
 
 import android.os.Bundle
 import android.view.View

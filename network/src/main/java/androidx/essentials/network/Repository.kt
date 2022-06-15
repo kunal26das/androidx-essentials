@@ -1,24 +1,14 @@
 package androidx.essentials.network
 
 import android.content.Context
-import androidx.essentials.network.builder.RoomDatabaseBuilder
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import androidx.room.RoomDatabase
-import retrofit2.Retrofit
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-open class Repository @JvmOverloads constructor(
-    val context: Context? = null,
-    val retrofit: Retrofit? = null,
+open class Repository @Inject constructor(
+    @ApplicationContext val context: Context
 ) {
-
-    inline fun <reified T> Repository.retrofit(): Lazy<T?> = lazy {
-        retrofit?.create(T::class.java)
-    }
-
-    inline fun <reified T : RoomDatabase> Repository.roomDatabase(
-        name: String
-    ) = RoomDatabaseBuilder(context!!, T::class, name)
 
     inline fun <Key : Any, Value : Any> Repository.pagingSource(
         crossinline getRefreshKey: (state: PagingState<Key, Value>) -> Key?,
