@@ -45,19 +45,20 @@ abstract class PagedList<T : Any> @JvmOverloads constructor(
         }
     }
 
-    override val dataAdapter = object : PagingDataAdapter<T, ViewHolder>(
-        object : DiffUtil.ItemCallback<T>() {
-            override fun areItemsTheSame(oldItem: T, newItem: T) =
-                this@PagedList.areItemsTheSame(oldItem, newItem)
+    override val dataAdapter =
+        object : PagingDataAdapter<T, androidx.essentials.view.ViewHolder<T>>(
+            object : DiffUtil.ItemCallback<T>() {
+                override fun areItemsTheSame(oldItem: T, newItem: T) =
+                    this@PagedList.areItemsTheSame(oldItem, newItem)
 
-            override fun areContentsTheSame(oldItem: T, newItem: T) =
-                this@PagedList.areContentsTheSame(oldItem, newItem)
-        }
-    ) {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = viewHolder
+                override fun areContentsTheSame(oldItem: T, newItem: T) =
+                    this@PagedList.areContentsTheSame(oldItem, newItem)
+            }
+        ) {
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = viewHolder
 
         override fun onBindViewHolder(
-            holder: ViewHolder, position: Int
+            holder: androidx.essentials.view.ViewHolder<T>, position: Int
         ) {
             this@PagedList.onBindViewHolder(
                 position, getItem(position), holder

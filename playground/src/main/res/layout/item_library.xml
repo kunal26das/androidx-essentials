@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="menuItem"
-            type="android.view.MenuItem" />
+            name="library"
+            type="androidx.essentials.playground.library.Library" />
     </data>
 
     <com.google.android.material.textview.MaterialTextView
@@ -19,6 +19,6 @@
         android:maxLines="1"
         android:orientation="horizontal"
         android:padding="16dp"
-        android:text="@{menuItem.title}"
+        android:text="@{library.name}"
         tools:text="Library" />
 </layout>

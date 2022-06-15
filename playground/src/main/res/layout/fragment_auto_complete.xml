@@ -34,7 +34,7 @@
                 android:inputType="textCapWords"
                 app:array="@{viewModel.libraries}"
                 app:editable="@{viewModel.isEditable}"
-                app:helperText="@{viewModel.autoComplete.title}"
+                app:helperText="@{viewModel.autoComplete.name()}"
                 app:listItem="@android:layout/simple_list_item_1"
                 app:mandatory="@{viewModel.isMandatory}"
                 app:mandatoryMessage="@string/mandatory_field"

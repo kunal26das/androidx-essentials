@@ -2,12 +2,12 @@ package androidx.essentials.view
 
 import androidx.recyclerview.widget.RecyclerView
 
-class ViewHolder(
-    private val listItemView: ListItemView
+class ViewHolder<T>(
+    private val listItemView: ListItemView<T>
 ) : RecyclerView.ViewHolder(listItemView) {
-    fun bind(item: Any?): ListItemView {
-        return listItemView.apply {
-            bind(item)
+    fun bind(item: T?): ListItemView<T> {
+        return listItemView.also {
+            it.bind(item)
         }
     }
 }

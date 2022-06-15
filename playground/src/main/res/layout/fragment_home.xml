@@ -10,7 +10,7 @@
             type="androidx.essentials.playground.home.HomeViewModel" />
     </data>
 
-    <androidx.essentials.playground.home.library.Libraries
+    <androidx.essentials.playground.library.Libraries
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

@@ -13,12 +13,12 @@ abstract class AbstractList<T> @JvmOverloads constructor(
     defStyleAttr: Int = R.attr.recyclerViewStyle
 ) : RecyclerView(context, attributes, defStyleAttr) {
 
-    abstract val viewHolder: ViewHolder
+    abstract val viewHolder: androidx.essentials.view.ViewHolder<T>
     internal var showDivider = DEFAULT_SHOW_DIVIDER
     protected var orientation = DEFAULT_ORIENTATION
     protected val reverseLayout = DEFAULT_REVERSE_LAYOUT
 
-    abstract val dataAdapter: Adapter<ViewHolder>
+    abstract val dataAdapter: Adapter<androidx.essentials.view.ViewHolder<T>>
     internal lateinit var mLayoutManager: LayoutManager
     internal lateinit var linearLayoutManager: LinearLayoutManager
 
@@ -28,7 +28,11 @@ abstract class AbstractList<T> @JvmOverloads constructor(
         layoutManager = LinearLayoutManager(context)
     }
 
-    abstract fun onBindViewHolder(position: Int, item: T?, holder: ViewHolder)
+    abstract fun onBindViewHolder(
+        position: Int,
+        item: T?,
+        holder: androidx.essentials.view.ViewHolder<T>
+    )
 
     open fun areItemsTheSame(oldItem: T, newItem: T) = false
 

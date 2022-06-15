@@ -1,8 +1,7 @@
-package androidx.essentials.playground.home.library
+package androidx.essentials.playground.library
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.MenuItem
 import androidx.core.view.setMargins
 import androidx.essentials.playground.R
 import androidx.essentials.playground.Resources.dp
@@ -13,7 +12,7 @@ class LibraryView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.materialCardViewStyle
-) : ListItemView(context, attrs, defStyleAttr) {
+) : ListItemView<Library>(context, attrs, defStyleAttr) {
 
     override val layout = R.layout.item_library
     override val binding by dataBinding<ItemLibraryBinding>()
@@ -24,10 +23,9 @@ class LibraryView @JvmOverloads constructor(
         layoutParams?.setMargins(8.dp)
     }
 
-    override fun bind(item: Any?): ItemLibraryBinding {
-        binding.menuItem = item as? MenuItem
+    override fun bind(item: Library?) {
+        binding.library = item
         binding.executePendingBindings()
-        return binding
     }
 
 }

@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.google.android.material.card.MaterialCardView
 
-abstract class ListItemView @JvmOverloads constructor(
+abstract class ListItemView<T> @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.materialCardViewStyle,
@@ -29,7 +29,7 @@ abstract class ListItemView @JvmOverloads constructor(
         get() = layout
     protected abstract val layout: Int
     abstract val binding: ViewDataBinding
-    val viewHolder by lazy { ViewHolder(this) }
+    val viewHolder by lazy { ViewHolder<T>(this) }
 
     @PublishedApi
     internal val attachToRoot by lazy { parent is RecyclerView }
@@ -37,12 +37,12 @@ abstract class ListItemView @JvmOverloads constructor(
 
     @PublishedApi
     internal val inflater by lazy { LayoutInflater.from(context) }
-    inline fun <reified T : ViewDataBinding> ListItemView.dataBinding() = lazy {
-        DataBindingUtil.inflate(inflater, accessLayout, this, attachToRoot) as T
+    inline fun <reified VDB : ViewDataBinding> ListItemView<T>.dataBinding() = lazy {
+        DataBindingUtil.inflate(inflater, accessLayout, this, attachToRoot) as VDB
     }
 
     @MainThread
-    protected inline fun <reified VM : ViewModel> ListItemView.viewModels(
+    protected inline fun <reified VM : ViewModel> ListItemView<T>.viewModels(
         noinline factoryProducer: (() -> ViewModelProvider.Factory)? = null
     ): Lazy<VM> {
         return ViewModelLazy(VM::class, {
@@ -80,6 +80,6 @@ abstract class ListItemView @JvmOverloads constructor(
 
     override fun getLayoutParams() = super.getLayoutParams() as? MarginLayoutParams
 
-    open fun bind(item: Any?) = binding
+    abstract fun bind(item: T?)
 
 }

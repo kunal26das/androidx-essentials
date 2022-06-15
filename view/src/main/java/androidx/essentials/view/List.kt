@@ -47,7 +47,7 @@ abstract class List<T : Any> @JvmOverloads constructor(
         }
     }
 
-    override val dataAdapter = object : ListAdapter<T, ViewHolder>(
+    override val dataAdapter = object : ListAdapter<T, androidx.essentials.view.ViewHolder<T>>(
         object : DiffUtil.ItemCallback<T>() {
             override fun areItemsTheSame(oldItem: T, newItem: T) =
                 this@List.areItemsTheSame(oldItem, newItem)
@@ -59,7 +59,7 @@ abstract class List<T : Any> @JvmOverloads constructor(
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = viewHolder
 
         override fun onBindViewHolder(
-            holder: ViewHolder, position: Int
+            holder: androidx.essentials.view.ViewHolder<T>, position: Int
         ) = this@List.onBindViewHolder(
             position, getItem(position), holder
         )
