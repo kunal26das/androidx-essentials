@@ -8,9 +8,12 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.annotation.CallSuper
 import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.DialogFragment
 
 abstract class Activity : AppCompatActivity(), ViewController {
+
+    fun registerForActivityResult(
+        contract: ActivityResultContract<*, *>
+    ) = registerForActivityResult(contract) {}
 
     @CallSuper
     @MainThread
@@ -48,18 +51,5 @@ abstract class Activity : AppCompatActivity(), ViewController {
         if (item.itemId == android.R.id.home) onBackPressed()
         return super.onOptionsItemSelected(item)
     }
-
-    fun DialogFragment.show(
-        tag: String? = null
-    ) = try {
-        if (!isAdded) showNow(supportFragmentManager, tag)
-        null
-    } catch (e: Throwable) {
-        e
-    }
-
-    fun registerForActivityResult(
-        contract: ActivityResultContract<*, *>
-    ) = registerForActivityResult(contract) {}
 
 }

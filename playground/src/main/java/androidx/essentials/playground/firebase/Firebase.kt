@@ -13,28 +13,28 @@ class Firebase @Inject constructor(
     @ApplicationContext context: Context
 ) : SharedPreferences(context) {
 
-    val token by liveData<String>(Preference.fcm_token)
+    val token by liveData<String>(KEY_FCM_TOKEN)
 
     var uuid: String
         @Synchronized get() {
-            with(get<String>(Preference.uuid)) {
+            with(get<String>(KEY_UUID)) {
                 return when {
                     isNullOrEmpty() -> "${java.util.UUID.randomUUID()}".apply { uuid = this }
                     else -> this
                 }
             }
         }
-        internal set(value) = set(Preference.uuid, value)
+        internal set(value) = set(KEY_UUID, value)
 
     init {
         Firebase.messaging.token.addOnSuccessListener {
-            set(Preference.fcm_token, it)
+            set(KEY_FCM_TOKEN, it)
         }
     }
 
-    @Suppress("EnumEntryName")
-    internal enum class Preference {
-        fcm_token, uuid
+    companion object {
+        private const val KEY_UUID = "uuid"
+        private const val KEY_FCM_TOKEN = "fcm_token"
     }
 
 }

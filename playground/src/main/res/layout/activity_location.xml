@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="Location"
+            name="location"
             type="androidx.essentials.playground.location.Location" />
     </data>
 
@@ -28,7 +28,7 @@
                     android:layout_weight="1"
                     android:hint="@string/latitude"
                     app:editable="false"
-                    app:text="@{String.valueOf(Location.latitude)}" />
+                    app:text="@{location.latitude}" />
 
                 <androidx.essentials.io.TextInput
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -36,7 +36,7 @@
                     android:layout_weight="1"
                     android:hint="@string/longitude"
                     app:editable="false"
-                    app:text="@{String.valueOf(Location.longitude)}" />
+                    app:text="@{location.longitude}" />
             </TableRow>
         </TableLayout>
     </androidx.core.widget.NestedScrollView>

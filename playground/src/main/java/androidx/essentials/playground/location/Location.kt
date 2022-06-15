@@ -10,23 +10,23 @@ class Location @Inject constructor(
     @ApplicationContext context: Context
 ) : SharedPreferences(context) {
 
-    val latitude by liveData<Float>(Preference.latitude)
-    val longitude by liveData<Float>(Preference.longitude)
+    val latitude by liveData<Float>(KEY_LATITUDE)
+    val longitude by liveData<Float>(KEY_LONGITUDE)
 
     init {
         LocationServices.getFusedLocationProviderClient(context).apply {
             lastLocation.addOnSuccessListener {
                 if (it != null) {
-                    set(Preference.latitude, it.latitude)
-                    set(Preference.longitude, it.longitude)
+                    set(KEY_LATITUDE, it.latitude)
+                    set(KEY_LONGITUDE, it.longitude)
                 }
             }
         }
     }
 
-    @Suppress("EnumEntryName")
-    private enum class Preference {
-        latitude, longitude
+    companion object {
+        private const val KEY_LATITUDE = "latitude"
+        private const val KEY_LONGITUDE = "longitude"
     }
 
 }
