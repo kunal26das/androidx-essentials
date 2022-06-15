@@ -4,17 +4,17 @@ import android.content.Context
 import android.net.*
 import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
-import androidx.essentials.network.local.SharedPreferences.mutableLiveData
+import androidx.essentials.network.local.SharedPreferences
 import androidx.lifecycle.MutableLiveData
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Singleton
 
-object Network {
-
-    val LINK_PROPERTIES = MutableLiveData<LinkProperties>()
-    val CAPABILITIES = MutableLiveData<NetworkCapabilities>()
-
-    val IS_BLOCKED by mutableLiveData<Boolean>(Preference.is_network_blocked)
-    val MAX_TIME_TO_LIVE by mutableLiveData<Int>(Preference.max_time_to_live)
-    val IS_AVAILABLE by mutableLiveData<Boolean>(Preference.is_network_available)
+@Singleton
+class Network(
+    @ApplicationContext context: Context,
+    sharedPreferences: SharedPreferences,
+    networkRequest: NetworkRequest
+) {
 
     private val mNetworkCallback = object : NetworkCallback() {
         override fun onAvailable(network: Network) {
@@ -56,13 +56,20 @@ object Network {
         }
     }
 
-    fun init(context: Context, networkRequest: NetworkRequest) {
-        synchronized(this) {
-            context.getSystemService(ConnectivityManager::class.java)
-                .registerNetworkCallback(networkRequest, mNetworkCallback)
-        }
+    init {
+        context.getSystemService(ConnectivityManager::class.java)
+            .registerNetworkCallback(networkRequest, mNetworkCallback)
     }
 
+    val LINK_PROPERTIES = MutableLiveData<LinkProperties>()
+    val CAPABILITIES = MutableLiveData<NetworkCapabilities>()
+
+    val IS_BLOCKED by sharedPreferences.mutableLiveData<Boolean>(Preference.is_network_blocked)
+    val MAX_TIME_TO_LIVE by sharedPreferences.mutableLiveData<Int>(Preference.max_time_to_live)
+    val IS_AVAILABLE by sharedPreferences.mutableLiveData<Boolean>(Preference.is_network_available)
+
+
+    @Suppress("EnumEntryName")
     enum class Preference {
         is_network_available,
         is_network_blocked,

@@ -1,28 +1,24 @@
 package androidx.essentials.playground.location
 
-import android.Manifest.permission.ACCESS_COARSE_LOCATION
-import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Context
-import androidx.annotation.RequiresPermission
-import androidx.essentials.network.local.SharedPreferences.liveData
-import androidx.essentials.network.local.SharedPreferences.put
+import androidx.essentials.network.local.SharedPreferences
 import com.google.android.gms.location.LocationServices
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-object Location {
+class Location @Inject constructor(
+    @ApplicationContext context: Context
+) : SharedPreferences(context) {
 
-    val LATITUDE by liveData<Float>(Preference.latitude)
-    val LONGITUDE by liveData<Float>(Preference.longitude)
+    val latitude by liveData<Float>(Preference.latitude)
+    val longitude by liveData<Float>(Preference.longitude)
 
-    @Synchronized
-    @RequiresPermission(anyOf = [ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION])
-    fun init(context: Context) {
-        synchronized(this) {
-            LocationServices.getFusedLocationProviderClient(context).apply {
-                lastLocation.addOnSuccessListener {
-                    if (it != null) {
-                        put(Preference.latitude, it.latitude)
-                        put(Preference.longitude, it.longitude)
-                    }
+    init {
+        LocationServices.getFusedLocationProviderClient(context).apply {
+            lastLocation.addOnSuccessListener {
+                if (it != null) {
+                    set(Preference.latitude, it.latitude)
+                    set(Preference.longitude, it.longitude)
                 }
             }
         }

@@ -14,21 +14,24 @@ class LocationActivity : Activity() {
     override val layout = R.layout.activity_location
     override val binding by dataBinding<ActivityLocationBinding>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.location = Location
-        requestLocationPermission()
+    private var location: Location? = null
+    private val locationPermission = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) {
+        if (it.values.reduce { a, b -> a or b }) {
+            location = Location(this)
+        }
     }
 
-    private fun requestLocationPermission() {
-        registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ) {
-            if (it.containsValue(true)) try {
-                Location.init(this)
-            } catch (ignored: SecurityException) {
-            }
-        }.launch(arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION))
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.location = location
+        locationPermission.launch(
+            arrayOf(
+                ACCESS_FINE_LOCATION,
+                ACCESS_COARSE_LOCATION
+            )
+        )
     }
 
 }

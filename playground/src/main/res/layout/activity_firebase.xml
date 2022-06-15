@@ -28,7 +28,7 @@
                 android:layout_marginBottom="8dp"
                 android:hint="@string/uuid"
                 app:editable="false"
-                app:text="@{Firebase.UUID}" />
+                app:text="@{Firebase.uuid}" />
 
             <androidx.essentials.io.TextInput
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -39,7 +39,7 @@
                 android:layout_marginBottom="24dp"
                 android:hint="@string/token"
                 app:editable="false"
-                app:text="@{Firebase.TOKEN}" />
+                app:text="@{Firebase.token}" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 </layout>

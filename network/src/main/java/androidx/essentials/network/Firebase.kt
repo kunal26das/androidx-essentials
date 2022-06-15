@@ -1,29 +1,34 @@
 package androidx.essentials.network
 
-import androidx.essentials.network.local.SharedPreferences.get
-import androidx.essentials.network.local.SharedPreferences.liveData
-import androidx.essentials.network.local.SharedPreferences.put
+import android.content.Context
+import androidx.essentials.network.local.SharedPreferences
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object Firebase {
+@Singleton
+class Firebase @Inject constructor(
+    @ApplicationContext context: Context
+) : SharedPreferences(context) {
 
-    val TOKEN by liveData<String>(Preference.fcm_token)
+    val token by liveData<String>(Preference.fcm_token)
 
-    var UUID: String
+    var uuid: String
         @Synchronized get() {
             with(get<String>(Preference.uuid)) {
                 return when {
-                    isNullOrEmpty() -> "${java.util.UUID.randomUUID()}".apply { UUID = this }
+                    isNullOrEmpty() -> "${java.util.UUID.randomUUID()}".apply { uuid = this }
                     else -> this
                 }
             }
         }
-        internal set(value) = put(Preference.uuid, value)
+        internal set(value) = set(Preference.uuid, value)
 
     init {
         Firebase.messaging.token.addOnSuccessListener {
-            put(Preference.fcm_token, it)
+            set(Preference.fcm_token, it)
         }
     }
 

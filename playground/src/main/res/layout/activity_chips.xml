@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:checkable="@{viewModel.isCheckable}"
                     android:padding="8dp"
-                    app:chips="@{viewModel.libraries}"
+                    app:chips="@{viewModel.features}"
                     app:selectionRequired="@{viewModel.isMandatory}"
                     app:singleSelection="@{viewModel.isSingleSelection}" />
 
@@ -39,7 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="?dividerVertical"
-                    app:visible="@{viewModel.libraries.size() > 0}" />
+                    app:visible="@{viewModel.features.size() > 0}" />
 
                 <androidx.essentials.io.Chips
                     android:id="@+id/selection"

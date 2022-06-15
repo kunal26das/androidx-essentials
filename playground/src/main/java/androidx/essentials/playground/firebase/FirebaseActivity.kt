@@ -14,7 +14,7 @@ class FirebaseActivity : Activity() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.firebase = Firebase
+        binding.firebase = Firebase(this)
     }
 
 }
