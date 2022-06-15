@@ -10,8 +10,8 @@ import com.google.android.gms.location.LocationServices
 
 object Location {
 
-    val LATITUDE by liveData<Float>(Preference.LATITUDE)
-    val LONGITUDE by liveData<Float>(Preference.LONGITUDE)
+    val LATITUDE by liveData<Float>(Preference.latitude)
+    val LONGITUDE by liveData<Float>(Preference.longitude)
 
     @Synchronized
     @RequiresPermission(anyOf = [ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION])
@@ -20,16 +20,17 @@ object Location {
             LocationServices.getFusedLocationProviderClient(context).apply {
                 lastLocation.addOnSuccessListener {
                     if (it != null) {
-                        put(Preference.LATITUDE, it.latitude)
-                        put(Preference.LONGITUDE, it.longitude)
+                        put(Preference.latitude, it.latitude)
+                        put(Preference.longitude, it.longitude)
                     }
                 }
             }
         }
     }
 
+    @Suppress("EnumEntryName")
     private enum class Preference {
-        LATITUDE, LONGITUDE
+        latitude, longitude
     }
 
 }

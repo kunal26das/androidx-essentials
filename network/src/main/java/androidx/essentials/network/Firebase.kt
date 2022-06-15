@@ -8,27 +8,28 @@ import com.google.firebase.messaging.ktx.messaging
 
 object Firebase {
 
-    val TOKEN by liveData<String>(Preference.FCM_TOKEN)
+    val TOKEN by liveData<String>(Preference.fcm_token)
 
     var UUID: String
         @Synchronized get() {
-            with(get<String>(Preference.UUID)) {
+            with(get<String>(Preference.uuid)) {
                 return when {
                     isNullOrEmpty() -> "${java.util.UUID.randomUUID()}".apply { UUID = this }
                     else -> this
                 }
             }
         }
-        internal set(value) = put(Preference.UUID, value)
+        internal set(value) = put(Preference.uuid, value)
 
     init {
         Firebase.messaging.token.addOnSuccessListener {
-            put(Preference.FCM_TOKEN, it)
+            put(Preference.fcm_token, it)
         }
     }
 
+    @Suppress("EnumEntryName")
     internal enum class Preference {
-        FCM_TOKEN, UUID
+        fcm_token, uuid
     }
 
 }

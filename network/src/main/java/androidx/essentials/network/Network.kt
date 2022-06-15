@@ -12,9 +12,9 @@ object Network {
     val LINK_PROPERTIES = MutableLiveData<LinkProperties>()
     val CAPABILITIES = MutableLiveData<NetworkCapabilities>()
 
-    val IS_BLOCKED by mutableLiveData<Boolean>(Preference.IS_NETWORK_BLOCKED)
-    val MAX_TIME_TO_LIVE by mutableLiveData<Int>(Preference.MAX_TIME_TO_LIVE)
-    val IS_AVAILABLE by mutableLiveData<Boolean>(Preference.IS_NETWORK_AVAILABLE)
+    val IS_BLOCKED by mutableLiveData<Boolean>(Preference.is_network_blocked)
+    val MAX_TIME_TO_LIVE by mutableLiveData<Int>(Preference.max_time_to_live)
+    val IS_AVAILABLE by mutableLiveData<Boolean>(Preference.is_network_available)
 
     private val mNetworkCallback = object : NetworkCallback() {
         override fun onAvailable(network: Network) {
@@ -64,9 +64,9 @@ object Network {
     }
 
     enum class Preference {
-        IS_NETWORK_AVAILABLE,
-        IS_NETWORK_BLOCKED,
-        MAX_TIME_TO_LIVE,
+        is_network_available,
+        is_network_blocked,
+        max_time_to_live,
     }
 
 }
