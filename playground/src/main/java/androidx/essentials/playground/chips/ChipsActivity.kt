@@ -2,16 +2,16 @@ package androidx.essentials.playground.chips
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.essentials.playground.R
-import androidx.essentials.playground.databinding.FragmentChipsBinding
-import androidx.essentials.view.Fragment
-import androidx.fragment.app.viewModels
+import androidx.essentials.playground.databinding.ActivityChipsBinding
+import androidx.essentials.view.Activity
 
-class ChipsFragment : Fragment() {
+class ChipsActivity : Activity() {
 
-    override val layout = R.layout.fragment_chips
+    override val layout = R.layout.activity_chips
     private val viewModel by viewModels<ChipsViewModel>()
-    override val binding by dataBinding<FragmentChipsBinding>()
+    override val binding by dataBinding<ActivityChipsBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

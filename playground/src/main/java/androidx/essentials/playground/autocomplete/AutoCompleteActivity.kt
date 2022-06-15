@@ -2,16 +2,16 @@ package androidx.essentials.playground.autocomplete
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.essentials.playground.R
-import androidx.essentials.playground.databinding.FragmentAutoCompleteBinding
-import androidx.essentials.view.Fragment
-import androidx.fragment.app.viewModels
+import androidx.essentials.playground.databinding.ActivityAutoCompleteBinding
+import androidx.essentials.view.Activity
 
-class AutoCompleteFragment : Fragment() {
+class AutoCompleteActivity : Activity() {
 
-    override val layout = R.layout.fragment_auto_complete
+    override val layout = R.layout.activity_auto_complete
     private val viewModel by viewModels<AutoCompleteViewModel>()
-    override val binding by dataBinding<FragmentAutoCompleteBinding>()
+    override val binding by dataBinding<ActivityAutoCompleteBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

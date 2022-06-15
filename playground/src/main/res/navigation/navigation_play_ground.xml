@@ -6,21 +6,21 @@
 
     <fragment
         android:id="@+id/autoComplete"
-        android:name="androidx.essentials.playground.autocomplete.AutoCompleteFragment"
+        android:name="androidx.essentials.playground.autocomplete.AutoCompleteActivity"
         android:label="@string/auto_complete"
-        tools:layout="@layout/fragment_auto_complete" />
+        tools:layout="@layout/activity_auto_complete" />
 
     <fragment
         android:id="@+id/backdrop"
-        android:name="androidx.essentials.playground.backdrop.BackdropFragment"
+        android:name="androidx.essentials.playground.backdrop.BackdropActivity"
         android:label="@string/backdrop"
-        tools:layout="@layout/fragment_backdrop" />
+        tools:layout="@layout/activity_backdrop" />
 
     <fragment
         android:id="@+id/chips"
-        android:name="androidx.essentials.playground.chips.ChipsFragment"
+        android:name="androidx.essentials.playground.chips.ChipsActivity"
         android:label="@string/chips"
-        tools:layout="@layout/fragment_chips" />
+        tools:layout="@layout/activity_chips" />
 
     <fragment
         android:id="@+id/home"
@@ -30,43 +30,43 @@
 
     <fragment
         android:id="@+id/firebase"
-        android:name="androidx.essentials.playground.firebase.FirebaseFragment"
+        android:name="androidx.essentials.playground.firebase.FirebaseActivity"
         android:label="@string/firebase"
-        tools:layout="@layout/fragment_firebase" />
+        tools:layout="@layout/activity_firebase" />
 
     <fragment
         android:id="@+id/date"
-        android:name="androidx.essentials.playground.date.DateFragment"
+        android:name="androidx.essentials.playground.date.DateActivity"
         android:label="@string/date"
-        tools:layout="@layout/fragment_date" />
+        tools:layout="@layout/activity_date" />
 
     <fragment
         android:id="@+id/location"
-        android:name="androidx.essentials.playground.location.LocationFragment"
+        android:name="androidx.essentials.playground.location.LocationActivity"
         android:label="@string/location"
-        tools:layout="@layout/fragment_location" />
+        tools:layout="@layout/activity_location" />
 
     <fragment
         android:id="@+id/network"
-        android:name="androidx.essentials.playground.network.NetworkFragment"
+        android:name="androidx.essentials.playground.network.NetworkActivity"
         android:label="@string/network"
-        tools:layout="@layout/fragment_network" />
+        tools:layout="@layout/activity_network" />
 
     <fragment
         android:id="@+id/sharedPreferences"
-        android:name="androidx.essentials.playground.preferences.SharedPreferencesFragment"
+        android:name="androidx.essentials.playground.preferences.SharedPreferencesActivity"
         android:label="@string/shared_preferences"
-        tools:layout="@layout/fragment_shared_preferences" />
+        tools:layout="@layout/activity_shared_preferences" />
 
     <fragment
         android:id="@+id/textInput"
-        android:name="androidx.essentials.playground.textinput.TextInputFragment"
+        android:name="androidx.essentials.playground.textinput.TextInputActivity"
         android:label="@string/text_input"
-        tools:layout="@layout/fragment_text_input" />
+        tools:layout="@layout/activity_text_input" />
 
     <fragment
         android:id="@+id/time"
-        android:name="androidx.essentials.playground.time.TimeFragment"
+        android:name="androidx.essentials.playground.time.TimeActivity"
         android:label="@string/time"
-        tools:layout="@layout/fragment_time" />
+        tools:layout="@layout/activity_time" />
 </navigation>

@@ -16,6 +16,6 @@ abstract class ViewHolder<VDB : ViewDataBinding>(
     ).root
 ) {
 
-    protected val binding = DataBindingUtil.getBinding<VDB>(itemView)
+    val binding = DataBindingUtil.getBinding<VDB>(itemView)
 
 }

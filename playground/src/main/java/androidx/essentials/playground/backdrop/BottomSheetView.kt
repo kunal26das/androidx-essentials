@@ -80,6 +80,7 @@ class BottomSheetView @JvmOverloads constructor(
         set(value) {
             bottomSheetBehaviour.state = value
         }
+
     val isHidden get() = state == STATE_HIDDEN
     val isDragging get() = state == STATE_DRAGGING
     val isExpanded get() = state == STATE_EXPANDED
@@ -173,14 +174,6 @@ class BottomSheetView @JvmOverloads constructor(
 
     fun setOnSlideListener(slideListener: SlideListener) {
         this.slideListener = slideListener
-    }
-
-    fun interface StateChangeListener {
-        fun onStateChange(@State newState: Int)
-    }
-
-    fun interface SlideListener {
-        fun onSlide(slideOffset: Float)
     }
 
     companion object {

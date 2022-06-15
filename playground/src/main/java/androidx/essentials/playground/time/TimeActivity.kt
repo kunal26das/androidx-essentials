@@ -2,16 +2,16 @@ package androidx.essentials.playground.time
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.essentials.playground.R
-import androidx.essentials.playground.databinding.FragmentTimeBinding
-import androidx.essentials.view.Fragment
-import androidx.fragment.app.viewModels
+import androidx.essentials.playground.databinding.ActivityTimeBinding
+import androidx.essentials.view.Activity
 
-class TimeFragment : Fragment() {
+class TimeActivity : Activity() {
 
-    override val layout = R.layout.fragment_time
+    override val layout = R.layout.activity_time
     private val viewModel by viewModels<TimeViewModel>()
-    override val binding by dataBinding<FragmentTimeBinding>()
+    override val binding by dataBinding<ActivityTimeBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

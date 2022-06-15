@@ -13,11 +13,19 @@ class HomeActivity : Activity() {
     override val layout = R.layout.activity_home
     override val binding by dataBinding<ActivityHomeBinding>()
 
+    private val libraryAdapter = LibraryAdapter()
+    private val contracts = Feature.values().map {
+        registerForActivityResult(it.activityResultContract)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.libraries.adapter = LibraryAdapter()
+        binding.libraries.adapter = libraryAdapter
         val decoration = MaterialDividerItemDecoration(this, VERTICAL)
         binding.libraries.addItemDecoration(decoration)
+        libraryAdapter.setOnItemClickListener {
+            contracts[it.ordinal].launch(null)
+        }
     }
 
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.annotation.CallSuper
 import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
@@ -58,5 +59,9 @@ abstract class Activity : AppCompatActivity(), ViewController {
     } catch (e: Throwable) {
         e
     }
+
+    fun registerForActivityResult(
+        contract: ActivityResultContract<*, *>
+    ) = registerForActivityResult(contract) {}
 
 }

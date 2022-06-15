@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.essentials.playground.R
-import androidx.essentials.playground.databinding.FragmentLocationBinding
-import androidx.essentials.view.Fragment
+import androidx.essentials.playground.databinding.ActivityLocationBinding
+import androidx.essentials.view.Activity
 
-class LocationFragment : Fragment() {
+class LocationActivity : Activity() {
 
-    override val layout = R.layout.fragment_location
-    override val binding by dataBinding<FragmentLocationBinding>()
+    override val layout = R.layout.activity_location
+    override val binding by dataBinding<ActivityLocationBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,7 +25,7 @@ class LocationFragment : Fragment() {
             ActivityResultContracts.RequestMultiplePermissions()
         ) {
             if (it.containsValue(true)) try {
-                Location.init(requireContext())
+                Location.init(this)
             } catch (ignored: SecurityException) {
             }
         }.launch(arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION))

@@ -3,15 +3,15 @@ package androidx.essentials.playground.textinput
 import android.os.Bundle
 import android.view.View
 import androidx.essentials.playground.R
-import androidx.essentials.playground.databinding.FragmentTextInputBinding
+import androidx.essentials.playground.databinding.ActivityTextInputBinding
 import androidx.essentials.view.Fragment
 import androidx.fragment.app.viewModels
 
-class TextInputFragment : Fragment() {
+class TextInputActivity : Fragment() {
 
-    override val layout = R.layout.fragment_text_input
+    override val layout = R.layout.activity_text_input
     private val viewModel by viewModels<TextInputViewModel>()
-    override val binding by dataBinding<FragmentTextInputBinding>()
+    override val binding by dataBinding<ActivityTextInputBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

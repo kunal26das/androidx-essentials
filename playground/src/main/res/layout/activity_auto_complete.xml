@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".date.DateFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="viewModel"
-            type="androidx.essentials.playground.date.DateViewModel" />
+            type="androidx.essentials.playground.autocomplete.AutoCompleteViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -24,43 +23,24 @@
             android:paddingVertical="16dp"
             tools:layout_marginVertical="0dp">
 
-            <androidx.essentials.io.Date
-                android:id="@+id/startDate"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:hint="@string/start_date"
-                app:date="@={viewModel.startDate}"
-                app:editable="@{viewModel.isEditable}"
-                app:endDate="@{viewModel.endDate}"
-                app:endIconMode="clear_text"
-                app:future="true"
-                app:helperText="@{String.valueOf(viewModel.startDate)}"
-                app:hintEnabled="@{viewModel.isHintEnabled}"
-                app:mandatory="@{viewModel.isMandatory}"
-                app:mandatoryMessage="@string/mandatory_field"
-                app:past="true"
-                app:regexMessage="@string/invalid_input" />
-
-            <androidx.essentials.io.Date
-                android:id="@+id/endDate"
+            <androidx.essentials.playground.autocomplete.AutoComplete
+                android:id="@+id/autoComplete"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:hint="@string/end_date"
-                app:date="@={viewModel.endDate}"
+                android:filter="@{viewModel.filter}"
+                android:hint="@string/auto_complete"
+                android:inputType="textCapWords"
+                app:array="@{viewModel.libraries}"
                 app:editable="@{viewModel.isEditable}"
-                app:endIconMode="clear_text"
-                app:future="true"
-                app:helperText="@{String.valueOf(viewModel.endDate)}"
-                app:hintEnabled="@{viewModel.isHintEnabled}"
+                app:helperText="@{viewModel.autoComplete.name()}"
+                app:listItem="@android:layout/simple_list_item_1"
                 app:mandatory="@{viewModel.isMandatory}"
                 app:mandatoryMessage="@string/mandatory_field"
-                app:past="true"
                 app:regexMessage="@string/invalid_input"
-                app:startDate="@{viewModel.startDate}" />
+                app:selection="@={viewModel.autoComplete}"
+                app:showSoftInputOnFocus="@{viewModel.keyboard}" />
 
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="match_parent"
@@ -78,8 +58,22 @@
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="@={viewModel.filter}"
+                    android:text="@string/filter" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:checked="@={viewModel.isHintEnabled}"
                     android:text="@string/hint" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={viewModel.keyboard}"
+                    android:text="@string/keyboard" />
 
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.Material3.Chip.Filter"

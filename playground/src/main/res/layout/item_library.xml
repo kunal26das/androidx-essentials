@@ -6,7 +6,7 @@
 
         <variable
             name="library"
-            type="androidx.essentials.playground.home.Library" />
+            type="androidx.essentials.playground.home.Feature" />
     </data>
 
     <com.google.android.material.textview.MaterialTextView

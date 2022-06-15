@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.essentials.network.Network
 import androidx.essentials.playground.R
-import androidx.essentials.playground.databinding.FragmentNetworkBinding
-import androidx.essentials.view.Fragment
+import androidx.essentials.playground.databinding.ActivityNetworkBinding
+import androidx.essentials.view.Activity
 
-class NetworkFragment : Fragment() {
+class NetworkActivity : Activity() {
 
-    override val layout = R.layout.fragment_network
-    override val binding by dataBinding<FragmentNetworkBinding>()
+    override val layout = R.layout.activity_network
+    override val binding by dataBinding<ActivityNetworkBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

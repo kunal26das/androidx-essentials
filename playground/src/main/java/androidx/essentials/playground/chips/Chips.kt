@@ -1,4 +1,4 @@
-package androidx.essentials.playground.view
+package androidx.essentials.playground.chips
 
 import android.content.Context
 import android.util.AttributeSet

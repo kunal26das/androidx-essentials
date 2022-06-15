@@ -8,7 +8,7 @@ import androidx.essentials.view.ViewHolder
 class LibraryViewHolder(parent: ViewGroup) :
     ViewHolder<ItemLibraryBinding>(parent, R.layout.item_library) {
 
-    fun bind(item: Library): LibraryViewHolder {
+    fun bind(item: Feature): LibraryViewHolder {
         binding?.library = item
         return this
     }

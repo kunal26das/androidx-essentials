@@ -4,6 +4,6 @@ import androidx.lifecycle.ViewModel
 
 class HomeViewModel : ViewModel() {
 
-    val libraries get() = Library.values().toList()
+    val libraries get() = Feature.values().toList()
 
 }
