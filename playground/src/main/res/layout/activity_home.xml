@@ -10,6 +10,5 @@
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="1"
-        tools:layout_marginVertical="0dp"
         tools:listitem="@layout/item_library" />
 </layout>

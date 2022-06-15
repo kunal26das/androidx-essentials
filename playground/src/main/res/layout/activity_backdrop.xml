@@ -13,7 +13,6 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="?actionBarSize"
         tools:paddingTop="0dp">
 
         <com.google.android.material.chip.ChipGroup

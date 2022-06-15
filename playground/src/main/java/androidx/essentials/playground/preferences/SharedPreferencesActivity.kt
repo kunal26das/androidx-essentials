@@ -2,12 +2,12 @@ package androidx.essentials.playground.preferences
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ActivitySharedPreferencesBinding
-import androidx.essentials.view.Fragment
-import androidx.fragment.app.viewModels
+import androidx.essentials.view.Activity
 
-class SharedPreferencesActivity : Fragment() {
+class SharedPreferencesActivity : Activity() {
 
     override val layout = R.layout.activity_shared_preferences
     private val viewModel by viewModels<SharedPreferencesViewModel>()

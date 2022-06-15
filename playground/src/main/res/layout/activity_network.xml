@@ -15,7 +15,6 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:overScrollMode="never"
-        android:paddingVertical="?actionBarSize"
         tools:paddingVertical="0dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -23,8 +22,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingHorizontal="8dp"
-            android:paddingVertical="16dp"
-            tools:layout_marginVertical="0dp">
+            android:paddingVertical="16dp">
 
             <androidx.essentials.io.TextInput
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"

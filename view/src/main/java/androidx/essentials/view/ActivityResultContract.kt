@@ -21,4 +21,6 @@ fun <I, O> getActivityResultContract(
     }
 }
 
-fun getActivityResultContract(klass: KClass<*>) = getActivityResultContract<Any?, Any?>(klass)
+fun getActivityResultContract(
+    klass: KClass<*>
+) = getActivityResultContract<Any?, Any?>(klass)

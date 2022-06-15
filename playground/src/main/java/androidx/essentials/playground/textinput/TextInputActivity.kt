@@ -2,12 +2,12 @@ package androidx.essentials.playground.textinput
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ActivityTextInputBinding
-import androidx.essentials.view.Fragment
-import androidx.fragment.app.viewModels
+import androidx.essentials.view.Activity
 
-class TextInputActivity : Fragment() {
+class TextInputActivity : Activity() {
 
     override val layout = R.layout.activity_text_input
     private val viewModel by viewModels<TextInputViewModel>()

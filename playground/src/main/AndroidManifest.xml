@@ -31,6 +31,8 @@
         <activity android:name=".firebase.FirebaseActivity" />
         <activity android:name=".location.LocationActivity" />
         <activity android:name=".network.NetworkActivity" />
+        <activity android:name=".preferences.SharedPreferencesActivity" />
+        <activity android:name=".textinput.TextInputActivity" />
         <activity android:name=".time.TimeActivity" />
     </application>
 </manifest>
