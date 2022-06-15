@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 
 class TextInputViewModel : ViewModel() {
 
-    val textInput by mutableLiveData<String>(Preference.TEXT_INPUT)
-    val isEditable by mutableLiveData<Boolean>(Preference.IS_EDITABLE)
-    val isMandatory by mutableLiveData<Boolean>(Preference.IS_MANDATORY)
-    val isHintEnabled by mutableLiveData<Boolean>(Preference.IS_HINT_ENABLED)
+    val textInput by mutableLiveData<String>(Preference.text_input)
+    val isEditable by mutableLiveData<Boolean>(Preference.is_editable)
+    val isMandatory by mutableLiveData<Boolean>(Preference.is_mandatory)
+    val isHintEnabled by mutableLiveData<Boolean>(Preference.is_hint_enabled)
 
 }

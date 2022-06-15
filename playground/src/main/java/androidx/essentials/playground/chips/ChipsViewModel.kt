@@ -10,8 +10,8 @@ class ChipsViewModel : ViewModel() {
 
     val selection = MutableLiveData<Set<String>>()
     val libraries get() = Library.values().map { it.name }.toSet()
-    val isCheckable by mutableLiveData<Boolean>(Preference.IS_CHECKABLE)
-    val isMandatory by mutableLiveData<Boolean>(Preference.IS_MANDATORY)
-    val isSingleSelection by mutableLiveData<Boolean>(Preference.IS_SINGLE_SELECTION)
+    val isCheckable by mutableLiveData<Boolean>(Preference.is_checkable)
+    val isMandatory by mutableLiveData<Boolean>(Preference.is_mandatory)
+    val isSingleSelection by mutableLiveData<Boolean>(Preference.is_single_selection)
 
 }

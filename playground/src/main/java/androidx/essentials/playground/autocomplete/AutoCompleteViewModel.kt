@@ -9,11 +9,11 @@ import androidx.lifecycle.ViewModel
 class AutoCompleteViewModel : ViewModel() {
 
     val autoComplete = MutableLiveData<Library>()
-    val filter by mutableLiveData<Boolean>(Preference.FILTER)
-    val keyboard by mutableLiveData<Boolean>(Preference.KEYBOARD)
-    val isEditable by mutableLiveData<Boolean>(Preference.IS_EDITABLE)
-    val isMandatory by mutableLiveData<Boolean>(Preference.IS_MANDATORY)
-    val isHintEnabled by mutableLiveData<Boolean>(Preference.IS_HINT_ENABLED)
+    val filter by mutableLiveData<Boolean>(Preference.filter)
+    val keyboard by mutableLiveData<Boolean>(Preference.keyboard)
+    val isEditable by mutableLiveData<Boolean>(Preference.is_editable)
+    val isMandatory by mutableLiveData<Boolean>(Preference.is_mandatory)
+    val isHintEnabled by mutableLiveData<Boolean>(Preference.is_hint_enabled)
 
     val libraries get() = Library.values()
 

@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 
 class TimeViewModel : ViewModel() {
 
-    val endTime by mutableLiveData<Long>(Preference.END_TIME)
-    val startTime by mutableLiveData<Long>(Preference.START_TIME)
-    val isEditable by mutableLiveData<Boolean>(Preference.IS_EDITABLE)
-    val isMandatory by mutableLiveData<Boolean>(Preference.IS_MANDATORY)
-    val isHintEnabled by mutableLiveData<Boolean>(Preference.IS_HINT_ENABLED)
+    val endTime by mutableLiveData<Long>(Preference.end_time)
+    val startTime by mutableLiveData<Long>(Preference.start_time)
+    val isEditable by mutableLiveData<Boolean>(Preference.is_editable)
+    val isMandatory by mutableLiveData<Boolean>(Preference.is_mandatory)
+    val isHintEnabled by mutableLiveData<Boolean>(Preference.is_hint_enabled)
 
 }
