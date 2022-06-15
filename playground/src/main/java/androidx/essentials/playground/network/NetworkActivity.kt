@@ -2,12 +2,13 @@ package androidx.essentials.playground.network
 
 import android.os.Bundle
 import android.view.View
-import androidx.essentials.network.Network
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ActivityNetworkBinding
 import androidx.essentials.view.Activity
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class NetworkActivity : Activity() {
 
     @Inject

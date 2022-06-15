@@ -1,8 +1,9 @@
 package androidx.essentials.playground
 
 import android.content.Context
-import androidx.essentials.network.Network
 import androidx.essentials.network.local.SharedPreferences
+import androidx.essentials.playground.firebase.Firebase
+import androidx.essentials.playground.network.Network
 import androidx.essentials.playground.network.NetworkRequest
 import dagger.Module
 import dagger.Provides
@@ -12,17 +13,21 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object Provider {
+object Module {
+
+    @Provides
+    fun getFirebase(
+        @ApplicationContext context: Context
+    ) = Firebase(context)
 
     @Provides
     fun getNetworkRequest() = NetworkRequest.getInstance()
 
     @Provides
     fun getNetwork(
-        context: Context,
-        sharedPreferences: SharedPreferences,
+        @ApplicationContext context: Context,
         networkRequest: android.net.NetworkRequest,
-    ) = Network(context, sharedPreferences, networkRequest)
+    ) = Network(context, networkRequest)
 
     @Provides
     fun getSharedPreferences(

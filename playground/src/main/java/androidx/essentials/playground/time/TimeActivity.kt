@@ -6,7 +6,9 @@ import androidx.activity.viewModels
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ActivityTimeBinding
 import androidx.essentials.view.Activity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TimeActivity : Activity() {
 
     override val layout = R.layout.activity_time

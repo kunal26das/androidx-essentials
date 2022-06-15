@@ -6,7 +6,9 @@ import androidx.activity.viewModels
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ActivityAutoCompleteBinding
 import androidx.essentials.view.Activity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AutoCompleteActivity : Activity() {
 
     override val layout = R.layout.activity_auto_complete

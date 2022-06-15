@@ -6,7 +6,9 @@ import androidx.activity.viewModels
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ActivitySharedPreferencesBinding
 import androidx.essentials.view.Activity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SharedPreferencesActivity : Activity() {
 
     override val layout = R.layout.activity_shared_preferences

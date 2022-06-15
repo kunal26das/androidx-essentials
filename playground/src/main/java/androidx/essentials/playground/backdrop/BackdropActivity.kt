@@ -6,7 +6,9 @@ import androidx.activity.viewModels
 import androidx.essentials.playground.R
 import androidx.essentials.playground.databinding.ActivityBackdropBinding
 import androidx.essentials.view.Activity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BackdropActivity : Activity() {
 
     override val layout = R.layout.activity_backdrop

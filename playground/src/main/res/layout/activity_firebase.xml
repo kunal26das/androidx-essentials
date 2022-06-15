@@ -6,7 +6,7 @@
 
         <variable
             name="Firebase"
-            type="androidx.essentials.network.Firebase" />
+            type="androidx.essentials.playground.firebase.Firebase" />
     </data>
 
     <androidx.core.widget.NestedScrollView

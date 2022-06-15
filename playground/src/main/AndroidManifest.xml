@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="androidx.essentials.playground">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:name=".PlayGround"
         android:allowBackup="true"
@@ -21,7 +24,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <nav-graph android:value="@navigation/navigation_play_ground" />
         </activity>
 
         <activity android:name=".autocomplete.AutoCompleteActivity" />
