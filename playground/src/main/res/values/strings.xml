@@ -57,8 +57,6 @@
 
     <string name="network">Network</string>
 
-    <string name="repository">Repository</string>
-
     <string name="shared_preferences">Shared Preferences</string>
 
     <string name="single_selection">Single Selection</string>

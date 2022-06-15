@@ -2,7 +2,7 @@ package androidx.essentials.playground.autocomplete
 
 import androidx.essentials.network.local.SharedPreferences.mutableLiveData
 import androidx.essentials.playground.Preference
-import androidx.essentials.playground.library.Library
+import androidx.essentials.playground.home.Library
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 

@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.essentials.io.R
 import androidx.essentials.io.generic.GenericAutoComplete
-import androidx.essentials.playground.library.Library
+import androidx.essentials.playground.home.Library
 
 class AutoComplete @JvmOverloads constructor(
     context: Context,

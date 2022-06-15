@@ -6,19 +6,19 @@
 
         <variable
             name="library"
-            type="androidx.essentials.playground.library.Library" />
+            type="androidx.essentials.playground.home.Library" />
     </data>
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+        android:layout_height="wrap_content"
         android:background="?selectableItemBackground"
         android:clickable="true"
+        android:ellipsize="end"
         android:focusable="true"
-        android:gravity="center_vertical|start"
         android:maxLines="1"
-        android:orientation="horizontal"
-        android:padding="16dp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="16dp"
         android:text="@{library.name}"
         tools:text="Library" />
 </layout>

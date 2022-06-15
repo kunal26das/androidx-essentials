@@ -13,7 +13,6 @@ class PlayGround : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Resources.init(this)
         SharedPreferences.init(this)
         Stetho.initializeWithDefaults(this)
         DynamicColors.applyToActivitiesIfAvailable(this)

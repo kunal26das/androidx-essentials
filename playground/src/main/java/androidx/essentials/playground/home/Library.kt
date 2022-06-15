@@ -1,4 +1,4 @@
-package androidx.essentials.playground.library
+package androidx.essentials.playground.home
 
 enum class Library {
     AutoComplete,
