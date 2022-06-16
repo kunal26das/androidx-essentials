@@ -4,12 +4,12 @@ import android.content.Context
 import android.text.Editable
 import android.util.AttributeSet
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import androidx.essentials.io.R
-import androidx.essentials.io.input.InputMethodManager
 import androidx.essentials.io.internal.Context.Companion.appCompatActivity
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.textfield.TextInputLayout
@@ -24,8 +24,8 @@ abstract class Field @JvmOverloads constructor(
     val isInvalid get() = !isValid
     protected var fromUser = false
 
-    private val mActivity get() = context.appCompatActivity
-    private val inputMethodManager = InputMethodManager.getInstance(context)
+    private val appCompatActivity get() = context.appCompatActivity
+    private val inputMethodManager = context.getSystemService(InputMethodManager::class.java)
 
     internal var inputType: Int
         get() = editText?.inputType ?: EditorInfo.TYPE_NULL
@@ -113,7 +113,9 @@ abstract class Field @JvmOverloads constructor(
 
     @Synchronized
     protected fun DialogFragment.show() {
-        if (!isAdded) mActivity?.supportFragmentManager?.let { show(it, null) }
+        if (!isAdded) appCompatActivity?.supportFragmentManager?.let {
+            showNow(it, null)
+        }
     }
 
     companion object {
