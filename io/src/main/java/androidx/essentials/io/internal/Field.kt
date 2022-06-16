@@ -1,16 +1,17 @@
 package androidx.essentials.io.internal
 
 import android.content.Context
+import android.content.ContextWrapper
 import android.text.Editable
 import android.util.AttributeSet
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import androidx.essentials.io.R
-import androidx.essentials.io.internal.Context.Companion.appCompatActivity
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.textfield.TextInputLayout
 
@@ -24,7 +25,16 @@ abstract class Field @JvmOverloads constructor(
     val isInvalid get() = !isValid
     protected var fromUser = false
 
-    private val appCompatActivity get() = context.appCompatActivity
+    private val appCompatActivity: AppCompatActivity?
+        get() {
+            var context = context
+            while (context is ContextWrapper) {
+                if (context is AppCompatActivity) return context
+                context = context.baseContext
+            }
+            return null
+        }
+
     private val inputMethodManager = context.getSystemService(InputMethodManager::class.java)
 
     internal var inputType: Int
