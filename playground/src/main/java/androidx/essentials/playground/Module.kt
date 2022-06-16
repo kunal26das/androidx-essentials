@@ -21,7 +21,7 @@ object Module {
     ) = Firebase(context)
 
     @Provides
-    fun getNetworkRequest() = NetworkRequest.getInstance()
+    fun getNetworkRequest() = NetworkRequest().getInstance()
 
     @Provides
     fun getNetwork(

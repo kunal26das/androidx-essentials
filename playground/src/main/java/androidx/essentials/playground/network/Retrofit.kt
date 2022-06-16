@@ -7,8 +7,8 @@ import kotlin.reflect.KClass
 
 object Retrofit : RetrofitBuilder({
     baseUrl(BASE_URL)
-    client(OkHttpClient.getInstance())
-    addConverterFactory(GsonConverterFactory.create(Gson.getInstance()))
+    client(OkHttpClient().getInstance())
+    addConverterFactory(GsonConverterFactory.create(Gson().getInstance()))
 }) {
 
     fun <T : Any> create(klass: KClass<T>): T {

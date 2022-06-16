@@ -4,7 +4,7 @@ import androidx.essentials.network.builder.OkHttpClientBuilder
 import androidx.essentials.playground.BuildConfig
 import com.facebook.stetho.okhttp3.StethoInterceptor
 
-object OkHttpClient : OkHttpClientBuilder({
+class OkHttpClient : OkHttpClientBuilder({
     if (BuildConfig.DEBUG) addNetworkInterceptor(StethoInterceptor())
     retryOnConnectionFailure(true)
 })
