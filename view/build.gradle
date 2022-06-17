@@ -28,7 +28,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.10"
     // Activity
     implementation "androidx.activity:activity-ktx:1.4.0"
     // Appcompat

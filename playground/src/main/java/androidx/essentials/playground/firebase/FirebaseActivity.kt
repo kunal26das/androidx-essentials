@@ -1,24 +1,29 @@
 package androidx.essentials.playground.firebase
 
 import android.os.Bundle
-import android.view.View
-import androidx.essentials.playground.R
-import androidx.essentials.playground.databinding.ActivityFirebaseBinding
-import androidx.essentials.view.Activity
+import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.essentials.playground.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FirebaseActivity : Activity() {
+class FirebaseActivity : AppCompatActivity() {
 
     @Inject
     lateinit var firebase: Firebase
-    override val layout = R.layout.activity_firebase
-    override val binding by dataBinding<ActivityFirebaseBinding>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.firebase = firebase
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            AppTheme {
+                Surface {
+                    Text(text = "Firebase")
+                }
+            }
+        }
     }
 
 }
