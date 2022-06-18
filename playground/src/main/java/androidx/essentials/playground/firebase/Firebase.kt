@@ -11,7 +11,7 @@ import javax.inject.Singleton
 @Singleton
 class Firebase @Inject constructor(
     @ApplicationContext context: Context
-) : SharedPreferences(context) {
+) : SharedPreferences(context, KEY_FIREBASE) {
 
     val token by liveData<String>(KEY_FCM_TOKEN)
 
@@ -34,6 +34,7 @@ class Firebase @Inject constructor(
 
     companion object {
         private const val KEY_UUID = "uuid"
+        private const val KEY_FIREBASE = "firebase"
         private const val KEY_FCM_TOKEN = "fcm_token"
     }
 
