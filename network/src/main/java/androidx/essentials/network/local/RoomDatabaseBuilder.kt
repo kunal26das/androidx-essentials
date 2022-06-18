@@ -1,6 +1,7 @@
-package androidx.essentials.network.builder
+package androidx.essentials.network.local
 
 import android.content.Context
+import androidx.essentials.network.Builder
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import kotlin.reflect.KClass

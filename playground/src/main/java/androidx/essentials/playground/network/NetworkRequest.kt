@@ -1,7 +1,7 @@
 package androidx.essentials.playground.network
 
 import android.net.NetworkCapabilities
-import androidx.essentials.network.builder.NetworkRequestBuilder
+import androidx.essentials.network.NetworkRequestBuilder
 
 class NetworkRequest() : NetworkRequestBuilder({
     addTransportType(NetworkCapabilities.TRANSPORT_VPN)

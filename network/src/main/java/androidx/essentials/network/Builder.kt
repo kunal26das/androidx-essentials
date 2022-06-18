@@ -1,4 +1,4 @@
-package androidx.essentials.network.builder
+package androidx.essentials.network
 
 abstract class Builder<T> {
 

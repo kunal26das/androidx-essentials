@@ -1,4 +1,4 @@
-package androidx.essentials.network.builder
+package androidx.essentials.network
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
