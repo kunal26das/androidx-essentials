@@ -14,14 +14,13 @@ import androidx.appcompat.widget.ContentFrameLayout
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.view.WindowCompat
 
-abstract class ComposeActivity : AppCompatActivity() {
+abstract class ComposeActivity : AppCompatActivity(), LifecycleAwareLazy {
 
-    private val darkTheme
-        @Composable get() = isSystemInDarkTheme()
+    protected open val sideEffect = true
+    protected open val dynamicColor = true
 
     protected open val darkColorScheme
         get() = darkColorScheme()
@@ -29,8 +28,8 @@ abstract class ComposeActivity : AppCompatActivity() {
     protected open val lightColorScheme
         get() = lightColorScheme()
 
-    protected open val sideEffect = true
-    protected open val dynamicColor = true
+    private val darkTheme
+        @Composable get() = isSystemInDarkTheme()
 
     protected open val colorScheme: ColorScheme
         @Composable get() {
@@ -68,12 +67,10 @@ abstract class ComposeActivity : AppCompatActivity() {
     private fun sideEffect() {
         val darkTheme = darkTheme
         val colorScheme = colorScheme
-        SideEffect {
-            val controller = WindowCompat.getInsetsController(window, this.content)
-            window.navigationBarColor = colorScheme.background.toArgb()
-            window.statusBarColor = colorScheme.background.toArgb()
-            controller.isAppearanceLightStatusBars = !darkTheme
-        }
+        val controller = WindowCompat.getInsetsController(window, this.content)
+        window.navigationBarColor = colorScheme.background.toArgb()
+        window.statusBarColor = colorScheme.background.toArgb()
+        controller.isAppearanceLightStatusBars = !darkTheme
     }
 
     final override fun onCreate(savedInstanceState: Bundle?) {

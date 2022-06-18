@@ -5,7 +5,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
 
-sealed interface ViewController {
+sealed interface ViewController : LifecycleAwareLazy {
 
     val layout: Int
     val binding: ViewDataBinding
@@ -13,7 +13,7 @@ sealed interface ViewController {
     private val inflater
         get() = LayoutInflater.from(getContext())
 
-    private val lifecycleOwner
+    val lifecycleOwner
         get() = when (this) {
             is Activity -> this
             is Fragment -> viewLifecycleOwner
