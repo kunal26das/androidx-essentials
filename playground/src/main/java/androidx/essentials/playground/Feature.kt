@@ -1,4 +1,4 @@
-package androidx.essentials.playground.home
+package androidx.essentials.playground
 
 import androidx.essentials.playground.autocomplete.AutoCompleteActivity
 import androidx.essentials.playground.backdrop.BackdropActivity

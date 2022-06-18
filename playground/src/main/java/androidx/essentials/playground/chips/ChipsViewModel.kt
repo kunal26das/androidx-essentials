@@ -1,8 +1,8 @@
 package androidx.essentials.playground.chips
 
 import androidx.essentials.network.local.SharedPreferences
+import androidx.essentials.playground.Feature
 import androidx.essentials.playground.Preference
-import androidx.essentials.playground.home.Feature
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
