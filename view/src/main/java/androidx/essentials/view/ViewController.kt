@@ -3,9 +3,8 @@ package androidx.essentials.view
 import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.LiveData
 
-sealed interface ViewController : LifecycleAwareLazy {
+internal sealed interface ViewController : LifecycleOwner {
 
     val layout: Int
     val binding: ViewDataBinding
@@ -43,10 +42,6 @@ sealed interface ViewController : LifecycleAwareLazy {
             is Activity -> DataBindingUtil.setContentView<T>(this, layout)
             else -> DataBindingUtil.inflate(inflater, layout, getContainer(), false)
         }
-    }
-
-    fun <T> LiveData<T>.observe(action: (T) -> Unit) {
-        observe(lifecycleOwner!!) { action.invoke(it) }
     }
 
 }

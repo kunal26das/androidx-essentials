@@ -2,6 +2,7 @@ package androidx.essentials.playground.firebase
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,24 +15,22 @@ import androidx.compose.ui.unit.dp
 import androidx.essentials.playground.R
 import androidx.essentials.view.ComposeActivity
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class FirebaseActivity : ComposeActivity() {
 
-    @Inject
-    lateinit var firebase: Firebase
+    private val viewModel by viewModels<FirebaseViewModel>()
 
     @Composable
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getToken()
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(8.dp)
         ) {
             TokenTextField()
-            UUIDTextField()
         }
     }
 
@@ -42,20 +41,7 @@ class FirebaseActivity : ComposeActivity() {
                 .fillMaxWidth()
                 .padding(8.dp),
             label = { Text(text = getString(R.string.token)) },
-            value = firebase.token.value ?: "",
-            onValueChange = {},
-            readOnly = true,
-        )
-    }
-
-    @Composable
-    private fun UUIDTextField() {
-        TextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            label = { Text(text = getString(R.string.uuid)) },
-            value = firebase.uuid,
+            value = viewModel.token.value ?: "",
             onValueChange = {},
             readOnly = true,
         )

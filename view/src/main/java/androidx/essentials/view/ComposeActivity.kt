@@ -17,7 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.view.WindowCompat
 
-abstract class ComposeActivity : AppCompatActivity(), LifecycleAwareLazy {
+abstract class ComposeActivity : AppCompatActivity(), LifecycleOwner {
 
     protected open val sideEffect = true
     protected open val dynamicColor = true
