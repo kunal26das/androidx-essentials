@@ -2,29 +2,30 @@ package androidx.essentials.playground.home
 
 import android.os.Bundle
 import android.view.View
-import androidx.essentials.playground.R
-import androidx.essentials.playground.databinding.ActivityHomeBinding
-import androidx.essentials.view.Activity
-import com.google.android.material.divider.MaterialDividerItemDecoration
-import com.google.android.material.divider.MaterialDividerItemDecoration.VERTICAL
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.essentials.view.ComposeActivity
 
-class HomeActivity : Activity() {
+class HomeActivity : ComposeActivity() {
 
-    override val layout = R.layout.activity_home
-    override val binding by dataBinding<ActivityHomeBinding>()
-
-    private val libraryAdapter = LibraryAdapter()
     private val contracts = Feature.values().map {
         registerForActivityResult(it.activityResultContract)
     }
 
+    @Composable
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.libraries.adapter = libraryAdapter
-        val decoration = MaterialDividerItemDecoration(this, VERTICAL)
-        binding.libraries.addItemDecoration(decoration)
-        libraryAdapter.setOnItemClickListener {
-            contracts[it.ordinal].launch(null)
+        Column {
+            Feature.values().forEach { feature ->
+                TextButton(
+                    content = { Text(feature.name) },
+                    onClick = {
+                        contracts[feature.ordinal].launch(null)
+                    }
+                )
+            }
         }
     }
 
