@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatDialogFragment
 
 abstract class DialogFragment : AppCompatDialogFragment(), ViewController {
 
-    @PublishedApi
     internal lateinit var container: ViewGroup
 
     final override fun onCreateView(

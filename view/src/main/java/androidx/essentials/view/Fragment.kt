@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 
 abstract class Fragment : Fragment(), ViewController {
 
-    @PublishedApi
     internal lateinit var container: ViewGroup
 
     final override fun onCreateView(

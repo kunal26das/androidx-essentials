@@ -20,44 +20,70 @@ import androidx.core.view.WindowCompat
 
 abstract class ComposeActivity : AppCompatActivity() {
 
-    protected open val dynamicColor: Boolean = true
+    private val darkTheme
+        @Composable get() = isSystemInDarkTheme()
 
-    fun registerForActivityResult(
-        contract: ActivityResultContract<*, *>
-    ) = registerForActivityResult(contract) {}
+    protected open val darkColorScheme
+        get() = darkColorScheme()
 
-    private val content by lazy { findViewById<ContentFrameLayout>(android.R.id.content) }
+    protected open val lightColorScheme
+        get() = lightColorScheme()
 
-    @CallSuper
-    @MainThread
-    protected open fun onAttach(context: Context) = Unit
+    protected open val sideEffect = true
+    protected open val dynamicColor = true
 
-    final override fun onCreate(savedInstanceState: Bundle?) {
-        onAttach(applicationContext)
-        super.onCreate(savedInstanceState)
-        setContent {
-            val darkTheme = isSystemInDarkTheme()
+    protected open val colorScheme: ColorScheme
+        @Composable get() {
+            val darkTheme = darkTheme
             val colorScheme = when {
                 dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
                     if (darkTheme) dynamicDarkColorScheme(this)
                     else dynamicLightColorScheme(this)
                 }
-                darkTheme -> darkColorScheme()
-                else -> lightColorScheme()
+                darkTheme -> darkColorScheme
+                else -> lightColorScheme
             }
-            SideEffect {
-                val controller = WindowCompat.getInsetsController(window, this.content)
-                window.navigationBarColor = colorScheme.background.toArgb()
-                window.statusBarColor = colorScheme.background.toArgb()
-                controller.isAppearanceLightStatusBars = !darkTheme
+            return colorScheme
+        }
+
+    protected open val shapes
+        @Composable get() = MaterialTheme.shapes
+
+    protected open val typography
+        @Composable get() = MaterialTheme.typography
+
+    private val content: ContentFrameLayout by lazy {
+        findViewById(android.R.id.content)
+    }
+
+    fun registerForActivityResult(
+        contract: ActivityResultContract<*, *>
+    ) = registerForActivityResult(contract) {}
+
+    @CallSuper
+    @MainThread
+    protected open fun onAttach(context: Context) = Unit
+
+    @Composable
+    private fun sideEffect() {
+        val darkTheme = darkTheme
+        val colorScheme = colorScheme
+        SideEffect {
+            val controller = WindowCompat.getInsetsController(window, this.content)
+            window.navigationBarColor = colorScheme.background.toArgb()
+            window.statusBarColor = colorScheme.background.toArgb()
+            controller.isAppearanceLightStatusBars = !darkTheme
+        }
+    }
+
+    final override fun onCreate(savedInstanceState: Bundle?) {
+        onAttach(applicationContext)
+        super.onCreate(savedInstanceState)
+        setContent {
+            if (sideEffect) sideEffect()
+            MaterialTheme(colorScheme, shapes, typography) {
+                onViewCreated(content, savedInstanceState)
             }
-            MaterialTheme(
-                colorScheme = colorScheme,
-                typography = Typography(),
-                content = {
-                    onViewCreated(content, savedInstanceState)
-                },
-            )
         }
     }
 

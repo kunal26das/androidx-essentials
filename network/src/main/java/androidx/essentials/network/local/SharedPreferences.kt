@@ -16,8 +16,8 @@ open class SharedPreferences @Inject constructor(
 
     private val sharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
 
+    fun clear() = edit.clear().commit()
     val all get() = sharedPreferences.all
-    open fun clear() = edit.clear().commit()
     private val edit get() = sharedPreferences.edit()
     fun contains(key: String) = sharedPreferences.contains(key)
 

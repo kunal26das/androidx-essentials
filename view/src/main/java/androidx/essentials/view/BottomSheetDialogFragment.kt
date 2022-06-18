@@ -8,7 +8,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 abstract class BottomSheetDialogFragment : BottomSheetDialogFragment(), ViewController {
 
-    @PublishedApi
     internal lateinit var container: ViewGroup
 
     final override fun onCreateView(
