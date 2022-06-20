@@ -2,9 +2,7 @@ package androidx.essentials.playground
 
 @Suppress("EnumEntryName")
 enum class Preference {
-    auto_complete,
     boolean,
-    destination,
     end_date,
     end_time,
     filter,
