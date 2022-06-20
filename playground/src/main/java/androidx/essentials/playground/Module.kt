@@ -17,10 +17,10 @@ import dagger.hilt.components.SingletonComponent
 object Module {
 
     @Provides
-    fun getNetworkRequest() = NetworkRequest.getInstance()
+    fun getFirebaseService() = FirebaseService.getInstance()
 
     @Provides
-    fun getFirebaseService() = FirebaseService.getInstance()
+    fun getNetworkRequest() = NetworkRequest().getInstance()
 
     @Provides
     fun getFusedLocationProviderClient(

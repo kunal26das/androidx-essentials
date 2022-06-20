@@ -45,6 +45,8 @@
 
     <string name="mandatory">Mandatory</string>
 
+    <string name="network">Network</string>
+
     <string name="single_selection">Single Selection</string>
 
     <string name="skip_collapsed">Skip Collapsed</string>
