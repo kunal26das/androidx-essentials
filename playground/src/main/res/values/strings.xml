@@ -14,12 +14,6 @@
 
     <string name="auto_complete">Auto Complete</string>
 
-    <string name="available">Available</string>
-
-    <string name="blocked">Blocked</string>
-
-    <string name="capabilities">Capabilities</string>
-
     <string name="checkable">Checkable</string>
 
     <string name="draggable">Draggable</string>
@@ -39,13 +33,9 @@
 
     <string name="latitude">Latitude</string>
 
-    <string name="link_properties">Link Properties</string>
-
     <string name="longitude">Longitude</string>
 
     <string name="mandatory">Mandatory</string>
-
-    <string name="network">Network</string>
 
     <string name="single_selection">Single Selection</string>
 
@@ -56,11 +46,7 @@
 
     <string name="text_input">Text Input</string>
 
-    <string name="time_to_live">Time to Live</string>
-
     <string name="token">Token</string>
-
-    <string name="uuid">UUID</string>
 
     <string name="validate">Validate</string>
 </resources>
