@@ -12,9 +12,7 @@ interface FirebaseService {
     }
 
     companion object {
-        fun getInstance(): FirebaseService {
-            return object : FirebaseService {}
-        }
+        fun getInstance() = object : FirebaseService {}
     }
 
 }

@@ -1,20 +1,15 @@
 package androidx.essentials.network.local
 
-import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 open class SharedPreferences @Inject constructor(
-    @ApplicationContext context: Context,
-    name: String = context.packageName
+    private val sharedPreferences: SharedPreferences
 ) {
-
-    private val sharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
 
     fun clear() = edit.clear().commit()
     val all get() = sharedPreferences.all

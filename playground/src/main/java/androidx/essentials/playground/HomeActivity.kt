@@ -1,4 +1,4 @@
-package androidx.essentials.playground.home
+package androidx.essentials.playground
 
 import android.os.Bundle
 import android.view.View
@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.essentials.playground.Feature
 import androidx.essentials.view.ComposeActivity
 
 class HomeActivity : ComposeActivity() {

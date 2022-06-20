@@ -18,7 +18,7 @@ class FirebaseViewModel @Inject constructor(
     private var job: Job? = null
     private val default = CoroutineScope(Dispatchers.Default)
 
-    val token by sharedPreferences.mutableLiveData<String>("token")
+    val token by sharedPreferences.mutableLiveData<String>(KEY_FCM_TOKEN)
 
     fun getToken() {
         default.launch {
@@ -30,6 +30,10 @@ class FirebaseViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         job?.cancel()
+    }
+
+    companion object {
+        private const val KEY_FCM_TOKEN = "fcm_token"
     }
 
 }

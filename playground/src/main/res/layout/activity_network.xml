@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="Network"
-            type="androidx.essentials.playground.network.Network" />
+            name="viewModel"
+            type="androidx.essentials.playground.network.NetworkViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -32,8 +32,8 @@
                 android:hint="@string/available"
                 android:inputType="textCapSentences"
                 app:editable="false"
-                app:text="@{Network.isAvailable}"
-                app:visible="@{Network.isAvailable != null}" />
+                app:text="@{viewModel.isNetworkAvailable()}"
+                app:visible="@{viewModel.isNetworkAvailable() != null}" />
 
             <androidx.essentials.io.TextInput
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -42,8 +42,8 @@
                 android:layout_margin="8dp"
                 android:hint="@string/blocked"
                 app:editable="false"
-                app:text="@{Network.isBlocked}"
-                app:visible="@{Network.isBlocked != null}" />
+                app:text="@{viewModel.isNetworkBlocked()}"
+                app:visible="@{viewModel.isNetworkBlocked() != null}" />
 
             <androidx.essentials.io.TextInput
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -52,8 +52,8 @@
                 android:layout_margin="8dp"
                 android:hint="@string/capabilities"
                 app:editable="false"
-                app:text="@{Network.capabilities}"
-                app:visible="@{Network.capabilities != null}" />
+                app:text="@{viewModel.networkCapabilities}"
+                app:visible="@{viewModel.networkCapabilities != null}" />
 
             <androidx.essentials.io.TextInput
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -62,8 +62,8 @@
                 android:layout_margin="8dp"
                 android:hint="@string/link_properties"
                 app:editable="false"
-                app:text="@{Network.linkProperties}"
-                app:visible="@{Network.linkProperties != null}" />
+                app:text="@{viewModel.networkLinkProperties}"
+                app:visible="@{viewModel.networkLinkProperties != null}" />
 
             <androidx.essentials.io.TextInput
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -72,8 +72,8 @@
                 android:layout_margin="8dp"
                 android:hint="@string/time_to_live"
                 app:editable="false"
-                app:text="@{Network.maxTimeToLive}"
-                app:visible="@{Network.maxTimeToLive != null}" />
+                app:text="@{viewModel.maxTimeToLive}"
+                app:visible="@{viewModel.maxTimeToLive != null}" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 </layout>
