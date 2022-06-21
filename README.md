@@ -1,2 +1,2 @@
 # AndroidX Essentials
-Check the [Play Ground](/app/src/main/java/androidx/essentials/playground) app.
+Check the [Play Ground](/playground) app.
