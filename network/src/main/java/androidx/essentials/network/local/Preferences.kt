@@ -7,7 +7,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-open class SharedPreferences @Inject constructor(
+open class Preferences @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) {
 

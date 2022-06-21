@@ -1,6 +1,6 @@
 package androidx.essentials.playground.autocomplete
 
-import androidx.essentials.network.local.SharedPreferences
+import androidx.essentials.network.local.Preferences
 import androidx.essentials.playground.Feature
 import androidx.essentials.playground.Preference
 import androidx.lifecycle.MutableLiveData
@@ -10,15 +10,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AutoCompleteViewModel @Inject constructor(
-    sharedPreferences: SharedPreferences
+    preferences: Preferences
 ) : ViewModel() {
 
     val libraries get() = Feature.values()
     val autoComplete = MutableLiveData<Feature>()
-    val filter by sharedPreferences.mutableLiveData<Boolean>(Preference.filter)
-    val keyboard by sharedPreferences.mutableLiveData<Boolean>(Preference.keyboard)
-    val isEditable by sharedPreferences.mutableLiveData<Boolean>(Preference.is_editable)
-    val isMandatory by sharedPreferences.mutableLiveData<Boolean>(Preference.is_mandatory)
-    val isHintEnabled by sharedPreferences.mutableLiveData<Boolean>(Preference.is_hint_enabled)
+    val filter by preferences.mutableLiveData<Boolean>(Preference.filter)
+    val keyboard by preferences.mutableLiveData<Boolean>(Preference.keyboard)
+    val isEditable by preferences.mutableLiveData<Boolean>(Preference.is_editable)
+    val isMandatory by preferences.mutableLiveData<Boolean>(Preference.is_mandatory)
+    val isHintEnabled by preferences.mutableLiveData<Boolean>(Preference.is_hint_enabled)
 
 }

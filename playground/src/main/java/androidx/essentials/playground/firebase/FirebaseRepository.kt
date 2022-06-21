@@ -3,17 +3,17 @@ package androidx.essentials.playground.firebase
 import android.net.ConnectivityManager
 import android.net.NetworkRequest
 import androidx.essentials.network.Repository
-import androidx.essentials.network.local.SharedPreferences
+import androidx.essentials.network.local.Preferences
 import javax.inject.Inject
 
 class FirebaseRepository @Inject constructor(
     private val firebaseService: FirebaseService,
     connectivityManager: ConnectivityManager,
-    sharedPreferences: SharedPreferences,
+    preferences: Preferences,
     networkRequest: NetworkRequest,
 ) : Repository(connectivityManager, networkRequest) {
 
-    val token by sharedPreferences.mutableLiveData<String>(KEY_FCM_TOKEN)
+    val token by preferences.mutableLiveData<String>(KEY_FCM_TOKEN)
 
     suspend fun getToken() = execute {
         firebaseService.getToken()?.also {

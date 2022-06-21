@@ -2,12 +2,9 @@ package androidx.essentials.playground
 
 @Suppress("EnumEntryName")
 enum class Preference {
-    boolean,
     end_date,
     end_time,
     filter,
-    float,
-    int,
     is_checkable,
     is_draggable,
     is_editable,
@@ -15,11 +12,9 @@ enum class Preference {
     is_mandatory,
     is_hint_enabled,
     keyboard,
-    long,
     is_single_selection,
     skip_collapsed,
     start_date,
     start_time,
-    string,
     text_input,
 }

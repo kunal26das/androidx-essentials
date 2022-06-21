@@ -6,7 +6,7 @@ import androidx.essentials.playground.chips.ChipsActivity
 import androidx.essentials.playground.date.DateActivity
 import androidx.essentials.playground.firebase.FirebaseActivity
 import androidx.essentials.playground.location.LocationActivity
-import androidx.essentials.playground.preferences.SharedPreferencesActivity
+import androidx.essentials.playground.preferences.PreferencesActivity
 import androidx.essentials.playground.textinput.TextInputActivity
 import androidx.essentials.playground.time.TimeActivity
 import androidx.essentials.view.getActivityResultContract
@@ -19,7 +19,7 @@ enum class Feature(private val kClass: KClass<*>) {
     Firebase(FirebaseActivity::class),
     Date(DateActivity::class),
     Location(LocationActivity::class),
-    SharedPreferences(SharedPreferencesActivity::class),
+    SharedPreferences(PreferencesActivity::class),
     TextInput(TextInputActivity::class),
     Time(TimeActivity::class),
     ;
