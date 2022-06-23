@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -17,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.essentials.playground.Feature
 import androidx.essentials.playground.R
 import androidx.essentials.view.ComposeActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,24 +46,33 @@ class LocationActivity : ComposeActivity() {
                 ACCESS_COARSE_LOCATION
             )
         )
-        Row(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
+                .fillMaxSize()
+                .verticalScroll(ScrollState(0))
         ) {
-            Column(
+            LargeTopAppBar(
+                title = { Text(text = Feature.Location.name) }
+            )
+            Row(
                 modifier = Modifier
-                    .weight(1f)
+                    .fillMaxWidth()
                     .padding(8.dp)
             ) {
-                LatitudeTextField()
-            }
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(8.dp)
-            ) {
-                LongitudeTextField()
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(8.dp)
+                ) {
+                    LatitudeTextField()
+                }
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(8.dp)
+                ) {
+                    LongitudeTextField()
+                }
             }
         }
     }

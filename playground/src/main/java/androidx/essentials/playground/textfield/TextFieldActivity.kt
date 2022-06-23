@@ -16,6 +16,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.essentials.playground.Feature
 import androidx.essentials.playground.R
 import androidx.essentials.view.ComposeActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,10 +43,10 @@ class TextFieldActivity : ComposeActivity() {
     @Composable
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Column(
-            modifier = modifier
-                .verticalScroll(state = ScrollState(0))
-        ) {
+        Column(modifier.verticalScroll(ScrollState(0))) {
+            LargeTopAppBar(
+                title = { Text(text = Feature.TextField.name) }
+            )
             TextField()
             LabelTextField()
             PlaceholderTextField()

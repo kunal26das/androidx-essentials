@@ -8,12 +8,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 abstract class BottomSheetDialogFragment : BottomSheetDialogFragment(), ViewController {
 
-    internal lateinit var container: ViewGroup
+    internal var container: ViewGroup? = null
 
     final override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        this.container = container!!
+        this.container = container
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }

@@ -7,6 +7,8 @@
 
     <string name="checkable">Checkable</string>
 
+    <string name="compose">Compose</string>
+
     <string name="draggable">Draggable</string>
 
     <string name="editable">Editable</string>
@@ -31,6 +33,8 @@
     <string name="mandatory">Mandatory</string>
 
     <string name="placeholder">Placeholder</string>
+
+    <string name="playground">Playground</string>
 
     <string name="read_only">Read Only</string>
 
