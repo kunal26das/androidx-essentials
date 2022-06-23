@@ -66,7 +66,10 @@ open class Preferences @Inject constructor(
                     is Int -> putInt(key, value)
                     is Long -> putLong(key, value)
                     is Float -> putFloat(key, value)
-                    is String -> putString(key, value)
+                    is String -> when {
+                        value.isEmpty() -> remove(key)
+                        else -> putString(key, value)
+                    }
                     is Boolean -> putBoolean(key, value)
                     else -> Unit
                 }

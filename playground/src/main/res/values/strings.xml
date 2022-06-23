@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="app_name">Essentials</string>
 
@@ -22,20 +22,28 @@
 
     <string name="keyboard">Keyboard</string>
 
+    <string name="label" tools:override="true">Label</string>
+
     <string name="latitude">Latitude</string>
 
     <string name="longitude">Longitude</string>
 
     <string name="mandatory">Mandatory</string>
 
+    <string name="placeholder">Placeholder</string>
+
+    <string name="read_only">Read Only</string>
+
     <string name="single_selection">Single Selection</string>
+
+    <string name="style">Style</string>
 
     <string name="skip_collapsed">Skip Collapsed</string>
 
     <string name="start_date">Start Date</string>
     <string name="start_time">Start Time</string>
 
-    <string name="text_input">Text Input</string>
+    <string name="text_field">Text Field</string>
 
     <string name="token">Token</string>
 

@@ -33,7 +33,7 @@
         <activity android:name=".firebase.FirebaseActivity" />
         <activity android:name=".location.LocationActivity" />
         <activity android:name=".preferences.PreferencesActivity" />
-        <activity android:name=".textinput.TextInputActivity" />
+        <activity android:name=".textfield.TextFieldActivity" />
         <activity android:name=".time.TimeActivity" />
     </application>
 </manifest>
