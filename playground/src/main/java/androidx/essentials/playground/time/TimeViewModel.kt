@@ -11,10 +11,10 @@ class TimeViewModel @Inject constructor(
     preferences: Preferences
 ) : ViewModel() {
 
-    val endTime by preferences.mutableLiveData<Long>(Preference.end_time)
-    val startTime by preferences.mutableLiveData<Long>(Preference.start_time)
-    val isEditable by preferences.mutableLiveData<Boolean>(Preference.is_editable)
-    val isMandatory by preferences.mutableLiveData<Boolean>(Preference.is_mandatory)
-    val isHintEnabled by preferences.mutableLiveData<Boolean>(Preference.is_hint_enabled)
+    val endTime by preferences.mutableLiveDataOf<Long>(Preference.end_time)
+    val startTime by preferences.mutableLiveDataOf<Long>(Preference.start_time)
+    val isEditable by preferences.mutableLiveDataOf<Boolean>(Preference.is_editable)
+    val isMandatory by preferences.mutableLiveDataOf<Boolean>(Preference.is_mandatory)
+    val isHintEnabled by preferences.mutableLiveDataOf<Boolean>(Preference.is_hint_enabled)
 
 }

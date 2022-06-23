@@ -10,18 +10,11 @@ class PreferencesViewModel @Inject constructor(
     preferences: Preferences
 ) : ViewModel() {
 
-    val int by preferences.mutableLiveData<Int>(KEY_INT)
-    val long by preferences.mutableLiveData<Long>(KEY_LONG)
-    val float by preferences.mutableLiveData<Float>(KEY_FLOAT)
-    val string by preferences.mutableLiveData<String>(KEY_STRING)
-    val boolean by preferences.mutableLiveData<Boolean>(KEY_BOOLEAN)
-
-    val array = arrayOf(
-        KEY_INT to int,
-        KEY_LONG to long,
-        KEY_FLOAT to float,
-        KEY_STRING to string,
-    )
+    val int by preferences.mutableLiveDataOf<Int>(KEY_INT)
+    val long by preferences.mutableLiveDataOf<Long>(KEY_LONG)
+    val float by preferences.mutableLiveDataOf<Float>(KEY_FLOAT)
+    val string by preferences.mutableLiveDataOf<String>(KEY_STRING)
+    val boolean by preferences.mutableLiveDataOf<Boolean>(KEY_BOOLEAN)
 
     companion object {
         const val KEY_INT = "int"

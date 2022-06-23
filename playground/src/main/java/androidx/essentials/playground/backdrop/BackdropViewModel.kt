@@ -11,8 +11,8 @@ class BackdropViewModel @Inject constructor(
     preferences: Preferences
 ) : ViewModel() {
 
-    val isHideable by preferences.mutableLiveData<Boolean>(Preference.is_hideable)
-    val isDraggable by preferences.mutableLiveData<Boolean>(Preference.is_draggable)
-    val skipCollapsed by preferences.mutableLiveData<Boolean>(Preference.skip_collapsed)
+    val isHideable by preferences.mutableLiveDataOf<Boolean>(Preference.is_hideable)
+    val isDraggable by preferences.mutableLiveDataOf<Boolean>(Preference.is_draggable)
+    val skipCollapsed by preferences.mutableLiveDataOf<Boolean>(Preference.skip_collapsed)
 
 }

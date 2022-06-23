@@ -92,7 +92,7 @@ open class Preferences @Inject constructor(
         listener: SharedPreferences.OnSharedPreferenceChangeListener
     ) = sharedPreferences.unregisterOnSharedPreferenceChangeListener(listener)
 
-    inline fun <reified T> liveData(key: String?): Lazy<LiveData<T?>> = lazy {
+    inline fun <reified T> liveData(key: String?): LiveData<T?> =
         object : LiveData<T?>(), SharedPreferences.OnSharedPreferenceChangeListener {
 
             override fun onActive() {
@@ -114,9 +114,8 @@ open class Preferences @Inject constructor(
                 unregisterOnSharedPreferenceChangeListener(this)
             }
         }
-    }
 
-    inline fun <reified T> mutableLiveData(key: String?): Lazy<MutableLiveData<T?>> = lazy {
+    inline fun <reified T> mutableLiveData(key: String?): MutableLiveData<T?> =
         object : MutableLiveData<T?>(), SharedPreferences.OnSharedPreferenceChangeListener {
 
             override fun onActive() {
@@ -145,9 +144,22 @@ open class Preferences @Inject constructor(
                 unregisterOnSharedPreferenceChangeListener(this)
             }
         }
+
+    inline fun <reified T> mutableLiveDataOf(
+        key: String?
+    ): Lazy<MutableLiveData<T?>> = lazy {
+        mutableLiveData(key)
+    }
+
+    inline fun <reified T> liveDataOf(
+        key: String?
+    ): Lazy<LiveData<T?>> = lazy {
+        liveData(key)
     }
 
     inline fun <reified T> liveData(enum: Enum<*>?) = liveData<T>(enum?.name)
+    inline fun <reified T> liveDataOf(enum: Enum<*>?) = liveDataOf<T>(enum?.name)
     inline fun <reified T> mutableLiveData(enum: Enum<*>?) = mutableLiveData<T>(enum?.name)
+    inline fun <reified T> mutableLiveDataOf(enum: Enum<*>?) = mutableLiveDataOf<T>(enum?.name)
 
 }

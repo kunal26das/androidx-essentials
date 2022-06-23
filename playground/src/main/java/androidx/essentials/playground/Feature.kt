@@ -19,7 +19,7 @@ enum class Feature(private val kClass: KClass<*>) {
     Firebase(FirebaseActivity::class),
     Date(DateActivity::class),
     Location(LocationActivity::class),
-    SharedPreferences(PreferencesActivity::class),
+    Preferences(PreferencesActivity::class),
     TextInput(TextInputActivity::class),
     Time(TimeActivity::class),
     ;

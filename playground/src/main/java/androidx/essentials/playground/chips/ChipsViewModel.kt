@@ -15,8 +15,8 @@ class ChipsViewModel @Inject constructor(
 
     val selection = MutableLiveData<Set<String>>()
     val features get() = Feature.values().map { it.name }.toSet()
-    val isCheckable by preferences.mutableLiveData<Boolean>(Preference.is_checkable)
-    val isMandatory by preferences.mutableLiveData<Boolean>(Preference.is_mandatory)
-    val isSingleSelection by preferences.mutableLiveData<Boolean>(Preference.is_single_selection)
+    val isCheckable by preferences.mutableLiveDataOf<Boolean>(Preference.is_checkable)
+    val isMandatory by preferences.mutableLiveDataOf<Boolean>(Preference.is_mandatory)
+    val isSingleSelection by preferences.mutableLiveDataOf<Boolean>(Preference.is_single_selection)
 
 }

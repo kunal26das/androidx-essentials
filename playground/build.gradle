@@ -48,13 +48,14 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion "1.1.1"
+        kotlinCompilerVersion '1.6.10'
+        kotlinCompilerExtensionVersion '1.1.1'
     }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.10"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.0"
 
     // Compose
     dependencies {
@@ -117,11 +118,8 @@ dependencies {
 
     dependencies {
         implementation project(path: ':io')
-//        implementation "androidx.essentials:io:1.0.0@aar"
         implementation project(path: ':network')
-//        implementation "androidx.essentials:network:1.0.0"
         implementation project(path: ':view')
-//        implementation "androidx.essentials:view:1.0.0"
     }
 
 }

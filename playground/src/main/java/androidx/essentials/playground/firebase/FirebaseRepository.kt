@@ -13,7 +13,7 @@ class FirebaseRepository @Inject constructor(
     networkRequest: NetworkRequest,
 ) : Repository(connectivityManager, networkRequest) {
 
-    val token by preferences.mutableLiveData<String>(KEY_FCM_TOKEN)
+    val token by preferences.mutableLiveDataOf<String>(KEY_FCM_TOKEN)
 
     suspend fun getToken() = execute {
         firebaseService.getToken()?.also {

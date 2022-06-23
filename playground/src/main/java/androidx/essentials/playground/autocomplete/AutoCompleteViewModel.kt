@@ -15,10 +15,10 @@ class AutoCompleteViewModel @Inject constructor(
 
     val libraries get() = Feature.values()
     val autoComplete = MutableLiveData<Feature>()
-    val filter by preferences.mutableLiveData<Boolean>(Preference.filter)
-    val keyboard by preferences.mutableLiveData<Boolean>(Preference.keyboard)
-    val isEditable by preferences.mutableLiveData<Boolean>(Preference.is_editable)
-    val isMandatory by preferences.mutableLiveData<Boolean>(Preference.is_mandatory)
-    val isHintEnabled by preferences.mutableLiveData<Boolean>(Preference.is_hint_enabled)
+    val filter by preferences.mutableLiveDataOf<Boolean>(Preference.filter)
+    val keyboard by preferences.mutableLiveDataOf<Boolean>(Preference.keyboard)
+    val isEditable by preferences.mutableLiveDataOf<Boolean>(Preference.is_editable)
+    val isMandatory by preferences.mutableLiveDataOf<Boolean>(Preference.is_mandatory)
+    val isHintEnabled by preferences.mutableLiveDataOf<Boolean>(Preference.is_hint_enabled)
 
 }

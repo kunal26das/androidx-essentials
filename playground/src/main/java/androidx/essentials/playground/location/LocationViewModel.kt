@@ -18,8 +18,8 @@ class LocationViewModel @Inject constructor(
     private var job: Job? = null
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
 
-    val latitude by preferences.mutableLiveData<Float>(KEY_LATITUDE)
-    val longitude by preferences.mutableLiveData<Float>(KEY_LONGITUDE)
+    val latitude by preferences.mutableLiveDataOf<Float>(KEY_LATITUDE)
+    val longitude by preferences.mutableLiveDataOf<Float>(KEY_LONGITUDE)
 
     fun getLastLocation() {
         job = coroutineScope.launch {

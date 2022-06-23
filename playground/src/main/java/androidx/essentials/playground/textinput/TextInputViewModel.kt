@@ -11,9 +11,9 @@ class TextInputViewModel @Inject constructor(
     preferences: Preferences
 ) : ViewModel() {
 
-    val textInput by preferences.mutableLiveData<String>(Preference.text_input)
-    val isEditable by preferences.mutableLiveData<Boolean>(Preference.is_editable)
-    val isMandatory by preferences.mutableLiveData<Boolean>(Preference.is_mandatory)
-    val isHintEnabled by preferences.mutableLiveData<Boolean>(Preference.is_hint_enabled)
+    val textInput by preferences.mutableLiveDataOf<String>(Preference.text_input)
+    val isEditable by preferences.mutableLiveDataOf<Boolean>(Preference.is_editable)
+    val isMandatory by preferences.mutableLiveDataOf<Boolean>(Preference.is_mandatory)
+    val isHintEnabled by preferences.mutableLiveDataOf<Boolean>(Preference.is_hint_enabled)
 
 }
