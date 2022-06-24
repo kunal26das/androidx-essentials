@@ -1,3 +1,3 @@
 package androidx.essentials.network
 
-class NetworkUnavailableException : Throwable()
+class NetworkUnavailableException : Exception()
