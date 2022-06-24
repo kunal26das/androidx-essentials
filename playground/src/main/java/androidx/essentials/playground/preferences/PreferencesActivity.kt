@@ -64,7 +64,7 @@ class PreferencesActivity : ComposeActivity() {
                 label = { Text(text = PreferencesViewModel.KEY_INT) },
                 value = int?.toString() ?: "",
                 onValueChange = {
-                    viewModel.int.value = it.toInt()
+                    viewModel.int.value = it.toIntOrNull()
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number
@@ -76,7 +76,7 @@ class PreferencesActivity : ComposeActivity() {
                 label = { Text(text = PreferencesViewModel.KEY_INT) },
                 value = int?.toString() ?: "",
                 onValueChange = {
-                    viewModel.int.value = it.toInt()
+                    viewModel.int.value = it.toIntOrNull()
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number
@@ -96,7 +96,7 @@ class PreferencesActivity : ComposeActivity() {
                 label = { Text(text = PreferencesViewModel.KEY_LONG) },
                 value = long?.toString() ?: "",
                 onValueChange = {
-                    viewModel.long.value = it.toLong()
+                    viewModel.long.value = it.toLongOrNull()
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number
@@ -108,7 +108,7 @@ class PreferencesActivity : ComposeActivity() {
                 label = { Text(text = PreferencesViewModel.KEY_LONG) },
                 value = long?.toString() ?: "",
                 onValueChange = {
-                    viewModel.long.value = it.toLong()
+                    viewModel.long.value = it.toLongOrNull()
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number
@@ -128,7 +128,7 @@ class PreferencesActivity : ComposeActivity() {
                 label = { Text(text = PreferencesViewModel.KEY_FLOAT) },
                 value = float?.toString() ?: "",
                 onValueChange = {
-                    viewModel.float.value = it.toFloat()
+                    viewModel.float.value = it.toFloatOrNull()
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number
@@ -140,7 +140,7 @@ class PreferencesActivity : ComposeActivity() {
                 label = { Text(text = PreferencesViewModel.KEY_FLOAT) },
                 value = float?.toString() ?: "",
                 onValueChange = {
-                    viewModel.float.value = it.toFloat()
+                    viewModel.float.value = it.toFloatOrNull()
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number
