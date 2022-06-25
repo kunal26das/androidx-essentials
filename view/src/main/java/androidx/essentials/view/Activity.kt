@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 
 abstract class Activity : AppCompatActivity(), ViewController {
 
-    fun registerForActivityResult(
-        contract: ActivityResultContract<*, *>
+    protected fun <I, O> registerForActivityResult(
+        contract: ActivityResultContract<I, O>,
     ) = registerForActivityResult(contract) {}
 
     @CallSuper
