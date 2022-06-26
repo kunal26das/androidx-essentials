@@ -2,6 +2,7 @@ package androidx.essentials.view
 
 import android.content.Context
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.MenuItem
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContract
@@ -50,6 +51,13 @@ abstract class ComposeActivity : AppCompatActivity(), ComposeController, Lifecyc
                 setContent()
             }
         }
+    }
+
+    final override fun onCreate(
+        savedInstanceState: Bundle?,
+        persistentState: PersistableBundle?
+    ) {
+        super.onCreate(savedInstanceState, persistentState)
     }
 
     @CallSuper
