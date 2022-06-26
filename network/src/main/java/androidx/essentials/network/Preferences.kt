@@ -1,4 +1,4 @@
-package androidx.essentials.network.local
+package androidx.essentials.network
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData

@@ -2,8 +2,6 @@ package androidx.essentials.playground.location
 
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.os.Bundle
-import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.ScrollState
@@ -38,8 +36,8 @@ class LocationActivity : ComposeActivity() {
     }
 
     @Composable
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun setContent() {
+        super.setContent()
         locationRepositoryPermission.launch(
             arrayOf(
                 ACCESS_FINE_LOCATION,

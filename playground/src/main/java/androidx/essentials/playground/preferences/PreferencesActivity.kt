@@ -1,7 +1,5 @@
 package androidx.essentials.playground.preferences
 
-import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
@@ -40,8 +38,8 @@ class PreferencesActivity : ComposeActivity() {
         }
 
     @Composable
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun setContent() {
+        super.setContent()
         Column(modifier.verticalScroll(ScrollState(0))) {
             LargeTopAppBar(
                 title = { Text(text = Feature.Preferences.name) }

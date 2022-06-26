@@ -1,6 +1,6 @@
 package androidx.essentials.playground.location
 
-import androidx.essentials.network.local.Preferences
+import androidx.essentials.network.Preferences
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope

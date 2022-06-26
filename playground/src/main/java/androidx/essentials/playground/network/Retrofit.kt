@@ -1,6 +1,6 @@
 package androidx.essentials.playground.network
 
-import androidx.essentials.network.remote.RetrofitBuilder
+import androidx.essentials.network.RetrofitBuilder
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.reflect.KClass
 

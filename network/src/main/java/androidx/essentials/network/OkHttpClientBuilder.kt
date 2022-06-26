@@ -1,6 +1,5 @@
-package androidx.essentials.network.remote
+package androidx.essentials.network
 
-import androidx.essentials.network.Builder
 import okhttp3.OkHttpClient
 
 open class OkHttpClientBuilder(

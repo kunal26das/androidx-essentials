@@ -1,6 +1,5 @@
-package androidx.essentials.network.remote
+package androidx.essentials.network
 
-import androidx.essentials.network.Builder
 import retrofit2.Retrofit
 
 open class RetrofitBuilder(

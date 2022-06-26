@@ -1,7 +1,5 @@
 package androidx.essentials.playground.firebase
 
-import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
@@ -28,8 +26,8 @@ class FirebaseActivity : ComposeActivity() {
     private val viewModel by viewModels<FirebaseViewModel>()
 
     @Composable
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun setContent() {
+        super.setContent()
         viewModel.getToken()
         Column(
             modifier = Modifier

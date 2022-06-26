@@ -1,6 +1,6 @@
 package androidx.essentials.playground.chips
 
-import androidx.essentials.network.local.Preferences
+import androidx.essentials.network.Preferences
 import androidx.essentials.playground.Feature
 import androidx.essentials.playground.Preference
 import androidx.lifecycle.MutableLiveData

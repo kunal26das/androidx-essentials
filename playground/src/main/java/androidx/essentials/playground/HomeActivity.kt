@@ -1,7 +1,5 @@
 package androidx.essentials.playground
 
-import android.os.Bundle
-import android.view.View
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.verticalScroll
@@ -22,8 +20,8 @@ class HomeActivity : ComposeActivity() {
 
     @Composable
     @OptIn(ExperimentalMaterial3Api::class)
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun setContent() {
+        super.setContent()
         Column(
             Modifier
                 .fillMaxSize()

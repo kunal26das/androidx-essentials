@@ -2,8 +2,8 @@ package androidx.essentials.playground.firebase
 
 import android.net.ConnectivityManager
 import android.net.NetworkRequest
+import androidx.essentials.network.Preferences
 import androidx.essentials.network.Repository
-import androidx.essentials.network.local.Preferences
 import javax.inject.Inject
 
 class FirebaseRepository @Inject constructor(
