@@ -1,12 +1,12 @@
 package androidx.essentials.network
 
-abstract class Builder<T> {
+abstract class Builder<T> : () -> T {
 
     @Volatile
     private var instance: T? = null
 
     @Synchronized
-    fun getInstance(): T {
+    override fun invoke(): T {
         if (instance != null) return instance!!
         return initialize().also {
             instance = it

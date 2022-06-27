@@ -2,9 +2,7 @@ package androidx.essentials.playground
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
-import android.net.ConnectivityManager
 import androidx.essentials.playground.firebase.FirebaseService
-import androidx.essentials.playground.network.NetworkRequest
 import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
@@ -17,20 +15,12 @@ import dagger.hilt.components.SingletonComponent
 object Module {
 
     @Provides
-    fun getFirebaseService() = FirebaseService.getInstance()
-
-    @Provides
-    fun getNetworkRequest() = NetworkRequest().getInstance()
+    fun getFirebaseService() = FirebaseService.invoke()
 
     @Provides
     fun getFusedLocationProviderClient(
         @ApplicationContext context: Context
     ) = LocationServices.getFusedLocationProviderClient(context)
-
-    @Provides
-    fun getConnectivityManager(
-        @ApplicationContext context: Context
-    ) = context.getSystemService(ConnectivityManager::class.java)!!
 
     @Provides
     fun getSharedPreferences(

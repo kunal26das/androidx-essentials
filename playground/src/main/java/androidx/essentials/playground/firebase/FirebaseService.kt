@@ -1,5 +1,6 @@
 package androidx.essentials.playground.firebase
 
+import androidx.essentials.network.Builder
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
@@ -11,8 +12,10 @@ interface FirebaseService {
         return Tasks.await(token)
     }
 
-    companion object {
-        fun getInstance() = object : FirebaseService {}
+    companion object : Builder<FirebaseService>() {
+        override fun initialize(): FirebaseService {
+            return object : FirebaseService {}
+        }
     }
 
 }
