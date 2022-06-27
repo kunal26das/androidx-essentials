@@ -1,17 +1,17 @@
 package androidx.essentials.network
 
-abstract class Builder<T> : () -> T {
+@Suppress("PropertyName")
+abstract class Builder<T> {
 
     @Volatile
-    private var instance: T? = null
+    private var value: T? = null
 
-    @Synchronized
-    override fun invoke(): T {
-        if (instance != null) return instance!!
-        return initialize().also {
-            instance = it
+    val INSTANCE: T
+        @Synchronized get() {
+            if (value != null) return value!!
+            value = initialize()
+            return value!!
         }
-    }
 
     protected abstract fun initialize(): T
 

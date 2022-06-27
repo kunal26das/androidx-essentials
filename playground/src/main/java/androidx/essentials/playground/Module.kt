@@ -15,7 +15,7 @@ import dagger.hilt.components.SingletonComponent
 object Module {
 
     @Provides
-    fun getFirebaseService() = FirebaseService.invoke()
+    fun getFirebaseService() = FirebaseService.INSTANCE
 
     @Provides
     fun getFusedLocationProviderClient(

@@ -18,10 +18,10 @@ class PlayGround : Application() {
 
     private fun initStrictMode() {
         StrictMode.setThreadPolicy(
-            ThreadPolicy(mainExecutor).invoke()
+            ThreadPolicy(mainExecutor).INSTANCE
         )
         StrictMode.setVmPolicy(
-            VmPolicy(mainExecutor).invoke()
+            VmPolicy(mainExecutor).INSTANCE
         )
     }
 

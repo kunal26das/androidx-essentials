@@ -6,12 +6,12 @@ import kotlin.reflect.KClass
 
 class Retrofit : RetrofitBuilder({
     baseUrl(BASE_URL)
-    client(OkHttpClient().invoke())
-    addConverterFactory(GsonConverterFactory.create(Gson().invoke()))
+    client(OkHttpClient.INSTANCE)
+    addConverterFactory(GsonConverterFactory.create(Gson.INSTANCE))
 }) {
 
     fun <T : Any> create(klass: KClass<T>): T {
-        return invoke().create(klass.java)
+        return INSTANCE.create(klass.java)
     }
 
     companion object {
