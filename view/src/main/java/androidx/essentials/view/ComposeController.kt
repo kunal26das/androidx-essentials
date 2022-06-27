@@ -7,7 +7,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 
-sealed interface ComposeController {
+sealed interface ComposeController : LifecycleOwner {
 
     val dynamicColor
         get() = true
@@ -31,6 +31,15 @@ sealed interface ComposeController {
 
     val typography
         @Composable get() = MaterialTheme.typography
+
+    val lifecycleOwner
+        get() = when (this) {
+            is ComposeActivity -> this
+            is ComposeFragment -> viewLifecycleOwner
+            is ComposeDialogFragment -> viewLifecycleOwner
+            is ComposeBottomSheetDialogFragment -> viewLifecycleOwner
+            else -> null
+        }
 
     private fun getContext() = when (this) {
         is ComposeActivity -> this

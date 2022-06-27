@@ -10,7 +10,7 @@ sealed interface LifecycleOwner {
     ) = LifecycleAwareLazy(
         when (this) {
             is ViewController -> lifecycleOwner
-            is ComposeActivity -> this
+            is ComposeController -> lifecycleOwner
             else -> null
         }, initializer
     )
@@ -22,7 +22,7 @@ sealed interface LifecycleOwner {
         observe(
             when (this@LifecycleOwner) {
                 is ViewController -> lifecycleOwner
-                is ComposeActivity -> this@LifecycleOwner
+                is ComposeController -> lifecycleOwner
                 else -> null
             }!!, observer
         )

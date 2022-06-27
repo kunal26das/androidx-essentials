@@ -16,7 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.view.WindowCompat
 
-abstract class ComposeActivity : AppCompatActivity(), ComposeController, LifecycleOwner {
+abstract class ComposeActivity : AppCompatActivity(), ComposeController {
 
     protected open val sideEffect = true
 
