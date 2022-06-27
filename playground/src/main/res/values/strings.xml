@@ -50,4 +50,5 @@
     <string name="token">Token</string>
 
     <string name="validate">Validate</string>
+    <string name="no_internet">No Internet</string>
 </resources>

@@ -2,24 +2,28 @@ package androidx.essentials.network
 
 import android.net.ConnectivityManager
 import android.net.Network
+import androidx.lifecycle.LiveData
 
-internal class NetworkCallback(
-    private val callback: ((Boolean) -> Unit)? = null
-) : ConnectivityManager.NetworkCallback() {
+class NetworkCallback private constructor() {
 
-    override fun onAvailable(network: Network) {
-        super.onAvailable(network)
-        callback?.invoke(true)
-    }
+    companion object : ConnectivityManager.NetworkCallback() {
 
-    override fun onLost(network: Network) {
-        callback?.invoke(false)
-        super.onLost(network)
-    }
+        val isNetworkAvailable: LiveData<Boolean> get() = IsNetworkAvailable
 
-    override fun onUnavailable() {
-        callback?.invoke(false)
-        super.onUnavailable()
+        override fun onAvailable(network: Network) {
+            IsNetworkAvailable.postValue(true)
+            super.onAvailable(network)
+        }
+
+        override fun onLost(network: Network) {
+            IsNetworkAvailable.postValue(false)
+            super.onLost(network)
+        }
+
+        override fun onUnavailable() {
+            IsNetworkAvailable.postValue(false)
+            super.onUnavailable()
+        }
     }
 
 }

@@ -2,6 +2,7 @@ package androidx.essentials.view
 
 import android.content.Context
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContract
@@ -24,6 +25,13 @@ abstract class Activity : AppCompatActivity(), ViewController {
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this
         onViewCreated(binding.root, savedInstanceState)
+    }
+
+    final override fun onCreate(
+        savedInstanceState: Bundle?,
+        persistentState: PersistableBundle?
+    ) {
+        super.onCreate(savedInstanceState, persistentState)
     }
 
     @CallSuper

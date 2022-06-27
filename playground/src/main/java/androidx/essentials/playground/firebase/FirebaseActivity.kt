@@ -1,5 +1,6 @@
 package androidx.essentials.playground.firebase
 
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
@@ -11,10 +12,12 @@ import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.essentials.network.NetworkCallback.Companion.isNetworkAvailable
 import androidx.essentials.playground.Feature
 import androidx.essentials.playground.R
 import androidx.essentials.view.ComposeActivity
@@ -43,16 +46,26 @@ class FirebaseActivity : ComposeActivity() {
     @Preview
     @Composable
     private fun TokenTextField() {
-        val token = viewModel.token.observeAsState()
+        val token by viewModel.token.observeAsState()
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
             label = { Text(text = getString(R.string.token)) },
-            value = "${token.value}",
+            value = "$token",
             onValueChange = {},
             readOnly = true,
         )
+    }
+
+    override fun onStart() {
+        super.onStart()
+        isNetworkAvailable.observe {
+            if (!it) Toast.makeText(
+                this, getString(R.string.no_internet),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
 }
