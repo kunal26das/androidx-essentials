@@ -16,9 +16,8 @@ sealed interface LifecycleOwner {
     )
 
     fun <T> LiveData<T>.observe(
-        action: (T) -> Unit
-    ): Observer<T> {
-        val observer = Observer<T> { action.invoke(it) }
+        observer: Observer<T>
+    ) {
         observe(
             when (this@LifecycleOwner) {
                 is ViewController -> lifecycleOwner
@@ -26,7 +25,6 @@ sealed interface LifecycleOwner {
                 else -> null
             }!!, observer
         )
-        return observer
     }
 
 }
