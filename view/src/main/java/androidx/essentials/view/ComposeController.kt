@@ -12,6 +12,12 @@ sealed interface ComposeController : LifecycleOwner {
     val dynamicColor
         get() = true
 
+    val darkColorScheme
+        get() = darkColorScheme()
+
+    val lightColorScheme
+        get() = lightColorScheme()
+
     val colorScheme: ColorScheme
         @Composable get() {
             val darkTheme = isSystemInDarkTheme()
@@ -20,8 +26,8 @@ sealed interface ComposeController : LifecycleOwner {
                     if (darkTheme) dynamicDarkColorScheme(getContext()!!)
                     else dynamicLightColorScheme(getContext()!!)
                 }
-                darkTheme -> darkColorScheme()
-                else -> lightColorScheme()
+                darkTheme -> darkColorScheme
+                else -> lightColorScheme
             }
             return colorScheme
         }
