@@ -125,8 +125,8 @@ class Date @JvmOverloads constructor(
             if (startDate != null) {
                 calendarConstraintsBuilder.setStart(startDate)
                 calendarConstraintsBuilder.setValidator(object : CalendarConstraints.DateValidator {
-                    override fun writeToParcel(dest: Parcel?, flags: Int) {
-                        dest?.writeLong(startDate)
+                    override fun writeToParcel(dest: Parcel, flags: Int) {
+                        dest.writeLong(startDate)
                     }
 
                     override fun isValid(date: Long) = when {
@@ -146,8 +146,8 @@ class Date @JvmOverloads constructor(
             if (endDate != null) {
                 calendarConstraintsBuilder.setEnd(endDate)
                 calendarConstraintsBuilder.setValidator(object : CalendarConstraints.DateValidator {
-                    override fun writeToParcel(dest: Parcel?, flags: Int) {
-                        dest?.writeLong(endDate)
+                    override fun writeToParcel(dest: Parcel, flags: Int) {
+                        dest.writeLong(endDate)
                     }
 
                     override fun isValid(date: Long) = when {
