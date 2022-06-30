@@ -1,4 +1,4 @@
-package androidx.essentials.io.generic
+package androidx.essentials.io
 
 import android.content.Context
 import android.text.Editable
@@ -7,11 +7,8 @@ import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
-import androidx.essentials.io.R
-import androidx.essentials.io.internal.AutoCompleteTextView
-import androidx.essentials.io.internal.AutoCompleteTextView.Companion.DEFAULT_FILTER
-import androidx.essentials.io.internal.AutoCompleteTextView.Companion.DEFAULT_LIST_ITEM
-import androidx.essentials.io.internal.Field
+import androidx.essentials.io.AutoCompleteTextView.Companion.DEFAULT_FILTER
+import androidx.essentials.io.AutoCompleteTextView.Companion.DEFAULT_LIST_ITEM
 
 abstract class GenericAutoComplete<T> @JvmOverloads constructor(
     context: Context,

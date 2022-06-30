@@ -3,7 +3,6 @@ package androidx.essentials.playground
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.ConnectivityManager
-import android.text.method.TextKeyListener.clear
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.verticalScroll
@@ -59,9 +58,9 @@ class HomeActivity : ComposeActivity() {
                                 contracts[feature.ordinal].launch(null)
                             }
                         )
-                        if (feature.compose) AssistChip(
+                        if (!feature.compose) AssistChip(
                             modifier = Modifier.padding(4.dp),
-                            label = { Text(getString(R.string.compose)) },
+                            label = { Text(getString(R.string.data_binding)) },
                             enabled = false,
                             onClick = {},
                         )

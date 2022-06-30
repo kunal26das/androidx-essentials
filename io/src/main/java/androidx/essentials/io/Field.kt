@@ -1,4 +1,4 @@
-package androidx.essentials.io.internal
+package androidx.essentials.io
 
 import android.content.Context
 import android.content.ContextWrapper
@@ -11,7 +11,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
-import androidx.essentials.io.R
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.textfield.TextInputLayout
 

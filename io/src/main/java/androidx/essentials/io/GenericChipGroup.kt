@@ -1,4 +1,4 @@
-package androidx.essentials.io.generic
+package androidx.essentials.io
 
 import android.content.Context
 import android.util.AttributeSet
@@ -10,7 +10,6 @@ import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
-import androidx.essentials.io.R
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 

@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.core.content.res.getResourceIdOrThrow
 import androidx.core.view.children
-import androidx.essentials.io.generic.GenericChipGroup
 import com.google.android.material.chip.Chip
 
 class Chips @JvmOverloads constructor(

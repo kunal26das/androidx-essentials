@@ -1,11 +1,10 @@
-package androidx.essentials.io.internal
+package androidx.essentials.io
 
 import android.content.Context
 import android.text.Editable
 import android.util.AttributeSet
 import android.widget.ArrayAdapter
-import androidx.essentials.io.R
-import androidx.essentials.io.internal.Field.Companion.DEFAULT_IS_EDITABLE
+import androidx.essentials.io.Field.Companion.DEFAULT_IS_EDITABLE
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 
 internal class AutoCompleteTextView<T> @JvmOverloads constructor(

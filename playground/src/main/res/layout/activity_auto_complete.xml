@@ -35,7 +35,6 @@
                 app:listItem="@android:layout/simple_list_item_1"
                 app:mandatory="@{viewModel.isMandatory}"
                 app:mandatoryMessage="@string/mandatory_field"
-                app:regexMessage="@string/invalid_input"
                 app:selection="@={viewModel.autoComplete}"
                 app:showSoftInputOnFocus="@{viewModel.keyboard}" />
 
