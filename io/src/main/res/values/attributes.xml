@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-    <declare-styleable name="AutoComplete">
-        <attr name="array" format="reference" />
-    </declare-styleable>
-
     <declare-styleable name="Chips">
         <attr name="chips" format="reference" />
-    </declare-styleable>
-
-    <declare-styleable name="Date">
-        <attr name="future" format="boolean" />
-        <attr name="past" format="boolean" />
-        <attr name="android:format" />
-        <attr name="calendarStyle" />
     </declare-styleable>
 
     <declare-styleable name="GenericAutoComplete">
