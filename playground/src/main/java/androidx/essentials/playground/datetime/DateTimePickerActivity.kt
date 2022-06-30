@@ -91,6 +91,39 @@ class DateTimePickerActivity : ComposeActivity() {
     }
 
     @Composable
+    private fun StartTimeTextField() {
+        val startDate by viewModel.startDate.observeAsState()
+        TextField(
+            modifier = modifier.onFocusChanged {
+                if (it.isFocused) startDate
+                    .getMaterialTimePicker {
+                        val calendar = Calendar.getInstance()
+                        calendar.timeInMillis = startDate ?: 0L
+                        calendar[Calendar.HOUR] = it.first
+                        calendar[Calendar.MINUTE] = it.second
+                        viewModel.startDate.value = calendar.timeInMillis
+                    }
+                    .showNow()
+            },
+            label = { Text(text = getString(R.string.start_time)) },
+            value = if (startDate != null) timeFormat.format(startDate) else "",
+            onValueChange = {},
+            readOnly = true,
+        )
+    }
+
+    @Composable
+    private fun StartDateTimeText() {
+        val startDate by viewModel.startDate.observeAsState()
+        TextField(
+            modifier = modifier,
+            value = if (startDate != null) dateTimeFormat.format(startDate) else "",
+            onValueChange = {},
+            readOnly = true,
+        )
+    }
+
+    @Composable
     private fun EndDateTextField() {
         val endDate by viewModel.endDate.observeAsState()
         val startDate by viewModel.startDate.observeAsState()
@@ -116,50 +149,22 @@ class DateTimePickerActivity : ComposeActivity() {
     }
 
     @Composable
-    private fun StartDateTimeText() {
-        val startDate by viewModel.startDate.observeAsState()
-        val startTime by viewModel.startTime.observeAsState()
-        startDate?.plus(startTime ?: 0)?.let {
-            TextField(
-                modifier = modifier,
-                value = dateTimeFormat.format(it),
-                onValueChange = {},
-                readOnly = true,
-            )
-        }
-    }
-
-    @Composable
-    private fun StartTimeTextField() {
-        val startTime by viewModel.startTime.observeAsState()
-        TextField(
-            modifier = modifier.onFocusChanged {
-                if (it.isFocused) startTime
-                    .getMaterialTimePicker {
-                        viewModel.startTime.value = it
-                    }
-                    .showNow()
-            },
-            label = { Text(text = getString(R.string.start_time)) },
-            value = if (startTime != null) timeFormat.format(startTime) else "",
-            onValueChange = {},
-            readOnly = true,
-        )
-    }
-
-    @Composable
     private fun EndTimeTextField() {
-        val endTime by viewModel.endTime.observeAsState()
+        val endDate by viewModel.endDate.observeAsState()
         TextField(
             modifier = modifier.onFocusChanged {
-                if (it.isFocused) endTime
+                if (it.isFocused) endDate
                     .getMaterialTimePicker {
-                        viewModel.endTime.value = it
+                        val calendar = Calendar.getInstance()
+                        calendar.timeInMillis = endDate ?: 0L
+                        calendar[Calendar.HOUR] = it.first
+                        calendar[Calendar.MINUTE] = it.second
+                        viewModel.endDate.value = calendar.timeInMillis
                     }
                     .showNow()
             },
             label = { Text(text = getString(R.string.end_time)) },
-            value = if (endTime != null) timeFormat.format(endTime) else "",
+            value = if (endDate != null) timeFormat.format(endDate) else "",
             onValueChange = {},
             readOnly = true,
         )
@@ -168,15 +173,12 @@ class DateTimePickerActivity : ComposeActivity() {
     @Composable
     private fun EndDateTimeText() {
         val endDate by viewModel.endDate.observeAsState()
-        val endTime by viewModel.endTime.observeAsState()
-        endDate?.plus(endTime ?: 0)?.let {
-            TextField(
-                modifier = modifier.fillMaxWidth(),
-                value = dateTimeFormat.format(it),
-                onValueChange = {},
-                readOnly = true,
-            )
-        }
+        TextField(
+            modifier = modifier.fillMaxWidth(),
+            value = if (endDate != null) dateTimeFormat.format(endDate) else "",
+            onValueChange = {},
+            readOnly = true,
+        )
     }
 
     private fun Long?.getDatePicker(
@@ -190,7 +192,7 @@ class DateTimePickerActivity : ComposeActivity() {
     }.build()
 
     private fun Long?.getMaterialTimePicker(
-        onPositiveButtonClickListener: ((Long) -> Unit)? = null,
+        onPositiveButtonClickListener: ((Pair<Int, Int>) -> Unit)? = null,
     ): MaterialTimePicker {
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = this ?: 0L
@@ -201,9 +203,7 @@ class DateTimePickerActivity : ComposeActivity() {
             setHour(calendar[Calendar.HOUR])
         }.build().apply {
             addOnPositiveButtonClickListener {
-                calendar[Calendar.HOUR] = hour
-                calendar[Calendar.MINUTE] = minute
-                onPositiveButtonClickListener?.invoke(calendar.timeInMillis)
+                onPositiveButtonClickListener?.invoke(hour to minute)
             }
         }
     }
