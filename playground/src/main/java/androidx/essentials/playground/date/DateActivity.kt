@@ -1,6 +1,5 @@
 package androidx.essentials.playground.date
 
-import android.os.Parcel
 import androidx.activity.viewModels
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
@@ -73,7 +72,7 @@ class DateActivity : ComposeActivity() {
         TextField(
             modifier = Modifier.onFocusChanged {
                 if (it.isFocused) startDate.getDatePicker {
-                    setValidator(getDateValidator(endDate = endDate))
+                    setValidator(DateValidator(endDate = endDate))
                     if (endDate != null) setEnd(endDate!!)
                 }.apply {
                     addOnPositiveButtonClickListener {
@@ -95,7 +94,7 @@ class DateActivity : ComposeActivity() {
         TextField(
             modifier = Modifier.onFocusChanged {
                 if (it.isFocused) endDate.getDatePicker {
-                    setValidator(getDateValidator(startDate = startDate))
+                    setValidator(DateValidator(startDate = startDate))
                     if (startDate != null) setStart(startDate!!)
                 }.apply {
                     addOnPositiveButtonClickListener {
@@ -119,28 +118,5 @@ class DateActivity : ComposeActivity() {
             builder?.invoke(this)
         }.build())
     }.build()
-
-    private fun getDateValidator(
-        startDate: Long? = null,
-        endDate: Long? = null,
-    ) = object : CalendarConstraints.DateValidator {
-        override fun writeToParcel(dest: Parcel, flags: Int) {
-            if (startDate != null) {
-                dest.writeLong(startDate)
-            } else if (endDate != null) {
-                dest.writeLong(endDate)
-            }
-        }
-
-        override fun isValid(date: Long): Boolean {
-            return if (startDate != null) {
-                startDate <= date
-            } else if (endDate != null) {
-                endDate >= date
-            } else true
-        }
-
-        override fun describeContents() = 0
-    }
 
 }
