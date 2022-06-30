@@ -35,7 +35,6 @@ class FirebaseActivity : ComposeActivity() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(8.dp)
                 .verticalScroll(ScrollState(0))
         ) {
             LargeTopAppBar(title = { Text(text = Feature.Firebase.name) })
@@ -50,7 +49,10 @@ class FirebaseActivity : ComposeActivity() {
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(
+                    vertical = 8.dp,
+                    horizontal = 16.dp,
+                ),
             label = { Text(text = getString(R.string.token)) },
             value = "$token",
             onValueChange = {},

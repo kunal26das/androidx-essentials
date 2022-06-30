@@ -1,4 +1,4 @@
-package androidx.essentials.playground.date
+package androidx.essentials.playground.datetime
 
 import com.google.android.material.datepicker.CalendarConstraints
 import kotlinx.parcelize.Parcelize

@@ -3,12 +3,11 @@ package androidx.essentials.playground
 import androidx.essentials.playground.autocomplete.AutoCompleteActivity
 import androidx.essentials.playground.backdrop.BackdropActivity
 import androidx.essentials.playground.chips.ChipsActivity
-import androidx.essentials.playground.date.DateActivity
+import androidx.essentials.playground.datetime.DateTimePickerActivity
 import androidx.essentials.playground.firebase.FirebaseActivity
 import androidx.essentials.playground.location.LocationActivity
 import androidx.essentials.playground.preferences.SharedPreferencesActivity
 import androidx.essentials.playground.textfield.TextFieldActivity
-import androidx.essentials.playground.time.TimeActivity
 import androidx.essentials.view.getActivityResultContract
 import kotlin.reflect.KClass
 
@@ -20,11 +19,10 @@ enum class Feature(
     Backdrop(BackdropActivity::class, false),
     Chips(ChipsActivity::class, false),
     Firebase(FirebaseActivity::class),
-    Date(DateActivity::class),
+    DateTimePicker(DateTimePickerActivity::class),
     Location(LocationActivity::class),
     SharedPreferences(SharedPreferencesActivity::class),
     TextField(TextFieldActivity::class),
-    Time(TimeActivity::class),
     ;
 
     val activityResultContract

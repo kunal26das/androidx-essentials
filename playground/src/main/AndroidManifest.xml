@@ -29,11 +29,10 @@
         <activity android:name=".autocomplete.AutoCompleteActivity" />
         <activity android:name=".backdrop.BackdropActivity" />
         <activity android:name=".chips.ChipsActivity" />
-        <activity android:name=".date.DateActivity" />
+        <activity android:name=".datetime.DateTimePickerActivity" />
         <activity android:name=".firebase.FirebaseActivity" />
         <activity android:name=".location.LocationActivity" />
         <activity android:name=".preferences.SharedPreferencesActivity" />
         <activity android:name=".textfield.TextFieldActivity" />
-        <activity android:name=".time.TimeActivity" />
     </application>
 </manifest>
