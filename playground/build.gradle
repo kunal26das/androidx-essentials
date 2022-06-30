@@ -65,14 +65,14 @@ dependencies {
         // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
         implementation 'androidx.compose.foundation:foundation:1.1.1'
         // Material Design
-        implementation 'androidx.compose.material3:material3:1.0.0-alpha13'
+        implementation 'androidx.compose.material3:material3:1.0.0-alpha14'
         // Material design icons
         implementation 'androidx.compose.material:material-icons-core:1.1.1'
         implementation 'androidx.compose.material:material-icons-extended:1.1.1'
         // Integration with activities
-        implementation 'androidx.activity:activity-compose:1.4.0'
+        implementation 'androidx.activity:activity-compose:1.5.0'
         // Integration with ViewModels
-        implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1'
+        implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0'
         // Integration with observables
         implementation 'androidx.compose.runtime:runtime-livedata:1.1.1'
     }
@@ -83,7 +83,7 @@ dependencies {
         implementation "androidx.core:core-ktx:1.8.0"
         implementation "androidx.appcompat:appcompat:1.4.2"
         // Activity
-        implementation "androidx.activity:activity-ktx:1.4.0"
+        implementation "androidx.activity:activity-ktx:1.5.0"
         // Paging
         implementation "androidx.paging:paging-runtime-ktx:3.1.1"
     }
