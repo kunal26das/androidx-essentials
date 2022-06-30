@@ -83,7 +83,7 @@ dependencies {
         implementation "androidx.core:core-ktx:1.8.0"
         implementation "androidx.appcompat:appcompat:1.4.2"
         // Activity
-        implementation "androidx.activity:activity-ktx:1.4.0"
+        implementation "androidx.activity:activity-ktx:1.5.0"
         // Paging
         implementation "androidx.paging:paging-runtime-ktx:3.1.1"
     }
