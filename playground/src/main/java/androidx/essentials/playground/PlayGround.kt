@@ -2,6 +2,8 @@ package androidx.essentials.playground
 
 import android.app.Application
 import android.os.StrictMode
+import androidx.essentials.playground.network.ThreadPolicy
+import androidx.essentials.playground.network.VmPolicy
 import com.facebook.stetho.Stetho
 import com.google.android.material.color.DynamicColors
 import dagger.hilt.android.HiltAndroidApp

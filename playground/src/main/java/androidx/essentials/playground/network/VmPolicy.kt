@@ -1,5 +1,6 @@
-package androidx.essentials.playground
+package androidx.essentials.playground.network
 
+import androidx.essentials.network.BuildConfig
 import androidx.essentials.network.VmPolicyBuilder
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
@@ -9,6 +10,6 @@ class VmPolicy(executor: Executor) : VmPolicyBuilder({
     penaltyListener(executor) {
         Firebase.crashlytics.recordException(it)
     }
-    penaltyLog()
+    if (BuildConfig.DEBUG) penaltyLog()
     detectAll()
 })

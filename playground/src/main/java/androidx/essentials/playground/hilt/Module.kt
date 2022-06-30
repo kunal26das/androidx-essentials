@@ -1,4 +1,4 @@
-package androidx.essentials.playground
+package androidx.essentials.playground.hilt
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
