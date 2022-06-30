@@ -32,7 +32,7 @@
         <activity android:name=".date.DateActivity" />
         <activity android:name=".firebase.FirebaseActivity" />
         <activity android:name=".location.LocationActivity" />
-        <activity android:name=".preferences.PreferencesActivity" />
+        <activity android:name=".preferences.SharedPreferencesActivity" />
         <activity android:name=".textfield.TextFieldActivity" />
         <activity android:name=".time.TimeActivity" />
     </application>

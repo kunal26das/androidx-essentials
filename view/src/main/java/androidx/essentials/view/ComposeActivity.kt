@@ -15,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.view.WindowCompat
+import androidx.fragment.app.DialogFragment
 
 abstract class ComposeActivity : AppCompatActivity(), ComposeController {
 
@@ -78,6 +79,14 @@ abstract class ComposeActivity : AppCompatActivity(), ComposeController {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) onBackPressed()
         return super.onOptionsItemSelected(item)
+    }
+
+    @Synchronized
+    protected fun DialogFragment.showNow(tag: String? = null) = try {
+        showNow(supportFragmentManager, tag)
+        null
+    } catch (e: Throwable) {
+        e
     }
 
 }

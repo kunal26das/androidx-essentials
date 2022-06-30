@@ -28,13 +28,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven {
-            url = this.ext.mavenUrl
-            credentials {
-                username = "kunal26das"
-                password = "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"
-            }
-        }
     }
 }
 

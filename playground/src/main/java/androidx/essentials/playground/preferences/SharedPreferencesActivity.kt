@@ -19,9 +19,9 @@ import androidx.essentials.view.ComposeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PreferencesActivity : ComposeActivity() {
+class SharedPreferencesActivity : ComposeActivity() {
 
-    private val viewModel by viewModels<PreferencesViewModel>()
+    private val viewModel by viewModels<SharedPreferencesViewModel>()
 
     private val modifier: Modifier
         @Composable get() {
@@ -42,7 +42,7 @@ class PreferencesActivity : ComposeActivity() {
         super.setContent()
         Column(modifier.verticalScroll(ScrollState(0))) {
             LargeTopAppBar(
-                title = { Text(text = Feature.Preferences.name) }
+                title = { Text(text = Feature.SharedPreferences.name) }
             )
             IntTextField()
             LongTextField()
@@ -59,7 +59,7 @@ class PreferencesActivity : ComposeActivity() {
         when (boolean) {
             true -> OutlinedTextField(
                 modifier = modifier,
-                label = { Text(text = PreferencesViewModel.KEY_INT) },
+                label = { Text(text = SharedPreferencesViewModel.KEY_INT) },
                 value = int?.toString() ?: "",
                 onValueChange = {
                     viewModel.int.value = it.toIntOrNull()
@@ -71,7 +71,7 @@ class PreferencesActivity : ComposeActivity() {
             )
             else -> TextField(
                 modifier = modifier,
-                label = { Text(text = PreferencesViewModel.KEY_INT) },
+                label = { Text(text = SharedPreferencesViewModel.KEY_INT) },
                 value = int?.toString() ?: "",
                 onValueChange = {
                     viewModel.int.value = it.toIntOrNull()
@@ -91,7 +91,7 @@ class PreferencesActivity : ComposeActivity() {
         when (boolean) {
             true -> OutlinedTextField(
                 modifier = modifier,
-                label = { Text(text = PreferencesViewModel.KEY_LONG) },
+                label = { Text(text = SharedPreferencesViewModel.KEY_LONG) },
                 value = long?.toString() ?: "",
                 onValueChange = {
                     viewModel.long.value = it.toLongOrNull()
@@ -103,7 +103,7 @@ class PreferencesActivity : ComposeActivity() {
             )
             else -> TextField(
                 modifier = modifier,
-                label = { Text(text = PreferencesViewModel.KEY_LONG) },
+                label = { Text(text = SharedPreferencesViewModel.KEY_LONG) },
                 value = long?.toString() ?: "",
                 onValueChange = {
                     viewModel.long.value = it.toLongOrNull()
@@ -123,7 +123,7 @@ class PreferencesActivity : ComposeActivity() {
         when (boolean) {
             true -> OutlinedTextField(
                 modifier = modifier,
-                label = { Text(text = PreferencesViewModel.KEY_FLOAT) },
+                label = { Text(text = SharedPreferencesViewModel.KEY_FLOAT) },
                 value = float?.toString() ?: "",
                 onValueChange = {
                     viewModel.float.value = it.toFloatOrNull()
@@ -135,7 +135,7 @@ class PreferencesActivity : ComposeActivity() {
             )
             else -> TextField(
                 modifier = modifier,
-                label = { Text(text = PreferencesViewModel.KEY_FLOAT) },
+                label = { Text(text = SharedPreferencesViewModel.KEY_FLOAT) },
                 value = float?.toString() ?: "",
                 onValueChange = {
                     viewModel.float.value = it.toFloatOrNull()
@@ -155,7 +155,7 @@ class PreferencesActivity : ComposeActivity() {
         when (boolean) {
             true -> OutlinedTextField(
                 modifier = modifier,
-                label = { Text(text = PreferencesViewModel.KEY_STRING) },
+                label = { Text(text = SharedPreferencesViewModel.KEY_STRING) },
                 value = string ?: "",
                 onValueChange = {
                     viewModel.string.value = it
@@ -163,7 +163,7 @@ class PreferencesActivity : ComposeActivity() {
             )
             else -> TextField(
                 modifier = modifier,
-                label = { Text(text = PreferencesViewModel.KEY_STRING) },
+                label = { Text(text = SharedPreferencesViewModel.KEY_STRING) },
                 value = string ?: "",
                 onValueChange = {
                     viewModel.string.value = it
