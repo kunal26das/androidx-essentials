@@ -72,7 +72,7 @@ class DateActivity : ComposeActivity() {
         val startDate by viewModel.startDate.observeAsState()
         TextField(
             modifier = Modifier.onFocusChanged {
-                if (it.isFocused) getDatePicker(startDate) {
+                if (it.isFocused) startDate.getDatePicker {
                     setValidator(getDateValidator(endDate = endDate))
                     if (endDate != null) setEnd(endDate!!)
                 }.apply {
@@ -94,7 +94,7 @@ class DateActivity : ComposeActivity() {
         val startDate by viewModel.startDate.observeAsState()
         TextField(
             modifier = Modifier.onFocusChanged {
-                if (it.isFocused) getDatePicker(endDate) {
+                if (it.isFocused) endDate.getDatePicker {
                     setValidator(getDateValidator(startDate = startDate))
                     if (startDate != null) setStart(startDate!!)
                 }.apply {
@@ -110,13 +110,12 @@ class DateActivity : ComposeActivity() {
         )
     }
 
-    private fun getDatePicker(
-        selection: Long? = null,
+    private fun Long?.getDatePicker(
         builder: (CalendarConstraints.Builder.() -> Unit)? = null,
     ) = MaterialDatePicker.Builder.datePicker().apply {
         setCalendarConstraints(CalendarConstraints.Builder().apply {
             setInputMode(MaterialDatePicker.INPUT_MODE_CALENDAR)
-            setSelection(selection)
+            setSelection(this@getDatePicker)
             builder?.invoke(this)
         }.build())
     }.build()

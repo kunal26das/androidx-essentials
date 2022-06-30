@@ -7,6 +7,8 @@
 
     <string name="checkable">Checkable</string>
 
+    <string name="clear">Clear</string>
+
     <string name="compose">Compose</string>
 
     <string name="draggable">Draggable</string>
@@ -32,6 +34,8 @@
 
     <string name="mandatory">Mandatory</string>
 
+    <string name="no_internet">No Internet</string>
+
     <string name="placeholder">Placeholder</string>
 
     <string name="playground">Playground</string>
@@ -50,5 +54,4 @@
     <string name="token">Token</string>
 
     <string name="validate">Validate</string>
-    <string name="no_internet">No Internet</string>
 </resources>

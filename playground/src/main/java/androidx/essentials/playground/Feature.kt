@@ -24,7 +24,7 @@ enum class Feature(
     Location(LocationActivity::class),
     SharedPreferences(SharedPreferencesActivity::class),
     TextField(TextFieldActivity::class),
-    Time(TimeActivity::class, false),
+    Time(TimeActivity::class),
     ;
 
     val activityResultContract
