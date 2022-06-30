@@ -23,19 +23,10 @@ class SharedPreferencesActivity : ComposeActivity() {
 
     private val viewModel by viewModels<SharedPreferencesViewModel>()
 
-    private val modifier: Modifier
-        @Composable get() {
-            val style by viewModel.boolean.observeAsState()
-            return Modifier
-                .fillMaxWidth()
-                .padding(
-                    horizontal = 8.dp,
-                    vertical = when (style) {
-                        true -> 5.dp
-                        else -> 8.dp
-                    },
-                )
-        }
+    private val modifier
+        get() = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
 
     @Composable
     override fun setContent() {

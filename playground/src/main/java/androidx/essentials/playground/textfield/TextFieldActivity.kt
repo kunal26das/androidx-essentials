@@ -25,19 +25,10 @@ class TextFieldActivity : ComposeActivity() {
 
     private val viewModel by viewModels<TextFieldViewModel>()
 
-    private val modifier: Modifier
-        @Composable get() {
-            val style by viewModel.style.observeAsState()
-            return Modifier
-                .fillMaxWidth()
-                .padding(
-                    horizontal = 8.dp,
-                    vertical = when (style) {
-                        true -> 5.dp
-                        else -> 8.dp
-                    },
-                )
-        }
+    private val modifier
+        get() = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
 
     @Preview
     @Composable
