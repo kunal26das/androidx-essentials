@@ -8,14 +8,17 @@ import androidx.lifecycle.MutableLiveData
  * String key
  */
 
-inline operator fun <reified T> SharedPreferences.get(key: String) = when (T::class) {
-    Int::class -> getInt(key)
-    Long::class -> getLong(key)
-    Float::class -> getFloat(key)
-    String::class -> getString(key)
-    Boolean::class -> getBoolean(key)
-    else -> null
-} as? T
+inline operator fun <reified T> SharedPreferences.get(key: String): T? {
+    return when (T::class) {
+        Int::class -> getInt(key) as? T
+        Long::class -> getLong(key) as? T
+        Float::class -> getFloat(key) as? T
+        String::class -> getString(key) as? T
+        Boolean::class -> getBoolean(key) as? T
+        MutableSet::class -> getStringSet(key) as? T
+        else -> null
+    }
+}
 
 fun SharedPreferences.getInt(key: String) = when (contains(key)) {
     true -> getInt(key, 0)
@@ -42,6 +45,12 @@ fun SharedPreferences.getBoolean(key: String) = when (contains(key)) {
     false -> null
 }
 
+fun SharedPreferences.getStringSet(key: String) = when (contains(key)) {
+    true -> getStringSet(key, null)?.toMutableSet()
+    false -> null
+} ?: mutableSetOf()
+
+@Suppress("UNCHECKED_CAST")
 operator fun SharedPreferences.set(key: String, value: Any?) {
     edit().apply {
         when (value) {
@@ -55,6 +64,9 @@ operator fun SharedPreferences.set(key: String, value: Any?) {
                     else -> putString(key, value)
                 }
                 is Boolean -> putBoolean(key, value)
+                is MutableSet<*> -> {
+                    putStringSet(key, value as? Set<String>)
+                }
                 else -> Unit
             }
         }

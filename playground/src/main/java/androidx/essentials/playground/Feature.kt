@@ -17,7 +17,7 @@ enum class Feature(
 ) {
     AutoComplete(AutoCompleteActivity::class, false),
     Backdrop(BackdropActivity::class, false),
-    Chips(ChipsActivity::class, false),
+    Chips(ChipsActivity::class),
     Firebase(FirebaseActivity::class),
     DateTimePicker(DateTimePickerActivity::class),
     Location(LocationActivity::class),

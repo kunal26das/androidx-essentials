@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-    <declare-styleable name="Chips">
-        <attr name="chips" format="reference" />
-    </declare-styleable>
-
     <declare-styleable name="GenericAutoComplete">
         <attr name="showSoftInputOnFocus" format="boolean" />
         <attr name="listItem" format="reference" />
@@ -11,11 +7,6 @@
         <attr name="android:filter" />
         <attr name="mandatory" />
         <attr name="editable" />
-    </declare-styleable>
-
-    <declare-styleable name="GenericChipGroup">
-        <attr name="android:checkable" format="boolean" />
-        <attr name="chip" format="reference" />
     </declare-styleable>
 
     <attr name="editable" format="boolean" />
