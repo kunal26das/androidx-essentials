@@ -77,8 +77,12 @@ class ChipsActivity : ComposeActivity() {
                     modifier = Modifier.padding(horizontal = 8.dp),
                     label = { Text(text = feature) },
                     selected = false,
-                    enabled = false,
-                    onClick = {},
+                    onClick = {
+                        viewModel.selection.value?.let {
+                            it.remove(feature)
+                            viewModel.selection.value = it
+                        }
+                    },
                 )
             }
         }
