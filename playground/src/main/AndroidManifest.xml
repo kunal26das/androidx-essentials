@@ -27,7 +27,6 @@
         </activity>
 
         <activity android:name=".autocomplete.AutoCompleteActivity" />
-        <activity android:name=".backdrop.BackdropActivity" />
         <activity android:name=".chips.ChipsActivity" />
         <activity android:name=".datetime.DateTimePickerActivity" />
         <activity android:name=".firebase.FirebaseActivity" />

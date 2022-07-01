@@ -1,7 +1,6 @@
 package androidx.essentials.playground
 
 import androidx.essentials.playground.autocomplete.AutoCompleteActivity
-import androidx.essentials.playground.backdrop.BackdropActivity
 import androidx.essentials.playground.chips.ChipsActivity
 import androidx.essentials.playground.datetime.DateTimePickerActivity
 import androidx.essentials.playground.firebase.FirebaseActivity
@@ -16,7 +15,6 @@ enum class Feature(
     val compose: Boolean = true,
 ) {
     AutoComplete(AutoCompleteActivity::class, false),
-    Backdrop(BackdropActivity::class, false),
     Chips(ChipsActivity::class),
     Firebase(FirebaseActivity::class),
     DateTimePicker(DateTimePickerActivity::class),
