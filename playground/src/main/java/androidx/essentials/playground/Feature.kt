@@ -12,9 +12,8 @@ import kotlin.reflect.KClass
 
 enum class Feature(
     private val kClass: KClass<*>,
-    val compose: Boolean = true,
 ) {
-    AutoComplete(AutoCompleteActivity::class, false),
+    AutoComplete(AutoCompleteActivity::class),
     Chips(ChipsActivity::class),
     Firebase(FirebaseActivity::class),
     DateTimePicker(DateTimePickerActivity::class),

@@ -11,10 +11,10 @@ class ChipsViewModel @Inject constructor(
     sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
-    val selection by sharedPreferences.mutableLiveDataOf<MutableSet<String>>(KEY_SELECTION)
+    val selections by sharedPreferences.mutableLiveDataOf<MutableSet<String>>(KEY_SELECTIONS)
 
     companion object {
-        private const val KEY_SELECTION = "selection"
+        private const val KEY_SELECTIONS = "selections"
     }
 
 }

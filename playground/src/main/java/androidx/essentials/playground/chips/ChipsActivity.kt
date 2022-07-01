@@ -44,21 +44,21 @@ class ChipsActivity : ComposeActivity() {
 
     @Composable
     private fun Chips() {
-        val selection by viewModel.selection.observeAsState()
+        val selections by viewModel.selections.observeAsState()
         FlowRow(
             modifier = Modifier.padding(8.dp),
         ) {
             Feature.values().forEach { feature ->
                 FilterChip(
                     modifier = Modifier.padding(horizontal = 8.dp),
-                    selected = selection?.contains(feature.name) == true,
+                    selected = selections?.contains(feature.name) == true,
                     label = { Text(text = feature.name) },
                     onClick = {
-                        viewModel.selection.value?.let {
+                        viewModel.selections.value?.let {
                             if (it.contains(feature.name)) {
                                 it.remove(feature.name)
                             } else it.add(feature.name)
-                            viewModel.selection.value = it
+                            viewModel.selections.value = it
                         }
                     },
                 )
@@ -68,19 +68,19 @@ class ChipsActivity : ComposeActivity() {
 
     @Composable
     private fun Selection() {
-        val selection by viewModel.selection.observeAsState()
+        val selections by viewModel.selections.observeAsState()
         FlowRow(
             modifier = Modifier.padding(8.dp),
         ) {
-            selection?.forEach { feature ->
+            selections?.forEach { feature ->
                 FilterChip(
                     modifier = Modifier.padding(horizontal = 8.dp),
                     label = { Text(text = feature) },
                     selected = false,
                     onClick = {
-                        viewModel.selection.value?.let {
+                        viewModel.selections.value?.let {
                             it.remove(feature)
-                            viewModel.selection.value = it
+                            viewModel.selections.value = it
                         }
                     },
                 )

@@ -11,7 +11,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/io" />
             <option value="$PROJECT_DIR$/network" />
             <option value="$PROJECT_DIR$/playground" />
             <option value="$PROJECT_DIR$/view" />

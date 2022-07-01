@@ -121,7 +121,6 @@ dependencies {
     implementation 'com.facebook.stetho:stetho-okhttp3:1.6.0'
 
     dependencies {
-        implementation project(path: ':io')
         implementation project(path: ':network')
         implementation project(path: ':view')
     }

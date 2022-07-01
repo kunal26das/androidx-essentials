@@ -58,12 +58,6 @@ class HomeActivity : ComposeActivity() {
                                 contracts[feature.ordinal].launch(null)
                             }
                         )
-                        if (!feature.compose) AssistChip(
-                            modifier = Modifier.padding(4.dp),
-                            label = { Text(getString(R.string.data_binding)) },
-                            enabled = false,
-                            onClick = {},
-                        )
                     }
                 }
             }
