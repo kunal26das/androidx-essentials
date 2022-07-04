@@ -2,6 +2,7 @@ package androidx.essentials.playground
 
 import androidx.essentials.playground.autocomplete.AutoCompleteActivity
 import androidx.essentials.playground.chips.ChipsActivity
+import androidx.essentials.playground.datastore.DataStoreActivity
 import androidx.essentials.playground.datetime.DateTimePickerActivity
 import androidx.essentials.playground.firebase.FirebaseActivity
 import androidx.essentials.playground.location.LocationActivity
@@ -15,6 +16,7 @@ enum class Feature(
 ) {
     AutoComplete(AutoCompleteActivity::class),
     Chips(ChipsActivity::class),
+    DataStore(DataStoreActivity::class),
     Firebase(FirebaseActivity::class),
     DateTimePicker(DateTimePickerActivity::class),
     Location(LocationActivity::class),

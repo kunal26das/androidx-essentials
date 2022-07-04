@@ -12,7 +12,7 @@ android {
     compileSdkVersion rootProject.ext.sdkVersion
 
     defaultConfig {
-        applicationId "androidx.essentials.playground"
+        applicationId 'androidx.essentials.playground'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.sdkVersion
         def vName = getVersionName(this.name)
@@ -54,8 +54,8 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.0"
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.0'
 
     // Compose
     dependencies {
@@ -82,12 +82,14 @@ dependencies {
     // Jetpack
     dependencies {
         // Core
-        implementation "androidx.core:core-ktx:1.8.0"
-        implementation "androidx.appcompat:appcompat:1.4.2"
+        implementation 'androidx.core:core-ktx:1.8.0'
+        implementation 'androidx.appcompat:appcompat:1.4.2'
         // Activity
-        implementation "androidx.activity:activity-ktx:1.5.0"
+        implementation 'androidx.activity:activity-ktx:1.5.0'
         // Paging
-        implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+        implementation 'androidx.paging:paging-runtime-ktx:3.1.1'
+        // Data Store
+        implementation 'androidx.datastore:datastore-preferences:1.0.0'
     }
 
     // Google
@@ -98,8 +100,8 @@ dependencies {
         implementation 'com.google.firebase:firebase-messaging-ktx'
 
         // Hilt
-        kapt "com.google.dagger:hilt-android-compiler:2.42"
-        implementation "com.google.dagger:hilt-android:2.42"
+        kapt 'com.google.dagger:hilt-android-compiler:2.42'
+        implementation 'com.google.dagger:hilt-android:2.42'
         // Material Design
         implementation 'com.google.android.material:material:1.6.1'
         // Play Services Location
@@ -111,9 +113,9 @@ dependencies {
         // Leak Canary
         debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
         // Retrofit
-        implementation "com.squareup.retrofit2:retrofit:2.9.0"
-        implementation "com.squareup.retrofit2:converter-gson:2.9.0"
-        implementation "com.squareup.retrofit2:adapter-rxjava3:2.9.0"
+        implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+        implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+        implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
     }
 
     // Stetho

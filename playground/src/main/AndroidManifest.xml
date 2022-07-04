@@ -28,6 +28,7 @@
 
         <activity android:name=".autocomplete.AutoCompleteActivity" />
         <activity android:name=".chips.ChipsActivity" />
+        <activity android:name=".datastore.DataStoreActivity" />
         <activity android:name=".datetime.DateTimePickerActivity" />
         <activity android:name=".firebase.FirebaseActivity" />
         <activity android:name=".location.LocationActivity" />

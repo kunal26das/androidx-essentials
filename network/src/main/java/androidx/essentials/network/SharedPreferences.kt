@@ -13,6 +13,7 @@ inline operator fun <reified T> SharedPreferences.get(key: String): T? {
         Int::class -> getInt(key) as? T
         Long::class -> getLong(key) as? T
         Float::class -> getFloat(key) as? T
+        Double::class -> getDouble(key) as? T
         String::class -> getString(key) as? T
         Boolean::class -> getBoolean(key) as? T
         MutableSet::class -> getStringSet(key) as? T
@@ -32,6 +33,11 @@ fun SharedPreferences.getLong(key: String) = when (contains(key)) {
 
 fun SharedPreferences.getFloat(key: String) = when (contains(key)) {
     true -> getFloat(key, 0f)
+    false -> null
+}
+
+fun SharedPreferences.getDouble(key: String) = when (contains(key)) {
+    true -> getFloat(key, 0f).toDouble()
     false -> null
 }
 
@@ -59,6 +65,7 @@ operator fun SharedPreferences.set(key: String, value: Any?) {
                 is Int -> putInt(key, value)
                 is Long -> putLong(key, value)
                 is Float -> putFloat(key, value)
+                is Double -> putFloat(key, value.toFloat())
                 is String -> when {
                     value.isEmpty() -> remove(key)
                     else -> putString(key, value)
@@ -147,6 +154,7 @@ inline operator fun <reified T> SharedPreferences.get(enum: Enum<*>) = get<T>(en
 fun SharedPreferences.getInt(enum: Enum<*>) = getInt(enum.name)
 fun SharedPreferences.getLong(enum: Enum<*>) = getLong(enum.name)
 fun SharedPreferences.getFloat(enum: Enum<*>) = getFloat(enum.name)
+fun SharedPreferences.getDouble(enum: Enum<*>) = getDouble(enum.name)
 fun SharedPreferences.getString(enum: Enum<*>) = getString(enum.name)
 fun SharedPreferences.getBoolean(enum: Enum<*>) = getBoolean(enum.name)
 

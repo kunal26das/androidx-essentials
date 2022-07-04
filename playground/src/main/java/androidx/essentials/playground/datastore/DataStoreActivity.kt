@@ -1,4 +1,4 @@
-package androidx.essentials.playground.preferences
+package androidx.essentials.playground.datastore
 
 import androidx.activity.viewModels
 import androidx.compose.foundation.ScrollState
@@ -20,9 +20,9 @@ import androidx.essentials.view.ComposeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SharedPreferencesActivity : ComposeActivity(), Constant {
+class DataStoreActivity : ComposeActivity(), Constant {
 
-    private val viewModel by viewModels<SharedPreferencesViewModel>()
+    private val viewModel by viewModels<DataStoreViewModel>()
 
     private val modifier
         get() = Modifier
@@ -34,11 +34,12 @@ class SharedPreferencesActivity : ComposeActivity(), Constant {
         super.setContent()
         Column(modifier.verticalScroll(ScrollState(0))) {
             LargeTopAppBar(
-                title = { Text(text = Feature.SharedPreferences.name) }
+                title = { Text(text = Feature.DataStore.name) }
             )
             IntTextField()
             LongTextField()
             FloatTextField()
+            DoubleTextField()
             StringTextField()
             BooleanSwitch()
         }
@@ -131,6 +132,34 @@ class SharedPreferencesActivity : ComposeActivity(), Constant {
                 value = float?.toString() ?: "",
                 onValueChange = {
                     viewModel.float.value = it.toFloatOrNull()
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number
+                ),
+                singleLine = true,
+            )
+        }
+    }
+
+    @Composable
+    private fun DoubleTextField() {
+        val double by viewModel.double.observeAsState()
+        val boolean by viewModel.boolean.observeAsState()
+        when (boolean) {
+            true -> OutlinedTextField(
+                modifier = modifier,
+                label = { Text(text = KEY_DOUBLE) },
+                value = double?.toString() ?: "",
+                onValueChange = {
+                    viewModel.double.value = it.toDoubleOrNull()
+                },
+            )
+            else -> TextField(
+                modifier = modifier,
+                label = { Text(text = KEY_DOUBLE) },
+                value = double?.toString() ?: "",
+                onValueChange = {
+                    viewModel.double.value = it.toDoubleOrNull()
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number
