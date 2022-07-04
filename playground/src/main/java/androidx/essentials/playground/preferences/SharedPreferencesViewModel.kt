@@ -15,6 +15,7 @@ class SharedPreferencesViewModel @Inject constructor(
     val int by sharedPreferences.mutableLiveDataOf<Int>(KEY_INT)
     val long by sharedPreferences.mutableLiveDataOf<Long>(KEY_LONG)
     val float by sharedPreferences.mutableLiveDataOf<Float>(KEY_FLOAT)
+    val double by sharedPreferences.mutableLiveDataOf<Double>(KEY_DOUBLE)
     val string by sharedPreferences.mutableLiveDataOf<String>(KEY_STRING)
     val boolean by sharedPreferences.mutableLiveDataOf<Boolean>(KEY_BOOLEAN)
 

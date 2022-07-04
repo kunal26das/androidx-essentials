@@ -3,11 +3,15 @@ package androidx.essentials.playground.preferences
 import androidx.activity.viewModels
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
+import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -16,6 +20,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.essentials.playground.Constant
 import androidx.essentials.playground.Feature
+import androidx.essentials.playground.compose.TextSwitch
 import androidx.essentials.view.ComposeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,19 +31,27 @@ class SharedPreferencesActivity : ComposeActivity(), Constant {
 
     private val modifier
         get() = Modifier
-            .padding(8.dp)
             .fillMaxWidth()
+            .padding(
+                vertical = 8.dp,
+                horizontal = 16.dp,
+            )
 
     @Composable
     override fun setContent() {
         super.setContent()
-        Column(modifier.verticalScroll(ScrollState(0))) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(ScrollState(0))
+        ) {
             LargeTopAppBar(
                 title = { Text(text = Feature.SharedPreferences.name) }
             )
             IntTextField()
             LongTextField()
             FloatTextField()
+            DoubleTextField()
             StringTextField()
             BooleanSwitch()
         }
@@ -141,6 +154,34 @@ class SharedPreferencesActivity : ComposeActivity(), Constant {
     }
 
     @Composable
+    private fun DoubleTextField() {
+        val double by viewModel.double.observeAsState()
+        val boolean by viewModel.boolean.observeAsState()
+        when (boolean) {
+            true -> OutlinedTextField(
+                modifier = modifier,
+                label = { Text(text = KEY_DOUBLE) },
+                value = double?.toString() ?: "",
+                onValueChange = {
+                    viewModel.double.value = it.toDoubleOrNull()
+                },
+            )
+            else -> TextField(
+                modifier = modifier,
+                label = { Text(text = KEY_DOUBLE) },
+                value = double?.toString() ?: "",
+                onValueChange = {
+                    viewModel.double.value = it.toDoubleOrNull()
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number
+                ),
+                singleLine = true,
+            )
+        }
+    }
+
+    @Composable
     private fun StringTextField() {
         val string by viewModel.string.observeAsState()
         val boolean by viewModel.boolean.observeAsState()
@@ -167,9 +208,12 @@ class SharedPreferencesActivity : ComposeActivity(), Constant {
     @Composable
     private fun BooleanSwitch() {
         val boolean by viewModel.boolean.observeAsState()
-        Switch(
-            modifier = Modifier.padding(8.dp),
+        TextSwitch(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
             checked = boolean ?: false,
+            text = KEY_BOOLEAN,
             onCheckedChange = {
                 viewModel.boolean.value = it
             },

@@ -55,7 +55,7 @@ class HomeActivity : ComposeActivity() {
                     title = { Text(text = getString(R.string.playground)) }
                 )
                 FlowRow(
-                    modifier = Modifier.padding(12.dp),
+                    modifier = Modifier.padding(8.dp),
                 ) {
                     Feature.values().forEach { feature ->
                         AssistChip(

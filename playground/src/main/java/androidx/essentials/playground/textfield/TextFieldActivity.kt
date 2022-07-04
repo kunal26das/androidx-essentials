@@ -3,6 +3,7 @@ package androidx.essentials.playground.textfield
 import androidx.activity.viewModels
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.verticalScroll
@@ -27,22 +28,19 @@ class TextFieldActivity : ComposeActivity() {
 
     private val viewModel by viewModels<TextFieldViewModel>()
 
-    private val modifier
-        get() = Modifier
-            .padding(8.dp)
-            .fillMaxWidth()
-
     @Preview
     @Composable
     override fun setContent() {
         super.setContent()
-        Column(modifier.verticalScroll(ScrollState(0))) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(ScrollState(0))
+        ) {
             LargeTopAppBar(
                 title = { Text(text = Feature.TextField.name) }
             )
             TextField()
-            LabelTextField()
-            PlaceholderTextField()
             StyleSwitch()
             ReadOnlySwitch()
             MandatorySwitch()
@@ -53,6 +51,9 @@ class TextFieldActivity : ComposeActivity() {
     private fun StyleSwitch() {
         val style by viewModel.style.observeAsState()
         TextSwitch(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
             text = getString(R.string.style),
             checked = style,
         ) {
@@ -64,6 +65,9 @@ class TextFieldActivity : ComposeActivity() {
     private fun ReadOnlySwitch() {
         val readOnly by viewModel.readOnly.observeAsState()
         TextSwitch(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
             text = getString(R.string.read_only),
             checked = readOnly,
         ) {
@@ -75,6 +79,9 @@ class TextFieldActivity : ComposeActivity() {
     private fun MandatorySwitch() {
         val mandatory by viewModel.mandatory.observeAsState()
         TextSwitch(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
             text = getString(R.string.mandatory),
             checked = mandatory,
         ) {
@@ -85,69 +92,27 @@ class TextFieldActivity : ComposeActivity() {
     @Composable
     private fun TextField() {
         val text by viewModel.text.observeAsState()
-        val label by viewModel.label.observeAsState()
         val style by viewModel.style.observeAsState()
         val readOnly by viewModel.readOnly.observeAsState()
         val mandatory by viewModel.mandatory.observeAsState()
-        val placeholder by viewModel.placeholder.observeAsState()
         when (style) {
             true -> OutlinedTextField(
-                modifier = modifier,
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
                 value = text ?: "",
                 readOnly = readOnly ?: false,
-                label = { Text(text = label ?: "") },
                 onValueChange = { viewModel.text.value = it },
-                placeholder = { Text(text = placeholder ?: "") },
                 isError = mandatory == true && text.isNullOrEmpty(),
             )
             else -> TextField(
-                modifier = modifier,
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
                 value = text ?: "",
                 readOnly = readOnly ?: false,
-                label = { Text(text = label ?: "") },
                 onValueChange = { viewModel.text.value = it },
-                placeholder = { Text(text = placeholder ?: "") },
                 isError = mandatory == true && text.isNullOrEmpty(),
-            )
-        }
-    }
-
-    @Composable
-    private fun LabelTextField() {
-        val label by viewModel.label.observeAsState()
-        val style by viewModel.style.observeAsState()
-        when (style) {
-            true -> OutlinedTextField(
-                modifier = modifier,
-                value = label ?: "",
-                onValueChange = { viewModel.label.value = it },
-                label = { Text(text = getString(R.string.label)) },
-            )
-            else -> TextField(
-                modifier = modifier,
-                value = label ?: "",
-                onValueChange = { viewModel.label.value = it },
-                label = { Text(text = getString(R.string.label)) },
-            )
-        }
-    }
-
-    @Composable
-    private fun PlaceholderTextField() {
-        val style by viewModel.style.observeAsState()
-        val placeholder by viewModel.placeholder.observeAsState()
-        when (style) {
-            true -> OutlinedTextField(
-                modifier = modifier,
-                value = placeholder ?: "",
-                onValueChange = { viewModel.placeholder.value = it },
-                label = { Text(text = getString(R.string.placeholder)) },
-            )
-            else -> TextField(
-                modifier = modifier,
-                value = placeholder ?: "",
-                onValueChange = { viewModel.placeholder.value = it },
-                label = { Text(text = getString(R.string.placeholder)) },
             )
         }
     }
