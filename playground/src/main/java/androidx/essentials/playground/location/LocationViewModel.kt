@@ -3,6 +3,7 @@ package androidx.essentials.playground.location
 import android.content.SharedPreferences
 import androidx.essentials.network.NetworkUnavailableException
 import androidx.essentials.network.mutableLiveDataOf
+import androidx.essentials.playground.Constant
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -15,7 +16,7 @@ import javax.inject.Inject
 class LocationViewModel @Inject constructor(
     private val locationRepository: LocationRepository,
     sharedPreferences: SharedPreferences,
-) : ViewModel() {
+) : ViewModel(), Constant {
 
     private var job: Job? = null
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
@@ -40,8 +41,6 @@ class LocationViewModel @Inject constructor(
     }
 
     companion object {
-        private const val KEY_LATITUDE = "latitude"
-        private const val KEY_LONGITUDE = "longitude"
     }
 
 }

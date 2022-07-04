@@ -3,6 +3,7 @@ package androidx.essentials.playground.firebase
 import android.content.SharedPreferences
 import androidx.essentials.network.NetworkUnavailableException
 import androidx.essentials.network.mutableLiveDataOf
+import androidx.essentials.playground.Constant
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -15,7 +16,7 @@ import javax.inject.Inject
 class FirebaseViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepository,
     sharedPreferences: SharedPreferences,
-) : ViewModel() {
+) : ViewModel(), Constant {
 
     private var job: Job? = null
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
@@ -34,10 +35,6 @@ class FirebaseViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         job?.cancel()
-    }
-
-    companion object {
-        private const val KEY_FCM_TOKEN = "fcm_token"
     }
 
 }
