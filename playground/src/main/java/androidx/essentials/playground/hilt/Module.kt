@@ -15,7 +15,7 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object Module {
 
-    private val Context.dataStore by preferencesDataStore(javaClass.simpleName)
+    private val Context.dataStore by preferencesDataStore("")
 
     @Provides
     fun getPreferencesDataStore(
