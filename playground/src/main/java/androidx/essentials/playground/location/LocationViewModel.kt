@@ -1,6 +1,7 @@
 package androidx.essentials.playground.location
 
 import android.content.SharedPreferences
+import androidx.essentials.network.NetworkUnavailableException
 import androidx.essentials.network.mutableLiveDataOf
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,9 +25,12 @@ class LocationViewModel @Inject constructor(
 
     fun getLastLocation() {
         job = coroutineScope.launch {
-            val location = locationRepository.getLastLocation()
-            latitude.postValue(location?.latitude?.toFloat())
-            longitude.postValue(location?.longitude?.toFloat())
+            try {
+                val location = locationRepository.getLastLocation()
+                latitude.postValue(location?.latitude?.toFloat())
+                longitude.postValue(location?.longitude?.toFloat())
+            } catch (e: NetworkUnavailableException) {
+            }
         }
     }
 

@@ -14,8 +14,8 @@ class PlayGround : Application() {
     override fun onCreate() {
         initStrictMode()
         super.onCreate()
-        Stetho.initializeWithDefaults(this)
         DynamicColors.applyToActivitiesIfAvailable(this)
+        if (BuildConfig.DEBUG) Stetho.initializeWithDefaults(this)
     }
 
     private fun initStrictMode() {
