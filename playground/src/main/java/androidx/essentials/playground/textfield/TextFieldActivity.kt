@@ -7,10 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.LargeTopAppBar
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -24,14 +21,15 @@ import androidx.essentials.view.ComposeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
+@OptIn(ExperimentalMaterial3Api::class)
 class TextFieldActivity : ComposeActivity() {
 
     private val viewModel by viewModels<TextFieldViewModel>()
 
     @Preview
     @Composable
-    override fun setContent() {
-        super.setContent()
+    override fun Content() {
+        super.Content()
         Column(
             modifier = Modifier
                 .fillMaxSize()

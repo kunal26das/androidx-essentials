@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -21,6 +22,7 @@ import androidx.essentials.view.ComposeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
+@OptIn(ExperimentalMaterial3Api::class)
 class LocationActivity : ComposeActivity() {
 
     private val viewModel by viewModels<LocationViewModel>()
@@ -36,8 +38,8 @@ class LocationActivity : ComposeActivity() {
     }
 
     @Composable
-    override fun setContent() {
-        super.setContent()
+    override fun Content() {
+        super.Content()
         locationRepositoryPermission.launch(
             arrayOf(
                 ACCESS_FINE_LOCATION,

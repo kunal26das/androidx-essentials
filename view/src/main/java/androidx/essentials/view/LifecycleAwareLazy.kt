@@ -49,8 +49,12 @@ class LifecycleAwareLazy<out T>(
         event: Lifecycle.Event
     ) {
         if (event == Lifecycle.Event.ON_DESTROY) {
-            _value = UninitializedValue
+            uninitialize()
         }
+    }
+
+    fun uninitialize() {
+        _value = UninitializedValue
     }
 
 }

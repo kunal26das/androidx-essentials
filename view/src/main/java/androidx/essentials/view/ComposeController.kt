@@ -58,6 +58,6 @@ sealed interface ComposeController : LifecycleOwner {
     @CallSuper
     @Composable
     @MainThread
-    fun setContent() = Unit
+    fun Content() = Unit
 
 }

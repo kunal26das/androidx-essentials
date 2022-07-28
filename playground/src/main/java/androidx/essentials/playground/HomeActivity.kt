@@ -43,8 +43,8 @@ class HomeActivity : ComposeActivity() {
     }
 
     @Composable
-    override fun setContent() {
-        super.setContent()
+    override fun Content() {
+        super.Content()
         Box {
             Column(
                 Modifier

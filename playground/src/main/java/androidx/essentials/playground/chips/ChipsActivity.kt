@@ -27,8 +27,8 @@ class ChipsActivity : ComposeActivity() {
     private val viewModel by viewModels<ChipsViewModel>()
 
     @Composable
-    override fun setContent() {
-        super.setContent()
+    override fun Content() {
+        super.Content()
         Column(
             modifier = Modifier
                 .fillMaxSize()

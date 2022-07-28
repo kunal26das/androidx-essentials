@@ -21,7 +21,7 @@ abstract class ComposeFragment : Fragment(), ComposeController {
     ) = ComposeView(requireContext()).also {
         it.setContent {
             MaterialTheme(colorScheme, shapes, typography) {
-                setContent()
+                Content()
             }
         }
     }

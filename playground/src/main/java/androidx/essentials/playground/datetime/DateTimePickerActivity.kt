@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -28,6 +29,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @AndroidEntryPoint
+@OptIn(ExperimentalMaterial3Api::class)
 class DateTimePickerActivity : ComposeActivity() {
 
     private val viewModel by viewModels<DateTimePickerViewModel>()
@@ -46,8 +48,8 @@ class DateTimePickerActivity : ComposeActivity() {
             .fillMaxWidth()
 
     @Composable
-    override fun setContent() {
-        super.setContent()
+    override fun Content() {
+        super.Content()
         Column(
             modifier = Modifier
                 .fillMaxSize()

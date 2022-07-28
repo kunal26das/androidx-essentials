@@ -21,7 +21,7 @@ open class ComposeBottomSheetDialogFragment : BottomSheetDialogFragment(), Compo
     ) = ComposeView(requireContext()).also {
         it.setContent {
             MaterialTheme(colorScheme, shapes, typography) {
-                setContent()
+                Content()
             }
         }
     }

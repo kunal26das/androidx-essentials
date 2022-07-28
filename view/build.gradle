@@ -25,14 +25,13 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerVersion '1.6.10'
-        kotlinCompilerExtensionVersion '1.1.1'
+        kotlinCompilerVersion '1.7.0'
+        kotlinCompilerExtensionVersion '1.2.0'
     }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.10"
     // Activity
     implementation "androidx.activity:activity-ktx:1.5.1"
     // Appcompat

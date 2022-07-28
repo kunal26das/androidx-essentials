@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.*
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
@@ -59,6 +60,7 @@ inline fun <reified T> DataStore<Preferences>.mutableLiveData(
     key: String, coroutineContext: CoroutineContext = EmptyCoroutineContext
 ) = object : MediatorLiveData<T?>() {
 
+    private var job: Job? = null
     private val coroutineScope = CoroutineScope(coroutineContext)
 
     init {
@@ -70,7 +72,8 @@ inline fun <reified T> DataStore<Preferences>.mutableLiveData(
     override fun setValue(value: T?) {
         if (value != getValue()) {
             super.setValue(value)
-            coroutineScope.launch {
+            job?.cancel()
+            job = coroutineScope.launch {
                 set<T>(key, value)
             }
         }

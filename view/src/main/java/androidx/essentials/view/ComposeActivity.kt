@@ -34,7 +34,7 @@ abstract class ComposeActivity : AppCompatActivity(), ComposeController {
     protected open fun onAttach(context: Context) = Unit
 
     @Composable
-    private fun sideEffect() {
+    private fun SideEffect() {
         val colorScheme = colorScheme
         val darkTheme = isSystemInDarkTheme()
         val controller = WindowCompat.getInsetsController(window, this.content)
@@ -47,9 +47,9 @@ abstract class ComposeActivity : AppCompatActivity(), ComposeController {
         onAttach(applicationContext)
         super.onCreate(savedInstanceState)
         setContent {
-            if (sideEffect) sideEffect()
+            if (sideEffect) SideEffect()
             MaterialTheme(colorScheme, shapes, typography) {
-                setContent()
+                Content()
             }
         }
     }
