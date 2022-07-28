@@ -34,7 +34,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.10"
     // Activity
-    implementation "androidx.activity:activity-ktx:1.5.0"
+    implementation "androidx.activity:activity-ktx:1.5.1"
     // Appcompat
     implementation "androidx.appcompat:appcompat:1.4.2"
     // Core
@@ -56,7 +56,7 @@ dependencies {
         implementation 'androidx.compose.material:material-icons-core:1.1.1'
         implementation 'androidx.compose.material:material-icons-extended:1.1.1'
         // Integration with activities
-        implementation 'androidx.activity:activity-compose:1.5.0'
+        implementation 'androidx.activity:activity-compose:1.5.1'
         // Integration with ViewModels
         implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0'
         // Integration with observables
