@@ -33,7 +33,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     // Activity
-    implementation "androidx.activity:activity-ktx:1.6.1"
+    implementation "androidx.activity:activity-ktx:1.7.1"
     // Appcompat
     implementation "androidx.appcompat:appcompat:1.6.1"
     // Core
