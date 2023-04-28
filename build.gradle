@@ -20,7 +20,7 @@ buildscript {
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20'
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.45'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.4'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.5'
     }
 }
 
