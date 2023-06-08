@@ -39,7 +39,7 @@ dependencies {
     // Core
     implementation "androidx.core:core-ktx:1.10.0"
     // Fragment
-    implementation "androidx.fragment:fragment-ktx:1.5.6"
+    implementation "androidx.fragment:fragment-ktx:1.6.0"
     // Material Design
     implementation 'com.google.android.material:material:1.8.0'
     // Compose
